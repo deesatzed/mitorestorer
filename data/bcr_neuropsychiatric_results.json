@@ -1,0 +1,125 @@
+{
+  "epilepsy": [
+    {
+      "condition": "Refractory_Epilepsy",
+      "arm": "Standard_Anticonvulsant_Care",
+      "h_day90": 38.0,
+      "H2S_day90": 0.47,
+      "eR_day90": 37.4,
+      "ATP_PV_day90": 0.34,
+      "EI_ratio_day25": 3.54,
+      "EI_ratio_day90": 3.38,
+      "Seizure_Reduction_Pct": 0.0,
+      "switch_day": null
+    },
+    {
+      "condition": "Refractory_Epilepsy",
+      "arm": "Chronic_Classic_Ketogenic_Diet",
+      "h_day90": 4.6,
+      "H2S_day90": 1.97,
+      "eR_day90": 54.1,
+      "ATP_PV_day90": 0.25,
+      "EI_ratio_day25": 1.8,
+      "EI_ratio_day90": 2.26,
+      "Seizure_Reduction_Pct": 0.0,
+      "switch_day": null
+    },
+    {
+      "condition": "Refractory_Epilepsy",
+      "arm": "Epi_BCR_Protocol",
+      "h_day90": 0.5,
+      "H2S_day90": 0.11,
+      "eR_day90": 7.7,
+      "ATP_PV_day90": 1.46,
+      "EI_ratio_day25": 1.11,
+      "EI_ratio_day90": 0.65,
+      "Seizure_Reduction_Pct": 96.0,
+      "switch_day": 31.5
+    }
+  ],
+  "mdd": [
+    {
+      "condition": "Treatment_Resistant_MDD",
+      "arm": "Standard_SSRI_Monoamine_Push",
+      "h_day90": 36.5,
+      "QUIN_day90": 1.56,
+      "GDF15_day90": 4099.0,
+      "Hedonic_Drive_day90": 0.09,
+      "Spine_Density_day7": 0.45,
+      "Spine_Density_day90": 0.45,
+      "ATP_day90": 0.24,
+      "switch_day": null
+    },
+    {
+      "condition": "Treatment_Resistant_MDD",
+      "arm": "Acute_Ketamine_Burst_Alone",
+      "h_day90": 32.6,
+      "QUIN_day90": 1.5,
+      "GDF15_day90": 3358.0,
+      "Hedonic_Drive_day90": 0.12,
+      "Spine_Density_day7": 0.57,
+      "Spine_Density_day90": 0.45,
+      "ATP_day90": 0.26,
+      "switch_day": null
+    },
+    {
+      "condition": "Treatment_Resistant_MDD",
+      "arm": "Affective_MDD_BCR_Protocol",
+      "h_day90": 0.6,
+      "QUIN_day90": 0.2,
+      "GDF15_day90": 259.0,
+      "Hedonic_Drive_day90": 1.15,
+      "Spine_Density_day7": 0.64,
+      "Spine_Density_day90": 1.24,
+      "ATP_day90": 1.53,
+      "switch_day": 30.5
+    }
+  ],
+  "parkinsons": [
+    {
+      "condition": "Parkinsons_SNc",
+      "arm": "Standard_Levodopa_Care_Alone",
+      "h_day90": 58.0,
+      "H2S_day90": 0.57,
+      "Auto_Jam_day25": 0.54,
+      "Auto_Jam_day90": 0.54,
+      "DA_Q_day90": 1.34,
+      "SNCA_agg_day90": 1.25,
+      "GDF15_day90": 12587.0,
+      "ATP_SNc_day90": 0.19,
+      "TH_Dopamine_Tone_day90": 0.13,
+      "Motor_Score_Rescue_Pct": 0.0,
+      "switch_day": null
+    },
+    {
+      "condition": "Parkinsons_SNc",
+      "arm": "Mitophagy_Alone_Without_GBA1_Ambroxol",
+      "h_day90": 29.6,
+      "H2S_day90": 0.47,
+      "Auto_Jam_day25": 1.29,
+      "Auto_Jam_day90": 1.29,
+      "DA_Q_day90": 1.4,
+      "SNCA_agg_day90": 1.63,
+      "GDF15_day90": 9549.0,
+      "ATP_SNc_day90": 0.25,
+      "TH_Dopamine_Tone_day90": 0.15,
+      "Motor_Score_Rescue_Pct": 0.0,
+      "switch_day": null
+    },
+    {
+      "condition": "Parkinsons_SNc",
+      "arm": "PD_BCR_Nigrostriatal_Protocol",
+      "h_day90": 3.7,
+      "H2S_day90": 0.09,
+      "Auto_Jam_day25": 0.08,
+      "Auto_Jam_day90": 0.08,
+      "DA_Q_day90": 0.12,
+      "SNCA_agg_day90": 0.15,
+      "GDF15_day90": 433.0,
+      "ATP_SNc_day90": 1.71,
+      "TH_Dopamine_Tone_day90": 1.25,
+      "Motor_Score_Rescue_Pct": 95.0,
+      "switch_day": 34.0
+    }
+  ]
+}

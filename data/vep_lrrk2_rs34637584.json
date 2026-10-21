@@ -1,0 +1,2604 @@
+[
+  {
+    "seq_region_name": "12",
+    "end": 40340400,
+    "colocated_variants": [
+      {
+        "phenotype_or_disease": 1,
+        "allele_string": "HGMD_MUTATION",
+        "id": "CM050659",
+        "strand": 1,
+        "seq_region_name": "12",
+        "end": 40340400,
+        "start": 40340400
+      },
+      {
+        "id": "COSV54172342",
+        "strand": 1,
+        "allele_string": "COSMIC_MUTATION",
+        "phenotype_or_disease": 1,
+        "var_synonyms": {
+          "COSMIC": [
+            "COSM6704419"
+          ]
+        },
+        "somatic": 1,
+        "start": 40340400,
+        "end": 40340400,
+        "seq_region_name": "12"
+      },
+      {
+        "phenotype_or_disease": 1,
+        "allele_string": "G/A",
+        "clin_sig_allele": "A:pathogenic/likely_pathogenic;A:pathogenic;A:risk_factor",
+        "frequencies": {
+          "A": {
+            "gnomadg_nfe": 0.0002353,
+            "gnomadg": 0.0003614,
+            "gnomade_eas": 7.558e-05,
+            "amr": 0.0014,
+            "eas": 0,
+            "gnomade_remaining": 0.00111,
+            "afr": 0,
+            "gnomadg_afr": 7.228e-05,
+            "gnomade_asj": 0.007847,
+            "gnomade": 0.0004167,
+            "af": 0.0002,
+            "gnomade_mid": 0.001734,
+            "gnomadg_asj": 0.005472,
+            "gnomade_afr": 0,
+            "gnomade_nfe": 0.0002743,
+            "gnomade_sas": 0,
+            "eur": 0,
+            "sas": 0,
+            "gnomadg_remaining": 0.000947,
+            "gnomadg_sas": 0,
+            "gnomadg_amr": 0.0008508,
+            "gnomadg_fin": 9.427e-05,
+            "gnomadg_eas": 0,
+            "gnomade_fin": 1.872e-05,
+            "gnomadg_mid": 0.003401,
+            "gnomadg_ami": 0,
+            "gnomade_amr": 0.0004026
+          }
+        },
+        "strand": 1,
+        "id": "rs34637584",
+        "start": 40340400,
+        "end": 40340400,
+        "seq_region_name": "12",
+        "clin_sig_ref_allele": "G",
+        "var_synonyms": {
+          "UniProt": [
+            "VAR_024958"
+          ],
+          "ClinVar": [
+            "RCV001836691",
+            "RCV000622347",
+            "RCV001195216",
+            "RCV000002017",
+            "VCV000001940",
+            "RCV000325492",
+            "RCV003407254",
+            "RCV003993728"
+          ],
+          "OMIM": [
+            609007.0006
+          ]
+        },
+        "pubmed": [
+          21738487,
+          23820649,
+          30154511,
+          27094865,
+          31292011,
+          34109443,
+          22892372,
+          21812969,
+          28927418,
+          35046417,
+          31505070,
+          30665447,
+          18704525,
+          33561612,
+          34227697,
+          28902459,
+          31404238,
+          34776419,
+          20301387,
+          21885347,
+          15726496,
+          16960813,
+          20186690,
+          16269541,
+          16533964,
+          19020907,
+          15680455,
+          15680456,
+          15680457,
+          15732108,
+          15811455,
+          15852371,
+          15929036,
+          16145815,
+          16240353,
+          16311269,
+          16401756,
+          16436781,
+          16436782,
+          16728648,
+          16966502,
+          17050822,
+          17060595,
+          17215492,
+          17353388,
+          17938369,
+          18981379,
+          19283415,
+          20008657,
+          21115957,
+          21850687,
+          23075850,
+          27494614,
+          30665703,
+          33494262,
+          16172858,
+          34542912,
+          31797629,
+          24080174,
+          34712594,
+          28867149,
+          33519679,
+          26865512,
+          28683740,
+          37386035,
+          32849182,
+          33960523,
+          34602499,
+          29398121,
+          33901317,
+          34625559,
+          28239348,
+          31038182,
+          31767922,
+          23222663,
+          25936935,
+          33922322,
+          31211166,
+          34072005,
+          23967090,
+          21611978,
+          26268663,
+          24014121,
+          27393345,
+          31701892,
+          30507963,
+          36979316,
+          36470867,
+          37090536,
+          33836114,
+          37016359,
+          33497488,
+          20506312,
+          20727385,
+          37805635,
+          37671566,
+          38396963,
+          37987016,
+          38191580,
+          38173558,
+          38496508,
+          31958187,
+          36930729,
+          39080267,
+          39229100,
+          39240650,
+          39062657,
+          38978726,
+          39505921,
+          39657681,
+          39769417,
+          39024449,
+          40998812,
+          4077065
+        ],
+        "clin_sig": [
+          "likely_pathogenic",
+          "pathogenic",
+          "risk_factor"
+        ]
+      }
+    ],
+    "start": 40340400,
+    "input": "rs34637584",
+    "transcript_consequences": [
+      {
+        "conservation": 2.03,
+        "polyphen_prediction": "probably_damaging",
+        "variant_allele": "A",
+        "intact": [
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-10055487"
+          },
+          {
+            "interaction_ac": "EBI-10688276",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-11821059"
+          },
+          {
+            "interaction_ac": "EBI-11821091",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-11821101"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-11877575"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-11829558"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-11828480"
+          },
+          {
+            "interaction_ac": "EBI-11822843",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-21306992"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-21307015"
+          },
+          {
+            "interaction_ac": "EBI-21307124",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-21306793"
+          },
+          {
+            "interaction_ac": "EBI-21308026",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-21308064",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-21307692",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-21307805",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-21307653",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-21350212",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-21368652"
+          },
+          {
+            "interaction_ac": "EBI-22228593",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-22228661"
+          },
+          {
+            "interaction_ac": "EBI-22228823",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-22228711",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-22229068",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-22229220"
+          },
+          {
+            "interaction_ac": "EBI-22229252",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-22229281",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-22229601",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-21360986",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-25597574"
+          },
+          {
+            "interaction_ac": "EBI-25610041",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-25610980",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-25611148"
+          },
+          {
+            "interaction_ac": "EBI-25611160",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-25611738",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-25611768",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-25611799"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-25611843"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-25611873"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-6289878"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-6509412"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-6511618"
+          },
+          {
+            "interaction_ac": "EBI-6511564",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-6515504"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-6515609"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-6515052"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-6896692"
+          },
+          {
+            "interaction_ac": "EBI-6896831",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-8803978"
+          },
+          {
+            "interaction_ac": "EBI-8804004",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-8804033",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-8804184",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-8804144"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-8804207"
+          },
+          {
+            "interaction_ac": "EBI-8804288",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-6309721",
+            "feature_type": "mutation decreasing"
+          },
+          {
+            "interaction_ac": "EBI-6309809",
+            "feature_type": "mutation decreasing"
+          },
+          {
+            "interaction_ac": "EBI-6313033",
+            "feature_type": "mutation decreasing"
+          },
+          {
+            "feature_type": "mutation decreasing",
+            "interaction_ac": "EBI-6501545"
+          },
+          {
+            "interaction_ac": "EBI-6502027",
+            "feature_type": "mutation decreasing"
+          },
+          {
+            "feature_type": "mutation decreasing",
+            "interaction_ac": "EBI-6975471"
+          },
+          {
+            "interaction_ac": "EBI-6975636",
+            "feature_type": "mutation decreasing"
+          },
+          {
+            "interaction_ac": "EBI-6501672",
+            "feature_type": "mutation decreasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6501812",
+            "feature_type": "mutation decreasing rate"
+          },
+          {
+            "feature_type": "mutation disrupting rate",
+            "interaction_ac": "EBI-6501812"
+          },
+          {
+            "interaction_ac": "EBI-10688397",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6287985"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6289025"
+          },
+          {
+            "interaction_ac": "EBI-6290107",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6304653"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6491870"
+          },
+          {
+            "interaction_ac": "EBI-6509067",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6512836"
+          },
+          {
+            "interaction_ac": "EBI-6513276",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6513553"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6530261"
+          },
+          {
+            "interaction_ac": "EBI-6596477",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6597084"
+          },
+          {
+            "interaction_ac": "EBI-6597093",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6597189"
+          },
+          {
+            "interaction_ac": "EBI-6927623",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "interaction_ac": "EBI-6927640",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "interaction_ac": "EBI-6929727",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "interaction_ac": "EBI-6975573",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-8804749"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-9029547"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-9029610"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-10055396"
+          },
+          {
+            "interaction_ac": "EBI-10055424",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-10108702"
+          },
+          {
+            "interaction_ac": "EBI-10108716",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-10108804",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-10688099",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-10688245",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-11820434"
+          },
+          {
+            "interaction_ac": "EBI-11820488",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-11820515",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-11820610",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-11820652",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-11820809"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-11891268"
+          },
+          {
+            "interaction_ac": "EBI-11891453",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-12509219"
+          },
+          {
+            "interaction_ac": "EBI-12509258",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-22228763",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-22228862"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-22228918"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-22229038"
+          },
+          {
+            "interaction_ac": "EBI-25436895",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6288833",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6289182",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6289214",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6289249"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6289471"
+          },
+          {
+            "interaction_ac": "EBI-6289516",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6289542",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6308633"
+          },
+          {
+            "interaction_ac": "EBI-6312811",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6349275"
+          },
+          {
+            "interaction_ac": "EBI-6349668",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6373518"
+          },
+          {
+            "interaction_ac": "EBI-6389568",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6481321"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6501801"
+          },
+          {
+            "interaction_ac": "EBI-6502250",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6502778"
+          },
+          {
+            "interaction_ac": "EBI-6503745",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6503625"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6503755"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6512082"
+          },
+          {
+            "interaction_ac": "EBI-6512095",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-8803909"
+          },
+          {
+            "interaction_ac": "EBI-8803935",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-8804229"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-8842267"
+          },
+          {
+            "interaction_ac": "EBI-9105186",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9105156",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9515925",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9515984",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9516001",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9516035",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9516137"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9516154"
+          },
+          {
+            "interaction_ac": "EBI-9516171",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9516506",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9516777",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9516806"
+          },
+          {
+            "interaction_ac": "EBI-9516827",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9516846"
+          },
+          {
+            "interaction_ac": "EBI-9687038",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9687106",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9697738"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9697761"
+          },
+          {
+            "feature_type": "mutation increasing strength",
+            "interaction_ac": "EBI-10105938"
+          },
+          {
+            "feature_type": "mutation increasing strength",
+            "interaction_ac": "EBI-21307525"
+          },
+          {
+            "interaction_ac": "EBI-21308201",
+            "feature_type": "mutation increasing strength"
+          },
+          {
+            "interaction_ac": "EBI-21308225",
+            "feature_type": "mutation increasing strength"
+          },
+          {
+            "feature_type": "mutation with no effect",
+            "interaction_ac": "EBI-12509138"
+          },
+          {
+            "interaction_ac": "EBI-12521182",
+            "feature_type": "mutation with no effect"
+          },
+          {
+            "feature_type": "mutation with no effect",
+            "interaction_ac": "EBI-12521383"
+          },
+          {
+            "interaction_ac": "EBI-12521357",
+            "feature_type": "mutation with no effect"
+          },
+          {
+            "feature_type": "mutation with no effect",
+            "interaction_ac": "EBI-21224076"
+          },
+          {
+            "feature_type": "mutation with no effect",
+            "interaction_ac": "EBI-67141364"
+          }
+        ],
+        "phaplo": 0.28780617624957,
+        "cds_start": 6055,
+        "biotype": "protein_coding",
+        "protein_end": 2019,
+        "consequence_terms": [
+          "missense_variant"
+        ],
+        "cdna_end": 6190,
+        "impact": "MODERATE",
+        "cdna_start": 6190,
+        "hgnc_id": "HGNC:18618",
+        "transcript_id": "ENST00000298910",
+        "strand": 1,
+        "polyphen_score": 1,
+        "gene_symbol": "LRRK2",
+        "sift_prediction": "deleterious",
+        "ptriplo": 0.296215113622839,
+        "codons": "Ggc/Agc",
+        "cds_end": 6055,
+        "loeuf": 0.74582,
+        "opentargets": [
+          {
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "sift_score": 0,
+        "gene_id": "ENSG00000188906",
+        "alphamissense": {
+          "am_pathogenicity": 0.936,
+          "am_class": "likely_pathogenic"
+        },
+        "protein_start": 2019,
+        "amino_acids": "G/S",
+        "gene_symbol_source": "HGNC"
+      },
+      {
+        "variant_allele": "A",
+        "conservation": 2.03,
+        "flags": [
+          "cds_start_NF"
+        ],
+        "consequence_terms": [
+          "3_prime_UTR_variant",
+          "NMD_transcript_variant"
+        ],
+        "impact": "MODIFIER",
+        "cdna_end": 3351,
+        "cdna_start": 3351,
+        "biotype": "nonsense_mediated_decay",
+        "phaplo": 0.28780617624957,
+        "opentargets": [
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "loeuf": 0.74582,
+        "gene_id": "ENSG00000188906",
+        "ptriplo": 0.296215113622839,
+        "gene_symbol": "LRRK2",
+        "transcript_id": "ENST00000430804",
+        "hgnc_id": "HGNC:18618",
+        "strand": 1,
+        "gene_symbol_source": "HGNC"
+      },
+      {
+        "gene_symbol_source": "HGNC",
+        "ptriplo": 0.296215113622839,
+        "gene_id": "ENSG00000188906",
+        "loeuf": 0.74582,
+        "opentargets": [
+          {
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "strand": 1,
+        "transcript_id": "ENST00000479187",
+        "hgnc_id": "HGNC:18618",
+        "gene_symbol": "LRRK2",
+        "cdna_start": 2736,
+        "cdna_end": 2736,
+        "consequence_terms": [
+          "non_coding_transcript_exon_variant"
+        ],
+        "impact": "MODIFIER",
+        "phaplo": 0.28780617624957,
+        "biotype": "retained_intron",
+        "conservation": 2.03,
+        "variant_allele": "A"
+      },
+      {
+        "phaplo": 0.28780617624957,
+        "biotype": "nonsense_mediated_decay",
+        "consequence_terms": [
+          "3_prime_UTR_variant",
+          "NMD_transcript_variant"
+        ],
+        "cdna_end": 6311,
+        "impact": "MODIFIER",
+        "cdna_start": 6311,
+        "conservation": 2.03,
+        "variant_allele": "A",
+        "gene_symbol_source": "HGNC",
+        "strand": 1,
+        "transcript_id": "ENST00000679360",
+        "hgnc_id": "HGNC:18618",
+        "gene_symbol": "LRRK2",
+        "ptriplo": 0.296215113622839,
+        "opentargets": [
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "loeuf": 0.74582,
+        "gene_id": "ENSG00000188906"
+      },
+      {
+        "biotype": "nonsense_mediated_decay",
+        "phaplo": 0.28780617624957,
+        "flags": [
+          "cds_start_NF"
+        ],
+        "cdna_start": 1829,
+        "consequence_terms": [
+          "3_prime_UTR_variant",
+          "NMD_transcript_variant"
+        ],
+        "impact": "MODIFIER",
+        "cdna_end": 1829,
+        "variant_allele": "A",
+        "conservation": 2.03,
+        "gene_symbol_source": "HGNC",
+        "gene_symbol": "LRRK2",
+        "strand": 1,
+        "transcript_id": "ENST00000679532",
+        "hgnc_id": "HGNC:18618",
+        "gene_id": "ENSG00000188906",
+        "opentargets": [
+          {
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null
+          }
+        ],
+        "loeuf": 0.74582,
+        "ptriplo": 0.296215113622839
+      },
+      {
+        "variant_allele": "A",
+        "conservation": 2.03,
+        "flags": [
+          "cds_start_NF"
+        ],
+        "impact": "MODIFIER",
+        "consequence_terms": [
+          "3_prime_UTR_variant",
+          "NMD_transcript_variant"
+        ],
+        "cdna_end": 1500,
+        "cdna_start": 1500,
+        "biotype": "nonsense_mediated_decay",
+        "phaplo": 0.28780617624957,
+        "opentargets": [
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_qtlBiosampleName": null
+          }
+        ],
+        "loeuf": 0.74582,
+        "gene_id": "ENSG00000188906",
+        "ptriplo": 0.296215113622839,
+        "gene_symbol": "LRRK2",
+        "transcript_id": "ENST00000680018",
+        "hgnc_id": "HGNC:18618",
+        "strand": 1,
+        "gene_symbol_source": "HGNC"
+      },
+      {
+        "flags": [
+          "cds_start_NF"
+        ],
+        "cdna_end": 1700,
+        "consequence_terms": [
+          "missense_variant",
+          "NMD_transcript_variant"
+        ],
+        "impact": "MODERATE",
+        "cdna_start": 1700,
+        "biotype": "nonsense_mediated_decay",
+        "protein_end": 568,
+        "phaplo": 0.28780617624957,
+        "cds_start": 1702,
+        "variant_allele": "A",
+        "polyphen_prediction": "probably_damaging",
+        "conservation": 2.03,
+        "gene_symbol_source": "HGNC",
+        "amino_acids": "G/S",
+        "alphamissense": {
+          "am_pathogenicity": 0.936,
+          "am_class": "likely_pathogenic"
+        },
+        "protein_start": 568,
+        "opentargets": [
+          {
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "loeuf": 0.74582,
+        "gene_id": "ENSG00000188906",
+        "sift_score": 0,
+        "sift_prediction": "deleterious",
+        "ptriplo": 0.296215113622839,
+        "cds_end": 1702,
+        "codons": "Ggc/Agc",
+        "gene_symbol": "LRRK2",
+        "strand": 1,
+        "transcript_id": "ENST00000680422",
+        "hgnc_id": "HGNC:18618",
+        "polyphen_score": 0.998
+      },
+      {
+        "gene_id": "ENSG00000188906",
+        "loeuf": 0.74582,
+        "opentargets": [
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "ptriplo": 0.296215113622839,
+        "gene_symbol": "LRRK2",
+        "transcript_id": "ENST00000680425",
+        "hgnc_id": "HGNC:18618",
+        "strand": 1,
+        "gene_symbol_source": "HGNC",
+        "variant_allele": "A",
+        "conservation": 2.03,
+        "flags": [
+          "cds_start_NF"
+        ],
+        "cdna_start": 1222,
+        "consequence_terms": [
+          "3_prime_UTR_variant",
+          "NMD_transcript_variant"
+        ],
+        "cdna_end": 1222,
+        "impact": "MODIFIER",
+        "biotype": "nonsense_mediated_decay",
+        "phaplo": 0.28780617624957
+      },
+      {
+        "ptriplo": 0.296215113622839,
+        "gene_id": "ENSG00000188906",
+        "loeuf": 0.74582,
+        "opentargets": [
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          }
+        ],
+        "hgnc_id": "HGNC:18618",
+        "transcript_id": "ENST00000680453",
+        "strand": 1,
+        "gene_symbol": "LRRK2",
+        "gene_symbol_source": "HGNC",
+        "conservation": 2.03,
+        "variant_allele": "A",
+        "cdna_start": 1512,
+        "impact": "MODIFIER",
+        "consequence_terms": [
+          "3_prime_UTR_variant",
+          "NMD_transcript_variant"
+        ],
+        "cdna_end": 1512,
+        "flags": [
+          "cds_start_NF"
+        ],
+        "phaplo": 0.28780617624957,
+        "biotype": "nonsense_mediated_decay"
+      },
+      {
+        "cdna_end": 6425,
+        "consequence_terms": [
+          "missense_variant"
+        ],
+        "impact": "MODERATE",
+        "cdna_start": 6425,
+        "biotype": "protein_coding",
+        "protein_end": 1934,
+        "phaplo": 0.28780617624957,
+        "cds_start": 5800,
+        "variant_allele": "A",
+        "conservation": 2.03,
+        "polyphen_prediction": "probably_damaging",
+        "gene_symbol_source": "HGNC",
+        "alphamissense": {
+          "am_pathogenicity": 0.936,
+          "am_class": "likely_pathogenic"
+        },
+        "protein_start": 1934,
+        "amino_acids": "G/S",
+        "loeuf": 0.74582,
+        "opentargets": [
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180"
+          },
+          {
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "sift_score": 0,
+        "gene_id": "ENSG00000188906",
+        "sift_prediction": "deleterious",
+        "codons": "Ggc/Agc",
+        "cds_end": 5800,
+        "ptriplo": 0.296215113622839,
+        "gene_symbol": "LRRK2",
+        "strand": 1,
+        "transcript_id": "ENST00000680790",
+        "hgnc_id": "HGNC:18618",
+        "polyphen_score": 0.999
+      },
+      {
+        "loeuf": 0.74582,
+        "opentargets": [
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "gene_id": "ENSG00000188906",
+        "ptriplo": 0.296215113622839,
+        "gene_symbol": "LRRK2",
+        "transcript_id": "ENST00000681136",
+        "strand": 1,
+        "hgnc_id": "HGNC:18618",
+        "gene_symbol_source": "HGNC",
+        "variant_allele": "A",
+        "conservation": 2.03,
+        "consequence_terms": [
+          "non_coding_transcript_exon_variant"
+        ],
+        "cdna_end": 2039,
+        "impact": "MODIFIER",
+        "cdna_start": 2039,
+        "biotype": "protein_coding_CDS_not_defined",
+        "phaplo": 0.28780617624957
+      },
+      {
+        "variant_allele": "A",
+        "polyphen_prediction": "probably_damaging",
+        "conservation": 2.03,
+        "protein_end": 580,
+        "biotype": "protein_coding",
+        "phaplo": 0.28780617624957,
+        "cds_start": 1738,
+        "flags": [
+          "cds_start_NF"
+        ],
+        "cdna_start": 1738,
+        "impact": "MODERATE",
+        "consequence_terms": [
+          "missense_variant"
+        ],
+        "cdna_end": 1738,
+        "gene_symbol": "LRRK2",
+        "polyphen_score": 0.998,
+        "transcript_id": "ENST00000681696",
+        "hgnc_id": "HGNC:18618",
+        "strand": 1,
+        "sift_score": 0,
+        "gene_id": "ENSG00000188906",
+        "opentargets": [
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "loeuf": 0.74582,
+        "ptriplo": 0.296215113622839,
+        "cds_end": 1738,
+        "codons": "Ggc/Agc",
+        "sift_prediction": "deleterious",
+        "protein_start": 580,
+        "amino_acids": "G/S",
+        "alphamissense": {
+          "am_pathogenicity": 0.936,
+          "am_class": "likely_pathogenic"
+        },
+        "gene_symbol_source": "HGNC"
+      },
+      {
+        "transcript_id": "ENST00000724141",
+        "strand": -1,
+        "conservation": 2.03,
+        "gene_id": "ENSG00000258167",
+        "opentargets": [
+          {
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180"
+          }
+        ],
+        "variant_allele": "A",
+        "biotype": "lncRNA",
+        "impact": "MODIFIER",
+        "consequence_terms": [
+          "intron_variant",
+          "non_coding_transcript_variant"
+        ]
+      },
+      {
+        "transcript_id": "ENST00000724142",
+        "strand": -1,
+        "opentargets": [
+          {
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "variant_allele": "A",
+        "gene_id": "ENSG00000258167",
+        "conservation": 2.03,
+        "biotype": "lncRNA",
+        "distance": 4466,
+        "consequence_terms": [
+          "downstream_gene_variant"
+        ],
+        "impact": "MODIFIER"
+      },
+      {
+        "consequence_terms": [
+          "missense_variant"
+        ],
+        "impact": "MODERATE",
+        "cdna_end": 6656,
+        "cdna_start": 6656,
+        "phaplo": 0.28780617624957,
+        "cds_start": 6031,
+        "biotype": "protein_coding",
+        "protein_end": 2011,
+        "conservation": 2.03,
+        "variant_allele": "A",
+        "gene_symbol_source": "HGNC",
+        "amino_acids": "G/S",
+        "alphamissense": {
+          "am_pathogenicity": 0.936,
+          "am_class": "likely_pathogenic"
+        },
+        "protein_start": 2011,
+        "sift_prediction": "deleterious",
+        "cds_end": 6031,
+        "ptriplo": 0.296215113622839,
+        "codons": "Ggc/Agc",
+        "opentargets": [
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null
+          }
+        ],
+        "loeuf": 0.74582,
+        "sift_score": 0,
+        "gene_id": "ENSG00000188906",
+        "transcript_id": "ENST00000950031",
+        "strand": 1,
+        "hgnc_id": "HGNC:18618",
+        "gene_symbol": "LRRK2"
+      },
+      {
+        "ptriplo": 0.296215113622839,
+        "loeuf": 0.74582,
+        "opentargets": [
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "gene_id": "ENSG00000188906",
+        "transcript_id": "ENST00001056050",
+        "strand": 1,
+        "hgnc_id": "HGNC:18618",
+        "gene_symbol": "LRRK2",
+        "gene_symbol_source": "HGNC",
+        "conservation": 2.03,
+        "variant_allele": "A",
+        "impact": "MODIFIER",
+        "consequence_terms": [
+          "3_prime_UTR_variant",
+          "NMD_transcript_variant"
+        ],
+        "cdna_end": 6008,
+        "cdna_start": 6008,
+        "phaplo": 0.28780617624957,
+        "biotype": "nonsense_mediated_decay"
+      },
+      {
+        "gene_symbol": "LRRK2",
+        "hgnc_id": "HGNC:18618",
+        "transcript_id": "ENST00001133841",
+        "strand": 1,
+        "polyphen_score": 1,
+        "opentargets": [
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_gwasGeneId": "ENSG00000188906",
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_qtlBiosampleName": null
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          },
+          {
+            "OpenTargets_qtlBiosampleName": null,
+            "OpenTargets_gwasDiseases": "MONDO_0005180",
+            "OpenTargets_qtlGeneId": null,
+            "OpenTargets_gwasLocusToGeneScore": 0.915571630001068,
+            "OpenTargets_gwasGeneId": "ENSG00000188906"
+          }
+        ],
+        "loeuf": 0.74582,
+        "gene_id": "ENSG00000188906",
+        "sift_score": 0,
+        "sift_prediction": "deleterious",
+        "ptriplo": 0.296215113622839,
+        "codons": "Ggc/Agc",
+        "cds_end": 6055,
+        "amino_acids": "G/S",
+        "protein_start": 2019,
+        "alphamissense": {
+          "am_pathogenicity": 0.936,
+          "am_class": "likely_pathogenic"
+        },
+        "gene_symbol_source": "HGNC",
+        "variant_allele": "A",
+        "polyphen_prediction": "probably_damaging",
+        "conservation": 2.03,
+        "biotype": "protein_coding",
+        "protein_end": 2019,
+        "phaplo": 0.28780617624957,
+        "intact": [
+          {
+            "interaction_ac": "EBI-10055487",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-10688276",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-11821059",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-11821091"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-11821101"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-11877575"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-11829558"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-11828480"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-11822843"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-21306992"
+          },
+          {
+            "interaction_ac": "EBI-21307015",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-21307124",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-21306793",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-21308026"
+          },
+          {
+            "interaction_ac": "EBI-21308064",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-21307692",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-21307805",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-21307653"
+          },
+          {
+            "interaction_ac": "EBI-21350212",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-21368652"
+          },
+          {
+            "interaction_ac": "EBI-22228593",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-22228661",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-22228823",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-22228711",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-22229068",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-22229220",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-22229252",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-22229281",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-22229601"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-21360986"
+          },
+          {
+            "interaction_ac": "EBI-25597574",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-25610041"
+          },
+          {
+            "interaction_ac": "EBI-25610980",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-25611148"
+          },
+          {
+            "interaction_ac": "EBI-25611160",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-25611738",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-25611768",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-25611799",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-25611843",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-25611873",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-6289878",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-6509412",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-6511618"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-6511564"
+          },
+          {
+            "interaction_ac": "EBI-6515504",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-6515609",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-6515052",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-6896692",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-6896831",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-8803978"
+          },
+          {
+            "interaction_ac": "EBI-8804004",
+            "feature_type": "mutation"
+          },
+          {
+            "feature_type": "mutation",
+            "interaction_ac": "EBI-8804033"
+          },
+          {
+            "interaction_ac": "EBI-8804184",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-8804144",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-8804207",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-8804288",
+            "feature_type": "mutation"
+          },
+          {
+            "interaction_ac": "EBI-6309721",
+            "feature_type": "mutation decreasing"
+          },
+          {
+            "feature_type": "mutation decreasing",
+            "interaction_ac": "EBI-6309809"
+          },
+          {
+            "feature_type": "mutation decreasing",
+            "interaction_ac": "EBI-6313033"
+          },
+          {
+            "feature_type": "mutation decreasing",
+            "interaction_ac": "EBI-6501545"
+          },
+          {
+            "feature_type": "mutation decreasing",
+            "interaction_ac": "EBI-6502027"
+          },
+          {
+            "feature_type": "mutation decreasing",
+            "interaction_ac": "EBI-6975471"
+          },
+          {
+            "interaction_ac": "EBI-6975636",
+            "feature_type": "mutation decreasing"
+          },
+          {
+            "interaction_ac": "EBI-6501672",
+            "feature_type": "mutation decreasing rate"
+          },
+          {
+            "feature_type": "mutation decreasing rate",
+            "interaction_ac": "EBI-6501812"
+          },
+          {
+            "feature_type": "mutation disrupting rate",
+            "interaction_ac": "EBI-6501812"
+          },
+          {
+            "interaction_ac": "EBI-10688397",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "interaction_ac": "EBI-6287985",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6289025"
+          },
+          {
+            "interaction_ac": "EBI-6290107",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "interaction_ac": "EBI-6304653",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "interaction_ac": "EBI-6491870",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6509067"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6512836"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6513276"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6513553"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6530261"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6596477"
+          },
+          {
+            "interaction_ac": "EBI-6597084",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6597093"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6597189"
+          },
+          {
+            "interaction_ac": "EBI-6927623",
+            "feature_type": "mutation increasing"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6927640"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6929727"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-6975573"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-8804749"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-9029547"
+          },
+          {
+            "feature_type": "mutation increasing",
+            "interaction_ac": "EBI-9029610"
+          },
+          {
+            "interaction_ac": "EBI-10055396",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-10055424"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-10108702"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-10108716"
+          },
+          {
+            "interaction_ac": "EBI-10108804",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-10688099",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-10688245"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-11820434"
+          },
+          {
+            "interaction_ac": "EBI-11820488",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-11820515"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-11820610"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-11820652"
+          },
+          {
+            "interaction_ac": "EBI-11820809",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-11891268"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-11891453"
+          },
+          {
+            "interaction_ac": "EBI-12509219",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-12509258"
+          },
+          {
+            "interaction_ac": "EBI-22228763",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-22228862",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-22228918",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-22229038"
+          },
+          {
+            "interaction_ac": "EBI-25436895",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6288833",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6289182"
+          },
+          {
+            "interaction_ac": "EBI-6289214",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6289249",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6289471",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6289516",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6289542",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6308633",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6312811",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6349275",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6349668",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6373518"
+          },
+          {
+            "interaction_ac": "EBI-6389568",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6481321"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6501801"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6502250"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6502778"
+          },
+          {
+            "interaction_ac": "EBI-6503745",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6503625"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-6503755"
+          },
+          {
+            "interaction_ac": "EBI-6512082",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-6512095",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-8803909"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-8803935"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-8804229"
+          },
+          {
+            "interaction_ac": "EBI-8842267",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9105186",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9105156"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9515925"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9515984"
+          },
+          {
+            "interaction_ac": "EBI-9516001",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9516035"
+          },
+          {
+            "interaction_ac": "EBI-9516137",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9516154",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9516171"
+          },
+          {
+            "interaction_ac": "EBI-9516506",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9516777",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9516806",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9516827",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9516846"
+          },
+          {
+            "interaction_ac": "EBI-9687038",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "interaction_ac": "EBI-9687106",
+            "feature_type": "mutation increasing rate"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9697738"
+          },
+          {
+            "feature_type": "mutation increasing rate",
+            "interaction_ac": "EBI-9697761"
+          },
+          {
+            "feature_type": "mutation increasing strength",
+            "interaction_ac": "EBI-10105938"
+          },
+          {
+            "interaction_ac": "EBI-21307525",
+            "feature_type": "mutation increasing strength"
+          },
+          {
+            "interaction_ac": "EBI-21308201",
+            "feature_type": "mutation increasing strength"
+          },
+          {
+            "feature_type": "mutation increasing strength",
+            "interaction_ac": "EBI-21308225"
+          },
+          {
+            "interaction_ac": "EBI-12509138",
+            "feature_type": "mutation with no effect"
+          },
+          {
+            "interaction_ac": "EBI-12521182",
+            "feature_type": "mutation with no effect"
+          },
+          {
+            "interaction_ac": "EBI-12521383",
+            "feature_type": "mutation with no effect"
+          },
+          {
+            "interaction_ac": "EBI-12521357",
+            "feature_type": "mutation with no effect"
+          },
+          {
+            "feature_type": "mutation with no effect",
+            "interaction_ac": "EBI-21224076"
+          },
+          {
+            "interaction_ac": "EBI-67141364",
+            "feature_type": "mutation with no effect"
+          }
+        ],
+        "cds_start": 6055,
+        "cdna_end": 6680,
+        "consequence_terms": [
+          "missense_variant"
+        ],
+        "impact": "MODERATE",
+        "cdna_start": 6680
+      }
+    ],
+    "assembly_name": "GRCh38",
+    "allele_string": "G/A",
+    "strand": 1,
+    "most_severe_consequence": "missense_variant",
+    "id": "rs34637584"
+  }
+]

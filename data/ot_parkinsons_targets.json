@@ -1,0 +1,119 @@
+{
+  "disease": {
+    "id": "MONDO_0005180",
+    "name": "Parkinson disease",
+    "associatedTargets": {
+      "count": 8994,
+      "rows": [
+        {
+          "target": {
+            "id": "ENSG00000188906",
+            "approvedSymbol": "LRRK2"
+          },
+          "score": 0.8789712145032307
+        },
+        {
+          "target": {
+            "id": "ENSG00000159363",
+            "approvedSymbol": "ATP13A2"
+          },
+          "score": 0.871459791049066
+        },
+        {
+          "target": {
+            "id": "ENSG00000145335",
+            "approvedSymbol": "SNCA"
+          },
+          "score": 0.8706361661916207
+        },
+        {
+          "target": {
+            "id": "ENSG00000185345",
+            "approvedSymbol": "PRKN"
+          },
+          "score": 0.8519861101276245
+        },
+        {
+          "target": {
+            "id": "ENSG00000158828",
+            "approvedSymbol": "PINK1"
+          },
+          "score": 0.8508349657836074
+        },
+        {
+          "target": {
+            "id": "ENSG00000184381",
+            "approvedSymbol": "PLA2G6"
+          },
+          "score": 0.8270750649133735
+        },
+        {
+          "target": {
+            "id": "ENSG00000116675",
+            "approvedSymbol": "DNAJC6"
+          },
+          "score": 0.8195170115599697
+        },
+        {
+          "target": {
+            "id": "ENSG00000116288",
+            "approvedSymbol": "PARK7"
+          },
+          "score": 0.8108202784777676
+        },
+        {
+          "target": {
+            "id": "ENSG00000100225",
+            "approvedSymbol": "FBXO7"
+          },
+          "score": 0.8005213951330551
+        },
+        {
+          "target": {
+            "id": "ENSG00000069329",
+            "approvedSymbol": "VPS35"
+          },
+          "score": 0.7848130188303171
+        },
+        {
+          "target": {
+            "id": "ENSG00000177628",
+            "approvedSymbol": "GBA1"
+          },
+          "score": 0.7740350729666612
+        },
+        {
+          "target": {
+            "id": "ENSG00000129003",
+            "approvedSymbol": "VPS13C"
+          },
+          "score": 0.7337817247591292
+        },
+        {
+          "target": {
+            "id": "ENSG00000176884",
+            "approvedSymbol": "GRIN1"
+          },
+          "score": 0.6969502087656452
+        },
+        {
+          "target": {
+            "id": "ENSG00000186868",
+            "approvedSymbol": "MAPT"
+          },
+          "score": 0.6776428632894335
+        },
+        {
+          "target": {
+            "id": "ENSG00000168539",
+            "approvedSymbol": "CHRM1"
+          },
+          "score": 0.6651920814477192
+        },
+        {
+          "_truncated": "(Showing 15 of 8994 rows)"
+        }
+      ]
+    }
+  }
+}

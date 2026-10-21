@@ -1,0 +1,238 @@
+{
+  "target": {
+    "id": "ENSG00000130513",
+    "approvedSymbol": "GDF15",
+    "associatedDiseases": {
+      "count": 1485,
+      "rows": [
+        {
+          "disease": {
+            "id": "MONDO_0006791",
+            "name": "hyperemesis gravidarum"
+          },
+          "datasourceScores": [
+            {
+              "id": "gwas_credible_sets",
+              "score": 0.7681302445392858
+            },
+            {
+              "id": "uniprot_variants",
+              "score": 0.607930797611621
+            },
+            {
+              "id": "uniprot_literature",
+              "score": 0.607930797611621
+            },
+            {
+              "id": "europepmc",
+              "score": 0.16765915841332343
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "EFO_0004330",
+            "name": "coffee consumption"
+          },
+          "datasourceScores": [
+            {
+              "id": "gwas_credible_sets",
+              "score": 0.6314677110847395
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "HP_0000924",
+            "name": "Abnormality of the skeletal system"
+          },
+          "datasourceScores": [
+            {
+              "id": "gwas_credible_sets",
+              "score": 0.5664700494169091
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "EFO_0008561",
+            "name": "diaphragmatic hernia"
+          },
+          "datasourceScores": [
+            {
+              "id": "gwas_credible_sets",
+              "score": 0.24734808348282722
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "MONDO_0011122",
+            "name": "obesity disorder"
+          },
+          "datasourceScores": [
+            {
+              "id": "europepmc",
+              "score": 0.9616590917177756
+            },
+            {
+              "id": "impc",
+              "score": 0.2762437544347206
+            },
+            {
+              "id": "gwas_credible_sets",
+              "score": 0.050932477318707335
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "MONDO_0019115",
+            "name": "obesity due to melanocortin 4 receptor deficiency"
+          },
+          "datasourceScores": [
+            {
+              "id": "europepmc",
+              "score": 0.9616590917177756
+            },
+            {
+              "id": "impc",
+              "score": 0.3410643757300597
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "MONDO_0018899",
+            "name": "posterior cortical atrophy"
+          },
+          "datasourceScores": [
+            {
+              "id": "europepmc",
+              "score": 0.9468693699501325
+            },
+            {
+              "id": "impc",
+              "score": 0.3280394583912307
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "MONDO_0002714",
+            "name": "central nervous system cancer"
+          },
+          "datasourceScores": [
+            {
+              "id": "europepmc",
+              "score": 0.9161294213598703
+            },
+            {
+              "id": "expression_atlas",
+              "score": 0.41377289912440957
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "MONDO_0005070",
+            "name": "neoplasm"
+          },
+          "datasourceScores": [
+            {
+              "id": "europepmc",
+              "score": 0.9894117980189867
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "MONDO_0018177",
+            "name": "glioblastoma"
+          },
+          "datasourceScores": [
+            {
+              "id": "europepmc",
+              "score": 0.9444901317743642
+            },
+            {
+              "id": "expression_atlas",
+              "score": 0.14271641437181895
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "MONDO_0004992",
+            "name": "cancer"
+          },
+          "datasourceScores": [
+            {
+              "id": "europepmc",
+              "score": 0.9773199598019067
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "MONDO_0015193",
+            "name": "hydrops fetalis"
+          },
+          "datasourceScores": [
+            {
+              "id": "europepmc",
+              "score": 0.9675816854008827
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "MONDO_0005148",
+            "name": "type 2 diabetes mellitus"
+          },
+          "datasourceScores": [
+            {
+              "id": "europepmc",
+              "score": 0.9640916581568507
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "MONDO_0007256",
+            "name": "hepatocellular carcinoma"
+          },
+          "datasourceScores": [
+            {
+              "id": "europepmc",
+              "score": 0.9565016179192289
+            },
+            {
+              "id": "expression_atlas",
+              "score": 0.014002605035727858
+            },
+            {
+              "id": "eva",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "disease": {
+            "id": "MONDO_0024331",
+            "name": "colorectal carcinoma"
+          },
+          "datasourceScores": [
+            {
+              "id": "europepmc",
+              "score": 0.9429812439388909
+            }
+          ]
+        },
+        {
+          "_truncated": "(Showing 15 of 1485 rows)"
+        }
+      ]
+    }
+  }
+}

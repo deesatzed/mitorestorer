@@ -4,9 +4,11 @@
 
 ### Key Entry Points
 * **Interactive Landing Page:** [`index.html`](index.html)
-* **Interactive Cross-Species Web Simulator (7 Cohorts, 4-Step Guided Wizard, Lab Gate Calculator, & 8-Structure 3D Atlas):** [`simulator/bcr_simulator.html`](simulator/bcr_simulator.html)
+* **Interactive Cross-Species Web Simulator (7 Cohorts, 4-Step Guided Wizard, Lab Gate Calculator, 8-Structure 3D Atlas, & ⚡ 3D Google Coral NPU Silicon Triad):** [`simulator/bcr_simulator.html`](simulator/bcr_simulator.html)
+* **⚡ Google Coral NPU (`RV32IMF_Zve32x`) Edge Silicon Architecture & Benchmark Report:** [`docs/coral_npu_edge_report.md`](docs/coral_npu_edge_report.md)
+* **⚡ Google Coral NPU Open-Standard Compiler (`LiteRT/JAX -> TOSA -> MLIR -> C99 RVV`):** [`simulator/coral_npu_bcr_compiler.py`](simulator/coral_npu_bcr_compiler.py), [`build/coralnpu/mitorestorer_bcr.mlir`](build/coralnpu/mitorestorer_bcr.mlir), & [`build/coralnpu/mitorestorer_coralnpu_kernel.h`](build/coralnpu/mitorestorer_coralnpu_kernel.h)
 * **How to Run & Test Guide (Software Verification + Wet-Lab / Apiary Execution):** [`docs/how_to_run_and_test.md`](docs/how_to_run_and_test.md)
-* **16-Point Automated Verification & Regression Test Suite (`16 PASSED, 0 FAILED`):** [`tests/run_all_verifications.py`](tests/run_all_verifications.py)
+* **20-Point Automated Verification & Regression Test Suite (`20 PASSED, 0 FAILED`):** [`tests/run_all_verifications.py`](tests/run_all_verifications.py)
 * **Academic Paper Manuscript & Cross-Species Discovery Log (Discoveries 1–8):** [`docs/academic_manuscript_bcr.md`](docs/academic_manuscript_bcr.md)
 * **Honeybee (`Apis-BCR`) Beekeepers' Two-Stage Patty Manual & 14-Day Apiary Trial Protocol:** [`docs/apis_bcr_beekeeper_protocol.md`](docs/apis_bcr_beekeeper_protocol.md)
 * ***Ex Vivo* CAR-T (`Bioreactor-BCR`) 240-Hour GMP Perfusion Media SOP:** [`docs/cart_bioreactor_sop.md`](docs/cart_bioreactor_sop.md)

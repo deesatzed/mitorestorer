@@ -1,0 +1,94 @@
+{
+  "cif_path": "/Users/o2satz/.gemini/antigravity/scratch/mitorestorer/structures/2Q8G/pdb_00002q8g.cif",
+  "polymer_chains": {
+    "A": {
+      "residue_count": 368,
+      "min_auth_seq_id": 41,
+      "max_auth_seq_id": 423,
+      "modified_residues": []
+    }
+  },
+  "nonpolymer_ligands": {
+    "A:437:K": 1,
+    "A:438:AZX": 31
+  },
+  "target_query": {
+    "target_chain": "A",
+    "target_res": "AZX",
+    "max_dist_angstrom": 3.6
+  },
+  "contacts": [
+    {
+      "partner_chain": "A",
+      "partner_auth_seq_id": "75",
+      "partner_comp_id": "SER",
+      "distance_angstrom": 2.5,
+      "target_atom": "O25",
+      "partner_atom": "OG"
+    },
+    {
+      "partner_chain": "A",
+      "partner_auth_seq_id": "197",
+      "partner_comp_id": "GLN",
+      "distance_angstrom": 2.97,
+      "target_atom": "F30",
+      "partner_atom": "CB"
+    },
+    {
+      "partner_chain": "A",
+      "partner_auth_seq_id": "194",
+      "partner_comp_id": "LEU",
+      "distance_angstrom": 3.16,
+      "target_atom": "F29",
+      "partner_atom": "O"
+    },
+    {
+      "partner_chain": "A",
+      "partner_auth_seq_id": "62",
+      "partner_comp_id": "PHE",
+      "distance_angstrom": 3.24,
+      "target_atom": "F30",
+      "partner_atom": "CE1"
+    },
+    {
+      "partner_chain": "A",
+      "partner_auth_seq_id": "78",
+      "partner_comp_id": "PHE",
+      "distance_angstrom": 3.28,
+      "target_atom": "CL1",
+      "partner_atom": "CB"
+    },
+    {
+      "partner_chain": "A",
+      "partner_auth_seq_id": "74",
+      "partner_comp_id": "THR",
+      "distance_angstrom": 3.42,
+      "target_atom": "CL1",
+      "partner_atom": "O"
+    },
+    {
+      "partner_chain": "A",
+      "partner_auth_seq_id": "65",
+      "partner_comp_id": "PHE",
+      "distance_angstrom": 3.43,
+      "target_atom": "C17",
+      "partner_atom": "CB"
+    },
+    {
+      "partner_chain": "A",
+      "partner_auth_seq_id": "61",
+      "partner_comp_id": "GLN",
+      "distance_angstrom": 3.43,
+      "target_atom": "O14",
+      "partner_atom": "CD"
+    },
+    {
+      "partner_chain": "A",
+      "partner_auth_seq_id": "79",
+      "partner_comp_id": "LEU",
+      "distance_angstrom": 3.53,
+      "target_atom": "F29",
+      "partner_atom": "CD1"
+    }
+  ]
+}

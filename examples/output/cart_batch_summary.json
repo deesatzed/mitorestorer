@@ -1,0 +1,41 @@
+{
+  "batch_id": "CART-DLBCL-042",
+  "automated_perfusion_switch_hour": 64.0,
+  "gate_sensor_telemetry_at_switch": {
+    "Lactate_Pyruvate_Ratio": 13.0,
+    "Supernatant_GDF15_pg_mL": 315.0,
+    "Gate_Decision": "GREEN_SWITCH_MEDIA_A_TO_MEDIA_B"
+  },
+  "media_A_phase_1_hours_0_to_64_purge_and_unmasking": {
+    "D_Glucose_mM": 4.0,
+    "D_Galactose_mM": 10.0,
+    "D_Beta_Hydroxybutyrate_mM": 2.0,
+    "AZD7545_PDK1_Inhibitor_uM_or_DCA_2mM": 1.0,
+    "Direct_Urolithin_A_uM": 25.0,
+    "Kinetin_6EQI_NeoSubstrate_uM": 10.0,
+    "Citicoline_7CK6_uM": 50.0,
+    "IL7_and_IL15_ng_mL": 10.0
+  },
+  "media_B_phase_2_hours_64_to_240_anabolic_clonal_expansion": {
+    "D_Glucose_mM": 12.0,
+    "L_Glutamine_GlutaMAX_mM": 4.0,
+    "Nicotinamide_Riboside_NR_uM": 500.0,
+    "Resveratrol_4ZZJ_SIRT1_STAC_uM": 5.0,
+    "Citicoline_7CK6_uM": 100.0,
+    "Creatine_Monohydrate_mM": 2.0,
+    "L_Arginine_HCl_mM": 4.0,
+    "IL7_and_IL15_ng_mL": 15.0
+  },
+  "hour_240_release_telemetry": {
+    "arm": "3_Bioreactor_BCR_Biphasic_Gated_Controller",
+    "switch_hour": 64.0,
+    "h_hour240_pct": 1.6,
+    "W_hour240": 1.42,
+    "Lactate_Pyruvate_hour240": 13.0,
+    "GDF15_hour240_pg_ml": 315.0,
+    "Fold_Expansion_day10_x": 62.9,
+    "T_SCM_Stemness_pct": 78.0,
+    "Exhaustion_TIM3_PD1_pct": 4.8,
+    "Spare_Respiratory_Capacity_x": 3.78
+  }
+}

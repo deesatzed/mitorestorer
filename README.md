@@ -6,10 +6,15 @@
 * **Interactive Landing Page:** [`index.html`](index.html)
 * **Interactive Cross-Species Web Simulator (7 Cohorts, 4-Step Guided Wizard, Lab Gate Calculator, & 8-Structure 3D Atlas):** [`simulator/bcr_simulator.html`](simulator/bcr_simulator.html)
 * **Academic Paper Manuscript & Cross-Species Discovery Log (Discoveries 1–8):** [`docs/academic_manuscript_bcr.md`](docs/academic_manuscript_bcr.md)
+* **Honeybee (`Apis-BCR`) Beekeepers' Two-Stage Patty Manual & 14-Day Apiary Trial Protocol:** [`docs/apis_bcr_beekeeper_protocol.md`](docs/apis_bcr_beekeeper_protocol.md)
+* ***Ex Vivo* CAR-T (`Bioreactor-BCR`) 240-Hour GMP Perfusion Media SOP:** [`docs/cart_bioreactor_sop.md`](docs/cart_bioreactor_sop.md)
 * **Beginner / College-Freshman Step-by-Step User Guide:** [`docs/user_walkthrough.md`](docs/user_walkthrough.md)
 * **Clinician & Patient Daily Field Manual:** [`docs/bcr_field_manual.md`](docs/bcr_field_manual.md)
 * **Full Clinical Protocol Specification:** [`docs/bcr_clinical_protocol.md`](docs/bcr_clinical_protocol.md)
-* **End-to-End Executable Sample Patient Script:** [`examples/run_sample_patient_walkthrough.py`](examples/run_sample_patient_walkthrough.py)
+* **End-to-End Executable Walkthrough Scripts:**
+  * Human Parkinson's (`SAMPLE-PD-001`): [`examples/run_sample_patient_walkthrough.py`](examples/run_sample_patient_walkthrough.py)
+  * Honeybee Colony Rescue (`APIS-CA-ALMOND-01`): [`examples/run_honeybee_apis_walkthrough.py`](examples/run_honeybee_apis_walkthrough.py)
+  * *Ex Vivo* CAR-T Bioreactor (`CART-DLBCL-042`): [`examples/run_cart_bioreactor_walkthrough.py`](examples/run_cart_bioreactor_walkthrough.py)
 
 ---
 

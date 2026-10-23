@@ -1,0 +1,33 @@
+{
+  "colony_id": "APIS-CA-ALMOND-01",
+  "stage_1_to_2_switch_day": 4.5,
+  "patty_A_stage_1_days_1_to_5_in_hive_detox_and_purge_per_1kg": {
+    "Sucrose_Trehalose_Low_Glycemic_Base_g": 580.0,
+    "Defatted_Brewers_Yeast_Pea_Protein_g": 280.0,
+    "Canola_Borage_Lipid_Binder_g": 110.0,
+    "Floral_p_Coumaric_Acid_mg": 120.0,
+    "Coumaroyl_Spermidine_mg": 150.0,
+    "Direct_Urolithin_A_mg": 250.0,
+    "Sodium_Citrate_Malic_Acid_Buffer_g": 4.5,
+    "Live_Snodgrassella_alvi_wkB2_Gilliamella_Synbiotic_g": 2.0
+  },
+  "patty_B_stage_2_days_5_to_14_forager_flight_build_per_1kg": {
+    "Sucrose_Nectar_Base_g": 550.0,
+    "High_Protein_Pollen_Sub_Base_g": 320.0,
+    "Borage_Brassica_Sterol_Oil_Carrier_g": 120.0,
+    "Water_Dispersible_Ubiquinol_CoQ10_mg": 400.0,
+    "Nicotinamide_Riboside_NR_mg": 300.0,
+    "Riboflavin_Vitamin_B2_mg": 80.0,
+    "24_Methylenecholesterol_mg": 500.0
+  },
+  "day_14_outcomes": {
+    "arm": "3_Apis_BCR_Two_Stage_Holobiont_Patty",
+    "switch_day": 4.5,
+    "h_day14_pct": 0.1,
+    "Strobilurin_Qo_Block_day14_pct": 6.0,
+    "Snodgrassella_alvi_Colonization_x": 1.0,
+    "Peak_Flight_EP_Stress": 18.1,
+    "Thoracic_Flight_ATP_day14_x": 1.74,
+    "Forager_Homing_Survival_pct": 96.5
+  }
+}

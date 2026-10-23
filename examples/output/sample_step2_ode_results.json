@@ -1,0 +1,65 @@
+{
+  "parameters": {
+    "cohort": "all",
+    "pink1_class": "Class_I_ATP_Pocket",
+    "days": 90,
+    "dt_days": 0.02
+  },
+  "results": [
+    {
+      "cohort": "metabolic_muscle",
+      "h_final_pct": 1.6,
+      "ATP_final_x": 1.41,
+      "Mass_final_x": 1.27,
+      "GDF15_final_pg_ml": 282.0,
+      "switch_day": 38.3,
+      "safety_warnings": []
+    },
+    {
+      "cohort": "neuro_apoe4",
+      "pink1_class": "Class_I_ATP_Pocket",
+      "h_final_pct": 0.9,
+      "ATP_final_x": 1.52,
+      "Mass_final_x": 1.31,
+      "GDF15_final_pg_ml": 282.0,
+      "switch_day": 30.4,
+      "safety_warnings": []
+    },
+    {
+      "cohort": "refractory_epilepsy",
+      "h_final_pct": 0.5,
+      "H2S_final": 0.11,
+      "ATP_PV_interneuron_x": 1.46,
+      "EI_ratio_day25": 1.11,
+      "EI_ratio_day90": 0.65,
+      "seizure_propensity_reduction_pct": 96.0,
+      "switch_day": 31.5,
+      "safety_warnings": []
+    },
+    {
+      "cohort": "treatment_resistant_mdd",
+      "h_final_pct": 0.6,
+      "QUIN_final": 0.2,
+      "GDF15_final_pg_ml": 259,
+      "hedonic_drive_x": 1.15,
+      "dendritic_spine_density_day7_x": 0.64,
+      "dendritic_spine_density_day90_x": 1.24,
+      "switch_day": 30.5,
+      "safety_warnings": []
+    },
+    {
+      "cohort": "parkinsons_snc",
+      "h_final_pct": 3.7,
+      "Auto_Jam_day25": 0.08,
+      "Auto_Jam_day90": 0.08,
+      "DA_Q_day90": 0.12,
+      "SNCA_agg_day90": 0.15,
+      "TH_Dopamine_Tone_x": 1.25,
+      "Motor_Score_Rescue_Pct": 95.0,
+      "switch_day": 34.0,
+      "safety_warnings": [
+        "Discovery 6 (GBA1/LRRK2 Autophagosome Traffic Jam): Stimulating PINK1/Parkin mitophagy without Stage 0 Ambroxol (PDB: 2NSX) + Spermidine (ATP13A2) lysosomal unblocking increases Auto_Jam to 1.29x and SNCA protofibrils to 1.63x. Enforce Stage 0 Ambroxol + Spermidine + D-BHB VMAT2 rescue first."
+      ]
+    }
+  ]
+}

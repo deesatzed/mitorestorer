@@ -62,6 +62,11 @@ mitorestorer/
 
 ## Quick Start
 
+### 0. Run the End-to-End 4-Step Sample Patient Walkthrough (`SAMPLE-PD-001`)
+```bash
+python3 examples/run_sample_patient_walkthrough.py
+```
+
 ### 1. Run the Complete 5-Cohort Biophysical ODE Simulation
 ```bash
 python3 simulator/sim_bioenergetic_reset.py

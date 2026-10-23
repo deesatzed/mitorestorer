@@ -54,6 +54,54 @@
       </div>
     </div>
 
+    <!-- Interactive 4-Step Guided Walkthrough & End-to-End Sample Case Runner -->
+    <div class="bg-[var(--card)] border-2 border-emerald-500/40 rounded-xl p-4 shadow-sm space-y-3" id="guidedWizardBanner">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
+            Interactive Guided Walkthrough
+          </span>
+          <span id="wizardStepTitle" class="text-sm font-bold text-[var(--foreground)]">
+            Step 1 of 4: Choose a Patient Scenario &amp; Inspect Their Cellular Batteries
+          </span>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button id="btnRunSampleCase" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:opacity-90 transition">
+            ▶ Load &amp; Run Sample Patient (Step 1)
+          </button>
+          <button id="btnWizardPrev" class="px-2.5 py-1.5 rounded-lg bg-[var(--content)] border border-[var(--border)] text-xs font-semibold hover:opacity-90 transition">
+            ← Prev Step
+          </button>
+          <button id="btnWizardNext" class="px-3 py-1.5 rounded-lg bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-bold hover:opacity-90 transition">
+            Next Step →
+          </button>
+          <button id="btnTogglePlainEnglish" class="px-2.5 py-1.5 rounded-lg bg-[var(--content)] border border-[var(--border)] text-xs font-mono hover:opacity-90 transition">
+            Plain-English Mode: ON
+          </button>
+        </div>
+      </div>
+
+      <!-- Step Progress Pills -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+        <button data-wstep="1" class="wstep-btn text-left p-2 rounded-lg border border-emerald-500 bg-emerald-500/10 font-semibold transition">
+          1. Patient Scenario &amp; Baseline
+        </button>
+        <button data-wstep="2" class="wstep-btn text-left p-2 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--muted-foreground)] transition">
+          2. Why Standard Treatments Fail
+        </button>
+        <button data-wstep="3" class="wstep-btn text-left p-2 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--muted-foreground)] transition">
+          3. Activate Phased BCR Reset
+        </button>
+        <button data-wstep="4" class="wstep-btn text-left p-2 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--muted-foreground)] transition">
+          4. Day-38 Lab Gate &amp; Daily Plan
+        </button>
+      </div>
+
+      <!-- Guided Explanation Box -->
+      <div id="wizardStepBody" class="p-3 rounded-lg bg-[var(--content)] border border-[var(--border)] text-xs leading-relaxed text-[var(--foreground)]">
+      </div>
+    </div>
+
     <!-- Top KPI Telemetry Strip (Day 0 -> Day 90 Outcomes) -->
     <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
       <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-3.5 shadow-sm">
@@ -158,7 +206,7 @@
                 </select>
               </div>
               <div class="text-xs text-[var(--muted-foreground)] font-mono">
-                chr4:23814039:C&gt;T | AF: 33.1% | Haplo: 0.955 | LOEUF: 0.394
+                <span class="text-emerald-500 font-sans font-semibold">[Battery Factory Builder]</span> chr4:23814039:C&gt;T | LOEUF: 0.394
               </div>
             </div>
 
@@ -173,7 +221,7 @@
                 </select>
               </div>
               <div class="text-xs text-[var(--muted-foreground)] font-mono">
-                chr19:48703417:G&gt;A | AF: 46.0% (22.5% Hom) | Depletes Akkermansia
+                <span class="text-emerald-500 font-sans font-semibold">[Gut Microbiome Feeder]</span> AF: 46.0% (22.5% Hom) | Needs Direct UroA
               </div>
             </div>
 
@@ -188,7 +236,7 @@
                 </select>
               </div>
               <div class="text-xs text-[var(--muted-foreground)] font-mono">
-                chr1:11796321:G&gt;A (- strand) | AM: 0.632 (Pathogenic) | SAMe/Cr drain
+                <span class="text-emerald-500 font-sans font-semibold">[Methylation &amp; Creatine Supply]</span> AM: 0.632 | Rescued by B2 (6FCX) + Cr
               </div>
             </div>
 
@@ -203,7 +251,7 @@
                 </select>
               </div>
               <div class="text-xs text-[var(--muted-foreground)] font-mono">
-                chr19:44908684:T&gt;C | Mutfunc ddG: +0.45 | TOMM40 Triplo: 0.980
+                <span class="text-emerald-500 font-sans font-semibold">[Mitochondrial Import Door]</span> 1B68/7CK6 | Needs TUDCA + Citicoline
               </div>
             </div>
 
@@ -218,7 +266,7 @@
                 </select>
               </div>
               <div class="text-xs text-[var(--muted-foreground)] font-mono">
-                chr6:159692840:A&gt;G (- strand) | Haplo: 0.580 | Val/Val import -35%
+                <span class="text-emerald-500 font-sans font-semibold">[Free-Radical Shield]</span> Haplo: 0.580 | Val/Val slows matrix import -35%
               </div>
             </div>
 
@@ -233,7 +281,7 @@
                 </select>
               </div>
               <div class="text-xs text-[var(--muted-foreground)] font-mono">
-                ENSG00000158828 | Ubiquitin kinase mitophagy initiation rate
+                <span class="text-emerald-500 font-sans font-semibold">[Damaged Battery Trash Collector]</span> 6EQI | Rescued by Kinetin + UroA
               </div>
             </div>
 
@@ -373,6 +421,12 @@
             </button>
             <button data-tab="benchmark" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] text-[var(--foreground)] hover:opacity-90 transition">
               5-Regimen Benchmark
+            </button>
+            <button data-tab="action_plan" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] text-[var(--foreground)] hover:opacity-90 transition">
+              Action Plan &amp; Lab Gate
+            </button>
+            <button data-tab="disease_3d" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] text-[var(--foreground)] hover:opacity-90 transition">
+              Disease Circuit &amp; 3D Atlas
             </button>
             <button data-tab="vep_data" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] text-[var(--foreground)] hover:opacity-90 transition">
               Track 1: VEP &amp; gnomAD Evidence
@@ -593,6 +647,128 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- TAB 5: Action Plan & Interactive Day-38/54 Lab Gate Calculator -->
+        <div id="tab-action_plan" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-5">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+            <div>
+              <h3 class="text-base font-bold text-[var(--foreground)]">
+                Interactive Day-38 / Day-54 "Traffic Light" Lab Gate Calculator &amp; Personalized Daily Schedule
+              </h3>
+              <p class="text-xs text-[var(--muted-foreground)]">
+                Enter a patient's baseline and follow-up blood labs to determine whether to transition from <strong>Stage 1 (Daily 18:6 Purge)</strong> to <strong>Stage 2 (Weekly 2.25d Purge : 4.75d Build)</strong>.
+              </p>
+            </div>
+            <button id="btnLoadSampleLabs" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:opacity-90 transition shrink-0">
+              Load Sample Patient Day-38 Labs
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-xs">
+            <div class="p-2.5 rounded-lg bg-[var(--content)] border border-[var(--border)] space-y-1">
+              <label class="font-semibold block text-[var(--muted-foreground)]">Day 0 GDF15 (pg/mL)</label>
+              <input id="inpGdf0" type="number" value="1950" class="w-full bg-[var(--card)] border border-[var(--border)] rounded px-2 py-1 font-mono text-sm" />
+            </div>
+            <div class="p-2.5 rounded-lg bg-[var(--content)] border border-[var(--border)] space-y-1">
+              <label class="font-semibold block text-[var(--muted-foreground)]">Current GDF15 (pg/mL)</label>
+              <input id="inpGdfCurr" type="number" value="510" class="w-full bg-[var(--card)] border border-[var(--border)] rounded px-2 py-1 font-mono text-sm" />
+            </div>
+            <div class="p-2.5 rounded-lg bg-[var(--content)] border border-[var(--border)] space-y-1">
+              <label class="font-semibold block text-[var(--muted-foreground)]">Protocol Day #</label>
+              <input id="inpGateDay" type="number" value="38" class="w-full bg-[var(--card)] border border-[var(--border)] rounded px-2 py-1 font-mono text-sm" />
+            </div>
+            <div class="p-2.5 rounded-lg bg-[var(--content)] border border-[var(--border)] space-y-1">
+              <label class="font-semibold block text-[var(--muted-foreground)]">Morning BHB (mmol/L)</label>
+              <input id="inpGateBhb" type="number" step="0.1" value="1.8" class="w-full bg-[var(--card)] border border-[var(--border)] rounded px-2 py-1 font-mono text-sm" />
+            </div>
+            <div class="p-2.5 rounded-lg bg-[var(--content)] border border-[var(--border)] space-y-1">
+              <label class="font-semibold block text-[var(--muted-foreground)]">Lean Mass Δ (%)</label>
+              <input id="inpGateMass" type="number" step="0.1" value="-0.6" class="w-full bg-[var(--card)] border border-[var(--border)] rounded px-2 py-1 font-mono text-sm" />
+            </div>
+          </div>
+
+          <div id="gateResultCard" class="p-4 rounded-xl border-2 border-emerald-500/50 bg-emerald-500/10 space-y-1.5 text-xs">
+          </div>
+
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-[var(--foreground)]">
+              Personalized 3-Stage Daily Protocol Checklist (Auto-Tailored to Active Cohort)
+            </h4>
+            <div id="dynamicDailyChecklist" class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 6: Disease Circuit Deep-Dive & 6-Structure 3D Crystal Validation Atlas -->
+        <div id="tab-disease_3d" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-5">
+          <div>
+            <h3 class="text-base font-bold text-[var(--foreground)]">
+              Disease-Specific Circuit Telemetry (Cohorts C, D, &amp; E) &amp; 6-Structure 3D Validation Atlas
+            </h3>
+            <p class="text-xs text-[var(--muted-foreground)]">
+              Shows why standard monotherapies fail in Refractory Epilepsy, Treatment-Resistant MDD, and Parkinson's Disease—and how each 3D crystal structure guides precision cofactor rescue.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3.5 rounded-xl bg-[var(--content)] border border-[var(--border)] space-y-1.5">
+              <div class="font-bold text-emerald-500">Cohort E: Parkinson's Disease (SNc)</div>
+              <div class="font-mono text-xs">
+                • Standard L-DOPA: h=58.0%, TH=0.13x<br/>
+                • Mitophagy w/o Ambroxol: <strong>Jam=1.29x, SNCA=1.63x</strong><br/>
+                • <strong>PD-BCR + 2NSX Ambroxol: h=3.7%, TH=1.25x (95% Rescue)</strong>
+              </div>
+              <p class="text-[var(--muted-foreground)]">
+                <strong>Discovery 6:</strong> Stimulating PINK1 mitophagy before unblocking <code>GBA1 Asn370Ser</code> lysosomes with High-Dose Ambroxol (<code>PDB: 2NSX</code>) + Spermidine (<code>ATP13A2</code>) causes an autophagosome traffic jam.
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-[var(--content)] border border-[var(--border)] space-y-1.5">
+              <div class="font-bold text-cyan-500">Cohort C: Refractory Epilepsy (PV+)</div>
+              <div class="font-mono text-xs">
+                • Standard Care: h=38.0%, E/I=3.38<br/>
+                • Classic Keto Alone: <strong>d33 H₂S=1.97, E/I=2.26</strong><br/>
+                • <strong>Epi-BCR Protocol: h=0.5%, E/I=0.65 (96% Seizure Red.)</strong>
+              </div>
+              <p class="text-[var(--muted-foreground)]">
+                <strong>Discovery 2:</strong> Classic 4:1 ketogenic diets bloom <em>Bilophila/Desulfovibrio</em> H₂S after Day 30, poisoning PV+ interneuron Complex IV unless protected by Molybdenum + Polyphenols + <em>Akkermansia</em>.
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-[var(--content)] border border-[var(--border)] space-y-1.5">
+              <div class="font-bold text-purple-500">Cohort D: Treatment-Resistant MDD</div>
+              <div class="font-mono text-xs">
+                • Standard SSRI: QUIN=1.56, Spines=0.45x<br/>
+                • Ketamine Alone: <strong>d7 Spines=0.57x → d90=0.45x</strong><br/>
+                • <strong>Affective-BCR: QUIN=0.20, Spines=1.24x</strong>
+              </div>
+              <p class="text-[var(--muted-foreground)]">
+                <strong>Post-Ketamine Relapse:</strong> Acute glutamate/AMPA bursts force spine growth at Day 7, but high éR + microglial Quinolinic Acid prune them back unless Stage 1 clears D &amp; QUIN first.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 rounded-lg bg-[var(--content)] border border-[var(--border)]">
+              <span class="font-mono font-bold text-amber-500">PDB: 6FCX (MTHFR 2.50 Å)</span>
+              <p class="mt-1 text-[var(--muted-foreground)]"><code>Ala222Val</code> (<code>rs1801133</code>) destabilizes helix α8 (3.85 Å from FAD). Rescued by <strong>50 mg Riboflavin B2 + 5 g Creatine</strong>.</p>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--content)] border border-[var(--border)]">
+              <span class="font-mono font-bold text-rose-500">PDB: 1B68 &amp; 7CK6 (APOE4 / TOMM40)</span>
+              <p class="mt-1 text-[var(--muted-foreground)]"><code>Arg112-Glu109</code> (2.53 Å) salt bridge &amp; <code>TOMM40</code> pore (<code>PC1 401</code>). Rescued by <strong>TUDCA + Citicoline/LPC-DHA</strong>.</p>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--content)] border border-[var(--border)]">
+              <span class="font-mono font-bold text-emerald-500">PDB: 6EQI (Active PINK1 + Ub)</span>
+              <p class="mt-1 text-[var(--muted-foreground)]"><code>Met290</code> gatekeeper (Class I rescued by <strong>Kinetin KTP</strong>) vs. <code>Insertion-3</code> Ub cradle (Class II needs <strong>TFEB + Transmitophagy</strong>).</p>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--content)] border border-[var(--border)]">
+              <span class="font-mono font-bold text-blue-500">PDB: 4ZZJ (SIRT1 + NAD⁺ + STAC)</span>
+              <p class="mt-1 text-[var(--muted-foreground)]"><code>Glu230-Arg446</code> (4.35 Å) hinge clamps <code>4TQ</code> STAC + <code>Carba-NAD⁺</code>. Rescued by <strong>NR/NMN + PncA + Resveratrol</strong>.</p>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--content)] border border-[var(--border)] md:col-span-2">
+              <span class="font-mono font-bold text-pink-500">PDB: 2NSX (GBA1 + Pharmacological Chaperone IFM 506, 2.20 Å)</span>
+              <p class="mt-1 text-[var(--muted-foreground)]">Parkinson's <code>Asn370Ser</code> (<code>rs76763715</code>, ΔΔG = +1.92 kcal/mol) collapses Loop 1 (<code>311-319</code>). <strong>High-Dose Ambroxol</strong> binds <code>Glu235/Glu340/Asp127</code> (2.61–2.68 Å) in the ER to chaperone <code>GBA1</code> into the lysosome.</p>
+            </div>
           </div>
         </div>
 
@@ -1280,7 +1456,180 @@
         renderBifurcationCurve();
       } else if (state.activeTab === 'benchmark') {
         renderBenchmarkTable();
+      } else if (state.activeTab === 'action_plan') {
+        renderLabGateAndChecklist();
       }
+      renderGuidedWizard(sim);
+    }
+
+    // --- INTERACTIVE LAB GATE CALCULATOR & DYNAMIC DAILY CHECKLIST ---
+    function renderLabGateAndChecklist() {
+      const gdf0 = parseFloat(document.getElementById('inpGdf0').value) || 1950;
+      const gdfCurr = parseFloat(document.getElementById('inpGdfCurr').value) || 510;
+      const day = parseInt(document.getElementById('inpGateDay').value, 10) || 38;
+      const bhb = parseFloat(document.getElementById('inpGateBhb').value) || 1.8;
+      const massDelta = parseFloat(document.getElementById('inpGateMass').value) || -0.6;
+
+      const dropPct = ((gdf0 - gdfCurr) / Math.max(gdf0, 1)) * 100.0;
+      let statusBadge, borderCls, rationale;
+
+      if (massDelta <= -2.5) {
+        statusBadge = '🔴 RED SAFETY OVERRIDE: Switch Immediately to Stage 2 Anabolic Build';
+        borderCls = 'border-rose-500/60 bg-rose-500/10';
+        rationale = `Lean muscle mass loss (${massDelta.toFixed(1)}%) exceeded the -2.5% safety limit. Stop daily 18:6 fasting immediately and transition to Stage 2 (4.75 days/week anabolic refeed + NR/Creatine).`;
+      } else if (gdfCurr > gdf0 * 1.15) {
+        statusBadge = '🔴 RED ALERT: GDF15 Rose >15% Above Baseline — Check Gut H₂S & TOMM40';
+        borderCls = 'border-rose-500/60 bg-rose-500/10';
+        rationale = `Plasma GDF15 increased from ${gdf0} to ${gdfCurr} pg/mL. Inspect stool H₂S (Bilophila/Desulfovibrio) and verify Stage 0 TOMM40/GBA1 chaperone support (TUDCA + Citicoline + Ambroxol).`;
+      } else if (dropPct >= 35.0 || gdfCurr < 550 || day >= 54) {
+        statusBadge = '🟢 GREEN LIGHT: De-Heteroplasmy Target Reached — Flip to Stage 2 Build!';
+        borderCls = 'border-emerald-500/60 bg-emerald-500/10';
+        rationale = `Plasma GDF15 dropped by ${dropPct.toFixed(1)}% (${gdf0} → ${gdfCurr} pg/mL) by Day ${day} with preserved lean mass (${massDelta.toFixed(1)}%) and optimal morning ketones (${bhb.toFixed(1)} mmol/L). Damaged mitochondria (D) are cleared; begin Stage 2 Weekly Expansion (2.25d Purge : 4.75d Build).`;
+      } else {
+        statusBadge = '🟡 YELLOW LIGHT: Partial Clearance — Continue Stage 1 Until Day 54';
+        borderCls = 'border-amber-500/60 bg-amber-500/10';
+        rationale = `Plasma GDF15 dropped by ${dropPct.toFixed(1)}% (<35% threshold) at Day ${day} with safe lean mass (${massDelta.toFixed(1)}%). Continue Stage 1 Lag-Compressed Daily 18:6 for 16 more days and re-test at Day 54.`;
+      }
+
+      const gateCard = document.getElementById('gateResultCard');
+      gateCard.className = `p-4 rounded-xl border-2 space-y-1.5 text-xs ${borderCls}`;
+      gateCard.innerHTML = `
+        <div class="font-bold text-sm">${statusBadge}</div>
+        <p class="leading-relaxed">${rationale}</p>
+      `;
+
+      const preset = document.getElementById('patientPresetSelect').value;
+      let stage0Extra = '• <strong>FUT2 / Gut Guard:</strong> 2\'-FL HMO (2 g) + Tributyrin (500 mg BID) + Molybdenum (150 μg) + Polyphenols.';
+      let stage1Extra = '• <strong>12:00 PM First Meal:</strong> Direct Urolithin A (1,000 mg) + Spermidine (6 mg) + Mediterranean Meal.';
+      let stage2Extra = '• <strong>4.75d Build Window:</strong> NR/NMN (500 mg) + PncA Synbiotic + Resveratrol (250 mg, 4ZZJ) + Creatine (5 g) + Riboflavin B2 (50 mg, 6FCX).';
+
+      if (preset === 'parkinsons_snc') {
+        stage0Extra = '• <strong>Mandatory PD Stage 0 (PDB: 2NSX):</strong> High-Dose Ambroxol (600–1,200 mg) + Spermidine (15 mg, ATP13A2) + Trehalose (15 g) + TUDCA (1,000 mg) + Sulforaphane (20 mg, DJ-1) + Braak Gut Shield (Mo + EGCG + Tributyrin).';
+        stage1Extra = '• <strong>Stage 1 Complex II &amp; VMAT2 Rescue:</strong> C8-MCT (15 mL BID) + D-BHB (10 g) + Kinetin (250 mg, 6EQI) + Urolithin A (1,000 mg) + Nocturnal Melatonin/Glycine.';
+        stage2Extra = '• <strong>Stage 2 NADPARK Biogenesis:</strong> Escalate NR to 1,000 mg/day + PncA Synbiotic + Riboflavin B2 (50 mg, 6FCX) + Creatine (5 g) + Ubiquinol (300 mg) + Citicoline/LPC-DHA (7CK6).';
+      } else if (preset === 'epilepsy_pv') {
+        stage0Extra = '• <strong>Epilepsy Stage 0:</strong> Akkermansia + Parabacteroides + gadB Synbiotic + Vitamin B6 (P5P 25 mg) + Molybdenum (150 μg) + Mg L-Threonate (2 g).';
+        stage1Extra = '• <strong>Stage 1 PV+ Interneuron Purge:</strong> C8-MCT (15 mL TID) + D-BHB (10 g) + Kinetin + Trehalose + Urolithin A (1,000 mg).';
+        stage2Extra = '• <strong>Stage 2 Ketone-Maintained Build:</strong> Keep low-glycemic carbs (&lt;60 g/day) + C8-MCT TID so D-BHB stays ≥1.5 mmol/L while taking NR (500 mg) + Creatine (5 g).';
+      } else if (preset === 'mdd_quin') {
+        stage0Extra = '• <strong>TR-MDD Stage 0 (IDO1/QUIN Block):</strong> Tributyrin (500 mg BID) + F. prausnitzii Prebiotic + High-EPA Omega-3 (2 g) + Curcumin Phytosome (500 mg) + TUDCA/Citicoline.';
+        stage1Extra = '• <strong>Stage 1 De-Inflame &amp; Purge:</strong> Lag-Compressed 18:6 + Urolithin A (1,000 mg) + Kinetin/Trehalose (No forced monoamine/ketamine push while éR is high).';
+        stage2Extra = '• <strong>Stage 2 Synaptogenesis Window:</strong> NR (500 mg) + SIRT1 STAC (4ZZJ) + ALCAR (1,500 mg) + Creatine (5 g) + PQQ (20 mg). Gate any clinical ketamine/rTMS strictly to Stage 2 Build Days.';
+      } else if (preset === 'apoe4_keto') {
+        stage0Extra = '• <strong>APOE4/TOMM40 Stage 0 (7CK6 Pore Unblocking):</strong> TUDCA (1,000 mg) + Citicoline (500 mg) + Krill LPC-DHA + Molybdenum/Polyphenols.';
+        stage1Extra = '• <strong>Stage 1 Cortical Purge:</strong> C8-MCT + Kinetin (250 mg, 6EQI) + Trehalose (15 g) + Spermidine (12 mg) + Urolithin A (1,000 mg).';
+        stage2Extra = '• <strong>Stage 2 Cortical Expansion:</strong> NR (500 mg) + PncA Synbiotic + PQQ (20 mg) + Resveratrol (250 mg, 4ZZJ) + Creatine (5 g) + Riboflavin B2 (50 mg).';
+      }
+
+      document.getElementById('dynamicDailyChecklist').innerHTML = `
+        <div class="p-3.5 rounded-xl bg-[var(--content)] border border-[var(--border)] space-y-1.5">
+          <div class="font-bold text-amber-500">Stage 0 (Days 1–14): Prime &amp; Unblock</div>
+          <p class="text-[var(--muted-foreground)]">Unblocks mitochondrial import (7CK6), lysosomal fusion (2NSX), and gut H₂S before mitophagy begins.</p>
+          <div>${stage0Extra}</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-[var(--content)] border border-[var(--border)] space-y-1.5">
+          <div class="font-bold text-rose-500">Stage 1 (Days 15–38): Daily 18:6 Purge</div>
+          <p class="text-[var(--muted-foreground)]">07:00 AM Zone-2 Walk + C8-MCT compresses glycogen lag from 13.5h → 5h. Hold NR/NMN off during Stage 1.</p>
+          <div>${stage1Extra}</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-[var(--content)] border border-[var(--border)] space-y-1.5">
+          <div class="font-bold text-emerald-500">Stage 2 (Post-Gate → Day 90): Weekly Build</div>
+          <p class="text-[var(--muted-foreground)]">2.25 days/week maintenance purge + 4.75 days/week anabolic wild-type mitochondrial expansion.</p>
+          <div>${stage2Extra}</div>
+        </div>
+      `;
+    }
+
+    // --- 4-STEP GUIDED WALKTHROUGH WIZARD (PLAIN-ENGLISH VS TECHNICAL) ---
+    state.wizardStep = 1;
+    state.plainEnglish = true;
+
+    function renderGuidedWizard(sim) {
+      const last = sim.steps - 1;
+      const h90 = sim.H[last].toFixed(1);
+      const atp90 = sim.ATP[last].toFixed(2);
+      const gdf90 = Math.round(sim.GDF15[last]);
+      const stepTitles = {
+        1: 'Step 1 of 4: Choose a Patient Scenario & Inspect Their Cellular Batteries',
+        2: 'Step 2 of 4: See Why Standard "All-at-Once" Supplements Backfire (The Trap)',
+        3: 'Step 3 of 4: Activate the Phased Bioenergetic Circuit Reset (Purge Then Build)',
+        4: 'Step 4 of 4: Verify the Day-38 Blood Test Gate & Generate the Daily Action Plan'
+      };
+      document.getElementById('wizardStepTitle').textContent = stepTitles[state.wizardStep];
+
+      document.querySelectorAll('.wstep-btn').forEach(btn => {
+        const s = parseInt(btn.getAttribute('data-wstep'), 10);
+        btn.className = s === state.wizardStep
+          ? 'wstep-btn text-left p-2 rounded-lg border border-emerald-500 bg-emerald-500/10 font-semibold transition'
+          : 'wstep-btn text-left p-2 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--muted-foreground)] transition';
+      });
+
+      const bodyEl = document.getElementById('wizardStepBody');
+      if (state.plainEnglish) {
+        if (state.wizardStep === 1) {
+          bodyEl.innerHTML = `<strong>College-Freshman Analogy (Step 1 — The Problem):</strong> Think of mitochondria as millions of tiny rechargeable batteries inside each cell. In our sample patient (<em>Cohort E: Early Parkinson's / Fatigue</em>), <strong>${(state.h0 * 100).toFixed(0)}% of their batteries are damaged (h₀)</strong>. Worse, their genetic profile has a slow "trash collector" (<code>PINK1</code>), a clogged "recycling incinerator" (<code>GBA1/LRRK2</code>), and a gut microbiome that can't digest plant polyphenols into battery-cleaning signals (<code>FUT2 Non-Secretor</code>). Under untreated care, damaged batteries stay high (<strong>${h90}%</strong>) and cellular stress (<code>GDF15 = ${gdf90} pg/mL</code>) drains energy (<strong>ATP = ${atp90}x</strong>). <em>Click <strong>"Next Step →"</strong> to see what happens when we try standard supplements!</em>`;
+        } else if (state.wizardStep === 2) {
+          bodyEl.innerHTML = `<strong>College-Freshman Analogy (Step 2 — Why Taking Everything Together Fails):</strong> Right now we switched the simulator to <strong>Regimen 4 (Unphased "All-in-One" Supplement Stack)</strong>. Notice how damaged batteries <strong>exploded to ${h90}%</strong>! Why? Because taking "growth" supplements (<code>NAD⁺ / NR</code> + protein) at the same time as "cleaning" supplements (<code>Urolithin A</code>) turns on the cell's growth switch (<code>mTORC1</code>), which locks the trash collector shut while telling DNA copying enzymes to duplicate existing batteries. Since broken batteries have shorter DNA loops, they copy <strong>32% faster</strong> than healthy ones—cloning the broken batteries! <em>Click <strong>"Next Step →"</strong> to fix this with time-phasing.</em>`;
+        } else if (state.wizardStep === 3) {
+          bodyEl.innerHTML = `<strong>College-Freshman Analogy (Step 3 — The Phased "Clean First, Copy Second" Solution):</strong> Now we activated <strong>Regimen 5 (Two-Stage Biomarker-Gated BCR)</strong>. First, we unblock the cell's recycling doors (<code>Stage 0 Ambroxol + TUDCA/Citicoline</code>). Next, during <strong>Stage 1 (Days 15–38)</strong>, we use morning exercise + C8-MCT oil + Urolithin A + Kinetin to clean out broken batteries <em>while holding growth boosters off</em>. Once broken batteries drop below 8%, <strong>Stage 2 (Days 38–90)</strong> turns on <code>NAD⁺ + SIRT1 + Creatine</code> to copy only healthy batteries! Result: damaged batteries drop to <strong>${h90}%</strong> and net energy rises to <strong>${atp90}x</strong>. <em>Click <strong>"Next Step →"</strong> to check the patient's Day-38 blood test gate!</em>`;
+        } else {
+          bodyEl.innerHTML = `<strong>College-Freshman Analogy (Step 4 — The Real-World Blood Test Gate & Daily Checklist):</strong> How does a doctor or patient know when Stage 1 cleaning is finished in real life? We measure a simple blood marker called <strong>GDF15</strong> (the cell's "smoke alarm"). Below in the <strong>Action Plan &amp; Lab Gate</strong> tab, our sample patient's GDF15 dropped from <strong>1,950 → 510 pg/mL (-73.8%)</strong> at Day 38, triggering a <strong>🟢 GREEN LIGHT</strong> to switch to the Stage 2 rebuilding schedule!`;
+        }
+      } else {
+        if (state.wizardStep === 1) {
+          bodyEl.innerHTML = `<strong>Technical Biophysical Summary (Step 1):</strong> Baseline heteroplasmy <code>h₀ = ${(state.h0 * 100).toFixed(0)}%</code> with <code>PINK1 = ${state.pink1Eff.toFixed(2)}x</code>, <code>FUT2 rs601338</code> mucosal efficiency, and <code>APOE4/TOMM40</code> import impedance. Under Picard's Energy Resistance Principle (<code>EP = éR · f²</code>), high glycolytic NADH flux into a high-<code>éR</code> network elevates reductive stress and plasma <code>GDF15 (${gdf90} pg/mL)</code>.`;
+        } else if (state.wizardStep === 2) {
+          bodyEl.innerHTML = `<strong>Technical Biophysical Summary (Step 2 — Discovery 1 Simultaneous Biogenesis Trap):</strong> Co-administering mitophagy inducers (<code>Urolithin A</code>) with anabolic <code>NAD⁺/NR</code> and amino acids sustains <code>mTORC1</code> phosphorylation of <code>ULK1(Ser757)</code>, repressing mitophagy while <code>POLG</code> preferentially replicates shorter deletion-mutant mtDNA (<code>k_rep_adv = 1.32x</code>), driving Day-90 heteroplasmy to <code>${h90}%</code>.`;
+        } else if (state.wizardStep === 3) {
+          bodyEl.innerHTML = `<strong>Technical Biophysical Summary (Step 3 — Two-Stage Biomarker-Gated BCR):</strong> Stage 1 compresses glycogen depletion lag (<code>τ_lag = 6.0h</code>) via morning Zone-2 + C8-MCT + Direct Urolithin A + Kinetin (<code>PDB: 6EQI</code>) to clear mutant mtDNA (<code>D</code>) while <code>mTORC1</code> is low, then switches at the Day-38/54 <code>GDF15</code> gate to Stage 2 Weekly Meso-Cycling (<code>2.25d Purge : 4.75d Build</code>) with <code>NR + PncA + SIRT1 Glu230 STAC (PDB: 4ZZJ)</code>, achieving <code>h = ${h90}%</code> and <code>ATP = ${atp90}x</code>.`;
+        } else {
+          bodyEl.innerHTML = `<strong>Technical Biophysical Summary (Step 4 — Closed-Loop GDF15 Gating):</strong> Evaluates <code>ΔGDF15% ≥ 35%</code> (or <code>&lt;550 pg/mL</code>), capillary <code>β-OHB (1.2–2.8 mmol/L)</code>, and DEXA lean mass safety (<code>Δ &gt; -2.5%</code>) to govern the Stage 1 → Stage 2 transition.`;
+        }
+      }
+    }
+
+    function applyWizardStepAction(stepNum) {
+      state.wizardStep = clip(stepNum, 1, 4);
+      if (state.wizardStep === 1) {
+        document.getElementById('patientPresetSelect').value = 'parkinsons_snc';
+        document.getElementById('patientPresetSelect').dispatchEvent(new Event('change'));
+        state.activeRegimen = 'untreated';
+        state.activeTab = 'trajectories';
+      } else if (state.wizardStep === 2) {
+        state.activeRegimen = 'unphased';
+        state.activeTab = 'trajectories';
+      } else if (state.wizardStep === 3) {
+        state.activeRegimen = 'bcr';
+        state.cycleMode = 'two_stage_adaptive';
+        state.lagHours = 6.0;
+        document.getElementById('cycleModeSelect').value = 'two_stage_adaptive';
+        document.getElementById('sliderLagHours').value = 6.0;
+        state.activeTab = 'trajectories';
+      } else if (state.wizardStep === 4) {
+        state.activeRegimen = 'bcr';
+        state.activeTab = 'action_plan';
+      }
+
+      document.querySelectorAll('.regimen-btn').forEach(b => {
+        const isAct = b.getAttribute('data-regimen') === state.activeRegimen;
+        b.className = isAct
+          ? 'regimen-btn text-left px-3 py-2 rounded-lg border text-xs font-semibold transition flex items-center justify-between bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--primary)]'
+          : 'regimen-btn text-left px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--foreground)] text-xs font-medium transition flex items-center justify-between';
+      });
+
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        const isTab = b.getAttribute('data-tab') === state.activeTab;
+        b.className = isTab
+          ? 'tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition'
+          : 'tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] text-[var(--foreground)] hover:opacity-90 transition';
+      });
+
+      ['trajectories', 'bifurcation', 'benchmark', 'action_plan', 'disease_3d', 'vep_data'].forEach(tName => {
+        const el = document.getElementById('tab-' + tName);
+        if (el) el.classList.toggle('hidden', state.activeTab !== tName);
+      });
+
+      updateAll();
     }
 
     // --- EVENT LISTENERS ---
@@ -1303,11 +1652,45 @@
         });
         btn.className = 'tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] transition';
 
-        ['trajectories', 'bifurcation', 'benchmark', 'vep_data'].forEach(tName => {
-          document.getElementById('tab-' + tName).classList.toggle('hidden', state.activeTab !== tName);
+        ['trajectories', 'bifurcation', 'benchmark', 'action_plan', 'disease_3d', 'vep_data'].forEach(tName => {
+          const el = document.getElementById('tab-' + tName);
+          if (el) el.classList.toggle('hidden', state.activeTab !== tName);
         });
         updateAll();
       });
+    });
+
+    // Guided Wizard & Lab Gate Event Listeners
+    document.getElementById('btnRunSampleCase').addEventListener('click', () => {
+      applyWizardStepAction(1);
+    });
+    document.getElementById('btnWizardPrev').addEventListener('click', () => {
+      applyWizardStepAction(state.wizardStep - 1);
+    });
+    document.getElementById('btnWizardNext').addEventListener('click', () => {
+      applyWizardStepAction(state.wizardStep + 1);
+    });
+    document.getElementById('btnTogglePlainEnglish').addEventListener('click', e => {
+      state.plainEnglish = !state.plainEnglish;
+      e.target.textContent = `Plain-English Mode: ${state.plainEnglish ? 'ON' : 'OFF'}`;
+      updateAll();
+    });
+    document.querySelectorAll('.wstep-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyWizardStepAction(parseInt(btn.getAttribute('data-wstep'), 10));
+      });
+    });
+    ['inpGdf0', 'inpGdfCurr', 'inpGateDay', 'inpGateBhb', 'inpGateMass'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', () => renderLabGateAndChecklist());
+    });
+    document.getElementById('btnLoadSampleLabs').addEventListener('click', () => {
+      document.getElementById('inpGdf0').value = 1950;
+      document.getElementById('inpGdfCurr').value = 510;
+      document.getElementById('inpGateDay').value = 38;
+      document.getElementById('inpGateBhb').value = 1.8;
+      document.getElementById('inpGateMass').value = -0.6;
+      renderLabGateAndChecklist();
     });
 
     // SNP dropdown listeners

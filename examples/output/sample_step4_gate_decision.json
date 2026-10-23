@@ -1,0 +1,11 @@
+{
+  "day": 38,
+  "gdf15_day0_pg_ml": 1950.0,
+  "gdf15_current_pg_ml": 510.0,
+  "gdf15_drop_pct": 73.8,
+  "lean_mass_delta_pct": -0.6,
+  "morning_bhb_mmol_l": 1.8,
+  "lag_compression_status": "OPTIMAL_LAG_COMPRESSED",
+  "gate_decision": "GREEN_TRANSITION_TO_STAGE_2",
+  "clinical_rationale": "GDF15 dropped 73.8% (current 510 pg/mL) at Day 38; de-heteroplasmy target achieved. Transition to Stage 2 Weekly 2.25d Purge : 4.75d Build."
+}

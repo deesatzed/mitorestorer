@@ -1,0 +1,153 @@
+{
+  "cif_path": "/Users/o2satz/.gemini/antigravity/scratch/mitorestorer/structures/2NSX/pdb_00002nsx.cif",
+  "polymer_chains": {
+    "A": {
+      "residue_count": 497,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 497,
+      "modified_residues": []
+    },
+    "B": {
+      "residue_count": 497,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 497,
+      "modified_residues": []
+    },
+    "C": {
+      "residue_count": 497,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 497,
+      "modified_residues": []
+    },
+    "D": {
+      "residue_count": 497,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 497,
+      "modified_residues": []
+    }
+  },
+  "nonpolymer_ligands": {
+    "A:498:NAG": 14,
+    "A:499:SO4": 5,
+    "A:500:SO4": 5,
+    "A:501:SO4": 5,
+    "A:502:SO4": 5,
+    "A:503:SO4": 5,
+    "A:504:GOL": 6,
+    "B:498:NAG": 14,
+    "B:499:NAG": 14,
+    "B:500:SO4": 5,
+    "B:501:SO4": 5,
+    "B:502:SO4": 5,
+    "B:503:SO4": 5,
+    "B:504:SO4": 5,
+    "B:505:SO4": 5,
+    "B:506:IFM": 10,
+    "C:498:NAG": 14,
+    "C:499:SO4": 5,
+    "C:500:SO4": 5,
+    "C:501:SO4": 5,
+    "C:502:GOL": 6,
+    "D:498:NAG": 14,
+    "D:499:SO4": 5,
+    "D:500:SO4": 5,
+    "D:501:SO4": 5,
+    "D:502:SO4": 5,
+    "D:503:IFM": 10
+  },
+  "target_query": {
+    "target_chain": "B",
+    "target_res": "370",
+    "max_dist_angstrom": 4.2
+  },
+  "contacts": [
+    {
+      "partner_chain": "B",
+      "partner_auth_seq_id": "369",
+      "partner_comp_id": "THR",
+      "distance_angstrom": 1.32,
+      "target_atom": "N",
+      "partner_atom": "C"
+    },
+    {
+      "partner_chain": "B",
+      "partner_auth_seq_id": "371",
+      "partner_comp_id": "LEU",
+      "distance_angstrom": 1.33,
+      "target_atom": "C",
+      "partner_atom": "N"
+    },
+    {
+      "partner_chain": "B",
+      "partner_auth_seq_id": "366",
+      "partner_comp_id": "SER",
+      "distance_angstrom": 2.79,
+      "target_atom": "ND2",
+      "partner_atom": "O"
+    },
+    {
+      "partner_chain": "B",
+      "partner_auth_seq_id": "373",
+      "partner_comp_id": "TYR",
+      "distance_angstrom": 2.96,
+      "target_atom": "O",
+      "partner_atom": "N"
+    },
+    {
+      "partner_chain": "B",
+      "partner_auth_seq_id": "375",
+      "partner_comp_id": "VAL",
+      "distance_angstrom": 3.11,
+      "target_atom": "O",
+      "partner_atom": "N"
+    },
+    {
+      "partner_chain": "B",
+      "partner_auth_seq_id": "372",
+      "partner_comp_id": "LEU",
+      "distance_angstrom": 3.22,
+      "target_atom": "C",
+      "partner_atom": "N"
+    },
+    {
+      "partner_chain": "B",
+      "partner_auth_seq_id": "368",
+      "partner_comp_id": "ILE",
+      "distance_angstrom": 3.32,
+      "target_atom": "N",
+      "partner_atom": "C"
+    },
+    {
+      "partner_chain": "B",
+      "partner_auth_seq_id": "367",
+      "partner_comp_id": "ILE",
+      "distance_angstrom": 3.42,
+      "target_atom": "N",
+      "partner_atom": "O"
+    },
+    {
+      "partner_chain": "B",
+      "partner_auth_seq_id": "374",
+      "partner_comp_id": "HIS",
+      "distance_angstrom": 3.44,
+      "target_atom": "O",
+      "partner_atom": "N"
+    },
+    {
+      "partner_chain": "B",
+      "partner_auth_seq_id": "378",
+      "partner_comp_id": "TRP",
+      "distance_angstrom": 3.73,
+      "target_atom": "ND2",
+      "partner_atom": "NE1"
+    },
+    {
+      "partner_chain": "B",
+      "partner_auth_seq_id": "338",
+      "partner_comp_id": "ALA",
+      "distance_angstrom": 3.73,
+      "target_atom": "OD1",
+      "partner_atom": "CB"
+    }
+  ]
+}

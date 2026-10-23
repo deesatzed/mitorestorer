@@ -1,0 +1,21 @@
+{
+  "cif_path": "/Users/o2satz/.gemini/antigravity/brain/e55fbd0d-7b92-471e-b9ba-63a180b98a1f/2Q8G/pdb_00002q8g.cif",
+  "polymer_chains": {
+    "A": {
+      "residue_count": 368,
+      "min_auth_seq_id": 41,
+      "max_auth_seq_id": 423,
+      "modified_residues": []
+    }
+  },
+  "nonpolymer_ligands": {
+    "A:437:K": 1,
+    "A:438:AZX": 31
+  },
+  "target_query": {
+    "target_chain": null,
+    "target_res": null,
+    "max_dist_angstrom": 4.0
+  },
+  "contacts": []
+}

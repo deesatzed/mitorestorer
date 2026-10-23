@@ -849,4 +849,257 @@ with open("/Users/o2satz/.gemini/antigravity/brain/e55fbd0d-7b92-471e-b9ba-63a18
     json.dump(neuro_results, f, indent=2)
 
 
+def simulate_cart_bioreactor(arm="3_Bioreactor_BCR_Biphasic_Gated_Controller"):
+    """
+    Discovery 7 (Bioreactor-BCR): 10-Day (240-Hour) Ex Vivo CAR-T Cell Therapy Manufacturing Controller.
+    Models:
+      - Wild-type (W) vs. deletion/depolarized (D) mitochondrial mass per T-cell during clonal expansion
+      - Pyruvate Dehydrogenase Kinase 1 (PDK1, PDB: 2Q8G) Warburg lock vs. AZD7545/DCA L2-pocket inhibition (Ser75 2.50 A)
+      - Automated Hour-60 Supernatant Sensor Gate (Lactate:Pyruvate < 12:1 & GDF15 < 380 pg/mL)
+      - Stem-like Memory T-cell fraction (T_SCM, TCF7+/LEF1+/CCR7+/CD62L+), Spare Respiratory Capacity (SRC), and Fold Expansion
+    """
+    dt_h = 0.1  # 6-minute resolution across 240 hours (10 days)
+    steps = int(240.0 / dt_h)
+    W, D = 0.48, 0.42          # Patient apheresis T-cells starting at 46.7% damaged mitochondria (post-chemo oncology patient)
+    cell_fold = 1.0            # Normalized starting CAR-T cell count (1.0x)
+    t_scm = 0.42               # Starting naive/stem-like TCF7+ fraction
+    exhaustion = 0.28          # Starting TIM-3+/PD-1+/TOX+ exhaustion marker fraction
+    lac_pyr = 22.0             # Supernatant Lactate:Pyruvate ratio
+    gdf15 = 820.0              # Supernatant GDF15 (pg/mL)
+    stage = 1
+    switch_hour = None
+
+    for step in range(steps):
+        hr = step * dt_h
+        dt_d = dt_h / 24.0
+        h_frac = D / max(W + D, 1e-6)
+
+        if arm == "1_Standard_CD3_CD28_IL2_HighGlucose":
+            # Continuous 25 mM glucose + IL-2 + strong CD3/CD28: locks mTORC1 ON and PDK1 (2Q8G) active
+            pdk1_inhib = 0.05
+            mtorc1 = 0.94
+            u_uro_ktp = 0.08
+            u_nad_stac = 0.15
+            il7_il15 = 0.10
+            rep_adv = 1.38  # High Warburg reverse-ATPase masks D while POLG rapidly clones D
+        elif arm == "2_Static_Continuous_UrolithinA_Rapamycin":
+            # Continuous 10-day mTOR inhibition + Urolithin A without Phase 2 anabolic release
+            pdk1_inhib = 0.80
+            mtorc1 = 0.22
+            u_uro_ktp = 0.90
+            u_nad_stac = 0.30
+            il7_il15 = 0.75
+            rep_adv = 1.05
+        elif arm == "3_Bioreactor_BCR_Biphasic_Gated_Controller":
+            # Phase 1 (Hours 0-60): Low-glucose/galactose + AZD7545/DCA PDK1 block (2Q8G) + Urolithin A + Kinetin (6EQI)
+            # Transitions to Phase 2 when h_frac <= 0.065 or (hr >= 54 and lac_pyr < 12.0 and gdf15 < 380.0)
+            if stage == 1 and hr >= 48.0 and (h_frac <= 0.065 or (lac_pyr < 12.0 and gdf15 < 380.0) or hr >= 64.0):
+                stage = 2
+                switch_hour = round(hr, 1)
+            if stage == 1:
+                pdk1_inhib = 0.94  # 2Q8G Ser75/Phe62 lipoyl-pocket block unblocks PDH flux
+                mtorc1 = 0.24
+                u_uro_ktp = 0.96   # Urolithin A + Kinetin (6EQI) mitophagy pulse
+                u_nad_stac = 0.20
+                il7_il15 = 0.85
+                rep_adv = 1.06
+            else:
+                pdk1_inhib = 0.82
+                mtorc1 = 0.86      # Controlled anabolic perfusion release for clonal expansion
+                u_uro_ktp = 0.22
+                u_nad_stac = 0.96  # Nicotinamide Riboside + SIRT1 STAC (4ZZJ) + Citicoline (7CK6) + Creatine/Arginine
+                il7_il15 = 0.95
+                rep_adv = 1.02
+
+        # Supernatant Lactate:Pyruvate ratio driven by Warburg glycolysis vs PDK1 inhibition
+        target_lp = 28.5 * (1.0 - 0.68 * pdk1_inhib) + 2.0 * (1.0 - pdk1_inhib)
+        lac_pyr = lac_pyr + (target_lp - lac_pyr) * 0.85 * dt_d
+
+        # Voltage unmasking of damaged mitochondria requires low Lactate:Pyruvate (PDH active, reverse-ATPase off)
+        voltage_unmask = 1.0 / (1.0 + math.exp((lac_pyr - 14.5) / 2.5))
+        ulk1_open = 1.0 - 0.70 * mtorc1
+
+        # Rapid T-cell mitochondrial turnover (tissue_scale = 2.6x in activated lymphocytes)
+        t_scale = 2.6
+        clearance_D = t_scale * (0.06 + 0.55 * u_uro_ktp * voltage_unmask * ulk1_open)
+        bio_W = t_scale * (0.05 + 0.30 * (0.30 + 0.70 * mtorc1) * (0.45 + 0.80 * u_nad_stac))
+        bio_D = t_scale * (0.05 + 0.30 * (0.30 + 0.70 * mtorc1) * (0.45 + 0.55 * u_nad_stac)) * rep_adv * (1.0 - 0.48 * voltage_unmask)
+
+        # Reductive stress EP = eR * f^2 in bioreactor
+        eff_oxphos = max(0.22, W + 0.18 * D)
+        eR = 7.5 * ((1.0 / eff_oxphos) ** 1.15)
+        f_push = 1.28 if arm == "1_Standard_CD3_CD28_IL2_HighGlucose" else (0.82 if stage == 1 else 1.08)
+        EP = eR * (f_push ** 2)
+        dmg = 0.008 * max(0.0, EP - 9.5) * W
+
+        crowding = max(0.0, 1.0 - (W + D) / 1.48)
+        W = max(0.12, W + dt_d * (bio_W * W * crowding - 0.02 * W - dmg))
+        D = max(0.002, D + dt_d * (bio_D * D * crowding - (0.02 + clearance_D) * D + dmg))
+
+        target_gdf15 = 185.0 + 22.0 * EP
+        gdf15 = gdf15 + (target_gdf15 - gdf15) * 0.90 * dt_d
+
+        # Clonal division rate: Warburg glycolysis (mtorc1) drives rapid division initially, while OXPHOS + mtorc1 in Phase 2 drives superior sustained expansion
+        src_curr = (W + 0.15 * D) * (1.0 + 0.55 * pdk1_inhib + 0.65 * u_nad_stac) * 1.28
+        if arm == "1_Standard_CD3_CD28_IL2_HighGlucose":
+            div_rate = 0.395  # Standard glycolytic expansion (~52x over 10 days), but clones D!
+        elif arm == "2_Static_Continuous_UrolithinA_Rapamycin":
+            div_rate = 0.238  # Chronic mTORC1 blockade stunts total division (~10.8x over 10 days)
+        else:
+            div_rate = 0.255 if stage == 1 else 0.472  # Phase 1 purge followed by rapid Phase 2 OXPHOS-fueled division (~64x)
+        cell_fold = cell_fold * math.exp(div_rate * dt_d)
+
+        # Stem-like memory T_SCM (TCF7+/LEF1+) promoted by alpha-KG/OXPHOS + u_uro_ktp + IL-7/15; eroded by high Warburg EP
+        target_tscm = min(0.86, max(0.10, 0.24 + 0.38 * pdk1_inhib + 0.26 * il7_il15 - 0.45 * h_frac))
+        t_scm = t_scm + (target_tscm - t_scm) * 0.45 * dt_d
+
+        # Exhaustion (TIM-3+ / PD-1+ / TOX+) driven by EP and heteroplasmy
+        target_exh = min(0.85, max(0.04, 0.06 + 0.82 * h_frac + 0.012 * max(0.0, EP - 9.0) - 0.22 * u_nad_stac))
+        exhaustion = exhaustion + (target_exh - exhaustion) * 0.45 * dt_d
+
+    src_final = (W + 0.15 * D) * (1.0 + 0.55 * pdk1_inhib + 0.65 * u_nad_stac) * 1.28
+    return {
+        "arm": arm,
+        "switch_hour": switch_hour,
+        "h_hour240_pct": round(D / (W + D) * 100.0, 1),
+        "W_hour240": round(W, 2),
+        "Lactate_Pyruvate_hour240": round(lac_pyr, 1),
+        "GDF15_hour240_pg_ml": round(gdf15, 0),
+        "Fold_Expansion_day10_x": round(cell_fold, 1),
+        "T_SCM_Stemness_pct": round(t_scm * 100.0, 1),
+        "Exhaustion_TIM3_PD1_pct": round(exhaustion * 100.0, 1),
+        "Spare_Respiratory_Capacity_x": round(src_final, 2)
+    }
+
+
+def simulate_apis_honeybee(arm="3_Apis_BCR_Two_Stage_Holobiont_Patty"):
+    """
+    Discovery 8 (Apis-BCR): 14-Day Honeybee (Apis mellifera) Flight-Muscle & Snodgrassella alvi Holobiont Rescue.
+    Models:
+      - Strobilurin Fungicide (Azoxystrobin / Pyraclostrobin, PDB: 1SQB) Qo-site blockade (Glu271 3.15 A, Phe274 3.33 A)
+      - Neonicotinoid (Imidacloprid) Complex IV (cox5a/cox6c) suppression & Glyphosate Snodgrassella alvi dysbiosis
+      - Wingbeat Transition at Day 6: In-Hive Nurse/Resting flux (f_rest = 1.0) -> Foraging Flight (100-250 Hz, f_flight = 2.40 => f^2 = 5.76x)
+      - Stage 1 (Days 1-5): p-Coumaric Acid (CYP9Q1/2/3 detox) + Coumaroyl-Spermidine/Urolithin A mitophagy + Live S. alvi synbiotic
+      - Stage 2 (Days 6-14): Ubiquinol/CoQ10 (competitive Qo-site rescue at Ala143/Ile146 in 1SQB) + NR + Riboflavin (B2)
+    """
+    dt = 0.02  # 28.8-minute resolution across 14 days
+    steps = int(14.0 / dt)
+    W, D = 0.48, 0.52       # 52% damaged thoracic flight-muscle mitochondria after agricultural fungicide + neonicotinoid exposure
+    strob_bound = 0.78      # 78% of Complex III Qo sites (PDB: 1SQB) initially blocked by Azoxystrobin/Pyraclostrobin
+    s_alvi = 0.28           # Depleted Snodgrassella alvi ileum symbiont density (normal = 1.0)
+    stage = 1
+    switch_day = None
+    ep_flight_peak = 0.0
+
+    for step in range(steps):
+        t = step * dt
+        h_frac = D / max(W + D, 1e-6)
+
+        if arm == "1_Exposed_Plain_HFCS_Syrup":
+            p_coumaric_cyp9q = 0.08
+            spermidine_uroA = 0.06
+            salvi_synbiotic = 0.05
+            coq10_nr_b2 = 0.08
+            hfcs_glycolytic_push = 1.15  # High-fructose corn syrup forces unbuffered glycolysis into blocked Complex III
+            rep_adv = 1.32
+        elif arm == "2_Unphased_Antioxidant_Pollen_Sub_Without_Detox_Purge":
+            # CoQ10/vitamins fed continuously without p-Coumaric CYP9Q detox or Stage 1 Coumaroyl-Spermidine mitophagy purge
+            p_coumaric_cyp9q = 0.14
+            spermidine_uroA = 0.08
+            salvi_synbiotic = 0.42
+            coq10_nr_b2 = 0.55
+            hfcs_glycolytic_push = 1.05
+            rep_adv = 1.28
+        elif arm == "3_Apis_BCR_Two_Stage_Holobiont_Patty":
+            if stage == 1 and t >= 4.5 and (h_frac <= 0.075 or strob_bound <= 0.18 or t >= 5.2):
+                stage = 2
+                switch_day = round(t, 1)
+            if stage == 1:
+                # Stage 1 (Days 1-5 In-Hive Nurse/Resting Detox & Mitophagy Patty)
+                p_coumaric_cyp9q = 0.96   # Floral p-coumaric acid upregulates CYP9Q1/2/3 to clear strobilurin/neonicotinoid
+                spermidine_uroA = 0.96    # Coumaroyl-spermidine + Urolithin A purges damaged flight-muscle mitochondria
+                salvi_synbiotic = 0.95    # Live Snodgrassella alvi + Gilliamella apicola + organic acid prebiotic
+                coq10_nr_b2 = 0.25
+                hfcs_glycolytic_push = 0.72
+                rep_adv = 1.06
+            else:
+                # Stage 2 (Days 6-14 Forager Flight OXPHOS Build Patty)
+                p_coumaric_cyp9q = 0.88
+                spermidine_uroA = 0.28
+                salvi_synbiotic = 0.95
+                coq10_nr_b2 = 0.98        # Ubiquinol (CoQ10) + NR + Riboflavin B2 + 24-Methylenecholesterol
+                hfcs_glycolytic_push = 0.92
+                rep_adv = 1.02
+
+        # 1. CYP9Q1/2/3 P450 clearance of Strobilurin from Complex III Qo site (PDB: 1SQB) + CoQ10 competitive displacement
+        dStrob = 0.03 - (0.38 * p_coumaric_cyp9q + 0.18 * coq10_nr_b2) * strob_bound
+        strob_bound = max(0.04, min(0.95, strob_bound + dt * dStrob))
+
+        # 2. Snodgrassella alvi ileum colonization recovery (restores gut O2 barrier & citrate/malate pool)
+        dSalvi = (0.35 * salvi_synbiotic * (1.02 - s_alvi)) - (0.12 * (1.0 - salvi_synbiotic) * s_alvi)
+        s_alvi = max(0.15, min(1.00, s_alvi + dt * dSalvi))
+
+        # 3. Thoracic Flight-Muscle Energy Resistance (eR) & Foraging Wingbeat Flux (f_flight = 2.40 => f^2 = 5.76x after Day 5.5)
+        in_foraging_flight = (t >= 5.5)
+        f_wing = (2.40 if in_foraging_flight else 1.00) * hfcs_glycolytic_push
+        q_site_conductance = max(0.28, (1.0 - 0.68 * strob_bound) * (0.65 + 0.45 * coq10_nr_b2))
+        gut_factor = 1.0 + 0.45 * (1.0 - s_alvi)
+        eff_oxphos = max(0.22, (W + 0.15 * D) * q_site_conductance)
+        eR = 2.8 * ((1.0 / eff_oxphos) ** 1.05) * gut_factor
+        EP = eR * (f_wing ** 2)
+        if in_foraging_flight and EP > ep_flight_peak:
+            ep_flight_peak = round(EP, 1)
+
+        # 4. Flight-muscle mitophagy & biogenesis (faster insect metabolic rate, scale = 2.2x)
+        bee_scale = 2.2
+        clearance_D = bee_scale * (0.04 + 0.38 * spermidine_uroA)
+        bio_W = bee_scale * (0.035 + 0.22 * coq10_nr_b2 * s_alvi)
+        bio_D = bee_scale * (0.035 + 0.16 * coq10_nr_b2) * rep_adv * (1.0 - 0.48 * spermidine_uroA)
+        dmg = 0.0022 * max(0.0, EP - 16.0) * W
+
+        crowding = max(0.0, 1.0 - (W + D) / 1.42)
+        W = max(0.14, W + dt * (bio_W * W * crowding - 0.015 * W - dmg))
+        D = max(0.002, D + dt * (bio_D * D * crowding - (0.015 + clearance_D) * D + dmg))
+
+    flight_atp = round((W + 0.15 * D) * q_site_conductance * (1.0 + 0.22 * s_alvi) / gut_factor, 2)
+    homing_survival = round(max(18.0, min(96.5, 24.0 + 58.0 * min(1.3, flight_atp) - 0.32 * max(0.0, ep_flight_peak - 18.0))), 1)
+    return {
+        "arm": arm,
+        "switch_day": switch_day,
+        "h_day14_pct": round(D / (W + D) * 100.0, 1),
+        "Strobilurin_Qo_Block_day14_pct": round(strob_bound * 100.0, 1),
+        "Snodgrassella_alvi_Colonization_x": round(s_alvi, 2),
+        "Peak_Flight_EP_Stress": ep_flight_peak,
+        "Thoracic_Flight_ATP_day14_x": flight_atp,
+        "Forager_Homing_Survival_pct": homing_survival
+    }
+
+
+print("\n=== DISCOVERY 7: EX VIVO CAR-T MANUFACTURING CONTROLLER (Cohort F: Bioreactor-BCR | 240h / 10 Days | PDB: 2Q8G) ===")
+cart_results = []
+for arm in [
+    "1_Standard_CD3_CD28_IL2_HighGlucose",
+    "2_Static_Continuous_UrolithinA_Rapamycin",
+    "3_Bioreactor_BCR_Biphasic_Gated_Controller"
+]:
+    r = simulate_cart_bioreactor(arm)
+    cart_results.append(r)
+    print(f"  [CAR-T]      {arm:44s} | h={r['h_hour240_pct']:4.1f}% | Lac:Pyr={r['Lactate_Pyruvate_hour240']:4.1f} | Fold={r['Fold_Expansion_day10_x']:4.1f}x | T_SCM={r['T_SCM_Stemness_pct']:4.1f}% | SRC={r['Spare_Respiratory_Capacity_x']:.2f}x | Exh={r['Exhaustion_TIM3_PD1_pct']:4.1f}% (Sw h{r['switch_hour']})")
+
+print("\n=== DISCOVERY 8: HONEYBEE (APIS MELLIFERA) FLIGHT-MUSCLE & HOLOBIONT RESCUE (Cohort G: Apis-BCR | 14 Days | PDB: 1SQB) ===")
+apis_results = []
+for arm in [
+    "1_Exposed_Plain_HFCS_Syrup",
+    "2_Unphased_Antioxidant_Pollen_Sub_Without_Detox_Purge",
+    "3_Apis_BCR_Two_Stage_Holobiont_Patty"
+]:
+    r = simulate_apis_honeybee(arm)
+    apis_results.append(r)
+    print(f"  [Apis-BCR]   {arm:52s} | h={r['h_day14_pct']:4.1f}% | Qo-Block={r['Strobilurin_Qo_Block_day14_pct']:4.1f}% | S.alvi={r['Snodgrassella_alvi_Colonization_x']:.2f}x | Flight EP={r['Peak_Flight_EP_Stress']:4.1f} | ATP={r['Thoracic_Flight_ATP_day14_x']:.2f}x | Homing={r['Forager_Homing_Survival_pct']:4.1f}% (Sw d{r['switch_day']})")
+
+with open("/Users/o2satz/.gemini/antigravity/scratch/mitorestorer/data/bcr_cross_species_cart_apis.json", "w") as f:
+    json.dump({"cart_bioreactor": cart_results, "apis_honeybee": apis_results}, f, indent=2)
+
+
+
 

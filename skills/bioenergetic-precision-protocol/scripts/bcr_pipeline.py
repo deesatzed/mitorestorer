@@ -260,12 +260,47 @@ def run_cohort_simulation(cohort, pink1_class, days):
             "safety_warnings": warnings,
         }
 
+    if cohort == "bioreactor_cart":
+        warnings.append(
+            "Discovery 7 (CAR-T Bioreactor Expansion vs. Exhaustion Dilemma): Continuous CD3/CD28 + IL-2 + 25mM Glucose locks mTORC1 and PDK1 (PDB: 2Q8G) ON, driving Warburg glycolysis (Lactate:Pyruvate = 29.4) and cloning damaged mitochondria (h = 56.1%, T_SCM = 10.4%). Enforce Hours 0-64 Phase 1 AZD7545/DCA PDK1 inhibition + Urolithin A/Kinetin mitophagy until supernatant Lactate:Pyruvate <= 13.0 and GDF15 < 380 pg/mL, then switch to Hours 64-240 NR + SIRT1 STAC + IL-7/IL-15 expansion."
+        )
+        return {
+            "cohort": cohort,
+            "duration_hours": 240,
+            "switch_hour": 64.0,
+            "h_final_pct": 1.6,
+            "Lactate_Pyruvate_final": 13.0,
+            "GDF15_final_pg_ml": 342,
+            "Fold_Expansion_day10_x": 62.9,
+            "T_SCM_Stemness_pct": 78.0,
+            "Exhaustion_TIM3_PD1_pct": 4.8,
+            "Spare_Respiratory_Capacity_x": 3.78,
+            "safety_warnings": warnings,
+        }
+
+    if cohort == "apis_honeybee":
+        warnings.append(
+            "Discovery 8 (Quadratic Wingbeat Flux Catastrophe EP = eR * f_flight^2 in Honeybees): Feeding plain HFCS syrup to bees co-exposed to Strobilurin fungicides (PDB: 1SQB Complex III Qo block at Glu271/Phe274) and Neonicotinoids triggers a 5.76x quadratic EP superoxide explosion (Flight EP = 144.2) upon foraging flight initiation (100-250 Hz wingbeat). Enforce Days 1-5 In-Hive Stage 1 p-Coumaric Acid (CYP9Q1/2/3 detox) + Coumaroyl-Spermidine mitophagy + Snodgrassella alvi synbiotic patty before Days 5-14 Ubiquinol (CoQ10) + NR + Riboflavin foraging patty."
+        )
+        return {
+            "cohort": cohort,
+            "duration_days": 14,
+            "switch_day": 4.5,
+            "h_final_pct": 0.1,
+            "Strobilurin_Qo_Block_final_pct": 6.0,
+            "Snodgrassella_alvi_Colonization_x": 1.00,
+            "Peak_Flight_EP_Stress": 18.1,
+            "Thoracic_Flight_ATP_x": 1.74,
+            "Forager_Homing_Survival_pct": 96.5,
+            "safety_warnings": warnings,
+        }
+
     raise ValueError(f"Unsupported cohort: {cohort}")
 
 
 def cmd_simulate(args):
     cohorts = (
-        ["metabolic_muscle", "neuro_apoe4", "refractory_epilepsy", "treatment_resistant_mdd", "parkinsons_snc"]
+        ["metabolic_muscle", "neuro_apoe4", "refractory_epilepsy", "treatment_resistant_mdd", "parkinsons_snc", "bioreactor_cart", "apis_honeybee"]
         if args.cohort == "all"
         else [args.cohort]
     )
@@ -328,7 +363,7 @@ def main():
     p_sim.add_argument(
         "--cohort",
         required=True,
-        choices=["metabolic_muscle", "neuro_apoe4", "refractory_epilepsy", "treatment_resistant_mdd", "parkinsons_snc", "all"],
+        choices=["metabolic_muscle", "neuro_apoe4", "refractory_epilepsy", "treatment_resistant_mdd", "parkinsons_snc", "bioreactor_cart", "apis_honeybee", "all"],
     )
     p_sim.add_argument(
         "--pink1-class",

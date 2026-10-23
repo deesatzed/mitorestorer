@@ -4,10 +4,11 @@
 
 ### Key Entry Points
 * **Interactive Landing Page:** [`index.html`](index.html)
-* **Interactive 90-Day Web Simulator (with 4-Step Guided Wizard & Lab Gate Calculator):** [`simulator/bcr_simulator.html`](simulator/bcr_simulator.html)
+* **Interactive Cross-Species Web Simulator (7 Cohorts, 4-Step Guided Wizard, Lab Gate Calculator, & 8-Structure 3D Atlas):** [`simulator/bcr_simulator.html`](simulator/bcr_simulator.html)
+* **Academic Paper Manuscript & Cross-Species Discovery Log (Discoveries 1–8):** [`docs/academic_manuscript_bcr.md`](docs/academic_manuscript_bcr.md)
 * **Beginner / College-Freshman Step-by-Step User Guide:** [`docs/user_walkthrough.md`](docs/user_walkthrough.md)
 * **Clinician & Patient Daily Field Manual:** [`docs/bcr_field_manual.md`](docs/bcr_field_manual.md)
-* **Full 5-Cohort Clinical Protocol Specification:** [`docs/bcr_clinical_protocol.md`](docs/bcr_clinical_protocol.md)
+* **Full Clinical Protocol Specification:** [`docs/bcr_clinical_protocol.md`](docs/bcr_clinical_protocol.md)
 * **End-to-End Executable Sample Patient Script:** [`examples/run_sample_patient_walkthrough.py`](examples/run_sample_patient_walkthrough.py)
 
 ---
@@ -45,15 +46,17 @@ Here is how to run a complete patient case from start to finish in **4 steps** (
 
 ---
 
-## 5 Clinical Cohorts & 90-Day Simulation Summary
+## 7 Cross-Species Cohorts & Simulation Summary (Human Clinical, CAR-T Bioreactor, & Honeybee Holobiont)
 
-| Cohort & Indication | Genetic & Circuit Bottleneck | Standard / Unphased Care (Day 90) | Phased BCR Protocol (Day 90) |
+| Cohort & Indication | Genetic & Circuit Bottleneck | Standard / Unphased Care Outcome | Phased BCR Protocol Outcome |
 | :--- | :--- | :--- | :--- |
 | **Cohort A: Metabolic / Sarcopenia** | `PINK1` Class I + `FUT2 rs601338 A/A` Non-Secretor | 16:8 Fast: $h = 69.4\%$, $\text{ATP} = 0.50\times$<br>Unphased: $h = 91.4\%$ | **WT:** $h = 3.3\%$, **$\text{ATP} = 1.20\times$**<br>**Risk:** $h = 20.0\%$, **$\text{ATP} = 1.02\times$** |
 | **Cohort B: Prodromal *APOE4* AD** | `APOE4 rs429358` (`1B68`) + `TOMM40` stall (`7CK6`) | Peripheral BCR only: $h = 94.2\%$, $\text{ATP} = 0.17\times$ | **`Neuro-BCR`:** $h = 3.3\%$, **$\text{ATP} = 1.19\times$**, Mass $= 1.06\times$ |
 | **Cohort C: Refractory Epilepsy** | Fast-spiking $\text{PV}^+$ interneurons ($f^2 = 3.06\times$) + Keto $\text{H}_2\text{S}$ | Classic KD: Day-33 $\text{H}_2\text{S} = 1.97$, $\text{E/I} = 2.26$ | **`Epi-BCR`:** $h = 0.5\%$, $\text{H}_2\text{S} = 0.11$, **$\text{E/I} = 0.65$ ($96\%$ seizure red.)** |
 | **Cohort D: Treatment-Resistant MDD** | Microglial `IDO1` $\rightarrow$ `QUIN` + Brainstem `GDF15–GFRAL` lock | Ketamine Alone: Spines $0.57\times$ (d7) $\rightarrow 0.45\times$ (d90) | **`Affective-BCR`:** $h = 0.6\%$, $\text{QUIN} \downarrow 87\%$, **Spines $= 1.24\times$** |
 | **Cohort E: Parkinson's Disease (`SNc`)** | `GBA1 rs76763715` (`2NSX`) + `LRRK2 rs34637584` + `DA-Q` | Mitophagy w/o Ambroxol: $\text{Jam} = 1.29\times$, $\text{SNCA} = 1.63\times$ | **`PD-BCR`:** $h = 3.7\%$, $\text{Jam} = 0.08\times$, **$\text{TH Tone} = 1.25\times$ ($95\%$ rescue)** |
+| **Cohort F: *Ex Vivo* CAR-T Bioreactor (240h)** | `PDK1` Warburg lock (`2Q8G`) + `mTORC1` Expansion vs. Exhaustion | High-Glc+IL2: $h = 56.1\%$, $\text{T}_{\text{SCM}} = 10.4\%$<br>Static UroA+Rapa: $\text{Fold} = 10.8\times$ (Fails!) | **`Bioreactor-BCR` (Sw h64):** $h = 1.6\%$, **$\text{Fold} = 62.9\times$, $\text{T}_{\text{SCM}} = 78.0\%$, $\text{SRC} = 3.78\times$** |
+| **Cohort G: Honeybee (*Apis mellifera*, 14d)** | Strobilurin Complex III $Q_o$ block (`1SQB`) + $5.76\times$ Flight $f^2$ Surge | Plain HFCS Syrup: $h = 78.3\%$, $\text{Flight EP} = 144.2$, $\text{ATP} = 0.06\times$, $\text{Homing} = 18.0\%$ | **`Apis-BCR` 2-Stage Patty (Sw d4.5):** $h = 0.1\%$, $Q_o\text{-Block} = 6.0\%$, **$\text{ATP} = 1.74\times$, $\text{Homing} = 96.5\%$** |
 
 ---
 
@@ -64,14 +67,15 @@ mitorestorer/
 ├── index.html                       # Interactive Project Landing Page & 4-Step Walkthrough
 ├── README.md                        # Overview, Step-by-Step Guide, & Quick Start
 ├── docs/
+│   ├── academic_manuscript_bcr.md   # Publication Manuscript & Cross-Species Discovery Log (Discoveries 1–8)
 │   ├── user_walkthrough.md          # Beginner / College-Freshman Step-by-Step User Walkthrough
-│   ├── bcr_clinical_protocol.md     # Complete 5-Cohort Clinical Protocol & Phase IIa Trial Design
+│   ├── bcr_clinical_protocol.md     # Complete Clinical Protocol & Phase IIa Trial Design
 │   ├── bcr_field_manual.md          # Clinician & Patient Daily Checklist + Day 38/54 GDF15 Lab Worksheet
 │   ├── research_roadmap.md          # Multi-Omic & Structural Validation Roadmap
 │   └── skill_design_plan.md         # Architecture of the Reusable Agent Skill
 ├── simulator/
-│   ├── bcr_simulator.html           # Interactive 90-Day HTML5/Canvas ODE Simulator (Cohorts A–E)
-│   ├── sim_bioenergetic_reset.py    # Core Python Biophysical ODE Solver across all 5 Cohorts
+│   ├── bcr_simulator.html           # Interactive HTML5/Canvas ODE Simulator (Cohorts A–G + 8-Structure 3D Atlas)
+│   ├── sim_bioenergetic_reset.py    # Core Python Biophysical ODE Solver across all 7 Cohorts
 │   ├── analyze_pink1_sirt1.py       # 3D Atomic Contact Analyzer for PINK1 (6EQI) & SIRT1 (4ZZJ)
 │   ├── analyze_2nsx.py              # 3D Atomic Contact Analyzer for GBA1 + Chaperone (2NSX)
 │   └── analyze_details.py           # Detailed Sub-Pocket Geometry Inspector
@@ -84,7 +88,9 @@ mitorestorer/
 │   ├── 7CK6/pdb_00007ck6.cif        # Human TOMM40 Import Pore + PC1 401 + TOMM22/TOMM7 (3.40 Å)
 │   ├── 6EQI/pdb_00006eqi.cif        # Active Phosphorylated PINK1 + Ubiquitin (3.10 Å)
 │   ├── 4ZZJ/pdb_00004zzj.cif        # Human SIRT1 + Carba-NAD+ + STAC 4TQ + ALY Substrate (2.74 Å)
-│   └── 2NSX/pdb_00002nsx.cif        # Human GBA1 + Pharmacological Chaperone IFM 506 (2.20 Å)
+│   ├── 2NSX/pdb_00002nsx.cif        # Human GBA1 + Pharmacological Chaperone IFM 506 (2.20 Å)
+│   ├── 2Q8G/pdb_00002q8g.cif        # Human PDK1 + Allosteric Inhibitor AZD7545 (1.90 Å, CAR-T Cohort F)
+│   └── 1SQB/pdb_00001sqb.cif        # Complex III Cytochrome bc1 + Azoxystrobin (2.69 Å, Honeybee Cohort G)
 ├── data/                            # Empirical Ensembl VEP (GRCh38), AlphaMissense, Mutfunc, gnomAD v4, & OpenTargets JSONs
 └── skills/
     └── bioenergetic-precision-protocol/

@@ -31,9 +31,10 @@
       </div>
       <nav class="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-300">
         <a href="#walkthrough" class="hover:text-emerald-400 transition">4-Step Walkthrough</a>
-        <a href="#cohorts" class="hover:text-emerald-400 transition">5 Clinical Cohorts</a>
-        <a href="#discoveries" class="hover:text-emerald-400 transition">6 Discoveries</a>
-        <a href="#structures" class="hover:text-emerald-400 transition">3D Crystal Atlas</a>
+        <a href="#cohorts" class="hover:text-emerald-400 transition">7 Cross-Species Cohorts</a>
+        <a href="#discoveries" class="hover:text-emerald-400 transition">8 Discoveries</a>
+        <a href="#structures" class="hover:text-emerald-400 transition">8-Structure 3D Atlas</a>
+        <a href="docs/academic_manuscript_bcr.md" class="hover:text-emerald-400 transition">Academic Manuscript</a>
         <a href="simulator/bcr_simulator.html" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition">
           Launch Interactive Simulator →
         </a>
@@ -48,7 +49,8 @@
       <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-emerald-300">
         <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30">Picard &amp; Murugan Energy Resistance Principle</span>
         <span class="px-2.5 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">Ensembl VEP + AlphaMissense + gnomAD v4</span>
-        <span class="px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">6 Atomic Crystal Structures (PDB)</span>
+        <span class="px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">8 Atomic Crystal Structures (PDB)</span>
+        <span class="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">Cross-Species: Human + CAR-T Bioreactor + Honeybee Rescue</span>
       </div>
 
       <div class="max-w-4xl space-y-3">
@@ -56,13 +58,16 @@
           Clean Out Damaged Mitochondria First. Clone Healthy Mitochondria Second.
         </h1>
         <p class="text-base md:text-lg text-slate-300 leading-relaxed">
-          <strong>MitoRestorer</strong> is an end-to-end biophysical simulation, 3D structural validation, and clinical protocol platform. It maps a patient's real genetic variants (<code class="text-emerald-300">PPARGC1A, FUT2, MTHFR, APOE4/TOMM40, SOD2, PINK1, GBA1, LRRK2</code>) and gut microbiome guilds into sub-hourly differential equations—solving why standard "all-in-one" supplement stacks backfire and when to flip from <strong>Stage 1 Mitophagy Purge</strong> to <strong>Stage 2 Biogenesis</strong> using the <strong>Day-38 Plasma GDF15 Blood Test Gate</strong>.
+          <strong>MitoRestorer</strong> is a cross-species biophysical simulation, 3D structural validation, and precision protocol platform across <strong>5 Human Clinical Cohorts</strong>, <strong>Ex Vivo CAR-T Bioreactor Manufacturing (<code>Bioreactor-BCR</code>)</strong>, and <strong>Honeybee Flight-Muscle &amp; Holobiont Rescue (<code>Apis-BCR</code>)</strong>.
         </p>
       </div>
 
       <div class="flex flex-wrap items-center gap-3 pt-1">
         <a href="simulator/bcr_simulator.html" class="px-5 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-sm hover:bg-emerald-400 transition">
-          Open 90-Day Interactive Simulator →
+          Open Interactive Simulator (Cohorts A–G) →
+        </a>
+        <a href="docs/academic_manuscript_bcr.md" class="px-4 py-2.5 rounded-xl bg-teal-500/20 text-teal-300 border border-teal-500/40 font-bold text-sm hover:bg-teal-500/30 transition">
+          Read Academic Paper Manuscript (Discoveries 1–8)
         </a>
         <a href="#walkthrough" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-100 border border-slate-700 font-semibold text-sm hover:bg-slate-700 transition">
           Try the 4-Step Beginner Walkthrough ↓
@@ -180,29 +185,45 @@
               <td class="py-3.5 px-4 font-mono text-emerald-400 font-bold">h=3.7%, Auto_Jam=0.08x, TH Tone=1.25x (95% Rescue)</td>
               <td class="py-3.5 px-4"><code>PD-BCR</code>: Stage 0 Ambroxol (<code>2NSX</code>) + Spermidine + D-BHB → Stage 2 1,000 mg NR</td>
             </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-bold text-teal-300">Cohort F: Ex Vivo CAR-T Bioreactor (240h)</td>
+              <td class="py-3.5 px-4"><code>PDK1</code> Warburg lock (<code>PDB: 2Q8G</code>) + Continuous <code>mTORC1</code> Expansion vs. Exhaustion</td>
+              <td class="py-3.5 px-4 font-mono text-rose-400">High-Glc+IL2: h=56.1%, T_SCM=10.4%<br/>Static UroA+Rapa: Fold=10.8x (Fails!)</td>
+              <td class="py-3.5 px-4 font-mono text-emerald-400 font-bold">Sw h64: h=1.6%, Fold=62.9x, T_SCM=78.0%, SRC=3.78x</td>
+              <td class="py-3.5 px-4"><code>Bioreactor-BCR</code>: Phase 1 <code>2Q8G</code> AZD7545/DCA + UroA/Kinetin → Phase 2 NR + <code>4ZZJ</code> SIRT1</td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-bold text-amber-300">Cohort G: Honeybee (Apis mellifera, 14d)</td>
+              <td class="py-3.5 px-4">Strobilurin Complex III <code>Qo</code> block (<code>PDB: 1SQB</code>) + Neonicotinoid + 5.76x Flight <code>f²</code> Surge</td>
+              <td class="py-3.5 px-4 font-mono text-rose-400">Plain HFCS Syrup: h=78.3%, Flight EP=144.2, ATP=0.06x, Homing=18.0%</td>
+              <td class="py-3.5 px-4 font-mono text-emerald-400 font-bold">Sw d4.5: h=0.1%, Qo-Block=6.0%, ATP=1.74x, Homing=96.5%</td>
+              <td class="py-3.5 px-4"><code>Apis-BCR</code>: Stage 1 <em>p</em>-Coumaric (<code>CYP9Q</code>) + Spermidine + <em>S. alvi</em> → Stage 2 Ubiquinol (<code>1SQB</code>)</td>
+            </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- 6 Core Biophysical Discoveries & 6 Crystal Structures -->
+    <!-- 8 Core Biophysical Discoveries & 8 Crystal Structures -->
     <section id="discoveries" class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="glass-card rounded-2xl p-6 space-y-3">
         <span class="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold">Biophysical Failure Modes Solved</span>
-        <h3 class="text-xl font-bold text-white">The 6 Core Discoveries</h3>
-        <ul class="space-y-2.5 text-xs text-slate-300 leading-relaxed">
-          <li><strong class="text-white">1. Simultaneous Biogenesis Trap:</strong> Taking Urolithin A and NR/protein together keeps <code>mTORC1</code> active, blocking <code>ULK1</code> mitophagy while <code>POLG</code> clones shorter mutant mtDNA (<code>h &gt; 84%</code>).</li>
+        <h3 class="text-xl font-bold text-white">The 8 Cross-Species Discoveries</h3>
+        <ul class="space-y-2 text-xs text-slate-300 leading-relaxed">
+          <li><strong class="text-white">1. Simultaneous Biogenesis Trap:</strong> Taking Urolithin A and NR/protein together keeps <code>mTORC1</code> active, blocking <code>ULK1</code> mitophagy while <code>POLG</code> clones shorter mutant mtDNA.</li>
           <li><strong class="text-white">2. Day-30 Ketogenic H₂S Crash:</strong> Strict high-fat ketogenic diets without fiber/polyphenols bloom <em>Bilophila/Desulfovibrio</em> H₂S after Day 30, poisoning Complex IV.</li>
           <li><strong class="text-white">3. 13.5-Hour Glycogen Depletion Lag:</strong> Standard 16:8 fasting spends 13.5h depleting liver glycogen, leaving only 2.5h of mitophagy unless compressed to 5–6h via Morning Zone-2 + C8-MCT.</li>
           <li><strong class="text-white">4. Two-Stage GDF15-Gated Reset:</strong> Daily 18:6 Purge until plasma <code>GDF15</code> drops ≥35% (Day 38/54) followed by Weekly <code>2.25d Purge : 4.75d Build</code> maximizes both clearance and ATP mass.</li>
           <li><strong class="text-white">5. APOE4/TOMM40 Pore Bottleneck &amp; PINK1 Class I/II Split:</strong> Neuronal mitophagy fails without <code>TOMM40</code> pore rescue (<code>7CK6</code>), while <code>6EQI</code> separates Kinetin-responsive Class I vs. Class II PINK1 mutants.</li>
           <li><strong class="text-white">6. GBA1/LRRK2 Autophagosome Traffic Jam (Parkinson's):</strong> Triggering mitophagy before unblocking <code>GBA1</code> lysosomes with Ambroxol (<code>2NSX</code>) + Spermidine clogs axons and worsens α-synuclein.</li>
+          <li><strong class="text-teal-300">7. CAR-T Bioreactor Expansion vs. Exhaustion Dilemma:</strong> Hour 0–64 <code>PDK1</code> inhibition (<code>2Q8G</code>) + UroA/Kinetin purge gated by supernatant <code>Lac:Pyr ≤ 13.0</code> achieves <strong>62.9x expansion &amp; 78.0% T_SCM</strong>.</li>
+          <li><strong class="text-amber-300">8. Honeybee Quadratic Wingbeat Catastrophe (<code>EP = éR · f²</code>):</strong> Days 1–5 <em>p</em>-Coumaric <code>CYP9Q</code> detox + Coumaroyl-Spermidine + <em>S. alvi</em> before Days 5–14 Ubiquinol rescues homing from <strong>18.0% → 96.5%</strong>.</li>
         </ul>
       </div>
 
       <div id="structures" class="glass-card rounded-2xl p-6 space-y-3">
         <span class="text-xs font-mono uppercase tracking-wider text-purple-400 font-bold">Atomic-Level Cofactor Validation</span>
-        <h3 class="text-xl font-bold text-white">6 Validated 3D Crystal Structures (<code>structures/</code>)</h3>
+        <h3 class="text-xl font-bold text-white">8 Validated 3D Crystal Structures (<code>structures/</code>)</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
           <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
             <div class="font-mono font-bold text-amber-400">1. PDB: 6FCX (MTHFR 2.50 Å)</div>
@@ -227,6 +248,14 @@
           <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
             <div class="font-mono font-bold text-pink-400">6. PDB: 2NSX (GBA1 + IFM 2.20 Å)</div>
             <p class="text-slate-400 mt-1"><code>Asn370Ser</code> Loop 1 collapse rescued by <strong>High-Dose Ambroxol</strong> (2.61–2.68 Å).</p>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/90 border border-teal-500/40">
+            <div class="font-mono font-bold text-teal-400">7. PDB: 2Q8G (PDK1 + AZX 1.90 Å)</div>
+            <p class="text-slate-400 mt-1"><code>AZD7545</code> 2.50 Å H-bond to <code>Ser75</code> in L2 pocket breaks CAR-T Warburg glycolysis.</p>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/90 border border-amber-500/40">
+            <div class="font-mono font-bold text-amber-400">8. PDB: 1SQB (Complex III + AZO 2.69 Å)</div>
+            <p class="text-slate-400 mt-1">Strobilurin <code>Qo</code> blockade at <code>Glu271/Phe274</code> rescued by <strong><em>p</em>-Coumaric + Ubiquinol</strong>.</p>
           </div>
         </div>
       </div>

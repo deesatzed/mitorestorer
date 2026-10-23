@@ -1,0 +1,84 @@
+{
+  "cif_path": "/Users/o2satz/.gemini/antigravity/brain/e55fbd0d-7b92-471e-b9ba-63a180b98a1f/1SQB/pdb_00001sqb.cif",
+  "polymer_chains": {
+    "A": {
+      "residue_count": 446,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 446,
+      "modified_residues": []
+    },
+    "B": {
+      "residue_count": 425,
+      "min_auth_seq_id": 15,
+      "max_auth_seq_id": 439,
+      "modified_residues": []
+    },
+    "C": {
+      "residue_count": 378,
+      "min_auth_seq_id": 2,
+      "max_auth_seq_id": 379,
+      "modified_residues": []
+    },
+    "D": {
+      "residue_count": 241,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 241,
+      "modified_residues": []
+    },
+    "E": {
+      "residue_count": 196,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 196,
+      "modified_residues": []
+    },
+    "F": {
+      "residue_count": 105,
+      "min_auth_seq_id": 6,
+      "max_auth_seq_id": 110,
+      "modified_residues": []
+    },
+    "G": {
+      "residue_count": 75,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 75,
+      "modified_residues": []
+    },
+    "H": {
+      "residue_count": 67,
+      "min_auth_seq_id": 12,
+      "max_auth_seq_id": 78,
+      "modified_residues": []
+    },
+    "I": {
+      "residue_count": 57,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 57,
+      "modified_residues": []
+    },
+    "J": {
+      "residue_count": 61,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 61,
+      "modified_residues": []
+    },
+    "K": {
+      "residue_count": 52,
+      "min_auth_seq_id": 2,
+      "max_auth_seq_id": 53,
+      "modified_residues": []
+    }
+  },
+  "nonpolymer_ligands": {
+    "C:381:HEM": 43,
+    "C:382:HEM": 43,
+    "C:383:AZO": 30,
+    "D:242:HEC": 43,
+    "E:200:FES": 4
+  },
+  "target_query": {
+    "target_chain": null,
+    "target_res": null,
+    "max_dist_angstrom": 4.0
+  },
+  "contacts": []
+}

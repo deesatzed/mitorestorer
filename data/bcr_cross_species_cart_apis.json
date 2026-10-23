@@ -1,0 +1,72 @@
+{
+  "cart_bioreactor": [
+    {
+      "arm": "1_Standard_CD3_CD28_IL2_HighGlucose",
+      "switch_hour": null,
+      "h_hour240_pct": 56.1,
+      "W_hour240": 0.54,
+      "Lactate_Pyruvate_hour240": 29.4,
+      "GDF15_hour240_pg_ml": 613.0,
+      "Fold_Expansion_day10_x": 51.9,
+      "T_SCM_Stemness_pct": 10.4,
+      "Exhaustion_TIM3_PD1_pct": 60.2,
+      "Spare_Respiratory_Capacity_x": 0.93
+    },
+    {
+      "arm": "2_Static_Continuous_UrolithinA_Rapamycin",
+      "switch_hour": null,
+      "h_hour240_pct": 0.2,
+      "W_hour240": 1.29,
+      "Lactate_Pyruvate_hour240": 13.4,
+      "GDF15_hour240_pg_ml": 273.0,
+      "Fold_Expansion_day10_x": 10.8,
+      "T_SCM_Stemness_pct": 72.8,
+      "Exhaustion_TIM3_PD1_pct": 4.9,
+      "Spare_Respiratory_Capacity_x": 2.69
+    },
+    {
+      "arm": "3_Bioreactor_BCR_Biphasic_Gated_Controller",
+      "switch_hour": 64.0,
+      "h_hour240_pct": 1.6,
+      "W_hour240": 1.42,
+      "Lactate_Pyruvate_hour240": 13.0,
+      "GDF15_hour240_pg_ml": 315.0,
+      "Fold_Expansion_day10_x": 62.9,
+      "T_SCM_Stemness_pct": 78.0,
+      "Exhaustion_TIM3_PD1_pct": 4.8,
+      "Spare_Respiratory_Capacity_x": 3.78
+    }
+  ],
+  "apis_honeybee": [
+    {
+      "arm": "1_Exposed_Plain_HFCS_Syrup",
+      "switch_day": null,
+      "h_day14_pct": 78.3,
+      "Strobilurin_Qo_Block_day14_pct": 72.9,
+      "Snodgrassella_alvi_Colonization_x": 0.16,
+      "Peak_Flight_EP_Stress": 144.2,
+      "Thoracic_Flight_ATP_day14_x": 0.06,
+      "Forager_Homing_Survival_pct": 18.0
+    },
+    {
+      "arm": "2_Unphased_Antioxidant_Pollen_Sub_Without_Detox_Purge",
+      "switch_day": null,
+      "h_day14_pct": 45.7,
+      "Strobilurin_Qo_Block_day14_pct": 26.6,
+      "Snodgrassella_alvi_Colonization_x": 0.67,
+      "Peak_Flight_EP_Stress": 52.8,
+      "Thoracic_Flight_ATP_day14_x": 0.45,
+      "Forager_Homing_Survival_pct": 39.0
+    },
+    {
+      "arm": "3_Apis_BCR_Two_Stage_Holobiont_Patty",
+      "switch_day": 4.5,
+      "h_day14_pct": 0.1,
+      "Strobilurin_Qo_Block_day14_pct": 6.0,
+      "Snodgrassella_alvi_Colonization_x": 1.0,
+      "Peak_Flight_EP_Stress": 18.1,
+      "Thoracic_Flight_ATP_day14_x": 1.74,
+      "Forager_Homing_Survival_pct": 96.5
+    }
+  ]
+}

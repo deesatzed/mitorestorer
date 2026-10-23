@@ -49,6 +49,8 @@
           <option value="epilepsy_pv">Cohort C (Refractory Epilepsy): PV+ Fast-Spiking Interneurons + H₂S Escape Risk</option>
           <option value="mdd_quin">Cohort D (Treatment-Resistant MDD): IDO1/Quinolinic Shunt + GDF15 Shutdown</option>
           <option value="parkinsons_snc">Cohort E (Parkinson's SNc): GBA1 (rs76763715) + LRRK2 (rs34637584) + Ambroxol Rescue</option>
+          <option value="bioreactor_cart">Cohort F (Ex Vivo CAR-T Bioreactor): PDK1 (2Q8G) + 240h Stem-Cell Memory (T_SCM) Controller</option>
+          <option value="apis_honeybee">Cohort G (Apis-BCR Honeybee Rescue): Strobilurin Complex III (1SQB) + Snodgrassella alvi Patty</option>
           <option value="pgc1a_mthfr">Biogenesis/Methylation Risk: PPARGC1A (rs8192678 T/T) + MTHFR (rs1801133 A/A)</option>
         </select>
       </div>
@@ -701,14 +703,14 @@
           </div>
         </div>
 
-        <!-- TAB 6: Disease Circuit Deep-Dive & 6-Structure 3D Crystal Validation Atlas -->
+        <!-- TAB 6: Cross-Species Circuit Deep-Dive & 8-Structure 3D Crystal Validation Atlas -->
         <div id="tab-disease_3d" class="hidden bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm space-y-5">
           <div>
             <h3 class="text-base font-bold text-[var(--foreground)]">
-              Disease-Specific Circuit Telemetry (Cohorts C, D, &amp; E) &amp; 6-Structure 3D Validation Atlas
+              Cross-Species Circuit Telemetry (Cohorts C–G) &amp; 8-Structure 3D Crystal Validation Atlas
             </h3>
             <p class="text-xs text-[var(--muted-foreground)]">
-              Shows why standard monotherapies fail in Refractory Epilepsy, Treatment-Resistant MDD, and Parkinson's Disease—and how each 3D crystal structure guides precision cofactor rescue.
+              Demonstrates how the universal <strong>Biphasic Purge-Before-Build Law (EP = éR · f²)</strong> resolves failure traps across human neurology (Epilepsy, TR-MDD, Parkinson's), <strong>Ex Vivo CAR-T Bioreactor Manufacturing (Cohort F)</strong>, and <strong>Honeybee Flight-Muscle &amp; Holobiont Rescue (Cohort G)</strong>.
             </p>
           </div>
 
@@ -746,9 +748,31 @@
                 <strong>Post-Ketamine Relapse:</strong> Acute glutamate/AMPA bursts force spine growth at Day 7, but high éR + microglial Quinolinic Acid prune them back unless Stage 1 clears D &amp; QUIN first.
               </p>
             </div>
+            <div class="p-3.5 rounded-xl bg-[var(--content)] border-2 border-teal-500/40 space-y-1.5">
+              <div class="font-bold text-teal-400">Cohort F: Ex Vivo CAR-T Bioreactor (240h)</div>
+              <div class="font-mono text-xs">
+                • High-Glucose + IL-2: <strong>h=56.1%, T_SCM=10.4%, Exh=60.2%</strong><br/>
+                • Static UroA+Rapa: h=0.2%, T_SCM=72.8%, <strong>Fold=10.8x (Fails!)</strong><br/>
+                • <strong>Bioreactor-BCR (Sw h64): h=1.6%, Fold=62.9x, T_SCM=78.0%, SRC=3.78x</strong>
+              </div>
+              <p class="text-[var(--muted-foreground)]">
+                <strong>Discovery 7 (CAR-T Expansion vs. Exhaustion Dilemma):</strong> Phase 1 (0–64h) inhibits <code>PDK1</code> (<code>PDB: 2Q8G</code>) + pulses <code>Urolithin A/Kinetin</code> until supernatant <code>Lac:Pyr ≤ 13.0</code>, then switches to Phase 2 (<code>NR + SIRT1 STAC + IL-7/15</code>).
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-[var(--content)] border-2 border-amber-500/40 md:col-span-2 space-y-1.5">
+              <div class="font-bold text-amber-400">Cohort G: Honeybee (Apis mellifera) Flight-Muscle &amp; Holobiont Rescue (14d)</div>
+              <div class="font-mono text-xs">
+                • Exposed + Plain HFCS Syrup: <strong>h=78.3%, Qo-Block=72.9%, Flight EP=144.2, ATP=0.06x, Homing=18.0%</strong><br/>
+                • Unphased Antioxidant Pollen Sub: h=45.7%, Qo-Block=26.6%, Flight EP=52.8, ATP=0.45x, Homing=39.0%<br/>
+                • <strong>Apis-BCR 2-Stage Hive Patty (Sw d4.5): h=0.1%, Qo-Block=6.0%, S.alvi=1.00x, Flight ATP=1.74x, Homing=96.5%</strong>
+              </div>
+              <p class="text-[var(--muted-foreground)]">
+                <strong>Discovery 8 (Quadratic Wingbeat Flux Catastrophe):</strong> When bees transition from hive rest (<code>f=1.0</code>) to foraging flight (<code>100–250 Hz wingbeat, f²=5.76x</code>), feeding plain HFCS syrup into Strobilurin-blocked Complex III (<code>PDB: 1SQB</code>) triggers a 5.76x superoxide explosion. Stage 1 (Days 1–5) uses floral <strong><em>p</em>-Coumaric Acid</strong> (<code>CYP9Q1/2/3</code> detox) + <strong>Coumaroyl-Spermidine</strong> mitophagy + live <strong><em>Snodgrassella alvi</em></strong> before Stage 2 (Days 6–14) <strong>Ubiquinol (CoQ10) + NR + Riboflavin</strong> foraging build.
+              </p>
+            </div>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
             <div class="p-3 rounded-lg bg-[var(--content)] border border-[var(--border)]">
               <span class="font-mono font-bold text-amber-500">PDB: 6FCX (MTHFR 2.50 Å)</span>
               <p class="mt-1 text-[var(--muted-foreground)]"><code>Ala222Val</code> (<code>rs1801133</code>) destabilizes helix α8 (3.85 Å from FAD). Rescued by <strong>50 mg Riboflavin B2 + 5 g Creatine</strong>.</p>
@@ -768,6 +792,14 @@
             <div class="p-3 rounded-lg bg-[var(--content)] border border-[var(--border)] md:col-span-2">
               <span class="font-mono font-bold text-pink-500">PDB: 2NSX (GBA1 + Pharmacological Chaperone IFM 506, 2.20 Å)</span>
               <p class="mt-1 text-[var(--muted-foreground)]">Parkinson's <code>Asn370Ser</code> (<code>rs76763715</code>, ΔΔG = +1.92 kcal/mol) collapses Loop 1 (<code>311-319</code>). <strong>High-Dose Ambroxol</strong> binds <code>Glu235/Glu340/Asp127</code> (2.61–2.68 Å) in the ER to chaperone <code>GBA1</code> into the lysosome.</p>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--content)] border border-teal-500/40">
+              <span class="font-mono font-bold text-teal-400">PDB: 2Q8G (Human PDK1 + AZD7545, 1.90 Å)</span>
+              <p class="mt-1 text-[var(--muted-foreground)]"><code>AZD7545 (AZX 438)</code> forms a <strong>2.50 Å H-bond to Ser75(OG)</strong> inside the <code>Phe62/Phe65/Phe78</code> L2 lipoyl pocket (<code>s25–s27</code>), unblocking PDH to break CAR-T Warburg glycolysis.</p>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--content)] border border-amber-500/40">
+              <span class="font-mono font-bold text-amber-400">PDB: 1SQB (Complex III + Azoxystrobin, 2.69 Å)</span>
+              <p class="mt-1 text-[var(--muted-foreground)]">Strobilurin <code>AZO 383</code> blocks the Cytochrome <em>b</em> <code>Qo</code> pocket at <strong>Glu271 (3.15 Å) &amp; Phe274 (3.33 Å)</strong> (<code>s28–s30</code>); cleared by <em>p</em>-Coumaric <code>CYP9Q</code> + Stage 2 <strong>Ubiquinol</strong>.</p>
             </div>
           </div>
         </div>
@@ -1519,6 +1551,14 @@
         stage0Extra = '• <strong>APOE4/TOMM40 Stage 0 (7CK6 Pore Unblocking):</strong> TUDCA (1,000 mg) + Citicoline (500 mg) + Krill LPC-DHA + Molybdenum/Polyphenols.';
         stage1Extra = '• <strong>Stage 1 Cortical Purge:</strong> C8-MCT + Kinetin (250 mg, 6EQI) + Trehalose (15 g) + Spermidine (12 mg) + Urolithin A (1,000 mg).';
         stage2Extra = '• <strong>Stage 2 Cortical Expansion:</strong> NR (500 mg) + PncA Synbiotic + PQQ (20 mg) + Resveratrol (250 mg, 4ZZJ) + Creatine (5 g) + Riboflavin B2 (50 mg).';
+      } else if (preset === 'bioreactor_cart') {
+        stage0Extra = '• <strong>Bioreactor-BCR Hour 0 Apheresis Priming (PDB: 2Q8G):</strong> Low-glucose (4 mM) / Galactose + AZD7545/DCA PDK1 L2-pocket inhibitor (unblocks Ser75/Phe62) + Citicoline membrane support.';
+        stage1Extra = '• <strong>Phase 1 Purge Pulse (Hours 0–64):</strong> Urolithin A (25 μM) + Kinetin (10 μM, 6EQI) + IL-7/IL-15 until supernatant Lactate:Pyruvate ≤ 13.0 and GDF15 &lt; 380 pg/mL (clears D to 1.6%).';
+        stage2Extra = '• <strong>Phase 2 Clonal Expansion (Hours 64–240):</strong> Switch perfusion to NR (500 μM) + SIRT1 STAC (4ZZJ) + Creatine + L-Arginine → 62.9x Fold Expansion &amp; 78.0% T_SCM Stemness!';
+      } else if (preset === 'apis_honeybee') {
+        stage0Extra = '• <strong>Apis-BCR Hive Assessment (PDB: 1SQB):</strong> Detect Strobilurin (Azoxystrobin/Pyraclostrobin) Complex III Qo blockade (Glu271/Phe274) + Neonicotinoid/Glyphosate exposure before foraging surge.';
+        stage1Extra = '• <strong>Stage 1 In-Hive Detox &amp; Mitophagy Patty (Days 1–5):</strong> Floral p-Coumaric Acid (500 μM, induces CYP9Q1/2/3 detox) + Coumaroyl-Spermidine/Urolithin A + Live Snodgrassella alvi &amp; Gilliamella apicola.';
+        stage2Extra = '• <strong>Stage 2 Forager Flight OXPHOS Build Patty (Days 5–14):</strong> Ubiquinol/CoQ10 (outcompetes residual strobilurin at Ala143/Ile146 Qo portal) + NR + Riboflavin B2 + 24-Methylenecholesterol → 96.5% Homing Survival!';
       }
 
       document.getElementById('dynamicDailyChecklist').innerHTML = `
@@ -1783,6 +1823,30 @@
         state.pink1Eff = 0.90;
         state.tissueTurnover = 1.00;
         state.purgeDays = 2.25;
+      } else if (val === 'bioreactor_cart') {
+        state.snp_ppargc1a = 0;
+        state.snp_fut2 = 0;
+        state.snp_mthfr = 0;
+        state.snp_apoe = 0;
+        state.snp_sod2 = 1;
+        state.pink1Eff = 1.00;
+        state.tissueTurnover = 1.35;
+        state.neuroStack = 0.95;
+        state.uroA = 0.95;
+        state.nad = 0.95;
+        state.purgeDays = 2.75;
+      } else if (val === 'apis_honeybee') {
+        state.snp_ppargc1a = 0;
+        state.snp_fut2 = 2;
+        state.snp_mthfr = 1;
+        state.snp_apoe = 0;
+        state.snp_sod2 = 2;
+        state.pink1Eff = 0.60;
+        state.tissueTurnover = 1.35;
+        state.sulfideSuppress = 0.95;
+        state.uroA = 0.95;
+        state.nad = 0.95;
+        state.purgeDays = 3.25;
       }
 
       document.getElementById('snp_ppargc1a').value = state.snp_ppargc1a;

@@ -1,0 +1,253 @@
+{
+  "cif_path": "/Users/o2satz/.gemini/antigravity/brain/e55fbd0d-7b92-471e-b9ba-63a180b98a1f/1SQB/pdb_00001sqb.cif",
+  "polymer_chains": {
+    "A": {
+      "residue_count": 446,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 446,
+      "modified_residues": []
+    },
+    "B": {
+      "residue_count": 425,
+      "min_auth_seq_id": 15,
+      "max_auth_seq_id": 439,
+      "modified_residues": []
+    },
+    "C": {
+      "residue_count": 378,
+      "min_auth_seq_id": 2,
+      "max_auth_seq_id": 379,
+      "modified_residues": []
+    },
+    "D": {
+      "residue_count": 241,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 241,
+      "modified_residues": []
+    },
+    "E": {
+      "residue_count": 196,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 196,
+      "modified_residues": []
+    },
+    "F": {
+      "residue_count": 105,
+      "min_auth_seq_id": 6,
+      "max_auth_seq_id": 110,
+      "modified_residues": []
+    },
+    "G": {
+      "residue_count": 75,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 75,
+      "modified_residues": []
+    },
+    "H": {
+      "residue_count": 67,
+      "min_auth_seq_id": 12,
+      "max_auth_seq_id": 78,
+      "modified_residues": []
+    },
+    "I": {
+      "residue_count": 57,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 57,
+      "modified_residues": []
+    },
+    "J": {
+      "residue_count": 61,
+      "min_auth_seq_id": 1,
+      "max_auth_seq_id": 61,
+      "modified_residues": []
+    },
+    "K": {
+      "residue_count": 52,
+      "min_auth_seq_id": 2,
+      "max_auth_seq_id": 53,
+      "modified_residues": []
+    }
+  },
+  "nonpolymer_ligands": {
+    "C:381:HEM": 43,
+    "C:382:HEM": 43,
+    "C:383:AZO": 30,
+    "D:242:HEC": 43,
+    "E:200:FES": 4
+  },
+  "target_query": {
+    "target_chain": "C",
+    "target_res": "383",
+    "max_dist_angstrom": 4.2
+  },
+  "contacts": [
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "271",
+      "partner_comp_id": "GLU",
+      "distance_angstrom": 3.15,
+      "target_atom": "C20",
+      "partner_atom": "N"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "146",
+      "partner_comp_id": "ILE",
+      "distance_angstrom": 3.27,
+      "target_atom": "O2",
+      "partner_atom": "CG1"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "143",
+      "partner_comp_id": "ALA",
+      "distance_angstrom": 3.27,
+      "target_atom": "C22",
+      "partner_atom": "N"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "274",
+      "partner_comp_id": "PHE",
+      "distance_angstrom": 3.33,
+      "target_atom": "C9",
+      "partner_atom": "CD2"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "131",
+      "partner_comp_id": "TYR",
+      "distance_angstrom": 3.38,
+      "target_atom": "O3",
+      "partner_atom": "CB"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "270",
+      "partner_comp_id": "PRO",
+      "distance_angstrom": 3.4,
+      "target_atom": "O4",
+      "partner_atom": "CB"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "142",
+      "partner_comp_id": "GLY",
+      "distance_angstrom": 3.4,
+      "target_atom": "O5",
+      "partner_atom": "C"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "294",
+      "partner_comp_id": "LEU",
+      "distance_angstrom": 3.43,
+      "target_atom": "C3",
+      "partner_atom": "O"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "269",
+      "partner_comp_id": "LYS",
+      "distance_angstrom": 3.44,
+      "target_atom": "C15",
+      "partner_atom": "O"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "132",
+      "partner_comp_id": "VAL",
+      "distance_angstrom": 3.44,
+      "target_atom": "C22",
+      "partner_atom": "CG2"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "128",
+      "partner_comp_id": "PHE",
+      "distance_angstrom": 3.5,
+      "target_atom": "C22",
+      "partner_atom": "CE1"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "139",
+      "partner_comp_id": "SER",
+      "distance_angstrom": 3.55,
+      "target_atom": "C22",
+      "partner_atom": "O"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "298",
+      "partner_comp_id": "ILE",
+      "distance_angstrom": 3.61,
+      "target_atom": "C4",
+      "partner_atom": "CG1"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "273",
+      "partner_comp_id": "TYR",
+      "distance_angstrom": 3.61,
+      "target_atom": "C20",
+      "partner_atom": "CE1"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "138",
+      "partner_comp_id": "MET",
+      "distance_angstrom": 3.63,
+      "target_atom": "C15",
+      "partner_atom": "CE"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "277",
+      "partner_comp_id": "ALA",
+      "distance_angstrom": 3.7,
+      "target_atom": "C5",
+      "partner_atom": "CB"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "124",
+      "partner_comp_id": "MET",
+      "distance_angstrom": 3.7,
+      "target_atom": "C5",
+      "partner_atom": "SD"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "127",
+      "partner_comp_id": "ALA",
+      "distance_angstrom": 3.94,
+      "target_atom": "O3",
+      "partner_atom": "O"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "278",
+      "partner_comp_id": "TYR",
+      "distance_angstrom": 3.97,
+      "target_atom": "C11",
+      "partner_atom": "CB"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "268",
+      "partner_comp_id": "ILE",
+      "distance_angstrom": 4.16,
+      "target_atom": "C14",
+      "partner_atom": "CG2"
+    },
+    {
+      "partner_chain": "C",
+      "partner_auth_seq_id": "145",
+      "partner_comp_id": "VAL",
+      "distance_angstrom": 4.18,
+      "target_atom": "C13",
+      "partner_atom": "CG1"
+    }
+  ]
+}

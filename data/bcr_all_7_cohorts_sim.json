@@ -1,0 +1,94 @@
+{
+  "parameters": {
+    "cohort": "all",
+    "pink1_class": "Class_I_ATP_Pocket",
+    "days": 90,
+    "dt_days": 0.02
+  },
+  "results": [
+    {
+      "cohort": "metabolic_muscle",
+      "h_final_pct": 1.6,
+      "ATP_final_x": 1.41,
+      "Mass_final_x": 1.27,
+      "GDF15_final_pg_ml": 282.0,
+      "switch_day": 38.3,
+      "safety_warnings": []
+    },
+    {
+      "cohort": "neuro_apoe4",
+      "pink1_class": "Class_I_ATP_Pocket",
+      "h_final_pct": 0.9,
+      "ATP_final_x": 1.52,
+      "Mass_final_x": 1.31,
+      "GDF15_final_pg_ml": 282.0,
+      "switch_day": 30.4,
+      "safety_warnings": []
+    },
+    {
+      "cohort": "refractory_epilepsy",
+      "h_final_pct": 0.5,
+      "H2S_final": 0.11,
+      "ATP_PV_interneuron_x": 1.46,
+      "EI_ratio_day25": 1.11,
+      "EI_ratio_day90": 0.65,
+      "seizure_propensity_reduction_pct": 96.0,
+      "switch_day": 31.5,
+      "safety_warnings": []
+    },
+    {
+      "cohort": "treatment_resistant_mdd",
+      "h_final_pct": 0.6,
+      "QUIN_final": 0.2,
+      "GDF15_final_pg_ml": 259,
+      "hedonic_drive_x": 1.15,
+      "dendritic_spine_density_day7_x": 0.64,
+      "dendritic_spine_density_day90_x": 1.24,
+      "switch_day": 30.5,
+      "safety_warnings": []
+    },
+    {
+      "cohort": "parkinsons_snc",
+      "h_final_pct": 3.7,
+      "Auto_Jam_day25": 0.08,
+      "Auto_Jam_day90": 0.08,
+      "DA_Q_day90": 0.12,
+      "SNCA_agg_day90": 0.15,
+      "TH_Dopamine_Tone_x": 1.25,
+      "Motor_Score_Rescue_Pct": 95.0,
+      "switch_day": 34.0,
+      "safety_warnings": [
+        "Discovery 6 (GBA1/LRRK2 Autophagosome Traffic Jam): Stimulating PINK1/Parkin mitophagy without Stage 0 Ambroxol (PDB: 2NSX) + Spermidine (ATP13A2) lysosomal unblocking increases Auto_Jam to 1.29x and SNCA protofibrils to 1.63x. Enforce Stage 0 Ambroxol + Spermidine + D-BHB VMAT2 rescue first."
+      ]
+    },
+    {
+      "cohort": "bioreactor_cart",
+      "duration_hours": 240,
+      "switch_hour": 48.0,
+      "h_final_pct": 2.9,
+      "Lactate_Pyruvate_final": 10.6,
+      "GDF15_final_pg_ml": 340,
+      "Fold_Expansion_day10_x": 62.8,
+      "T_SCM_Stemness_pct": 81.2,
+      "Exhaustion_TIM3_PD1_pct": 5.8,
+      "Spare_Respiratory_Capacity_x": 3.48,
+      "safety_warnings": [
+        "Discovery 7 (CAR-T Bioreactor Expansion vs. Exhaustion Dilemma): Continuous CD3/CD28 + IL-2 + 25mM Glucose locks mTORC1 and PDK1 (PDB: 2Q8G) ON, driving Warburg glycolysis (Lactate:Pyruvate = 29.9) and cloning damaged mitochondria (h = 56.4%, T_SCM = 12.1%). Enforce Hours 0-60 Phase 1 AZD7545/DCA PDK1 inhibition + Urolithin A/Kinetin mitophagy until supernatant Lactate:Pyruvate < 12:1 and GDF15 < 380 pg/mL, then switch to Hours 60-240 NR + SIRT1 STAC + IL-7/IL-15 expansion."
+      ]
+    },
+    {
+      "cohort": "apis_honeybee",
+      "duration_days": 14,
+      "switch_day": 4.5,
+      "h_final_pct": 1.8,
+      "Strobilurin_Qo_Block_final_pct": 9.5,
+      "Snodgrassella_alvi_Colonization_x": 0.96,
+      "Peak_Flight_EP_Stress": 10.8,
+      "Thoracic_Flight_ATP_x": 1.39,
+      "Forager_Homing_Survival_pct": 94.6,
+      "safety_warnings": [
+        "Discovery 8 (Quadratic Wingbeat Flux Catastrophe EP = eR * f_flight^2 in Honeybees): Feeding plain HFCS syrup to bees co-exposed to Strobilurin fungicides (PDB: 1SQB Complex III Qo block at Glu271/Phe274) and Neonicotinoids triggers a 5.76x quadratic EP superoxide explosion upon foraging flight initiation (100-250 Hz wingbeat). Enforce Days 1-5 In-Hive Stage 1 p-Coumaric Acid (CYP9Q1/2/3 detox) + Coumaroyl-Spermidine mitophagy + Snodgrassella alvi synbiotic patty before Days 6-14 Ubiquinol (CoQ10) + NR + Riboflavin foraging patty."
+      ]
+    }
+  ]
+}

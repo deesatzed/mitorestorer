@@ -186,13 +186,16 @@ def main():
 
     mlir_file = os.path.join(REPO_ROOT, "build", "coralnpu", "mitorestorer_bcr.mlir")
     header_file = os.path.join(REPO_ROOT, "build", "coralnpu", "mitorestorer_coralnpu_kernel.h")
+    hil_out = coral_summary.get("c99_hil_verification", "")
     check(
         os.path.exists(mlir_file)
         and os.path.exists(header_file)
         and "coralnpu.matrix_mac_int8_skip" in open(mlir_file).read()
-        and "__riscv_vsetvl_e32m2" in open(header_file).read(),
-        "Coral NPU Emitted MLIR (`tosa`/`rvv`) & C99 RVV v1.0 Firmware",
-        "Verified mitorestorer_bcr.mlir + mitorestorer_coralnpu_kernel.h",
+        and "__riscv_vsetvl_e32m2" in open(header_file).read()
+        and "CORAL_NPU_C99_HIL_PASS" in hil_out
+        and apis_npu["max_h_quantization_err_pct"] < 0.10,
+        "Coral NPU C99/RVV HIL Binary & Bit-Exact Q16.16/INT8 Parity",
+        f"{hil_out} | Max Q16.16 Err={apis_npu['max_h_quantization_err_pct']:.4f}%",
     )
 
     sim_html_path = os.path.join(REPO_ROOT, "simulator", "bcr_simulator.html")

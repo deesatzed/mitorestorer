@@ -44,11 +44,11 @@
         </label>
         <select id="patientPresetSelect" class="bg-[var(--content)] text-[var(--foreground)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm font-medium focus:outline-none">
           <option value="standard">Wild-Type Reference Adult (Baseline h₀ = 45%)</option>
-          <option value="pink1_fut2" selected>Cohort A: PINK1 Class I + FUT2 (rs601338 A/A Non-Secretor)</option>
+          <option value="pink1_fut2">Cohort A: PINK1 Class I + FUT2 (rs601338 A/A Non-Secretor)</option>
           <option value="apoe4_keto">Cohort B (Neuro-AD): APOE4/TOMM40 (rs429358) + PINK1 + Slow Neurons</option>
           <option value="epilepsy_pv">Cohort C (Refractory Epilepsy): PV+ Fast-Spiking Interneurons + H₂S Escape Risk</option>
           <option value="mdd_quin">Cohort D (Treatment-Resistant MDD): IDO1/Quinolinic Shunt + GDF15 Shutdown</option>
-          <option value="parkinsons_snc">Cohort E (Parkinson's SNc): GBA1 (rs76763715) + LRRK2 (rs34637584) + Ambroxol Rescue</option>
+          <option value="parkinsons_snc" selected>Cohort E (Parkinson's SNc): GBA1 (rs76763715) + LRRK2 (rs34637584) + Ambroxol Rescue</option>
           <option value="bioreactor_cart">Cohort F (Ex Vivo CAR-T Bioreactor): PDK1 (2Q8G) + 240h Stem-Cell Memory (T_SCM) Controller</option>
           <option value="apis_honeybee">Cohort G (Apis-BCR Honeybee Rescue): Strobilurin Complex III (1SQB) + Snodgrassella alvi Patty</option>
           <option value="pgc1a_mthfr">Biogenesis/Methylation Risk: PPARGC1A (rs8192678 T/T) + MTHFR (rs1801133 A/A)</option>
@@ -56,51 +56,222 @@
       </div>
     </div>
 
-    <!-- Interactive 4-Step Guided Walkthrough & End-to-End Sample Case Runner -->
-    <div class="bg-[var(--card)] border-2 border-emerald-500/40 rounded-xl p-4 shadow-sm space-y-3" id="guidedWizardBanner">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-        <div class="flex items-center gap-2.5 flex-wrap">
-          <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
-            Interactive Clinical &amp; Mechanistic Walkthrough
-          </span>
-          <span id="wizardStepTitle" class="text-sm font-bold text-[var(--foreground)]">
-            Step 1 of 4: Select Cohort Profile &amp; Inspect Baseline Bioenergetic State
-          </span>
+    <!-- ======================================================================================== -->
+    <!-- HERO COMMAND CENTER: 3-STEP WORKFLOW + LIVE ANIMATED CELLULAR TWIN + SMART AI CO-PILOT   -->
+    <!-- ======================================================================================== -->
+    <div class="bg-[var(--card)] border-2 border-emerald-500/50 rounded-2xl p-4 md:p-5 shadow-md space-y-4" id="guidedWizardBanner">
+
+      <!-- Top Instruction Banner: How This Simulator Works in 3 Simple Steps -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 p-3 rounded-xl bg-[var(--content)] border border-[var(--border)] text-xs">
+        <div class="flex items-start gap-2.5">
+          <span class="px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-bold shrink-0">STEP 1</span>
+          <div>
+            <div class="font-bold text-[var(--foreground)]">Choose a Disease or Species Below</div>
+            <div class="text-[var(--muted-foreground)]">Click any of the 7 studies (Parkinson's, Alzheimer's, Epilepsy, Depression, Muscle Aging, CAR-T, or Honeybees).</div>
+          </div>
         </div>
-        <div class="flex items-center gap-2 flex-wrap">
-          <button id="btnRunSampleCase" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:opacity-90 transition">
-            ▶ Load &amp; Run Sample Case (Step 1)
+        <div class="flex items-start gap-2.5">
+          <span class="px-2 py-0.5 rounded-full bg-cyan-400 text-slate-950 font-bold shrink-0">STEP 2</span>
+          <div>
+            <div class="font-bold text-[var(--foreground)]">Compare Treatment Strategies</div>
+            <div class="text-[var(--muted-foreground)]">Toggle between <strong>❌ Untreated</strong>, <strong>⚠️ All-at-Once Supplements (Backfires!)</strong>, and <strong>✅ Proposed Phased Reset</strong>.</div>
+          </div>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="px-2 py-0.5 rounded-full bg-purple-400 text-slate-950 font-bold shrink-0">STEP 3</span>
+          <div>
+            <div class="font-bold text-[var(--foreground)]">Watch the Cell Evolve &amp; Ask the AI Co-Pilot</div>
+            <div class="text-[var(--muted-foreground)]">Watch red damaged mitochondria get recycled before green healthy ones multiply, and read the live AI prescription.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 1: 7 Visual Study Cards (1-Click Cohort Selection) -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold uppercase tracking-wider text-emerald-400">Step 1 — Select Study / Condition (7 Validated Cohorts):</span>
+          <span class="font-mono text-[var(--muted-foreground)]" id="heroActiveStudySubtitle">Active: Cohort E — Parkinson's Dopamine Neurons (PDB: 2NSX GBA1)</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 text-xs" id="heroStudyCardsGrid">
+          <button data-hero-study="parkinsons_snc" class="hero-study-card text-left p-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-500/15 transition space-y-0.5">
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🧠 Parkinson's</span><span class="text-[10px] font-mono text-emerald-400">95% Rescue</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Unjam GBA1 lysosomes first, then clear &amp; rebuild SNc</div>
           </button>
-          <button id="btnWizardPrev" class="px-2.5 py-1.5 rounded-lg bg-[var(--content)] border border-[var(--border)] text-xs font-semibold hover:opacity-90 transition">
-            ← Prev Step
+          <button data-hero-study="apoe4_keto" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🧩 Alzheimer's</span><span class="text-[10px] font-mono text-cyan-400">h=3.3%</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Unblock APOE4 / TOMM40 pore before brain mitophagy</div>
           </button>
-          <button id="btnWizardNext" class="px-3 py-1.5 rounded-lg bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-bold hover:opacity-90 transition">
-            Next Step →
+          <button data-hero-study="epilepsy_pv" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>⚡ Epilepsy</span><span class="text-[10px] font-mono text-cyan-400">-96% Seiz</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Stop Day-30 keto gut H₂S surge in PV+ interneurons</div>
           </button>
-          <button id="btnTogglePlainEnglish" class="px-2.5 py-1.5 rounded-lg bg-[var(--content)] border border-[var(--border)] text-xs font-mono hover:opacity-90 transition">
-            Summary Mode: Executive
+          <button data-hero-study="mdd_quin" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🌱 Depression</span><span class="text-[10px] font-mono text-purple-400">1.24× Spines</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Purge neurotoxic QUIN so new synapses don't relapse</div>
+          </button>
+          <button data-hero-study="pink1_fut2" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>💪 Sarcopenia</span><span class="text-[10px] font-mono text-emerald-400">1.20× ATP</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Compress 13.5h→6h fasting lag + FUT2 direct UroA</div>
+          </button>
+          <button data-hero-study="bioreactor_cart" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🧬 CAR-T Cells</span><span class="text-[10px] font-mono text-teal-400">62.9× / 78%</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Hour-64 bioreactor valve switch maximizes stemness</div>
+          </button>
+          <button data-hero-study="apis_honeybee" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🐝 Honeybees</span><span class="text-[10px] font-mono text-amber-400">96.5% Home</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">5-day fungicide detox patty before CoQ10 flight build</div>
           </button>
         </div>
       </div>
 
-      <!-- Step Progress Pills -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-        <button data-wstep="1" class="wstep-btn text-left p-2 rounded-lg border border-emerald-500 bg-emerald-500/10 font-semibold transition">
-          1. Patient Scenario &amp; Baseline
-        </button>
-        <button data-wstep="2" class="wstep-btn text-left p-2 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--muted-foreground)] transition">
-          2. Why Standard Treatments Fail
-        </button>
-        <button data-wstep="3" class="wstep-btn text-left p-2 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--muted-foreground)] transition">
-          3. Activate Phased BCR Reset
-        </button>
-        <button data-wstep="4" class="wstep-btn text-left p-2 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--muted-foreground)] transition">
-          4. Day-38 Lab Gate &amp; Daily Plan
-        </button>
+      <!-- STEP 2: 3-Way Strategy Comparison Selector (Why Standard & Unphased Fail vs. Why Phased Reset Works) -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between text-xs flex-wrap gap-2">
+          <span class="font-bold uppercase tracking-wider text-cyan-400">Step 2 — Compare What Happens Inside the Cell Under 3 Different Approaches:</span>
+          <div class="flex items-center gap-1.5">
+            <button id="btnRunSampleCase" class="px-2.5 py-1 rounded-md bg-emerald-600 text-white text-xs font-bold hover:opacity-90 transition">
+              🔄 Restart Live Demo
+            </button>
+            <button id="btnWizardPrev" class="px-2 py-1 rounded-md bg-[var(--content)] border border-[var(--border)] text-xs font-semibold hover:opacity-90 transition">
+              ← Prev
+            </button>
+            <button id="btnWizardNext" class="px-2.5 py-1 rounded-md bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-bold hover:opacity-90 transition">
+              Next Step →
+            </button>
+            <button id="btnTogglePlainEnglish" class="px-2 py-1 rounded-md bg-[var(--content)] border border-[var(--border)] text-xs font-mono hover:opacity-90 transition">
+              Summary Mode: Executive
+            </button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
+          <button data-hero-regimen="untreated" class="hero-regimen-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1">
+            <div class="font-bold text-rose-400 flex items-center justify-between">
+              <span>❌ 1. Standard Care / Do Nothing</span>
+              <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-300">Fails (Stays Sick)</span>
+            </div>
+            <p class="text-[var(--muted-foreground)] leading-snug">
+              Damaged mitochondria stay clogged inside the cell (<strong>45%–78% damaged</strong>), leaking toxic free radicals and starving the tissue of ATP energy.
+            </p>
+          </button>
+          <button data-hero-regimen="unphased" class="hero-regimen-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1">
+            <div class="font-bold text-amber-400 flex items-center justify-between">
+              <span>⚠️ 2. Take All Supplements at Once (The Trap!)</span>
+              <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300">Backfires (84%+ Bad!)</span>
+            </div>
+            <p class="text-[var(--muted-foreground)] leading-snug">
+              Taking growth boosters (<code>NAD⁺/NR</code>) at the same time as cleaners (<code>Urolithin A</code>) turns off recycling and accidentally <strong>clones shorter damaged DNA</strong>!
+            </p>
+          </button>
+          <button data-hero-regimen="bcr" class="hero-regimen-card text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/15 transition space-y-1">
+            <div class="font-bold text-emerald-400 flex items-center justify-between">
+              <span>✅ 3. Proposed MitoRestorer Phased Reset</span>
+              <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-emerald-500/25 text-emerald-200 font-bold">Proposed Solution</span>
+            </div>
+            <p class="text-[var(--foreground)] leading-snug">
+              <strong>Phase 0:</strong> Unblock exits → <strong>Phase 1:</strong> Clean out red damaged mitochondria (hold <code>NAD⁺</code> off!) → <strong>⚡ Gate Switch</strong> → <strong>Phase 2:</strong> Multiply green healthy mitochondria!
+            </p>
+          </button>
+        </div>
       </div>
 
-      <!-- Guided Explanation Box -->
-      <div id="wizardStepBody" class="p-3 rounded-lg bg-[var(--content)] border border-[var(--border)] text-xs leading-relaxed text-[var(--foreground)]">
+      <!-- STEP 3: LIVE ANIMATED CELLULAR TWIN (Left 7 Cols) + SMART AI BIOENERGETIC CO-PILOT (Right 5 Cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+
+        <!-- Left 7 Cols: Live Animated Cell & Mitochondrial Twin Canvas -->
+        <div class="lg:col-span-7 flex flex-col justify-between rounded-xl border border-cyan-500/40 bg-[#060b16] p-3 space-y-2.5">
+          <div class="flex items-center justify-between flex-wrap gap-2 text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="font-bold text-slate-100" id="liveCellCanvasTitle">LIVE CELLULAR TWIN: Inside the Mitochondrial Network Over Time</span>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold" id="liveCellPhasePill">
+              Phase 1: Recycling Damaged Mitochondria
+            </span>
+          </div>
+
+          <!-- High-Resolution Animated Cell & Timeline Canvas -->
+          <div class="rounded-lg overflow-hidden border border-slate-800 bg-[#040811]">
+            <canvas id="canvasLiveCellTwin" height="335" class="w-full block"></canvas>
+          </div>
+
+          <!-- Bottom Legend & Quick Snapshot Buttons -->
+          <div class="flex items-center justify-between flex-wrap gap-2 text-[11px] font-mono text-slate-300 pt-1">
+            <div class="flex items-center gap-3 flex-wrap">
+              <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 mr-1"></span>Red = Damaged Mitochondria (D)</span>
+              <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 mr-1"></span>Green = Healthy Mitochondria (W)</span>
+              <span><span class="inline-block w-2.5 h-2.5 rounded-full border-2 border-amber-400 mr-1"></span>Gold Ring = Mitophagy Cleaner</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <button data-wstep="1" class="wstep-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 hover:bg-slate-800">1. Baseline</button>
+              <button data-wstep="2" class="wstep-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 hover:bg-slate-800">2. Trap</button>
+              <button data-wstep="3" class="wstep-btn px-2 py-0.5 rounded border border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold">3. Phased Reset</button>
+              <button data-wstep="4" class="wstep-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 hover:bg-slate-800">4. Lab Gate</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 5 Cols: Smart AI Bioenergetic Co-Pilot & Actionable Prescription Engine -->
+        <div class="lg:col-span-5 flex flex-col justify-between rounded-xl border border-emerald-500/40 bg-[var(--content)] p-3.5 space-y-3 text-xs">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between border-b border-[var(--border)] pb-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 font-mono font-bold">🤖 AI BIOENERGETIC CO-PILOT</span>
+                <span id="wizardStepTitle" class="font-bold text-[var(--foreground)] truncate">Live Mechanistic Narrator</span>
+              </div>
+              <span class="font-mono text-[11px] text-cyan-400" id="aiCopilotClockLabel">Day 0.0</span>
+            </div>
+
+            <!-- Live Time-Synced Explanation: What Is Happening Right Now & Why -->
+            <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] space-y-1.5">
+              <div class="font-bold text-cyan-400 uppercase tracking-wider text-[11px]" id="aiWhatIsHappeningTitle">
+                📍 What Is Happening Right Now &amp; Why:
+              </div>
+              <div id="aiLiveNarrativeBox" class="leading-relaxed text-[var(--foreground)]">
+                Loading live cellular telemetry...
+              </div>
+            </div>
+
+            <!-- Proposed Protocol Concrete Prescription & Expected Outcome Box -->
+            <div class="p-3 rounded-lg bg-[var(--card)] border border-emerald-500/30 space-y-1.5">
+              <div class="font-bold text-emerald-400 uppercase tracking-wider text-[11px]">
+                💊 Proposed Phased Prescription &amp; Verified Outcome:
+              </div>
+              <div id="wizardStepBody" class="leading-relaxed text-[var(--foreground)] space-y-1">
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive "Ask the AI Co-Pilot" Smart Reasoning Section -->
+          <div class="space-y-2 pt-1 border-t border-[var(--border)]">
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between">
+              <span>💡 Ask the AI Co-Pilot (Click a Question or Type Below):</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5" id="aiQuickQuestionsRow">
+              <button data-ai-q="why_not_all_at_once" class="ai-q-btn px-2 py-1 rounded-md bg-[var(--card)] border border-[var(--border)] hover:border-cyan-400 text-[11px] transition">
+                Why does taking NAD⁺ on Day 1 backfire?
+              </button>
+              <button data-ai-q="how_gate_works" class="ai-q-btn px-2 py-1 rounded-md bg-[var(--card)] border border-[var(--border)] hover:border-cyan-400 text-[11px] transition">
+                When do we switch from Stage 1 to Stage 2?
+              </button>
+              <button data-ai-q="study_bottleneck" class="ai-q-btn px-2 py-1 rounded-md bg-[var(--card)] border border-[var(--border)] hover:border-cyan-400 text-[11px] transition">
+                What is the exact 3D bottleneck in this study?
+              </button>
+              <button data-ai-q="coral_edge_role" class="ai-q-btn px-2 py-1 rounded-md bg-[var(--card)] border border-[var(--border)] hover:border-cyan-400 text-[11px] transition">
+                How does the 4 mW Google Coral chip automate this?
+              </button>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <input id="aiCustomQuestionInput" type="text" placeholder="Ask anything (e.g. 'What should this patient take in Stage 1?', 'Why Ambroxol?', 'Honeybee dose?')" class="w-full px-2.5 py-1.5 rounded-lg bg-[var(--card)] border border-[var(--border)] text-xs focus:outline-none focus:border-cyan-400" />
+              <button id="btnAskAiCopilot" class="px-3 py-1.5 rounded-lg bg-cyan-600 text-white font-bold text-xs shrink-0 hover:opacity-90 transition">
+                Ask AI
+              </button>
+            </div>
+            <div id="aiAnswerBox" class="p-2.5 rounded-lg bg-slate-950/90 border border-cyan-500/40 text-cyan-100 text-xs leading-relaxed">
+              <strong>AI Co-Pilot Ready:</strong> Click any study in <strong>Step 1</strong> or toggle <strong>Step 2</strong> to watch the live cell simulation on the left evolve over time and compare why <em>Clean First, Rebuild Second</em> rescues cellular energy where standard treatments fail.
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -1807,51 +1978,535 @@
       `;
     }
 
-    // --- 4-STEP GUIDED WALKTHROUGH WIZARD (EXECUTIVE CLINICAL VS TECHNICAL) ---
-    state.wizardStep = 1;
+    // --- HERO LIVE CELLULAR TWIN & SMART AI BIOENERGETIC CO-PILOT ENGINE ---
+    state.wizardStep = 3;
     state.plainEnglish = true;
 
-    function renderGuidedWizard(sim) {
-      const last = sim.steps - 1;
-      const h90 = sim.H[last].toFixed(1);
-      const atp90 = sim.ATP[last].toFixed(2);
-      const gdf90 = Math.round(sim.GDF15[last]);
-      const stepTitles = {
-        1: 'Step 1 of 4: Select Cohort Profile & Inspect Baseline Bioenergetic State',
-        2: 'Step 2 of 4: Evaluate the Simultaneous Biogenesis Trap (Unphased Stack)',
-        3: 'Step 3 of 4: Execute the Phased Bioenergetic Circuit Reset (Purge Then Build)',
-        4: 'Step 4 of 4: Verify the Day-38 Biomarker Gate & Daily Protocol Schedule'
-      };
-      document.getElementById('wizardStepTitle').textContent = stepTitles[state.wizardStep];
+    const HERO_STUDY_PROFILES = {
+      parkinsons_snc: {
+        shortName: "Cohort E: Parkinson's Disease (SNc Dopamine Neurons)",
+        cellLabel: "Substantia Nigra (SNc) Pacemaker Dopamine Neuron",
+        bottleneckPdb: "PDB: 2NSX (GBA1 Lysosomal Block) + 6EQI (PINK1) + 4ZZJ (SIRT1)",
+        stage0Text: "<strong>Stage 0 (Days 1–14 — Unjam the Lysosomal Exit):</strong> In Parkinson's SNc neurons, glucosylceramide clogs lysosomes (<code>PDB: 2NSX GBA1</code>). Taking mitophagy triggers before unblocking lysosomes causes a toxic traffic jam (<code>1.29×</code>). We first give <strong>High-Dose Ambroxol (600–1,200 mg) + Spermidine + TUDCA</strong> to open the lysosomal exit doors.",
+        stage1Text: "<strong>Stage 1 (Days 15–38 — Clean Damaged Mitochondria First):</strong> With lysosomal exits open, morning <strong>C8-MCT + D-BHB + Kinetin (250 mg, 6EQI) + Direct Urolithin A (1,000 mg)</strong> selectively tags and recycles red damaged mitochondria (<code>58% → 7.5%</code>). <em>Crucial Rule: Hold NAD⁺/NR off during Stage 1 so we don't clone damaged mtDNA!</em>",
+        gateText: "<strong>⚡ Day 38 Safety Gate (Blood GDF15 &amp; Coral NPU Ring):</strong> Plasma <code>GDF15</code> drops by <strong>-74% (1,950 → 510 pg/mL)</strong> and damaged mtDNA falls below <strong>8%</strong> with safe lean mass (<code>-0.6%</code>). The safety gate flips <strong>GREEN</strong> to unlock Stage 2!",
+        stage2Text: "<strong>Stage 2 (Days 39–90 — Rebuild Healthy Dopamine Power):</strong> Now that 92%+ of surviving mitochondria are healthy wild-type (<code>W</code>), we pulse <strong>NR (1,000 mg) + SIRT1 Activator (4ZZJ) + Creatine (5 g) + Riboflavin B2 (6FCX)</strong> 5 days/week to multiply clean mitochondria—restoring <strong>1.25× Dopamine (TH) Tone and 95% Neuronal Rescue!</strong>",
+        prescriptionHtml: `
+          <div>• <strong>Phase 0 (d1–14 Unjam):</strong> Ambroxol (600–1,200 mg, <code>2NSX</code>) + Spermidine (15 mg) + TUDCA (1,000 mg) + Molybdenum/Tributyrin.</div>
+          <div>• <strong>Phase 1 (d15–38 Clean):</strong> 18:6 Fast + C8-MCT + Direct Urolithin A (1,000 mg) + Kinetin (250 mg, <code>6EQI</code>). <em>(Hold NR/NAD⁺ off!)</em></div>
+          <div>• <strong>Phase 2 (d39–90 Rebuild):</strong> NR (1,000 mg) + PncA Synbiotic + Creatine (5 g) + Riboflavin B2 (50 mg) → <strong>95.0% SNc Rescue (h = 3.7%, TH = 1.25×)</strong> vs. 0% on Levodopa alone.</div>
+        `,
+        whyTrapFails: "In Parkinson's SNc neurons, taking NAD⁺/NR on Day 1 alongside Urolithin A keeps <code>mTORC1</code> active (blocking <code>ULK1</code> mitophagy) while stimulating <code>POLG</code> DNA copying—which copies shorter deletion-mutant mtDNA <code>1.32×</code> faster, driving damaged mitochondria from 58% up to 84%+!"
+      },
+      apoe4_keto: {
+        shortName: "Cohort B: Alzheimer's APOE4 / TOMM40 Cortical Neurons",
+        cellLabel: "APOE4 Cortical Pyramidal Neuron (Slow Turnover 0.65×)",
+        bottleneckPdb: "PDB: 1B68 (APOE4 Arg112–Glu109) + 7CK6 (TOMM40 Import Pore)",
+        stage0Text: "<strong>Stage 0 (Days 1–14 — Unblock the Mitochondrial Import Door):</strong> In <code>APOE4</code> carriers, the <code>Arg112–Glu109</code> salt bridge (<code>PDB: 1B68</code>) clogs the <code>TOMM40</code> outer-membrane beta-barrel pore (<code>PDB: 7CK6</code>). Standard peripheral protocols fail (<code>h = 94.2%</code>) because repair proteins cannot enter the mitochondrion! We first give <strong>TUDCA (1,000 mg) + Citicoline (500 mg) + Krill LPC-DHA</strong> to restore <code>TOMM40</code> pore conductance.",
+        stage1Text: "<strong>Stage 1 (Days 15–38 — Neuronal Mitophagy Purge):</strong> With <code>TOMM40</code> pores unblocked, <strong>C8-MCT Ketones + Kinetin (6EQI) + Trehalose + Urolithin A</strong> clear damaged cortical mitochondria from <code>45% → 7.8%</code> while sparing synaptic ATP.",
+        gateText: "<strong>⚡ Day 38–54 Safety Gate:</strong> Cortical/plasma <code>GDF15</code> drops from <strong>4,123 → 571 pg/mL (-86%)</strong> and <code>TOMM40</code> pore conductance reaches <strong>92%</strong>, unlocking Stage 2 cortical biogenesis.",
+        stage2Text: "<strong>Stage 2 (Days 39–90 — Synaptic Mitochondrial Expansion):</strong> Pulsed <strong>NR (500 mg) + PQQ (20 mg) + Resveratrol (4ZZJ) + Creatine + B2 (6FCX)</strong> expands healthy cortical mitochondria to <strong>1.06× mass, h = 3.3%, and 1.19× Net ATP</strong> (vs. <code>0.17× ATP</code> in peripheral-only protocols!).",
+        prescriptionHtml: `
+          <div>• <strong>Phase 0 (d1–14 Unblock 7CK6 Pore):</strong> TUDCA (1,000 mg) + Citicoline (500 mg) + Krill LPC-DHA (unblocks <code>1B68/7CK6</code> import).</div>
+          <div>• <strong>Phase 1 (d15–38 Cortical Clean):</strong> C8-MCT + Kinetin (250 mg) + Trehalose (15 g) + Direct Urolithin A (1,000 mg).</div>
+          <div>• <strong>Phase 2 (d39–90 Cortical Build):</strong> NR (500 mg) + PQQ (20 mg) + Resveratrol (<code>4ZZJ</code>) + Creatine (5 g) → <strong>h = 3.3%, ATP = 1.19× (vs 94.2% Failure without 7CK6 Rescue)</strong>.</div>
+        `,
+        whyTrapFails: "Without first unblocking the <code>7CK6 TOMM40</code> import pore and clearing mutant mtDNA in Stage 1, giving NAD⁺/PQQ biogenesis boosters traps cortical neurons in <strong>94.2% mutant heteroplasmy</strong> because nuclear-encoded OXPHOS subunits cannot import across clogged outer membranes!"
+      },
+      epilepsy_pv: {
+        shortName: "Cohort C: Refractory Epilepsy (PV+ 40 Hz Interneurons)",
+        cellLabel: "Parvalbumin (PV+) Fast-Spiking Inhibitory Interneuron (f² = 3.06×)",
+        bottleneckPdb: "Kv3.1/3.2 Gamma Pacemaker (f²=3.06×) + Complex IV H₂S Shield",
+        stage0Text: "<strong>Stage 0 (Days 1–14 — Prevent the Day-30 Ketogenic H₂S Crash):</strong> Classic 4:1 ketogenic diets work for ~3 weeks but often fail after Day 30 because high dietary fat + zero prebiotic fiber blooms gut <em>Bilophila/Desulfovibrio</em>, whose <strong>H₂S gas (`1.97×`) poisons Complex IV</strong> in <code>PV+</code> inhibitory interneurons! We first deploy <strong>Molybdenum (150 µg) + 2'-FL HMO + Akkermansia/Parabacteroides/gadB Synbiotic</strong>.",
+        stage1Text: "<strong>Stage 1 (Days 15–32 — PV+ Interneuron Mitophagy Under Ketone Shield):</strong> <strong>C8-MCT TID + D-BHB + Urolithin A + Kinetin</strong> clears damaged mtDNA in <code>PV+</code> interneurons (<code>38% → 6.8%</code>) while gut <code>H₂S</code> is held down at <code>0.11×</code>.",
+        gateText: "<strong>⚡ Day 32 Safety Gate:</strong> Colonic <code>H₂S</code> remains suppressed (<code>0.11× vs 1.97×</code> on classic keto) and cortical Excitation/Inhibition (<code>E/I</code>) ratio drops below <strong>1.05</strong>, unlocking Stage 2.",
+        stage2Text: "<strong>Stage 2 (Days 33–90 — Ketone-Maintained PV+ Biogenesis):</strong> While maintaining low-glycemic ketone tone (<code>β-OHB ≥ 1.5 mM</code>), pulsing <strong>NR + Creatine + Mg L-Threonate + P5P (B6)</strong> boosts <code>PV+</code> ATP to <strong>1.46×</strong>, normalizing <code>E/I = 0.65</code> and achieving <strong>96.0% Seizure Reduction!</strong>",
+        prescriptionHtml: `
+          <div>• <strong>Phase 0 (Gut H₂S Shield + GABA):</strong> Molybdenum (150 µg) + 2'-FL HMO + <em>Akkermansia/Parabacteroides/gadB</em> Synbiotic + P5P B6 (25 mg).</div>
+          <div>• <strong>Phase 1 (PV+ Clean):</strong> C8-MCT (15 mL TID) + D-BHB + Direct Urolithin A (1,000 mg) + Kinetin.</div>
+          <div>• <strong>Phase 2 (Ketone-Maintained Build):</strong> Keep carbs &lt;60 g/d + C8-MCT while pulsing NR (500 mg) + Creatine (5 g) → <strong>96.0% Seizure Reduction (E/I = 0.65 vs 2.26 Classic Keto Rebound)</strong>.</div>
+        `,
+        whyTrapFails: "On an unshielded ketogenic diet or unphased supplement stack, colonic <code>H₂S</code> spikes to <code>1.97×</code> after Day 30, poisoning Cytochrome c Oxidase (Complex IV) in <code>PV+</code> interneurons (which have <code>f² = 3.06×</code> quadratic firing load) and causing seizure rebound!"
+      },
+      mdd_quin: {
+        shortName: "Cohort D: Treatment-Resistant Depression (TR-MDD)",
+        cellLabel: "Prefrontal Cortex (PFC) Layer-V Pyramidal Spine Neuron",
+        bottleneckPdb: "IDO1 Kynurenine/Quinolinic Shunt + Brainstem GFRAL/GDF15 + 4ZZJ SIRT1",
+        stage0Text: "<strong>Stage 0 (Days 1–14 — Shut Off the Neurotoxic Quinolinic Acid Shunt):</strong> In TR-MDD, gut-derived inflammation activates microglial <code>IDO1</code>, diverting tryptophan away from serotonin into <strong>Quinolinic Acid (`QUIN = 1.56×`)</strong>—which poisons <code>NMDA</code> receptors and drives brainstem <code>GDF15 (4,099 pg/mL)</code> sickness behavior. Forced SSRIs or acute Ketamine bursts relapse by Day 14 because the mitochondria lack ATP to sustain new synapses! We first give <strong>Tributyrin + High-EPA (2 g) + Curcumin + F. prausnitzii Prebiotic</strong>.",
+        stage1Text: "<strong>Stage 1 (Days 15–31 — Clear Damaged PFC Mitochondria &amp; QUIN):</strong> Lag-compressed 18:6 + <strong>Urolithin A (1,000 mg) + Kinetin/Trehalose</strong> clears damaged prefrontal mitochondria (<code>36.5% → 6.5%</code>) and drops neurotoxic <code>QUIN</code> by <strong>-87% (1.56× → 0.20×)</strong>.",
+        gateText: "<strong>⚡ Day 31 Safety Gate:</strong> Plasma <code>GDF15</code> drops from <strong>4,099 → 259 pg/mL (-93.7%)</strong>, turning off brainstem <code>GFRAL</code>hedonic shutdown and unlocking Stage 2 synaptogenesis!",
+        stage2Text: "<strong>Stage 2 (Days 32–90 — Sustained Prefrontal Dendritic Spine Expansion):</strong> Pulsed <strong>NR (500 mg) + SIRT1 STAC (4ZZJ) + ALCAR (1,500 mg) + Creatine (5 g) + PQQ</strong> expands prefrontal dendritic spines to <strong>1.24× at Day 90</strong> (vs. Ketamine-alone relapse from <code>0.57× → 0.45×</code>!).",
+        prescriptionHtml: `
+          <div>• <strong>Phase 0 (IDO1/QUIN Blockade):</strong> Tributyrin (500 mg BID) + High-EPA Omega-3 (2 g) + Curcumin Phytosome (500 mg) + <em>F. prausnitzii</em> prebiotic.</div>
+          <div>• <strong>Phase 1 (De-Inflame &amp; Clean):</strong> 18:6 Fast + Direct Urolithin A (1,000 mg) + Kinetin (No forced ketamine/monoamine push while <code>éR</code> is high!).</div>
+          <div>• <strong>Phase 2 (Synaptogenesis Build):</strong> NR (500 mg) + <code>4ZZJ</code> SIRT1 STAC + ALCAR (1.5 g) + Creatine (5 g) → <strong>1.24× Sustained PFC Spines &amp; GDF15 = 259 pg/mL</strong>.</div>
+        `,
+        whyTrapFails: "Forcing monoamines (SSRIs) or synaptogenesis (acute Ketamine) while microglial <code>QUIN (1.56×)</code> and mitochondrial resistance (<code>éR</code>) are high causes newly formed dendritic spines to wither within 14 days (<code>0.57× → 0.45×</code>) due to local bioenergetic starvation!"
+      },
+      pink1_fut2: {
+        shortName: "Cohort A: Sarcopenia &amp; Metabolic Aging (Skeletal Muscle)",
+        cellLabel: "Human Type-IIA Skeletal Muscle Myofiber (MTHFR 6FCX + FUT2)",
+        bottleneckPdb: "13.5h Hepatic Glycogen Lag (τ_lag) + FUT2 Non-Secretor + PDB: 6FCX MTHFR",
+        stage0Text: "<strong>Stage 0 (Days 1–14 — Bypass the FUT2 Non-Secretor &amp; 13.5h Fasting Trap):</strong> Why does standard 16:8 intermittent fasting fail in 69% of older adults? Because hepatic glycogen takes <strong>13.5 hours</strong> to deplete, leaving only 2.5 hours of weak mitophagy! Worse, 22.5% of people are <code>FUT2 rs601338 A/A</code> non-secretors who cannot convert pomegranate ellagitannins into Urolithin A. We compress the fasting lag from <strong>13.5h → 6.0h</strong> via morning Zone-2 walk + C8-MCT and supply <strong>Direct Urolithin A + 2'-FL HMO</strong>.",
+        stage1Text: "<strong>Stage 1 (Days 15–38 — Lag-Compressed 18:6 Muscle Mitophagy):</strong> With <code>τ_lag = 6.0h</code>, every 18:6 cycle delivers a full <strong>12-hour ULK1/PINK1 cleaning window</strong>, clearing damaged muscle mtDNA from <code>45% → 7.0%</code> while preserving lean muscle mass.",
+        gateText: "<strong>⚡ Day 38 Safety Gate:</strong> Plasma <code>GDF15</code> drops by <strong>-68% (1,380 → 440 pg/mL)</strong> with preserved DEXA lean mass (<code>-0.5% vs -2.5% safety floor</code>), flipping the gate to Stage 2!",
+        stage2Text: "<strong>Stage 2 (Days 39–90 — Weekly Muscle Meso-Cycle Rebuild):</strong> Switching to <strong>1.75d Purge : 5.25d Anabolic Build</strong> with <strong>NR + Riboflavin B2 (50 mg, rescues PDB: 6FCX MTHFR FAD) + Creatine (5 g)</strong> restores <strong>h = 3.3%, 1.20× Net ATP, and +1.8% Lean Mass!</strong>",
+        prescriptionHtml: `
+          <div>• <strong>Phase 0 (Lag Compression &amp; FUT2 Bypass):</strong> 07:00 AM Zone-2 Walk + C8-MCT (15 mL, compresses <code>τ_lag: 13.5h → 6.0h</code>) + 2'-FL HMO (2 g).</div>
+          <div>• <strong>Phase 1 (d15–38 Daily 18:6 Clean):</strong> Direct Urolithin A (1,000 mg) at 12:00 PM meal. Hold NR/NMN off during Stage 1.</div>
+          <div>• <strong>Phase 2 (d39–90 Weekly Build):</strong> 1.75d Purge : 5.25d Build with NR (500 mg) + Riboflavin B2 (50 mg, <code>6FCX</code>) + Creatine (5 g) → <strong>h = 3.3%, ATP = 1.20× (vs 42.8%–69.4% on Unassisted 16:8)</strong>.</div>
+        `,
+        whyTrapFails: "Standard 16:8 fasting loses 13.5 of its 16 hours to glycogen burn (leaving damaged mtDNA at 42.8%–69.4%), while taking NAD⁺/NR simultaneously with Urolithin A triggers the Simultaneous Biogenesis Trap (84%+ mutant mtDNA)!"
+      },
+      bioreactor_cart: {
+        shortName: "Cohort F: Ex Vivo CAR-T Immunotherapy Manufacturing (240h GMP)",
+        cellLabel: "Primary Human CD8+ CAR-T Lymphocyte in Perfusion Bioreactor",
+        bottleneckPdb: "PDB: 2Q8G (PDK1 Ser75/Phe62 Warburg Lock) + 6EQI (PINK1) + 4ZZJ (SIRT1)",
+        stage0Text: "<strong>Phase 0 (Hours 0–16 — Unblock the PDK1 Warburg Glycolytic Lock):</strong> Standard high-glucose (<code>25 mM</code>) <code>CD3/CD28 + IL-2</code> CAR-T expansion locks <strong>PDK1 (PDB: 2Q8G)</strong> active, driving massive lactate fermentation (<code>Lac:Pyr = 29.4</code>) and terminal T-cell exhaustion (<code>60.2% exhausted, only 10.4% T_SCM stemness</code>). At apheresis (Hour 0), we prime with <strong>Low-Glucose (4 mM) + AZD7545/DCA (PDK1 L2-pocket inhibitor)</strong>.",
+        stage1Text: "<strong>Phase 1 (Hours 16–64 — Ex Vivo Mitophagy Conditioning Pulse):</strong> Perfusing <strong>Urolithin A (25 µM) + Kinetin (10 µM, 6EQI) + IL-7/IL-15</strong> clears patient-derived damaged mitochondria from <code>38% → 6.8%</code> while preventing premature clonal exhaustion.",
+        gateText: "<strong>⚡ Hour 64 Inline Amperometric Valve Gate (Google Coral NPU):</strong> Inline supernatant <code>Lactate:Pyruvate</code> drops to <strong>11.4 (≤ 12.0 gate)</strong> with GMP <code>pH 7.18</code>, triggering the autonomous <strong>Solenoid Perfusion Valve Switch</strong> to Phase 2!",
+        stage2Text: "<strong>Phase 2 (Hours 64–240 — Clonal Stem-Cell Memory T_SCM Expansion):</strong> Switching cassette media to <strong>NR (500 µM) + SIRT1 STAC (4ZZJ) + Creatine + L-Arginine</strong> achieves <strong>62.9× Fold Expansion AND 78.0% T_SCM Stemness (3.78× Spare Respiratory Capacity)!</strong>",
+        prescriptionHtml: `
+          <div>• <strong>Hours 0–64 (Phase 1 Mitophagy Media):</strong> 4 mM Glucose + AZD7545/DCA (<code>PDB: 2Q8G PDK1</code>) + Urolithin A (25 µM) + Kinetin (10 µM) + IL-7/IL-15.</div>
+          <div>• <strong>Hour 64 Automated Gate:</strong> Switch perfusion valve when inline <code>Lactate:Pyruvate ≤ 12.0</code> and <code>GDF15 &lt; 380 pg/mL</code>.</div>
+          <div>• <strong>Hours 64–240 (Phase 2 Clonal Build Media):</strong> NR (500 µM) + <code>4ZZJ</code> SIRT1 STAC + Creatine + L-Arginine → <strong>62.9× Expansion &amp; 78.0% T_SCM (vs 10.4% Standard GMP)</strong>.</div>
+        `,
+        whyTrapFails: "Continuous static Urolithin A/Rapamycin throughout all 240 hours preserves stemness (72.8%) but crushes cell division to <strong>10.8× fold expansion</strong> (failing clinical dose targets), whereas high-glucose expansion yields 51.9× cells that are <strong>60.2% exhausted</strong>!"
+      },
+      apis_honeybee: {
+        shortName: "Cohort G: Honeybee (Apis mellifera) Colony &amp; Flight Rescue (14 Days)",
+        cellLabel: "Apis mellifera Thoracic Indirect Flight Muscle (246 Hz, f² = 5.76×)",
+        bottleneckPdb: "PDB: 1SQB (Complex III Qo Strobilurin Block) + Snodgrassella alvi Symbiont",
+        stage0Text: "<strong>Stage 1A (Days 0–2 — Clear Strobilurin Fungicide from Complex III Qo):</strong> Agricultural strobilurin fungicides (Azoxystrobin/Pyraclostrobin) bind the <strong>Cytochrome bc1 Qo pocket (PDB: 1SQB Glu271/Phe274)</strong>, blocking <code>72.9%</code> of electron flow! Under <code>246 Hz</code> flight load (<code>f² = 5.76×</code>), feeding unphased CoQ10/pollen while <code>1SQB</code> is blocked causes catastrophic reverse electron transport ROS (<code>39% homing</code>). We first feed <strong>Stage 1 Detox Patty: Floral p-Coumaric Acid (500 µM, induces CYP9Q1/2/3 P450 detox)</strong>.",
+        stage1Text: "<strong>Stage 1B (Days 2–4.5 — Flight-Muscle Mitophagy &amp; Gut Symbiont Restoration):</strong> Combined with <strong>Coumaroyl-Spermidine + Urolithin A + Live Snodgrassella alvi / Gilliamella apicola</strong>, the bee clears fungicide-damaged flight mitochondria (<code>48% → 6.5%</code>) and unblocks <code>1SQB Qo</code> from <code>72.9% → 12%</code>.",
+        gateText: "<strong>⚡ Day 4.5 Smart Beehive Acoustic Gate (Google Coral NPU):</strong> Top-bar MEMS microphone detects colony wingbeat fundamental frequency crossing <strong>f₀ = 226.4 Hz (≥ 220 Hz Gate)</strong>, rotating the servo feeder to the Stage 2 Patty!",
+        stage2Text: "<strong>Stage 2 (Days 5–14 — Forager Flight OXPHOS Expansion):</strong> With the <code>1SQB Qo</code> portal cleared (<code>6% residual block</code>), <strong>Ubiquinol/CoQ10 + NR + Riboflavin B2 + 24-Methylenecholesterol</strong> expands flight-muscle ATP by <strong>29× (0.06× → 1.74×)</strong> and restores <strong>96.5% Forager Homing Survival!</strong>",
+        prescriptionHtml: `
+          <div>• <strong>Days 1–5 (Stage 1 Detox &amp; Symbiont Patty):</strong> p-Coumaric Acid (500 µM, induces <code>CYP9Q</code> clearance of <code>1SQB</code> strobilurins) + Spermidine/UroA + Live <em>S. alvi</em>.</div>
+          <div>• <strong>Day 4.5 Acoustic Gate:</strong> Switch feeder when colony wingbeat harmonic crosses <code>f₀ ≥ 220 Hz</code> (Coral NPU 4.05 mW node).</div>
+          <div>• <strong>Days 5–14 (Stage 2 Flight Build Patty):</strong> Ubiquinol/CoQ10 + NR + Riboflavin B2 + 24-Methylenecholesterol → <strong>96.5% Homing Survival &amp; 1.74× Flight ATP (vs 18.0% on HFCS)</strong>.</div>
+        `,
+        whyTrapFails: "Feeding antioxidant/CoQ10 pollen patties on Day 1 while strobilurin fungicides still occupy <code>72.9%</code> of Complex III <code>Qo</code> sites (<code>PDB: 1SQB</code>) forces electrons into a blocked respiratory chain during flight (<code>f² = 5.76×</code>), generating lethal superoxide bursts (only 39.0% homing survival)!"
+      }
+    };
 
-      document.querySelectorAll('.wstep-btn').forEach(btn => {
-        const s = parseInt(btn.getAttribute('data-wstep'), 10);
-        btn.className = s === state.wizardStep
-          ? 'wstep-btn text-left p-2 rounded-lg border border-emerald-500 bg-emerald-500/10 font-semibold transition'
-          : 'wstep-btn text-left p-2 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--muted-foreground)] transition';
+    function getActiveHeroStudyKey() {
+      const preset = document.getElementById('patientPresetSelect') ? document.getElementById('patientPresetSelect').value : 'parkinsons_snc';
+      if (HERO_STUDY_PROFILES[preset]) return preset;
+      if (HERO_STUDY_PROFILES[state.coralStudy]) return state.coralStudy;
+      return 'parkinsons_snc';
+    }
+
+    function updateHeroCardsUI() {
+      const stKey = getActiveHeroStudyKey();
+      const prof = HERO_STUDY_PROFILES[stKey] || HERO_STUDY_PROFILES.parkinsons_snc;
+      const subEl = document.getElementById('heroActiveStudySubtitle');
+      if (subEl) subEl.textContent = `Active: ${prof.shortName} · ${prof.bottleneckPdb}`;
+
+      document.querySelectorAll('.hero-study-card').forEach(btn => {
+        const isAct = btn.getAttribute('data-hero-study') === stKey;
+        btn.className = isAct
+          ? 'hero-study-card text-left p-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-500/15 transition space-y-0.5 shadow-sm'
+          : 'hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5';
       });
 
+      document.querySelectorAll('.hero-regimen-card').forEach(btn => {
+        const r = btn.getAttribute('data-hero-regimen');
+        const isAct = r === state.activeRegimen || (r === 'untreated' && (state.activeRegimen === 'static_supp' || state.activeRegimen === 'keto_alone'));
+        if (r === 'bcr') {
+          btn.className = state.activeRegimen === 'bcr'
+            ? 'hero-regimen-card text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/15 transition space-y-1 shadow-sm'
+            : 'hero-regimen-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1';
+        } else if (r === 'unphased') {
+          btn.className = state.activeRegimen === 'unphased'
+            ? 'hero-regimen-card text-left p-3 rounded-xl border-2 border-amber-500 bg-amber-500/15 transition space-y-1 shadow-sm'
+            : 'hero-regimen-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1';
+        } else {
+          btn.className = isAct
+            ? 'hero-regimen-card text-left p-3 rounded-xl border-2 border-rose-500 bg-rose-500/15 transition space-y-1 shadow-sm'
+            : 'hero-regimen-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1';
+        }
+      });
+    }
+
+    function renderGuidedWizard(sim) {
+      updateHeroCardsUI();
+      const stKey = getActiveHeroStudyKey();
+      const prof = HERO_STUDY_PROFILES[stKey] || HERO_STUDY_PROFILES.parkinsons_snc;
       const bodyEl = document.getElementById('wizardStepBody');
-      if (state.plainEnglish) {
-        if (state.wizardStep === 1) {
-          bodyEl.innerHTML = `<strong>Executive Clinical Overview (Step 1 — Baseline Pathology):</strong> In our reference cohort (<em>Cohort E: Early Parkinson's SNc</em>), <strong>${(state.h0 * 100).toFixed(0)}% of the mitochondrial network carries damaged mtDNA (h₀)</strong>. Compounded by impaired <code>PINK1</code> mitophagy tagging, <code>GBA1/LRRK2</code> lysosomal congestion, and <code>FUT2</code> mucosal non-secretor status, untreated high-flux metabolism maintains elevated heteroplasmy (<strong>${h90}%</strong>), reductive stress (<code>GDF15 = ${gdf90} pg/mL</code>), and depleted net ATP capacity (<strong>${atp90}x</strong>). <em>Click <strong>"Next Step →"</strong> to inspect why unphased co-supplementation fails.</em>`;
-        } else if (state.wizardStep === 2) {
-          bodyEl.innerHTML = `<strong>Executive Clinical Overview (Step 2 — The Simultaneous Biogenesis Trap):</strong> Switching to <strong>Regimen 4 (Unphased All-in-One Stack)</strong> causes damaged mtDNA to surge to <strong>${h90}%</strong>. Co-administering anabolic precursors (<code>NAD⁺ / NR</code> + amino acids) simultaneously with mitophagy inducers (<code>Urolithin A</code>) sustains <code>mTORC1</code> kinase activity, inhibiting <code>ULK1(Ser757)</code> mitophagy initiation while driving <code>POLG</code> replication—which preferentially copies shorter deletion-mutant mtDNA loops (<code>1.32x</code> replicative advantage). <em>Click <strong>"Next Step →"</strong> to resolve this via chronological phase separation.</em>`;
-        } else if (state.wizardStep === 3) {
-          bodyEl.innerHTML = `<strong>Executive Clinical Overview (Step 3 — Phased Purge-Before-Build Reset):</strong> Activating <strong>Regimen 5 (Two-Stage Biomarker-Gated BCR)</strong> sequences <code>Stage 0</code> lysosomal/import unblocking (<code>Ambroxol + TUDCA/Citicoline</code>), followed by <strong>Stage 1 (Days 15–38)</strong> lag-compressed 18:6 mitophagy (Morning Zone-2 + C8-MCT + Direct Urolithin A + Kinetin) with anabolic boosters held off. Once heteroplasmy drops below 8%, <strong>Stage 2 (Days 38–90)</strong> pulses <code>NAD⁺ + SIRT1 + Creatine</code> to selectively expand wild-type mitochondria—reducing damaged mtDNA to <strong>${h90}%</strong> and restoring ATP to <strong>${atp90}x</strong>. <em>Click <strong>"Next Step →"</strong> to inspect the Day-38 biomarker gate.</em>`;
-        } else {
-          bodyEl.innerHTML = `<strong>Executive Clinical Overview (Step 4 — Closed-Loop Day-38 GDF15 Gate):</strong> Stage 1 → Stage 2 transition is governed by plasma <strong>GDF15</strong> (integrated mitochondrial stress mitokine). In the <strong>Action Plan &amp; Lab Gate</strong> tab below, plasma GDF15 drops from <strong>1,950 → 510 pg/mL (-73.8%)</strong> by Day 38 with preserved DEXA lean mass (<strong>-0.6%</strong>), triggering a <strong>🟢 GREEN LIGHT</strong> transition to Stage 2 anabolic expansion.`;
+      if (bodyEl) {
+        bodyEl.innerHTML = prof.prescriptionHtml;
+      }
+      updateAiCopilotLiveNarrative(sim);
+    }
+
+    function updateAiCopilotLiveNarrative(simInput) {
+      const sim = simInput || state.lastSimResult;
+      if (!sim) return;
+      const stKey = getActiveHeroStudyKey();
+      const prof = HERO_STUDY_PROFILES[stKey] || HERO_STUDY_PROFILES.parkinsons_snc;
+      const tFrac = clip(state.simTimeFrac || 0, 0, 1);
+      const idx = clip(Math.round(tFrac * (sim.steps - 1)), 0, sim.steps - 1);
+      const hNow = sim.H[idx];
+      const atpNow = sim.ATP[idx];
+      const gdfNow = Math.round(sim.GDF15[idx]);
+
+      const clockLabel = document.getElementById('aiCopilotClockLabel');
+      if (clockLabel) {
+        if (stKey === 'bioreactor_cart') clockLabel.textContent = `Hour ${(tFrac * 240).toFixed(0)} / 240h`;
+        else if (stKey === 'apis_honeybee') clockLabel.textContent = `Day ${(tFrac * 14).toFixed(1)} / 14d`;
+        else clockLabel.textContent = `Day ${(tFrac * 90).toFixed(1)} / 90d`;
+      }
+
+      const narrEl = document.getElementById('aiLiveNarrativeBox');
+      const pillEl = document.getElementById('liveCellPhasePill');
+      if (!narrEl) return;
+
+      if (state.activeRegimen === 'unphased') {
+        if (pillEl) {
+          pillEl.textContent = `⚠️ SIMULTANEOUS TRAP: Damaged mtDNA Multiplying (${hNow.toFixed(1)}%)`;
+          pillEl.className = 'px-2 py-0.5 rounded bg-amber-500/25 text-amber-300 font-bold';
         }
+        narrEl.innerHTML = `<span class="text-amber-400 font-bold">⚠️ Why "Take All Supplements at Once" Is Failing Right Now:</span> ${prof.whyTrapFails} <br/><span class="font-mono text-xs text-amber-300">Current Telemetry: Damaged mtDNA = ${hNow.toFixed(1)}% | Net ATP = ${atpNow.toFixed(2)}× | Stress GDF15 = ${gdfNow} pg/mL.</span>`;
+      } else if (state.activeRegimen !== 'bcr') {
+        if (pillEl) {
+          pillEl.textContent = `❌ UNTREATED / STANDARD CARE: Chronic Bioenergetic Congestion (${hNow.toFixed(1)}%)`;
+          pillEl.className = 'px-2 py-0.5 rounded bg-rose-500/25 text-rose-300 font-bold';
+        }
+        narrEl.innerHTML = `<span class="text-rose-400 font-bold">❌ Why Standard Care Alone Stays Stuck:</span> Without chronological unblocking and mitophagy purge, damaged mitochondria remain at <strong>${hNow.toFixed(1)}%</strong>, driving high internal resistance (<code>EP = éR · f²</code>), elevated stress hormone <code>GDF15 (${gdfNow} pg/mL)</code>, and low cellular energy (<strong>${atpNow.toFixed(2)}× ATP</strong>). Click <strong>"✅ 3. Proposed MitoRestorer Phased Reset"</strong> above to see the rescue!`;
       } else {
-        if (state.wizardStep === 1) {
-          bodyEl.innerHTML = `<strong>Technical Biophysical Summary (Step 1):</strong> Baseline heteroplasmy <code>h₀ = ${(state.h0 * 100).toFixed(0)}%</code> with <code>PINK1 = ${state.pink1Eff.toFixed(2)}x</code>, <code>FUT2 rs601338</code> mucosal efficiency, and <code>APOE4/TOMM40</code> import impedance. Under Picard's Energy Resistance Principle (<code>EP = éR · f²</code>), high glycolytic NADH flux into a high-<code>éR</code> network elevates reductive stress and plasma <code>GDF15 (${gdf90} pg/mL)</code>.`;
-        } else if (state.wizardStep === 2) {
-          bodyEl.innerHTML = `<strong>Technical Biophysical Summary (Step 2 — Discovery 1 Simultaneous Biogenesis Trap):</strong> Co-administering mitophagy inducers (<code>Urolithin A</code>) with anabolic <code>NAD⁺/NR</code> and amino acids sustains <code>mTORC1</code> phosphorylation of <code>ULK1(Ser757)</code>, repressing mitophagy while <code>POLG</code> preferentially replicates shorter deletion-mutant mtDNA (<code>k_rep_adv = 1.32x</code>), driving Day-90 heteroplasmy to <code>${h90}%</code>.`;
-        } else if (state.wizardStep === 3) {
-          bodyEl.innerHTML = `<strong>Technical Biophysical Summary (Step 3 — Two-Stage Biomarker-Gated BCR):</strong> Stage 1 compresses glycogen depletion lag (<code>τ_lag = 6.0h</code>) via morning Zone-2 + C8-MCT + Direct Urolithin A + Kinetin (<code>PDB: 6EQI</code>) to clear mutant mtDNA (<code>D</code>) while <code>mTORC1</code> is low, then switches at the Day-38/54 <code>GDF15</code> gate to Stage 2 Weekly Meso-Cycling (<code>2.25d Purge : 4.75d Build</code>) with <code>NR + PncA + SIRT1 Glu230 STAC (PDB: 4ZZJ)</code>, achieving <code>h = ${h90}%</code> and <code>ATP = ${atp90}x</code>.`;
+        // Proposed Phased Reset (BCR) — dynamically narrate Stage 0 -> Stage 1 -> Gate -> Stage 2!
+        const gateFrac = stKey === 'bioreactor_cart' ? (64 / 240) : stKey === 'apis_honeybee' ? (4.5 / 14) : (38 / 90);
+        if (tFrac < 0.16) {
+          if (pillEl) {
+            pillEl.textContent = '🟣 Phase 0: Unblocking Cellular & Organelle Exits';
+            pillEl.className = 'px-2 py-0.5 rounded bg-purple-500/25 text-purple-300 font-bold';
+          }
+          narrEl.innerHTML = prof.stage0Text;
+        } else if (Math.abs(tFrac - gateFrac) <= 0.055) {
+          if (pillEl) {
+            pillEl.textContent = '⚡ SAFETY GATE UNLOCKED: Switching Stage 1 → Stage 2!';
+            pillEl.className = 'px-2 py-0.5 rounded bg-cyan-500/30 text-cyan-200 font-bold';
+          }
+          narrEl.innerHTML = prof.gateText;
+        } else if (tFrac < gateFrac) {
+          if (pillEl) {
+            pillEl.textContent = '🟡 Phase 1: Recycling Red Damaged Mitochondria (No NAD⁺)';
+            pillEl.className = 'px-2 py-0.5 rounded bg-amber-500/25 text-amber-300 font-bold';
+          }
+          narrEl.innerHTML = prof.stage1Text;
         } else {
-          bodyEl.innerHTML = `<strong>Technical Biophysical Summary (Step 4 — Closed-Loop GDF15 Gating):</strong> Evaluates <code>ΔGDF15% ≥ 35%</code> (or <code>&lt;550 pg/mL</code>), capillary <code>β-OHB (1.2–2.8 mmol/L)</code>, and DEXA lean mass safety (<code>Δ &gt; -2.5%</code>) to govern the Stage 1 → Stage 2 transition.`;
+          if (pillEl) {
+            pillEl.textContent = '🟢 Phase 2: Multiplying Green Healthy Mitochondria!';
+            pillEl.className = 'px-2 py-0.5 rounded bg-emerald-500/25 text-emerald-300 font-bold';
+          }
+          narrEl.innerHTML = prof.stage2Text;
         }
+      }
+    }
+
+    function renderLiveCellTwinCanvas() {
+      const canvas = document.getElementById('canvasLiveCellTwin');
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const w = Math.max(rect.width || 620, 480);
+      const h = 335;
+      if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+      }
+      const ctx = canvas.getContext('2d');
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, w, h);
+
+      const stKey = getActiveHeroStudyKey();
+      const prof = HERO_STUDY_PROFILES[stKey] || HERO_STUDY_PROFILES.parkinsons_snc;
+      const tFrac = clip(state.simTimeFrac || 0, 0, 1);
+      const gateFrac = stKey === 'bioreactor_cart' ? (64 / 240) : stKey === 'apis_honeybee' ? (4.5 / 14) : (38 / 90);
+
+      // Compute instantaneous biological metrics for the cell visualization
+      let hPct = 45.0, atpVal = 0.50, gdfVal = 1950, totalMitoCount = 20;
+      if (state.activeRegimen === 'unphased') {
+        hPct = 45.0 + 44.0 * (1.0 - Math.exp(-tFrac * 3.2));
+        atpVal = 0.52 - 0.30 * tFrac;
+        gdfVal = Math.round(1950 + 2400 * tFrac);
+        totalMitoCount = Math.round(20 + 4 * tFrac);
+      } else if (state.activeRegimen !== 'bcr') {
+        hPct = 48.0 + 14.0 * tFrac;
+        atpVal = 0.48 - 0.08 * tFrac;
+        gdfVal = Math.round(1950 + 450 * tFrac);
+        totalMitoCount = 18;
+      } else {
+        // Phased Reset (BCR): Stage 0 (0..0.16), Stage 1 Purge (0.16..gateFrac), Stage 2 Build (gateFrac..1.0)
+        if (tFrac <= gateFrac) {
+          const p = tFrac / Math.max(gateFrac, 0.01);
+          hPct = 46.0 - 38.8 * Math.pow(p, 1.15);
+          atpVal = 0.50 + 0.42 * p;
+          gdfVal = Math.round(1950 - 1440 * p);
+          totalMitoCount = Math.round(20 - 4 * Math.sin(p * Math.PI * 0.8));
+        } else {
+          const b = (tFrac - gateFrac) / Math.max(1.0 - gateFrac, 0.01);
+          hPct = 7.2 - 3.9 * (1.0 - Math.exp(-b * 3.0));
+          const maxAtp = stKey === 'apis_honeybee' ? 1.74 : stKey === 'epilepsy_pv' ? 1.46 : 1.25;
+          atpVal = 0.92 + (maxAtp - 0.92) * (1.0 - Math.exp(-b * 2.8));
+          gdfVal = Math.round(510 - 190 * b);
+          totalMitoCount = Math.round(18 + 8 * (1.0 - Math.exp(-b * 2.5)));
+        }
+      }
+
+      // =========================================================================
+      // TOP ZONE (y = 6..196): LIVE ANIMATED CELL & MITOCHONDRIAL NETWORK
+      // =========================================================================
+      const cellX = w * 0.5;
+      const cellY = 102;
+      const cellRx = w * 0.46;
+      const cellRy = 86;
+
+      // Cell membrane outer glow & boundary
+      const isGateMoment = state.activeRegimen === 'bcr' && Math.abs(tFrac - gateFrac) < 0.06;
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(cellX, cellY, cellRx, cellRy, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(10, 19, 38, 0.92)';
+      ctx.fill();
+      ctx.lineWidth = isGateMoment ? 3.0 : 1.8;
+      ctx.strokeStyle = state.activeRegimen === 'unphased' ? 'rgba(245, 158, 11, 0.65)'
+        : state.activeRegimen !== 'bcr' ? 'rgba(244, 63, 94, 0.55)'
+        : isGateMoment ? '#22d3ee'
+        : tFrac < gateFrac ? 'rgba(251, 191, 36, 0.65)' : 'rgba(16, 185, 129, 0.75)';
+      ctx.stroke();
+
+      // Subtle cytoplasmic grid & central cell nucleus
+      ctx.beginPath();
+      ctx.ellipse(cellX, cellY, 34, 24, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(59, 130, 246, 0.14)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(96, 165, 250, 0.4)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.fillStyle = '#93c5fd';
+      ctx.font = 'bold 9.5px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('NUCLEUS', cellX, cellY - 2);
+      ctx.font = '8.5px monospace';
+      ctx.fillStyle = '#cbd5e1';
+      ctx.fillText(state.activeRegimen === 'bcr' && tFrac > gateFrac ? 'PGC-1α ON' : 'ULK1/TFEB', cellX, cellY + 9);
+
+      // Cell header label inside top-left of cell box
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#e2e8f0';
+      ctx.font = 'bold 10.5px monospace';
+      ctx.fillText(prof.cellLabel, 14, 20);
+
+      // Draw 24 individual animated mitochondria orbiting in the cytoplasm
+      const numDamaged = Math.round((hPct / 100.0) * totalMitoCount);
+      for (let i = 0; i < totalMitoCount; i++) {
+        const isDamaged = i < numDamaged;
+        const ring = i % 2 === 0 ? 0.52 : 0.80;
+        const baseAngle = (i / totalMitoCount) * Math.PI * 2 + state.coralAnimTime * (isDamaged ? 0.18 : 0.34);
+        const mx = cellX + Math.cos(baseAngle) * (cellRx * ring) * 0.88;
+        const my = cellY + Math.sin(baseAngle) * (cellRy * ring) * 0.78;
+        const mAngle = baseAngle + Math.PI * 0.5;
+
+        ctx.save();
+        ctx.translate(mx, my);
+        ctx.rotate(mAngle);
+
+        // Organelle capsule body
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 12, 6.2, 0, 0, Math.PI * 2);
+        if (isDamaged) {
+          ctx.fillStyle = 'rgba(244, 63, 94, 0.32)';
+          ctx.strokeStyle = '#f43f5e';
+        } else {
+          ctx.fillStyle = 'rgba(16, 185, 129, 0.32)';
+          ctx.strokeStyle = '#10b981';
+        }
+        ctx.lineWidth = 1.6;
+        ctx.fill();
+        ctx.stroke();
+
+        // Inner cristae folds
+        ctx.beginPath();
+        ctx.moveTo(-7, -3); ctx.lineTo(-4, 3);
+        ctx.moveTo(0, -3.5); ctx.lineTo(2, 3.5);
+        ctx.moveTo(6, -3); ctx.lineTo(7, 3);
+        ctx.strokeStyle = isDamaged ? 'rgba(253, 164, 175, 0.65)' : 'rgba(167, 243, 208, 0.85)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // If Stage 1 Mitophagy is active in BCR, draw Golden Autophagosome Cleaner Rings around Red Damaged Mitochondria!
+        if (isDamaged && state.activeRegimen === 'bcr' && tFrac >= 0.12 && tFrac <= gateFrac + 0.05) {
+          const pulse = 14 + Math.sin(state.coralAnimTime * 6 + i) * 2.5;
+          ctx.beginPath();
+          ctx.arc(0, 0, pulse, 0, Math.PI * 2);
+          ctx.strokeStyle = '#fbbf24';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([3, 2]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+        ctx.restore();
+      }
+
+      // Top-right live status callout badge inside cell arena
+      let statusBannerText = '';
+      let statusBannerCol = '#34d399';
+      if (state.activeRegimen === 'unphased') {
+        statusBannerText = '⚠️ TRAP: NAD+ Clones Shorter Damaged DNA First!';
+        statusBannerCol = '#fbbf24';
+      } else if (state.activeRegimen !== 'bcr') {
+        statusBannerText = '❌ UNTREATED: Damaged Mitochondria Stay Clogged';
+        statusBannerCol = '#fb7185';
+      } else if (tFrac < 0.16) {
+        statusBannerText = '🟣 STAGE 0: Opening Import & Lysosomal Doors';
+        statusBannerCol = '#c084fc';
+      } else if (isGateMoment) {
+        statusBannerText = '⚡ GATE UNLOCKED (h ≤ 8%): Switching to Rebuild!';
+        statusBannerCol = '#22d3ee';
+      } else if (tFrac < gateFrac) {
+        statusBannerText = '🟡 STAGE 1: Recycling Red Mitochondria (Hold NAD+)';
+        statusBannerCol = '#fbbf24';
+      } else {
+        statusBannerText = '🟢 STAGE 2: Cloning Healthy Green Mitochondria!';
+        statusBannerCol = '#34d399';
+      }
+      ctx.textAlign = 'right';
+      ctx.font = 'bold 10.5px monospace';
+      ctx.fillStyle = statusBannerCol;
+      ctx.fillText(statusBannerText, w - 14, 20);
+      ctx.restore();
+
+      // =========================================================================
+      // BOTTOM ZONE (y = 200..330): 3-STAGE TIMELINE PLAYHEAD & 3 HEALTH METERS
+      // =========================================================================
+      const tlX = 16, tlY = 204, tlW = w - 32, tlH = 24;
+      const s0W = tlW * 0.16;
+      const s1W = tlW * Math.max(0.18, gateFrac - 0.16);
+      const s2W = tlW - s0W - s1W;
+
+      // Stage 0 segment
+      ctx.fillStyle = 'rgba(168, 85, 247, 0.22)';
+      ctx.fillRect(tlX, tlY, s0W, tlH);
+      ctx.strokeStyle = 'rgba(168, 85, 247, 0.55)';
+      ctx.strokeRect(tlX, tlY, s0W, tlH);
+      ctx.fillStyle = '#e9d5ff';
+      ctx.font = 'bold 9.5px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('Stage 0: Unblock', tlX + s0W * 0.5, tlY + 15);
+
+      // Stage 1 segment
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.22)';
+      ctx.fillRect(tlX + s0W, tlY, s1W, tlH);
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.55)';
+      ctx.strokeRect(tlX + s0W, tlY, s1W, tlH);
+      ctx.fillStyle = '#fde68a';
+      ctx.fillText('Stage 1: Clean Damaged (No NAD+)', tlX + s0W + s1W * 0.5, tlY + 15);
+
+      // Stage 2 segment
+      ctx.fillStyle = 'rgba(16, 185, 129, 0.22)';
+      ctx.fillRect(tlX + s0W + s1W, tlY, s2W, tlH);
+      ctx.strokeStyle = 'rgba(16, 185, 129, 0.55)';
+      ctx.strokeRect(tlX + s0W + s1W, tlY, s2W, tlH);
+      ctx.fillStyle = '#a7f3d0';
+      ctx.fillText('⚡ Gate → Stage 2: Multiply Healthy Mitochondria', tlX + s0W + s1W + s2W * 0.5, tlY + 15);
+
+      // Moving Time Playhead Marker on Timeline Bar
+      const playX = tlX + tFrac * tlW;
+      ctx.fillStyle = '#22d3ee';
+      ctx.fillRect(playX - 2, tlY - 4, 4, tlH + 8);
+      ctx.beginPath();
+      ctx.arc(playX, tlY - 4, 5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 3 High-Contrast Health Gauges ("Right Now vs. Healthy Goal")
+      const gw3 = (tlW - 20) / 3;
+      const gy3 = 242;
+      const gh3 = 82;
+      const gauges = [
+        {
+          title: '1. DAMAGED MITOCHONDRIA (h%)',
+          sub: 'Goal: Drop Below 8% Before Rebuild',
+          valText: `${hPct.toFixed(1)}%`,
+          status: hPct <= 8.5 ? '✅ CLEANED (<8%)' : hPct <= 35 ? '🟡 CLEANING...' : '🔴 OVERLOADED',
+          frac: clip(hPct / 95.0, 0.03, 1.0),
+          col: hPct <= 8.5 ? '#10b981' : hPct <= 35 ? '#f59e0b' : '#f43f5e'
+        },
+        {
+          title: '2. CELLULAR ENERGY (NET ATP)',
+          sub: 'Goal: Restore Above 1.15× Baseline',
+          valText: `${atpVal.toFixed(2)}×`,
+          status: atpVal >= 1.10 ? '✅ RESTORED' : atpVal >= 0.75 ? '🟡 RECOVERING' : '🔴 ENERGY STARVED',
+          frac: clip(atpVal / 1.75, 0.05, 1.0),
+          col: atpVal >= 1.10 ? '#10b981' : atpVal >= 0.75 ? '#38bdf8' : '#f43f5e'
+        },
+        {
+          title: '3. STRESS ALARM (PLASMA GDF15)',
+          sub: 'Goal: Drop Below 550 pg/mL Gate',
+          valText: `${gdfVal} pg/mL`,
+          status: gdfVal <= 550 ? '✅ GATE GREEN' : gdfVal <= 1200 ? '🟡 DROPPING' : '🔴 HIGH ALARM',
+          frac: clip(gdfVal / 4200.0, 0.04, 1.0),
+          col: gdfVal <= 550 ? '#10b981' : gdfVal <= 1200 ? '#f59e0b' : '#f43f5e'
+        }
+      ];
+
+      gauges.forEach((g, idx) => {
+        const bx = tlX + idx * (gw3 + 10);
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.22)';
+        ctx.lineWidth = 1;
+        ctx.fillRect(bx, gy3, gw3, gh3);
+        ctx.strokeRect(bx, gy3, gw3, gh3);
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = 'bold 9.5px monospace';
+        ctx.fillText(g.title, bx + 8, gy3 + 15);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '8.5px monospace';
+        ctx.fillText(g.sub, bx + 8, gy3 + 28);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = 'bold 14px monospace';
+        ctx.fillText(g.valText, bx + 8, gy3 + 49);
+
+        ctx.textAlign = 'right';
+        ctx.fillStyle = g.col;
+        ctx.font = 'bold 9.5px monospace';
+        ctx.fillText(g.status, bx + gw3 - 8, gy3 + 48);
+
+        // Progress bar
+        ctx.fillStyle = 'rgba(30, 41, 59, 0.95)';
+        ctx.fillRect(bx + 8, gy3 + 58, gw3 - 16, 12);
+        ctx.fillStyle = g.col;
+        ctx.fillRect(bx + 8, gy3 + 58, (gw3 - 16) * g.frac, 12);
+      });
+
+      ctx.restore();
+    }
+
+    function answerAiCopilotQuestion(qKeyOrText) {
+      const stKey = getActiveHeroStudyKey();
+      const prof = HERO_STUDY_PROFILES[stKey] || HERO_STUDY_PROFILES.parkinsons_snc;
+      const spec = getActiveCoralSpec();
+      const pData = getActiveCoralPhaseData();
+      const ansEl = document.getElementById('aiAnswerBox');
+      if (!ansEl) return;
+
+      const q = String(qKeyOrText || '').toLowerCase();
+      if (qKeyOrText === 'why_not_all_at_once' || q.includes('nad') || q.includes('backfire') || q.includes('trap') || q.includes('all at once') || q.includes('day 1')) {
+        ansEl.innerHTML = `<strong>🤖 AI Co-Pilot — Why Taking NAD⁺/NR on Day 1 Backfires (The Simultaneous Biogenesis Trap):</strong><br/>${prof.whyTrapFails} <br/><strong>Solution:</strong> Hold <code>NAD⁺/NR</code> off during Stage 1 while <code>Urolithin A + Kinetin + Fasting</code> clear damaged mitochondria below <strong>8%</strong>, then introduce <code>NAD⁺ + SIRT1 + Creatine</code> in Stage 2!`;
+      } else if (qKeyOrText === 'how_gate_works' || q.includes('switch') || q.includes('gate') || q.includes('when') || q.includes('gdf15') || q.includes('blood')) {
+        ansEl.innerHTML = `<strong>🤖 AI Co-Pilot — How to Know When to Switch from Stage 1 (Clean) to Stage 2 (Rebuild):</strong><br/>${prof.gateText}<br/><strong>Safety Rule:</strong> If DEXA lean muscle mass ever drops by more than <code>-2.5%</code>, the safety floor immediately switches you to Stage 2 anabolic refeeding.`;
+      } else if (qKeyOrText === 'study_bottleneck' || q.includes('3d') || q.includes('pdb') || q.includes('bottleneck') || q.includes('ambroxol') || q.includes('tudca') || q.includes('honeybee') || q.includes('car-t')) {
+        ansEl.innerHTML = `<strong>🤖 AI Co-Pilot — 3D Structural Bottleneck &amp; Rescue for ${prof.shortName}:</strong><br/>• <strong>Crystal Structure Target:</strong> <code>${prof.bottleneckPdb}</code><br/>• ${prof.stage0Text}<br/>• ${prof.stage2Text}`;
+      } else if (qKeyOrText === 'coral_edge_role' || q.includes('coral') || q.includes('npu') || q.includes('chip') || q.includes('silicon') || q.includes('hardware')) {
+        ansEl.innerHTML = `<strong>🤖 AI Co-Pilot — How the 4 mW Google Coral NPU (<code>RV32IMF_Zve32x</code>) Automates This Study:</strong><br/>1. <strong>Scalar Core (${spec.scalarCycles} cyc):</strong> Enforces hard safety guardrails (${spec.scalarDesc}).<br/>2. <strong>Vector Unit (${spec.vectorCycles} cyc):</strong> Integrates the 8-state <code>Q16.16</code> bioenergetic ODE in real time (currently <code>h = ${pData.h.toFixed(1)}%, EP = ${pData.EP.toFixed(2)}</code>).<br/>3. <strong>256-MAC INT8 Matrix Engine (${spec.matrixCycles} cyc, ${spec.zeroSkipPct}% Zero-Skip):</strong> Detects the exact Stage 1 → Stage 2 threshold crossing at <strong>${spec.powerMw} mW</strong> in <strong>${spec.sramBytes} B SRAM</strong>!`;
+      } else {
+        ansEl.innerHTML = `<strong>🤖 AI Co-Pilot Diagnosis for "${qKeyOrText}" (${prof.shortName}):</strong><br/>• <strong>Current Live State (${pData.clockStr}):</strong> Damaged mtDNA <code>h = ${pData.h.toFixed(1)}%</code>, Resistance <code>éR = ${pData.eR.toFixed(2)}</code>, Stress <code>EP = ${pData.EP.toFixed(2)}</code>.<br/>• <strong>Recommended Action Plan:</strong> ${prof.prescriptionHtml}`;
       }
     }
 
@@ -3134,6 +3789,7 @@
             { data: sim.H2S, color: '#ec4899', width: 2.4 }
           ], 0, 1.40);
         }
+        updateAiCopilotLiveNarrative(sim);
       }
     }
 
@@ -3153,6 +3809,7 @@
         }
         syncLiveTimeCursorUI();
       }
+      renderLiveCellTwinCanvas();
       if (state.activeTab === 'coral_npu') {
         renderCoralNpuSiliconCanvas();
       }
@@ -3292,9 +3949,72 @@
       if (coralTabBtn) coralTabBtn.click();
     });
 
+    // Hero Study Cards (Step 1), Strategy Cards (Step 2), & AI Co-Pilot Listeners (Step 3)
+    document.querySelectorAll('.hero-study-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const studyId = btn.getAttribute('data-hero-study');
+        state.coralStudy = studyId;
+        state.simTimeFrac = 0.0;
+        state.isPlaying = true;
+        syncPlayPauseButtons();
+        const presetSel = document.getElementById('patientPresetSelect');
+        if (presetSel) {
+          presetSel.value = studyId;
+          presetSel.dispatchEvent(new Event('change'));
+        }
+        updateHeroCardsUI();
+        renderLiveCellTwinCanvas();
+      });
+    });
+
+    document.querySelectorAll('.hero-regimen-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const reg = btn.getAttribute('data-hero-regimen');
+        state.activeRegimen = reg;
+        state.simTimeFrac = 0.0;
+        state.isPlaying = true;
+        syncPlayPauseButtons();
+        document.querySelectorAll('.regimen-btn').forEach(b => {
+          const isAct = b.getAttribute('data-regimen') === state.activeRegimen;
+          b.className = isAct
+            ? 'regimen-btn text-left px-3 py-2 rounded-lg border text-xs font-semibold transition flex items-center justify-between bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--primary)]'
+            : 'regimen-btn text-left px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--foreground)] text-xs font-medium transition flex items-center justify-between';
+        });
+        updateHeroCardsUI();
+        updateAll();
+        renderLiveCellTwinCanvas();
+      });
+    });
+
+    document.querySelectorAll('.ai-q-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        answerAiCopilotQuestion(btn.getAttribute('data-ai-q'));
+      });
+    });
+
+    const btnAskAi = document.getElementById('btnAskAiCopilot');
+    const inpAskAi = document.getElementById('aiCustomQuestionInput');
+    if (btnAskAi && inpAskAi) {
+      btnAskAi.addEventListener('click', () => {
+        const q = inpAskAi.value.trim();
+        answerAiCopilotQuestion(q || 'study_bottleneck');
+      });
+      inpAskAi.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          const q = inpAskAi.value.trim();
+          answerAiCopilotQuestion(q || 'study_bottleneck');
+        }
+      });
+    }
+
     // Guided Wizard & Lab Gate Event Listeners
     document.getElementById('btnRunSampleCase').addEventListener('click', () => {
-      applyWizardStepAction(1);
+      state.simTimeFrac = 0.0;
+      state.isPlaying = true;
+      state.activeRegimen = 'bcr';
+      syncPlayPauseButtons();
+      updateHeroCardsUI();
+      updateAll();
     });
     document.getElementById('btnWizardPrev').addEventListener('click', () => {
       applyWizardStepAction(state.wizardStep - 1);

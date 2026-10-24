@@ -18,39 +18,56 @@
 <body class="bg-[var(--background)] text-[var(--foreground)] antialiased p-4 md:p-6">
   <div class="max-w-7xl mx-auto space-y-5">
 
+    <!-- Top 3-Domain Navigation Switcher Bar (Separates Human Clinical, CAR-T Bioreactor, & Honeybee Smart Hive) -->
+    <div class="bg-slate-950 border border-cyan-500/40 rounded-xl p-2.5 shadow-sm flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+      <div class="flex items-center gap-2 flex-wrap">
+        <a href="../index.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition flex items-center gap-1.5">
+          🏛️ Platform Hub
+        </a>
+        <a href="bcr_simulator.html" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 border-2 border-emerald-500 text-emerald-300 font-bold transition flex items-center gap-1.5">
+          🏥 Domain 1: Human Clinical &amp; Neuro Medicine (90-Day · Cohorts A–E)
+        </a>
+        <a href="cart_bioreactor_simulator.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-teal-500/40 text-teal-300 hover:bg-teal-500/15 transition flex items-center gap-1.5">
+          🧬 Domain 2: CAR-T GMP Bioreactor (240-Hour · Cohort F) →
+        </a>
+        <a href="apis_honeybee_simulator.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-amber-500/40 text-amber-300 hover:bg-amber-500/15 transition flex items-center gap-1.5">
+          🐝 Domain 3: Honeybee Smart Hive (14-Day · Cohort G) →
+        </a>
+      </div>
+      <span class="text-slate-400 hidden xl:inline">100% Human Clinical Controls &amp; Biomarkers</span>
+    </div>
+
     <!-- Header Banner -->
     <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
       <div>
         <div class="flex items-center gap-2.5 flex-wrap">
           <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-[var(--primary)] text-[var(--primary-foreground)]">
-            Track 1 + Track 2 Calibrated Engine
+            Domain 1: Human Clinical &amp; Neuro-Metabolic Simulator (90-Day Horizon)
           </span>
           <span class="text-xs font-mono text-[var(--muted-foreground)]">
             Ensembl VEP + AlphaMissense + gnomAD v4 + OpenTargets GDF15
           </span>
         </div>
         <h1 class="text-xl md:text-2xl font-bold mt-1.5 text-[var(--foreground)]">
-          Bioenergetic Circuit Reset (BCR) Simulation Explorer
+          Human Bioenergetic Circuit Reset (BCR) — Clinical &amp; Neurological Explorer
         </h1>
         <p class="text-sm text-[var(--muted-foreground)] mt-1">
-          Empirically calibrated 90-day ODE simulator linking real human SNPs (<span class="font-mono">rs8192678, rs601338, rs1801133, rs4880, rs429358, PINK1</span>) and gut microbiome guilds (<span class="font-mono">PncA, Butyrate, H₂S</span>) to Picard’s Energy Resistance Principle (<span class="font-mono">EP = éR · f²</span>).
+          Empirically calibrated 90-day human ODE simulator linking patient SNPs (<span class="font-mono">PPARGC1A, FUT2, MTHFR, SOD2, APOE4/TOMM40, PINK1, GBA1</span>) and human gut microbiome guilds (<span class="font-mono">PncA, Butyrate, H₂S</span>) to Picard’s Energy Resistance Principle (<span class="font-mono">EP = éR · f²</span>).
         </p>
       </div>
 
-      <!-- Quick Genotype Presets -->
+      <!-- Quick Human Genotype Presets -->
       <div class="flex flex-col sm:flex-row lg:flex-col gap-2 shrink-0">
         <label class="text-xs font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">
-          Clinical Genotype Archetype
+          Human Patient Cohort (Cohorts A–E)
         </label>
         <select id="patientPresetSelect" class="bg-[var(--content)] text-[var(--foreground)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm font-medium focus:outline-none">
           <option value="standard">Wild-Type Reference Adult (Baseline h₀ = 45%)</option>
-          <option value="pink1_fut2">Cohort A: PINK1 Class I + FUT2 (rs601338 A/A Non-Secretor)</option>
-          <option value="apoe4_keto">Cohort B (Neuro-AD): APOE4/TOMM40 (rs429358) + PINK1 + Slow Neurons</option>
+          <option value="pink1_fut2">Cohort A (Sarcopenia / Muscle): PINK1 Class I + FUT2 (rs601338 A/A Non-Secretor)</option>
+          <option value="apoe4_keto">Cohort B (Alzheimer's APOE4): APOE4/TOMM40 (rs429358) + PINK1 + Slow Neurons</option>
           <option value="epilepsy_pv">Cohort C (Refractory Epilepsy): PV+ Fast-Spiking Interneurons + H₂S Escape Risk</option>
           <option value="mdd_quin">Cohort D (Treatment-Resistant MDD): IDO1/Quinolinic Shunt + GDF15 Shutdown</option>
           <option value="parkinsons_snc" selected>Cohort E (Parkinson's SNc): GBA1 (rs76763715) + LRRK2 (rs34637584) + Ambroxol Rescue</option>
-          <option value="bioreactor_cart">Cohort F (Ex Vivo CAR-T Bioreactor): PDK1 (2Q8G) + 240h Stem-Cell Memory (T_SCM) Controller</option>
-          <option value="apis_honeybee">Cohort G (Apis-BCR Honeybee Rescue): Strobilurin Complex III (1SQB) + Snodgrassella alvi Patty</option>
           <option value="pgc1a_mthfr">Biogenesis/Methylation Risk: PPARGC1A (rs8192678 T/T) + MTHFR (rs1801133 A/A)</option>
         </select>
       </div>
@@ -61,65 +78,57 @@
     <!-- ======================================================================================== -->
     <div class="bg-[var(--card)] border-2 border-emerald-500/50 rounded-2xl p-4 md:p-5 shadow-md space-y-4" id="guidedWizardBanner">
 
-      <!-- Top Instruction Banner: How This Simulator Works in 3 Simple Steps -->
+      <!-- Top Instruction Banner: How This Human Clinical Simulator Works in 3 Simple Steps -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3 p-3 rounded-xl bg-[var(--content)] border border-[var(--border)] text-xs">
         <div class="flex items-start gap-2.5">
           <span class="px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-bold shrink-0">STEP 1</span>
           <div>
-            <div class="font-bold text-[var(--foreground)]">Choose a Disease or Species Below</div>
-            <div class="text-[var(--muted-foreground)]">Click any of the 7 studies (Parkinson's, Alzheimer's, Epilepsy, Depression, Muscle Aging, CAR-T, or Honeybees).</div>
+            <div class="font-bold text-[var(--foreground)]">Select a Human Clinical Cohort Below</div>
+            <div class="text-[var(--muted-foreground)]">Choose from the 5 human patient cohorts (Parkinson's, Alzheimer's APOE4, Epilepsy, Depression, or Sarcopenia).</div>
           </div>
         </div>
         <div class="flex items-start gap-2.5">
           <span class="px-2 py-0.5 rounded-full bg-cyan-400 text-slate-950 font-bold shrink-0">STEP 2</span>
           <div>
-            <div class="font-bold text-[var(--foreground)]">Compare Treatment Strategies</div>
-            <div class="text-[var(--muted-foreground)]">Toggle between <strong>❌ Untreated</strong>, <strong>⚠️ All-at-Once Supplements (Backfires!)</strong>, and <strong>✅ Proposed Phased Reset</strong>.</div>
+            <div class="font-bold text-[var(--foreground)]">Compare Clinical Treatment Strategies</div>
+            <div class="text-[var(--muted-foreground)]">Toggle between <strong>❌ Standard Care</strong>, <strong>⚠️ All-at-Once Supplements (Backfires!)</strong>, and <strong>✅ Proposed 90-Day Phased Reset</strong>.</div>
           </div>
         </div>
         <div class="flex items-start gap-2.5">
           <span class="px-2 py-0.5 rounded-full bg-purple-400 text-slate-950 font-bold shrink-0">STEP 3</span>
           <div>
-            <div class="font-bold text-[var(--foreground)]">Watch the Cell Evolve &amp; Ask the AI Co-Pilot</div>
-            <div class="text-[var(--muted-foreground)]">Watch red damaged mitochondria get recycled before green healthy ones multiply, and read the live AI prescription.</div>
+            <div class="font-bold text-[var(--foreground)]">Watch the Patient's Cells Evolve &amp; Ask AI</div>
+            <div class="text-[var(--muted-foreground)]">Watch red damaged mitochondria get recycled in Stage 1 before green healthy ones multiply after the Day-38 GDF15 gate.</div>
           </div>
         </div>
       </div>
 
-      <!-- STEP 1: 7 Visual Study Cards (1-Click Cohort Selection) -->
+      <!-- STEP 1: 5 Human Clinical Cohort Cards (100% Human Clinical — Zero Cross-Species Confusion) -->
       <div class="space-y-1.5">
-        <div class="flex items-center justify-between text-xs">
-          <span class="font-bold uppercase tracking-wider text-emerald-400">Step 1 — Select Study / Condition (7 Validated Cohorts):</span>
+        <div class="flex items-center justify-between text-xs flex-wrap gap-2">
+          <span class="font-bold uppercase tracking-wider text-emerald-400">Step 1 — Select Human Patient Cohort (5 Validated Clinical Indications):</span>
           <span class="font-mono text-[var(--muted-foreground)]" id="heroActiveStudySubtitle">Active: Cohort E — Parkinson's Dopamine Neurons (PDB: 2NSX GBA1)</span>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 text-xs" id="heroStudyCardsGrid">
+        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 text-xs" id="heroStudyCardsGrid">
           <button data-hero-study="parkinsons_snc" class="hero-study-card text-left p-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-500/15 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🧠 Parkinson's</span><span class="text-[10px] font-mono text-emerald-400">95% Rescue</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Unjam GBA1 lysosomes first, then clear &amp; rebuild SNc</div>
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🧠 Cohort E: Parkinson's</span><span class="text-[10px] font-mono text-emerald-400">95% Rescue</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Unjam GBA1 (2NSX) lysosomes first, then clear &amp; rebuild SNc dopamine tone</div>
           </button>
           <button data-hero-study="apoe4_keto" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🧩 Alzheimer's</span><span class="text-[10px] font-mono text-cyan-400">h=3.3%</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Unblock APOE4 / TOMM40 pore before brain mitophagy</div>
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🧩 Cohort B: Alzheimer's</span><span class="text-[10px] font-mono text-cyan-400">h=3.3%</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Unblock APOE4 / TOMM40 (7CK6) import pore before cortical mitophagy</div>
           </button>
           <button data-hero-study="epilepsy_pv" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>⚡ Epilepsy</span><span class="text-[10px] font-mono text-cyan-400">-96% Seiz</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Stop Day-30 keto gut H₂S surge in PV+ interneurons</div>
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>⚡ Cohort C: Epilepsy</span><span class="text-[10px] font-mono text-cyan-400">-96% Seiz</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Block Day-30 keto gut H₂S surge to protect PV+ 40 Hz interneurons</div>
           </button>
           <button data-hero-study="mdd_quin" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🌱 Depression</span><span class="text-[10px] font-mono text-purple-400">1.24× Spines</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Purge neurotoxic QUIN so new synapses don't relapse</div>
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🌱 Cohort D: Depression</span><span class="text-[10px] font-mono text-purple-400">1.24× Spines</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Purge neurotoxic QUIN &amp; GDF15 so new prefrontal synapses don't relapse</div>
           </button>
           <button data-hero-study="pink1_fut2" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>💪 Sarcopenia</span><span class="text-[10px] font-mono text-emerald-400">1.20× ATP</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Compress 13.5h→6h fasting lag + FUT2 direct UroA</div>
-          </button>
-          <button data-hero-study="bioreactor_cart" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🧬 CAR-T Cells</span><span class="text-[10px] font-mono text-teal-400">62.9× / 78%</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Hour-64 bioreactor valve switch maximizes stemness</div>
-          </button>
-          <button data-hero-study="apis_honeybee" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🐝 Honeybees</span><span class="text-[10px] font-mono text-amber-400">96.5% Home</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">5-day fungicide detox patty before CoQ10 flight build</div>
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>💪 Cohort A: Sarcopenia</span><span class="text-[10px] font-mono text-emerald-400">1.20× ATP</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Compress 13.5h→6h fasting glycogen lag + FUT2 direct Urolithin A</div>
           </button>
         </div>
       </div>

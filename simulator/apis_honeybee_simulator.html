@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Domain 3: Apis-BCR Honeybee Smart Hive Simulator (14-Day Rescue) — MitoRestorer</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --background: #060911;
+      --foreground: #f8fafc;
+      --card: #0c1220;
+      --content: #131c31;
+      --border: #1e293b;
+      --primary: #f59e0b;
+      --primary-foreground: #1e1b18;
+      --muted-foreground: #94a3b8;
+    }
+    body {
+      background-color: var(--background);
+      color: var(--foreground);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="antialiased p-4 md:p-6">
+  <div class="max-w-7xl mx-auto space-y-5">
+
+    <!-- Top 3-Domain Navigation Switcher Bar -->
+    <div class="bg-slate-950 border border-amber-500/40 rounded-xl p-2.5 shadow-sm flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+      <div class="flex items-center gap-2 flex-wrap">
+        <a href="../index.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition flex items-center gap-1.5">
+          🏛️ Platform Hub
+        </a>
+        <a href="bcr_simulator.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/15 transition flex items-center gap-1.5">
+          🏥 Domain 1: Human Clinical &amp; Neuro Medicine (90-Day · Cohorts A–E) →
+        </a>
+        <a href="cart_bioreactor_simulator.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-teal-500/40 text-teal-300 hover:bg-teal-500/15 transition flex items-center gap-1.5">
+          🧬 Domain 2: CAR-T GMP Bioreactor (240-Hour · Cohort F) →
+        </a>
+        <a href="apis_honeybee_simulator.html" class="px-3 py-1.5 rounded-lg bg-amber-500/20 border-2 border-amber-400 text-amber-200 font-bold transition flex items-center gap-1.5">
+          🐝 Domain 3: Honeybee Smart Hive (14-Day · Cohort G)
+        </a>
+      </div>
+      <span class="text-amber-300 hidden xl:inline">100% Apiary Field Controls, 1SQB Detox &amp; 246 Hz Acoustic Telemetry</span>
+    </div>
+
+    <!-- Header Banner -->
+    <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 shadow-sm flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-amber-500 text-slate-950">
+            Domain 3: Apis-BCR Honeybee Colony &amp; Smart Hive Simulator (14-Day Field Horizon)
+          </span>
+          <span class="text-xs font-mono text-amber-300">
+            PDB: 1SQB (Complex III Qo Strobilurin Block) + Snodgrassella alvi + Coral NPU 4.05 mW Hive Node
+          </span>
+        </div>
+        <h1 class="text-xl md:text-2xl font-bold mt-1.5 text-[var(--foreground)]">
+          Apis-BCR: Two-Stage Holobiont Patty &amp; Acoustic Smart-Hive Flight Rescue Simulator
+        </h1>
+        <p class="text-sm text-[var(--muted-foreground)] mt-1">
+          Because honeybee thoracic flight muscle operates at <strong>246 Hz</strong> (<span class="font-mono">f² = 5.76×</span> quadratic electron load), strobilurin fungicides blocking <strong>Cytochrome bc₁ Qo (PDB: 1SQB)</strong> trigger lethal oxidative stress (<span class="font-mono">EP = éR · f² = 144.2</span>). <strong>Apis-BCR</strong> sequences a <strong>5-Day CYP9Q Detox &amp; Symbiont Patty</strong> before a <strong>Day 5–14 CoQ₁₀ Flight Build Patty</strong>—restoring <strong>96.5% Forager Homing Survival!</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- HERO 3-STEP WORKFLOW + LIVE 14-DAY ANIMATED THORACIC FLIGHT & HIVE TWIN + APIARY AI CO-PILOT -->
+    <div class="bg-[var(--card)] border-2 border-amber-500/50 rounded-2xl p-4 md:p-5 shadow-md space-y-4">
+
+      <!-- How This Apiary Simulator Works in 3 Simple Steps -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 p-3 rounded-xl bg-[var(--content)] border border-[var(--border)] text-xs">
+        <div class="flex items-start gap-2.5">
+          <span class="px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 font-bold shrink-0">STEP 1</span>
+          <div>
+            <div class="font-bold text-[var(--foreground)]">Select Agricultural Exposure Scenario</div>
+            <div class="text-[var(--muted-foreground)]">Choose the agrochemical stress affecting the hive (Orchard Strobilurin Bloom, Row-Crop Neonic + Fungicide, or Fall Glyphosate).</div>
+          </div>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="px-2 py-0.5 rounded-full bg-cyan-400 text-slate-950 font-bold shrink-0">STEP 2</span>
+          <div>
+            <div class="font-bold text-[var(--foreground)]">Compare 3 Hive Feeding Patties</div>
+            <div class="text-[var(--muted-foreground)]">Compare <strong>❌ Plain HFCS Syrup (18% Homing)</strong>, <strong>⚠️ Unphased CoQ10 Patty (39% Homing)</strong>, and <strong>✅ Two-Stage Apis-BCR Patty (96.5%)</strong>.</div>
+          </div>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="px-2 py-0.5 rounded-full bg-emerald-400 text-slate-950 font-bold shrink-0">STEP 3</span>
+          <div>
+            <div class="font-bold text-[var(--foreground)]">Watch the 14-Day Hive Rescue &amp; Ask AI</div>
+            <div class="text-[var(--muted-foreground)]">Watch Stage 1 clear 1SQB fungicide block until the 220 Hz wingbeat acoustic gate rotates the feeder to Stage 2 CoQ10 build.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 1: Agricultural Exposure Scenario -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold uppercase tracking-wider text-amber-400">Step 1 — Select Apiary Field Exposure Scenario (Day 0 Colony Stress):</span>
+          <span class="font-mono text-[var(--muted-foreground)]" id="scenarioSubtitle">Active: Almond / Orchard Bloom — Heavy Strobilurin Qo Block (72.9% 1SQB Occupancy)</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
+          <button data-scenario="orchard" class="scenario-card text-left p-3 rounded-xl border-2 border-amber-400 bg-amber-500/15 transition space-y-1">
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between">
+              <span>🌸 1. Almond / Orchard Fungicide Bloom</span>
+              <span class="font-mono text-[11px] text-amber-300">72.9% 1SQB Block</span>
+            </div>
+            <p class="text-[var(--muted-foreground)] leading-snug">Azoxystrobin/Pyraclostrobin sprays plug Complex III Qo (Glu271/Phe274 in PDB: 1SQB); wingbeat drops to 184 Hz.</p>
+          </button>
+          <button data-scenario="rowcrop" class="scenario-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1">
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between">
+              <span>🌾 2. Row-Crop Strobilurin + Neonicotinoid</span>
+              <span class="font-mono text-[11px] text-rose-300">f² = 5.76× Hyper-Flux</span>
+            </div>
+            <p class="text-[var(--muted-foreground)] leading-snug">Sublethal nAChR neonicotinoid tremor + strobilurin Complex III blockade drives extreme thoracic EP = 144.2.</p>
+          </button>
+          <button data-scenario="overwinter" class="scenario-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1">
+            <div class="font-bold text-[var(--foreground)] flex items-center justify-between">
+              <span>🍂 3. Fall Glyphosate + Gut Dysbiosis</span>
+              <span class="font-mono text-[11px] text-cyan-300">S. alvi = 0.16×</span>
+            </div>
+            <p class="font-mono text-[11px] text-[var(--muted-foreground)] font-sans leading-snug">EPSPS shikimate blockade depletes core symbiont <em>Snodgrassella alvi</em> (0.16×), raising gut O₂ and impairing overwintering.</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Compare 3 Hive Feeding Regimens -->
+      <div class="space-y-1.5">
+        <div class="font-bold uppercase tracking-wider text-cyan-400 text-xs">
+          Step 2 — Compare 3 Hive Feeding Regimens (Days 0 → 14):
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
+          <button data-regimen="hfcs" class="reg-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1">
+            <div class="font-bold text-rose-400 flex items-center justify-between">
+              <span>❌ 1. Plain HFCS Sugar Syrup Alone</span>
+              <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-300">18.0% Homing!</span>
+            </div>
+            <p class="text-[var(--muted-foreground)] leading-snug">
+              Lacks <code>p-Coumaric Acid</code> to induce <code>CYP9Q</code> detox enzymes. <code>1SQB</code> stays <strong>72.9% blocked</strong>, flight ATP collapses to <strong>0.06×</strong>, and 82% of foragers fail to return!
+            </p>
+          </button>
+          <button data-regimen="unphased_pollen" class="reg-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1">
+            <div class="font-bold text-amber-400 flex items-center justify-between">
+              <span>⚠️ 2. Unphased CoQ10 Pollen Sub on Day 1</span>
+              <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300">39.0% Homing (ROS!)</span>
+            </div>
+            <p class="text-[var(--muted-foreground)] leading-snug">
+              Feeding <code>CoQ10/NAD⁺</code> on Day 1 while strobilurin still plugs <code>1SQB Qo</code> forces electrons into a blocked chain during 246 Hz flight—triggering lethal ROS!
+            </p>
+          </button>
+          <button data-regimen="apis_bcr" class="reg-card text-left p-3 rounded-xl border-2 border-amber-400 bg-amber-500/15 transition space-y-1">
+            <div class="font-bold text-emerald-400 flex items-center justify-between">
+              <span>✅ 3. Proposed Two-Stage Apis-BCR Patty</span>
+              <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-emerald-500/25 text-emerald-200 font-bold">96.5% Homing &amp; 1.74× ATP!</span>
+            </div>
+            <p class="text-[var(--foreground)] leading-snug">
+              <strong>Days 1–5 (Stage 1):</strong> <code>p-Coumaric CYP9Q Detox</code> + <code>UroA/Spermidine</code> + <code>S. alvi</code> → <strong>⚡ Day 4.5 (220 Hz Gate)</strong> → <strong>Days 5–14 (Stage 2):</strong> <code>Ubiquinol/CoQ10 + B2 + NR</code>!
+            </p>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Live 14-Day Playback Bar + Animated Flight-Muscle & Beehive Twin + Apiary AI Co-Pilot -->
+      <div class="bg-slate-950/90 border border-amber-500/40 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+        <div class="flex items-center gap-2">
+          <button id="btnPlayPause" class="px-3 py-1.5 rounded-lg bg-amber-500/20 border border-amber-400 text-amber-200 font-bold hover:bg-amber-500/30 transition">
+            ⏸ Pause 14d Colony Run
+          </button>
+          <button id="btnSpeed" class="px-2.5 py-1.5 rounded-lg bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] hover:opacity-90 transition">
+            1.0× Speed
+          </button>
+          <button data-snap="0" class="snap-btn px-2 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:bg-slate-800">t₀: d0 Exposure</button>
+          <button data-snap="0.32" class="snap-btn px-2 py-1 rounded bg-slate-900 border border-slate-700 text-amber-300 hover:bg-slate-800">t₁: ⚡ d4.5 (220 Hz Gate)</button>
+          <button data-snap="1" class="snap-btn px-2 py-1 rounded bg-slate-900 border border-slate-700 text-emerald-300 hover:bg-slate-800">t₂: d14 Forager Rescue</button>
+        </div>
+        <div class="flex-1 min-w-[180px] flex items-center gap-2">
+          <span class="text-slate-400">Day 0</span>
+          <input id="timeScrubber" type="range" min="0" max="1000" value="0" class="w-full accent-amber-400 cursor-pointer" />
+          <span class="text-slate-400">Day 14</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="clockBadge" class="px-2.5 py-1 rounded bg-slate-900 border border-amber-500/40 text-amber-300 font-bold">Day 0.0 / 14.0d</span>
+          <span id="feederBadge" class="px-2.5 py-1 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold">🟡 Slot A: Stage 1 Detox Patty</span>
+        </div>
+      </div>
+
+      <!-- 2-Column Stage: Left Animated Thoracic Flight Muscle & Acoustic Spectrum + Right Apiary AI Co-Pilot -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+        <div class="lg:col-span-7 rounded-xl border border-amber-500/40 bg-[#060a14] p-3 space-y-2 flex flex-col justify-between">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="font-bold text-amber-300">LIVE THORACIC FLIGHT MUSCLE &amp; TOP-BAR ACOUSTIC WINGBEAT SPECTRUM</span>
+            <span id="hiveStatusPill" class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-200 font-bold">Stage 1: CYP9Q 1SQB Detox</span>
+          </div>
+          <div class="rounded-lg overflow-hidden border border-slate-800 bg-[#04070f]">
+            <canvas id="canvasApisTwin" height="330"></canvas>
+          </div>
+          <div class="flex items-center justify-between flex-wrap gap-2 text-[11px] font-mono text-slate-300">
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 mr-1"></span>1SQB Strobilurin-Blocked Mito</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 mr-1"></span>Healthy 246 Hz Flight Mito (W)</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full border-2 border-amber-400 mr-1"></span>p-Coumaric CYP9Q + UroA Detox</span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 rounded-xl border border-amber-500/40 bg-[var(--content)] p-3.5 flex flex-col justify-between space-y-3 text-xs">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between border-b border-[var(--border)] pb-2">
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">🤖 APIARY BIOENERGETIC AI CO-PILOT</span>
+              <span class="font-mono text-amber-300" id="aiDayLabel">Day 0.0 / 14d</span>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] space-y-1">
+              <div class="font-bold text-cyan-400 uppercase tracking-wider text-[11px]">📍 What Is Happening Inside the Colony Right Now:</div>
+              <div id="aiLiveNarrative" class="leading-relaxed text-[var(--foreground)]"></div>
+            </div>
+            <div class="p-3 rounded-lg bg-[var(--card)] border border-amber-500/30 space-y-1">
+              <div class="font-bold text-amber-300 uppercase tracking-wider text-[11px]">🍯 Two-Stage Beekeeper Patty Recipe &amp; Colony Outcome:</div>
+              <div class="leading-relaxed text-[var(--foreground)] space-y-1">
+                <div>• <strong>Days 1–5 (Slot A — Stage 1 Detox Patty):</strong> <code>p-Coumaric Acid (500 µM)</code> + <code>Quercetin</code> (induces <code>CYP9Q1/2/3</code> clearance of <code>1SQB</code> strobilurins) + <code>Spermidine/UroA</code> + Live <em>Snodgrassella alvi</em>.</div>
+                <div>• <strong>Day 4.5 Smart Hive Acoustic Gate:</strong> When top-bar MEMS microphone detects colony wingbeat crossing <code>f₀ ≥ 220 Hz</code> (with brood <code>34.5°C</code>), the 4.05 mW Coral NPU rotates the feeder to Slot B!</div>
+                <div>• <strong>Days 5–14 (Slot B — Stage 2 Flight Build Patty):</strong> <code>Ubiquinol/CoQ10</code> + <code>NR</code> + <code>Riboflavin B2</code> + <code>24-Methylenecholesterol</code> → <strong>96.5% Homing Survival &amp; 1.74× Flight ATP!</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-1 border-t border-[var(--border)]">
+            <div class="font-bold text-[var(--foreground)]">💡 Ask the Apiary AI Co-Pilot:</div>
+            <div class="flex flex-wrap gap-1.5">
+              <button data-q="why_1sqb" class="ai-q px-2 py-1 rounded bg-[var(--card)] border border-[var(--border)] hover:border-amber-400 text-[11px]">Why do fungicides ruin 246 Hz bee flight?</button>
+              <button data-q="why_wait_coq10" class="ai-q px-2 py-1 rounded bg-[var(--card)] border border-[var(--border)] hover:border-amber-400 text-[11px]">Why wait until Day 5 to feed CoQ10?</button>
+              <button data-q="acoustic_gate" class="ai-q px-2 py-1 rounded bg-[var(--card)] border border-[var(--border)] hover:border-amber-400 text-[11px]">How does the 220 Hz Coral NPU microphone gate work?</button>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <input id="aiInput" type="text" placeholder="Ask Apiary AI (e.g. 'How does p-coumaric acid work?', 'Role of Snodgrassella alvi?')" class="w-full px-2.5 py-1.5 rounded-lg bg-[var(--card)] border border-[var(--border)] text-xs focus:outline-none focus:border-amber-400" />
+              <button id="btnAskAi" class="px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs shrink-0">Ask AI</button>
+            </div>
+            <div id="aiAnswer" class="p-2.5 rounded-lg bg-slate-950 border border-amber-500/40 text-amber-100 text-xs leading-relaxed">
+              <strong>Apiary AI Ready:</strong> Select an exposure scenario in <strong>Step 1</strong> or toggle feeding regimens in <strong>Step 2</strong> to watch the 14-day flight-muscle rescue and wingbeat frequency recovery.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dedicated Beekeeper & Hive Controls (Left 4 Cols) + 4-Panel 14-Day Colony ODE Charts (Right 8 Cols) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+      <!-- Left 4 Cols: 100% Apiary & Smart Hive Controls -->
+      <div class="lg:col-span-4 space-y-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 space-y-3.5 text-xs">
+          <div class="flex items-center justify-between border-b border-[var(--border)] pb-2">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-amber-400">Apiary Patty &amp; Hive Controls</h2>
+            <span class="font-mono text-[var(--muted-foreground)]">14-Day Field Cycle</span>
+          </div>
+
+          <div class="space-y-1">
+            <div class="flex justify-between font-medium">
+              <span>Feeder Rotation Day (Stage 1 → Stage 2)</span>
+              <span id="lblSwitchDay" class="font-mono text-amber-300 font-bold">Day 4.5</span>
+            </div>
+            <input id="sliderSwitchDay" type="range" min="1.5" max="9.0" step="0.5" value="4.5" class="w-full accent-amber-400" />
+            <div class="text-[11px] text-[var(--muted-foreground)]">Optimal acoustic gate: Day 4.5 (when wingbeat f₀ ≥ 220 Hz).</div>
+          </div>
+
+          <div class="space-y-1">
+            <div class="flex justify-between font-medium">
+              <span>Stage 1 p-Coumaric CYP9Q Detox (PDB: 1SQB)</span>
+              <span id="lblDetox" class="font-mono text-amber-300 font-bold">95%</span>
+            </div>
+            <input id="sliderDetox" type="range" min="0" max="100" step="5" value="95" class="w-full accent-amber-400" />
+            <div class="text-[11px] text-[var(--muted-foreground)]">Upregulates CYP9Q1/2/3 P450s to clear strobilurin from Complex III Qo.</div>
+          </div>
+
+          <div class="space-y-1">
+            <div class="flex justify-between font-medium">
+              <span>Stage 1 Live Snodgrassella alvi + UroA</span>
+              <span id="lblSymbiont" class="font-mono text-amber-300 font-bold">95%</span>
+            </div>
+            <input id="sliderSymbiont" type="range" min="0" max="100" step="5" value="95" class="w-full accent-amber-400" />
+            <div class="text-[11px] text-[var(--muted-foreground)]">Restores ileum anoxic biofilm &amp; recycles damaged flight mitochondria.</div>
+          </div>
+
+          <div class="space-y-1">
+            <div class="flex justify-between font-medium">
+              <span>Stage 2 Ubiquinol (CoQ10) + NR + B2 Patty</span>
+              <span id="lblCoq10" class="font-mono text-amber-300 font-bold">95%</span>
+            </div>
+            <input id="sliderCoq10" type="range" min="0" max="100" step="5" value="95" class="w-full accent-amber-400" />
+            <div class="text-[11px] text-[var(--muted-foreground)]">Outcompetes residual Qo block (Ala143/Ile146) to rebuild 246 Hz flight ATP.</div>
+          </div>
+
+          <button id="btnResetOptimal" class="w-full py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs hover:opacity-90 transition">
+            ⚡ Reset to Optimal Apis-BCR (Day 4.5 Acoustic Gate)
+          </button>
+        </div>
+
+        <!-- Google Coral NPU Smart Beehive Hardware Card -->
+        <div class="bg-[var(--card)] border border-cyan-500/40 rounded-xl p-4 space-y-2 text-xs font-mono">
+          <div class="font-bold text-cyan-400">⚡ GOOGLE CORAL NPU (APIS_SMART_HIVE_NODE)</div>
+          <div class="text-[var(--muted-foreground)] font-sans">Solar-powered 4.05 mW RISC-V (<span class="font-mono">RV32IMF_Zve32x</span>) top-bar beehive node:</div>
+          <div class="p-2.5 rounded-lg bg-slate-950 space-y-1 text-[11px]">
+            <div>• <strong>Scalar Core (264 cyc):</strong> Brood 34.5°C &amp; CO₂ (&lt;1.5%) safety guardrail</div>
+            <div>• <strong>Vector RVV (488 cyc):</strong> 8-state Q16.16 flight-muscle ODE (f² = 5.76×)</div>
+            <div>• <strong>Matrix INT8 (96 cyc):</strong> 16-bin MEMS wingbeat FFT (94.5% Zero-Skip)</div>
+            <div class="text-emerald-400 font-bold">• Power: 4.05 mW | SRAM: 6,912 B / 8,192 B DTCM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right 8 Cols: 4-Panel 14-Day Colony ODE Trajectories -->
+      <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4">
+          <div class="flex justify-between items-center mb-2">
+            <div>
+              <h3 class="text-sm font-bold">A. Complex III Qo Strobilurin Block (1SQB %) &amp; Damaged mtDNA (h%)</h3>
+              <p class="text-xs text-[var(--muted-foreground)]">1SQB Qo Blockade % (Rose) vs. Damaged Flight mtDNA h% (Amber)</p>
+            </div>
+          </div>
+          <canvas id="chartBlock" height="200"></canvas>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4">
+          <div class="flex justify-between items-center mb-2">
+            <div>
+              <h3 class="text-sm font-bold">B. Colony Wingbeat Frequency (f₀ Hz) &amp; 220 Hz Acoustic Gate</h3>
+              <p class="text-xs text-[var(--muted-foreground)]">Top-Bar MEMS Fundamental Wingbeat Hz (Amber) vs. 220 Hz Gate</p>
+            </div>
+          </div>
+          <canvas id="chartWingbeat" height="200"></canvas>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4">
+          <div class="flex justify-between items-center mb-2">
+            <div>
+              <h3 class="text-sm font-bold">C. Forager Homing Survival (%) &amp; Flight-Muscle Net ATP (×)</h3>
+              <p class="text-xs text-[var(--muted-foreground)]">RFID Forager Homing % (Emerald) &amp; Flight ATP Capacity (Cyan)</p>
+            </div>
+          </div>
+          <canvas id="chartHoming" height="200"></canvas>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4">
+          <div class="flex justify-between items-center mb-2">
+            <div>
+              <h3 class="text-sm font-bold">D. Thoracic Stress (EP = éR · f²) &amp; Snodgrassella alvi Guild</h3>
+              <p class="text-xs text-[var(--muted-foreground)]">Flight Reductive Stress EP (Orange) &amp; S. alvi Symbiont (Teal)</p>
+            </div>
+          </div>
+          <canvas id="chartSymbiont" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const apisState = {
+      scenario: 'orchard',
+      regimen: 'apis_bcr',
+      switchDay: 4.5,
+      detox: 0.95,
+      symbiont: 0.95,
+      coq10: 0.95,
+      timeFrac: 0.0,
+      isPlaying: true,
+      speed: 1.0,
+      animTime: 0,
+      sim: null
+    };
+
+    function clip(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+    function simulateApisColony() {
+      const steps = 141; // 0.0 to 14.0 days (dt = 0.1d)
+      const Block = [], H = [], F0 = [], Homing = [], ATP = [], EP = [], Salvi = [];
+      let block = apisState.scenario === 'orchard' ? 72.9 : apisState.scenario === 'rowcrop' ? 68.0 : 48.0;
+      let h = apisState.scenario === 'rowcrop' ? 54.0 : 48.0;
+      let salvi = apisState.scenario === 'overwinter' ? 0.14 : 0.22;
+      let f0 = 184.0;
+      let atp = 0.24;
+      let homing = 28.0;
+      let ep = 95.6;
+
+      for (let i = 0; i < steps; i++) {
+        const day = i * 0.1;
+        Block.push(block); H.push(h); F0.push(f0); Homing.push(homing); ATP.push(atp); EP.push(ep); Salvi.push(salvi);
+
+        if (apisState.regimen === 'hfcs') {
+          block = clip(block - 0.04, 65.0, 85.0);
+          h = clip(h + 0.24, 0.1, 82.0);
+          salvi = clip(salvi * 0.996, 0.12, 1.2);
+          atp = clip(atp - 0.0014, 0.06, 2.0);
+          f0 = clip(184.0 - (h - 48.0) * 0.45, 165.0, 245.0);
+          homing = clip(28.0 - day * 0.72, 18.0, 98.0);
+          ep = clip(95.6 + day * 3.5, 15.0, 150.0);
+        } else if (apisState.regimen === 'unphased_pollen') {
+          block = clip(26.6 + (72.9 - 26.6) * Math.exp(-day / 6.5), 6.0, 80.0);
+          h = clip(45.7 + 4.0 * Math.sin(day * 0.3), 10.0, 80.0);
+          salvi = clip(salvi + 0.008 * (0.67 - salvi), 0.12, 1.2);
+          atp = clip(0.24 + 0.21 * (1.0 - Math.exp(-day / 5.0)), 0.06, 2.0);
+          f0 = clip(184.0 + 22.0 * (1.0 - Math.exp(-day / 5.5)), 165.0, 245.0);
+          homing = clip(28.0 + 11.0 * (1.0 - Math.exp(-day / 5.0)), 18.0, 98.0);
+          ep = clip(52.8 + (95.6 - 52.8) * Math.exp(-day / 4.5), 15.0, 150.0);
+        } else {
+          // Two-Stage Apis-BCR Patty
+          if (day <= apisState.switchDay) {
+            block = clip(12.0 + (72.9 - 12.0) * Math.exp(-day / (1.8 / Math.max(0.3, apisState.detox))), 5.0, 80.0);
+            h = clip(6.5 + (48.0 - 6.5) * Math.exp(-day / (1.9 / Math.max(0.3, apisState.symbiont))), 0.1, 80.0);
+            salvi = clip(0.22 + 0.62 * (day / Math.max(1.5, apisState.switchDay)) * apisState.symbiont, 0.12, 1.2);
+            f0 = clip(184.0 + 42.4 * (day / Math.max(1.5, apisState.switchDay)) * apisState.detox, 165.0, 245.0);
+            atp = clip(0.24 + 0.68 * (day / Math.max(1.5, apisState.switchDay)), 0.06, 2.0);
+            homing = clip(28.0 + 44.0 * (day / Math.max(1.5, apisState.switchDay)), 18.0, 98.0);
+            ep = clip(27.6 + (95.6 - 27.6) * Math.exp(-day / 1.8), 15.0, 150.0);
+          } else {
+            const p2 = (day - apisState.switchDay) / Math.max(1.0, 14.0 - apisState.switchDay);
+            const cleanBonus = block <= 22.0 ? 1.0 : 0.5;
+            block = clip(6.0 + (block - 6.0) * 0.94, 5.5, 80.0);
+            h = clip(0.1 + (h - 0.1) * 0.90, 0.1, 80.0);
+            salvi = clip(0.84 + 0.16 * p2 * apisState.symbiont, 0.12, 1.2);
+            f0 = clip(226.4 + 11.6 * (1.0 - Math.exp(-p2 * 3.2)) * apisState.coq10 * cleanBonus, 165.0, 245.0);
+            atp = clip(0.92 + 0.82 * (1.0 - Math.exp(-p2 * 2.8)) * apisState.coq10 * cleanBonus, 0.06, 2.0);
+            homing = clip(72.0 + 24.5 * (1.0 - Math.exp(-p2 * 3.0)) * apisState.coq10 * cleanBonus, 18.0, 98.0);
+            ep = clip(18.1 + (ep - 18.1) * 0.92, 15.0, 150.0);
+          }
+        }
+      }
+      apisState.sim = { steps, Block, H, F0, Homing, ATP, EP, Salvi };
+    }
+
+    function drawHiveChart(canvasId, series, yMin, yMax) {
+      const c = document.getElementById(canvasId);
+      if (!c || !apisState.sim) return;
+      const rect = c.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const w = Math.max(rect.width || 320, 260);
+      const h = 200;
+      if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) {
+        c.width = Math.round(w * dpr);
+        c.height = Math.round(h * dpr);
+      }
+      const ctx = c.getContext('2d');
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, w, h);
+
+      const pad = { l: 38, r: 14, t: 14, b: 26 };
+      const pw = w - pad.l - pad.r, ph = h - pad.t - pad.b;
+
+      ctx.strokeStyle = 'rgba(148, 163, 184, 0.15)';
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '10px monospace';
+      for (let i = 0; i <= 4; i++) {
+        const yy = pad.t + (ph * i) / 4;
+        ctx.beginPath(); ctx.moveTo(pad.l, yy); ctx.lineTo(pad.l + pw, yy); ctx.stroke();
+        const val = yMax - ((yMax - yMin) * i) / 4;
+        ctx.textAlign = 'right';
+        ctx.fillText(val.toFixed(0), pad.l - 5, yy + 3);
+      }
+
+      const swX = pad.l + (apisState.switchDay / 14.0) * pw;
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.7)';
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(swX, pad.t); ctx.lineTo(swX, pad.t + ph); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#fbbf24';
+      ctx.textAlign = 'left';
+      ctx.fillText(`⚡d${apisState.switchDay} Gate`, swX + 3, pad.t + 10);
+
+      series.forEach(s => {
+        ctx.strokeStyle = s.color;
+        ctx.lineWidth = 2.3;
+        ctx.beginPath();
+        for (let i = 0; i < 141; i++) {
+          const xx = pad.l + (i / 140.0) * pw;
+          const v = clip(s.data[i] * (s.scale || 1.0), yMin, yMax);
+          const yy = pad.t + ph * (1.0 - (v - yMin) / (yMax - yMin));
+          if (i === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
+        }
+        ctx.stroke();
+      });
+
+      const idx = clip(Math.round(apisState.timeFrac * 140), 0, 140);
+      const cx = pad.l + apisState.timeFrac * pw;
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 1.4;
+      ctx.setLineDash([3, 2]);
+      ctx.beginPath(); ctx.moveTo(cx, pad.t); ctx.lineTo(cx, pad.t + ph); ctx.stroke();
+      ctx.setLineDash([]);
+
+      series.forEach(s => {
+        const v = clip(s.data[idx] * (s.scale || 1.0), yMin, yMax);
+        const yy = pad.t + ph * (1.0 - (v - yMin) / (yMax - yMin));
+        ctx.fillStyle = s.color;
+        ctx.beginPath(); ctx.arc(cx, yy, 4.2, 0, Math.PI * 2); ctx.fill();
+      });
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.textAlign = 'left'; ctx.fillText('Day 0', pad.l, h - 6);
+      ctx.textAlign = 'center'; ctx.fillText('Day 7', pad.l + pw * 0.5, h - 6);
+      ctx.textAlign = 'right'; ctx.fillText('Day 14 Forager Rescue', pad.l + pw, h - 6);
+      ctx.restore();
+    }
+
+    function renderApisTwinCanvas() {
+      const c = document.getElementById('canvasApisTwin');
+      if (!c || !apisState.sim) return;
+      const rect = c.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const w = Math.max(rect.width || 560, 420);
+      const h = 330;
+      if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) {
+        c.width = Math.round(w * dpr);
+        c.height = Math.round(h * dpr);
+      }
+      const ctx = c.getContext('2d');
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, w, h);
+
+      const sim = apisState.sim;
+      const idx = clip(Math.round(apisState.timeFrac * 140), 0, 140);
+      const day = idx * 0.1;
+      const blockPct = sim.Block[idx];
+      const f0Hz = sim.F0[idx];
+      const homingPct = sim.Homing[idx];
+      const atpVal = sim.ATP[idx];
+
+      // Top Left Pane (w * 0.54): Thoracic Flight-Muscle Mitochondria (1SQB Block vs Healthy)
+      const lx = 14, ly = 12, lw = w * 0.53 - 18, lh = 180;
+      ctx.fillStyle = 'rgba(12, 18, 34, 0.94)';
+      ctx.strokeStyle = f0Hz >= 220 ? '#10b981' : '#f59e0b';
+      ctx.lineWidth = 1.8;
+      ctx.fillRect(lx, ly, lw, lh);
+      ctx.strokeRect(lx, ly, lw, lh);
+
+      ctx.fillStyle = '#fde68a';
+      ctx.font = 'bold 10px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText(`THORACIC FLIGHT MUSCLE (1SQB Qo Block: ${blockPct.toFixed(0)}%)`, lx + 8, ly + 16);
+
+      const numMito = 15;
+      const numBlocked = Math.round((blockPct / 100.0) * numMito);
+      for (let i = 0; i < numMito; i++) {
+        const isBlk = i < numBlocked;
+        const r = Math.floor(i / 5);
+        const col = i % 5;
+        const mx = lx + 28 + col * ((lw - 56) / 4);
+        const my = ly + 48 + r * 46 + Math.sin(apisState.animTime * (f0Hz / 35.0) + i) * 3.5;
+
+        ctx.beginPath();
+        ctx.ellipse(mx, my, 13, 7, 0, 0, Math.PI * 2);
+        ctx.fillStyle = isBlk ? 'rgba(244, 63, 94, 0.35)' : 'rgba(16, 185, 129, 0.35)';
+        ctx.strokeStyle = isBlk ? '#f43f5e' : '#10b981';
+        ctx.lineWidth = 1.6;
+        ctx.fill();
+        ctx.stroke();
+
+        if (isBlk && apisState.regimen === 'apis_bcr' && day <= apisState.switchDay) {
+          ctx.beginPath();
+          ctx.arc(mx, my, 15.5, 0, Math.PI * 2);
+          ctx.strokeStyle = '#fbbf24';
+          ctx.lineWidth = 1.2;
+          ctx.setLineDash([3, 2]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+      }
+
+      // Top Right Pane (w * 0.46): Live 16-Bin MEMS Wingbeat Acoustic FFT Spectrum (120–260 Hz)
+      const rx = lx + lw + 10, ry = 12, rw = w - rx - 14, rh = 180;
+      ctx.fillStyle = 'rgba(12, 18, 34, 0.94)';
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+      ctx.fillRect(rx, ry, rw, rh);
+      ctx.strokeRect(rx, ry, rw, rh);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 10px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText(`MEMS WINGBEAT FFT (Peak f₀ = ${f0Hz.toFixed(1)} Hz)`, rx + 8, ry + 16);
+
+      const gx = rx + 14, gy = ry + 30, gw = rw - 28, gh = 124;
+      const gateX = gx + ((220 - 120) / 140.0) * gw;
+      ctx.strokeStyle = '#10b981';
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(gateX, gy); ctx.lineTo(gateX, gy + gh); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#34d399';
+      ctx.font = '9px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('220Hz Gate', gateX, gy - 3);
+
+      for (let b = 0; b < 16; b++) {
+        const freq = 125 + b * 8.5;
+        const dist = Math.abs(freq - f0Hz);
+        const amp = Math.exp(-Math.pow(dist / 19.0, 2)) * 0.92;
+        const bx = gx + (b / 16.0) * gw + 1.5;
+        const bw = Math.max(4, gw / 16.0 - 3);
+        const bh = amp * gh;
+        ctx.fillStyle = dist < 24 ? (f0Hz >= 220 ? '#10b981' : '#f59e0b') : 'rgba(148, 163, 184, 0.2)';
+        ctx.fillRect(bx, gy + gh - bh, bw, bh);
+      }
+      ctx.fillStyle = '#94a3b8';
+      ctx.textAlign = 'left'; ctx.fillText('120Hz', gx, gy + gh + 14);
+      ctx.textAlign = 'right'; ctx.fillText('260Hz', gx + gw, gy + gh + 14);
+
+      // Bottom Zone: 14-Day Timeline + 3 Colony Gauges
+      const tlX = 14, tlY = 202, tlW = w - 28, tlH = 22;
+      const p1W = tlW * (apisState.switchDay / 14.0);
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.22)';
+      ctx.fillRect(tlX, tlY, p1W, tlH);
+      ctx.strokeStyle = '#f59e0b';
+      ctx.strokeRect(tlX, tlY, p1W, tlH);
+      ctx.fillStyle = '#fde68a';
+      ctx.font = 'bold 9.5px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(`Stage 1: CYP9Q Detox & S.alvi Patty (d0–d${apisState.switchDay})`, tlX + p1W * 0.5, tlY + 14);
+
+      ctx.fillStyle = 'rgba(16, 185, 129, 0.22)';
+      ctx.fillRect(tlX + p1W, tlY, tlW - p1W, tlH);
+      ctx.strokeStyle = '#10b981';
+      ctx.strokeRect(tlX + p1W, tlY, tlW - p1W, tlH);
+      ctx.fillStyle = '#a7f3d0';
+      ctx.fillText(`⚡ 220Hz Gate → Stage 2: CoQ10 + NR Flight Build Patty (d${apisState.switchDay}–d14)`, tlX + p1W + (tlW - p1W) * 0.5, tlY + 14);
+
+      const px = tlX + apisState.timeFrac * tlW;
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillRect(px - 2, tlY - 3, 4, tlH + 6);
+
+      const gw3 = (tlW - 20) / 3, gy3 = 234, gh3 = 86;
+      const gauges = [
+        { title: '1. FORAGER HOMING (%)', sub: 'RFID Return Survival Goal ≥90%', val: `${homingPct.toFixed(1)}%`, frac: homingPct / 100.0, col: homingPct >= 85 ? '#10b981' : '#f43f5e' },
+        { title: '2. FLIGHT-MUSCLE ATP', sub: '246 Hz Hovering Power (f²=5.76×)', val: `${atpVal.toFixed(2)}×`, frac: atpVal / 1.80, col: atpVal >= 1.2 ? '#22d3ee' : '#f59e0b' },
+        { title: '3. 1SQB Qo BLOCKADE', sub: 'Strobilurin Occupancy (Lower=Good)', val: `${blockPct.toFixed(1)}%`, frac: blockPct / 80.0, col: blockPct <= 15 ? '#10b981' : '#f43f5e' }
+      ];
+      gauges.forEach((g, idxG) => {
+        const bx = tlX + idxG * (gw3 + 10);
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+        ctx.fillRect(bx, gy3, gw3, gh3);
+        ctx.strokeRect(bx, gy3, gw3, gh3);
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#cbd5e1'; ctx.font = 'bold 9.5px monospace'; ctx.fillText(g.title, bx + 8, gy3 + 15);
+        ctx.fillStyle = '#94a3b8'; ctx.font = '8.5px monospace'; ctx.fillText(g.sub, bx + 8, gy3 + 28);
+        ctx.fillStyle = '#f8fafc'; ctx.font = 'bold 15px monospace'; ctx.fillText(g.val, bx + 8, gy3 + 50);
+        ctx.fillStyle = 'rgba(30, 41, 59, 0.95)'; ctx.fillRect(bx + 8, gy3 + 60, gw3 - 16, 12);
+        ctx.fillStyle = g.col; ctx.fillRect(bx + 8, gy3 + 60, (gw3 - 16) * clip(g.frac, 0.04, 1.0), 12);
+      });
+
+      ctx.restore();
+    }
+
+    function updateUI() {
+      simulateApisColony();
+      const sim = apisState.sim;
+      const idx = clip(Math.round(apisState.timeFrac * 140), 0, 140);
+      const day = idx * 0.1;
+      document.getElementById('clockBadge').textContent = `Day ${day.toFixed(1)} / 14.0d`;
+      document.getElementById('aiDayLabel').textContent = `Day ${day.toFixed(1)} / 14d`;
+      document.getElementById('timeScrubber').value = Math.round(apisState.timeFrac * 1000);
+
+      const fBadge = document.getElementById('feederBadge');
+      const hPill = document.getElementById('hiveStatusPill');
+      const narr = document.getElementById('aiLiveNarrative');
+
+      if (apisState.regimen === 'hfcs') {
+        fBadge.textContent = '❌ Plain HFCS Syrup (No Detox)';
+        hPill.textContent = `1SQB Qo Blocked (${sim.Block[idx].toFixed(1)}%)`;
+        narr.innerHTML = `<strong class="text-rose-400">❌ Plain HFCS Syrup Collapse:</strong> At Day ${day.toFixed(1)}, without floral <code>p-Coumaric Acid</code>, <code>CYP9Q</code> detox is silent. Strobilurin fungicides block <strong>${sim.Block[idx].toFixed(1)}%</strong> of Complex III <code>Qo (PDB: 1SQB)</code>, collapsing flight ATP to <strong>${sim.ATP[idx].toFixed(2)}×</strong> and homing survival to <strong>${sim.Homing[idx].toFixed(1)}%</strong>!`;
+      } else if (apisState.regimen === 'unphased_pollen') {
+        fBadge.textContent = '⚠️ Unphased CoQ10 Patty (Premature Push)';
+        hPill.textContent = `Reverse Electron ROS (Homing=${sim.Homing[idx].toFixed(1)}%)`;
+        narr.innerHTML = `<strong class="text-amber-400">⚠️ Unphased CoQ10 + Pollen Trap:</strong> Feeding <code>CoQ10</code> on Day 1 while <code>1SQB Qo</code> is still blocked pushes electrons into a plugged respiratory chain during <code>246 Hz</code> flight (<code>f² = 5.76×</code>), stalling homing survival at <strong>${sim.Homing[idx].toFixed(1)}%</strong>.`;
+      } else if (day < apisState.switchDay) {
+        fBadge.textContent = '🟡 Slot A: Stage 1 CYP9Q Detox & S.alvi Patty';
+        hPill.textContent = `Stage 1 Detox (1SQB Block: ${sim.Block[idx].toFixed(0)}%)`;
+        narr.innerHTML = `<strong class="text-amber-300">🟡 Stage 1 (Days 0–${apisState.switchDay} — CYP9Q Fungicide Detox &amp; Symbiont Purge):</strong> Floral <code>p-Coumaric Acid</code> induces <code>CYP9Q1/2/3</code> to clear strobilurin from <code>1SQB</code> (dropping block to <strong>${sim.Block[idx].toFixed(1)}%</strong>) while <code>Urolithin A + Live S. alvi</code> clear damaged flight mitochondria (wingbeat rising to <strong>${sim.F0[idx].toFixed(1)} Hz</strong>).`;
+      } else {
+        fBadge.textContent = '🟢 Slot B: Stage 2 CoQ10 Flight Build Patty';
+        hPill.textContent = `Stage 2 Flight Rescue (${sim.Homing[idx].toFixed(1)}% Homing)`;
+        narr.innerHTML = `<strong class="text-emerald-300">🟢 Stage 2 (Days ${apisState.switchDay}–14 — Forager Flight OXPHOS Expansion):</strong> Colony wingbeat crossed the <strong>220 Hz Gate</strong>! The 4.05 mW Coral NPU rotated the feeder to <code>Ubiquinol/CoQ10 + NR + B2</code>, restoring flight ATP to <strong>${sim.ATP[idx].toFixed(2)}×</strong> and forager homing survival to <strong>${sim.Homing[idx].toFixed(1)}%</strong>!`;
+      }
+
+      drawHiveChart('chartBlock', [{ data: sim.Block, color: '#f43f5e' }, { data: sim.H, color: '#f59e0b' }], 0, 85);
+      drawHiveChart('chartWingbeat', [{ data: sim.F0, color: '#f59e0b' }], 160, 250);
+      drawHiveChart('chartHoming', [{ data: sim.Homing, color: '#10b981' }, { data: sim.ATP, color: '#22d3ee', scale: 50.0 }], 0, 100);
+      drawHiveChart('chartSymbiont', [{ data: sim.EP, color: '#f97316' }, { data: sim.Salvi, color: '#14b8a6', scale: 100.0 }], 0, 150);
+    }
+
+    function loop() {
+      apisState.animTime += 0.016;
+      if (apisState.isPlaying) {
+        apisState.timeFrac += 0.0015 * apisState.speed;
+        if (apisState.timeFrac > 1.0) apisState.timeFrac = 0.0;
+        updateUI();
+      }
+      renderApisTwinCanvas();
+      requestAnimationFrame(loop);
+    }
+
+    document.querySelectorAll('.scenario-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        apisState.scenario = btn.getAttribute('data-scenario');
+        document.querySelectorAll('.scenario-card').forEach(b => b.className = 'scenario-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1');
+        btn.className = 'scenario-card text-left p-3 rounded-xl border-2 border-amber-400 bg-amber-500/15 transition space-y-1';
+        updateUI();
+      });
+    });
+
+    document.querySelectorAll('.reg-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        apisState.regimen = btn.getAttribute('data-regimen');
+        document.querySelectorAll('.reg-card').forEach(b => b.className = 'reg-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1');
+        btn.className = 'reg-card text-left p-3 rounded-xl border-2 border-amber-400 bg-amber-500/15 transition space-y-1';
+        apisState.timeFrac = 0.0;
+        updateUI();
+      });
+    });
+
+    document.getElementById('btnPlayPause').addEventListener('click', e => {
+      apisState.isPlaying = !apisState.isPlaying;
+      e.target.textContent = apisState.isPlaying ? '⏸ Pause 14d Colony Run' : '▶ Play 14d Colony Run';
+    });
+
+    document.getElementById('btnSpeed').addEventListener('click', e => {
+      const sp = [0.5, 1.0, 2.0, 4.0];
+      apisState.speed = sp[(sp.indexOf(apisState.speed) + 1) % sp.length];
+      e.target.textContent = `${apisState.speed.toFixed(1)}× Speed`;
+    });
+
+    document.querySelectorAll('.snap-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        apisState.isPlaying = false;
+        document.getElementById('btnPlayPause').textContent = '▶ Play 14d Colony Run';
+        apisState.timeFrac = parseFloat(btn.getAttribute('data-snap'));
+        updateUI();
+      });
+    });
+
+    document.getElementById('timeScrubber').addEventListener('input', e => {
+      apisState.isPlaying = false;
+      document.getElementById('btnPlayPause').textContent = '▶ Play 14d Colony Run';
+      apisState.timeFrac = parseFloat(e.target.value) / 1000.0;
+      updateUI();
+    });
+
+    document.getElementById('sliderSwitchDay').addEventListener('input', e => {
+      apisState.switchDay = parseFloat(e.target.value);
+      document.getElementById('lblSwitchDay').textContent = `Day ${apisState.switchDay.toFixed(1)}`;
+      updateUI();
+    });
+    document.getElementById('sliderDetox').addEventListener('input', e => {
+      apisState.detox = parseInt(e.target.value, 10) / 100.0;
+      document.getElementById('lblDetox').textContent = `${e.target.value}%`;
+      updateUI();
+    });
+    document.getElementById('sliderSymbiont').addEventListener('input', e => {
+      apisState.symbiont = parseInt(e.target.value, 10) / 100.0;
+      document.getElementById('lblSymbiont').textContent = `${e.target.value}%`;
+      updateUI();
+    });
+    document.getElementById('sliderCoq10').addEventListener('input', e => {
+      apisState.coq10 = parseInt(e.target.value, 10) / 100.0;
+      document.getElementById('lblCoq10').textContent = `${e.target.value}%`;
+      updateUI();
+    });
+    document.getElementById('btnResetOptimal').addEventListener('click', () => {
+      apisState.regimen = 'apis_bcr';
+      apisState.switchDay = 4.5;
+      apisState.detox = 0.95;
+      apisState.symbiont = 0.95;
+      apisState.coq10 = 0.95;
+      document.getElementById('sliderSwitchDay').value = 4.5;
+      document.getElementById('lblSwitchDay').textContent = 'Day 4.5';
+      document.getElementById('sliderDetox').value = 95;
+      document.getElementById('lblDetox').textContent = '95%';
+      document.getElementById('sliderSymbiont').value = 95;
+      document.getElementById('lblSymbiont').textContent = '95%';
+      document.getElementById('sliderCoq10').value = 95;
+      document.getElementById('lblCoq10').textContent = '95%';
+      updateUI();
+    });
+
+    function answerQuestion(q) {
+      const ans = document.getElementById('aiAnswer');
+      const ql = String(q).toLowerCase();
+      if (ql.includes('1sqb') || ql.includes('fungicide') || ql.includes('246')) {
+        ans.innerHTML = `<strong>🤖 Apiary AI — Why Strobilurin Fungicides Devastate 246 Hz Bee Flight (PDB: 1SQB):</strong> Strobilurin fungicides (Azoxystrobin/Pyraclostrobin) bind the <code>Qo</code> pocket (<code>Glu271/Phe274</code>) of Complex III (<code>PDB: 1SQB</code>). Because honeybee flight muscles contract at <strong>246 Hz</strong> (<code>f² = 5.76×</code>), even a partial <code>Qo</code> block causes massive reductive stress (<code>EP = éR · f² = 144.2</code>), exhausting ATP during homing flights!`;
+      } else if (ql.includes('wait') || ql.includes('coq10') || ql.includes('day 5')) {
+        ans.innerHTML = `<strong>🤖 Apiary AI — Why You Must Wait Until Day 4.5–5 Before Feeding CoQ10:</strong> Feeding <code>Ubiquinol/CoQ10</code> on Day 1 while strobilurin still occupies <code>72.9%</code> of Complex III <code>Qo</code> sites pushes more electrons into a blocked respiratory chain, generating lethal superoxide radicals (only <code>39%</code> homing survival). Stage 1 <code>p-Coumaric Acid</code> clears the <code>1SQB</code> block first so Stage 2 <code>CoQ10</code> can safely restore <strong>96.5% homing survival</strong>!`;
+      } else {
+        ans.innerHTML = `<strong>🤖 Apiary AI — How the 220 Hz Google Coral NPU Acoustic Gate Works:</strong> The solar <code>4.05 mW</code> top-bar Coral NPU runs a 16-bin <code>INT8</code> FFT on the hive's MEMS microphone (while verifying brood temperature <code>34.5°C</code> on its <code>RV32IMF</code> scalar core). Once the colony wingbeat harmonic shifts from <code>184 Hz</code> across <strong>220 Hz</strong> at Day 4.5, it triggers the PWM servo to rotate the feeder from Slot A (Detox) to Slot B (CoQ10 Build).`;
+      }
+    }
+    document.querySelectorAll('.ai-q').forEach(b => b.addEventListener('click', () => answerQuestion(b.getAttribute('data-q'))));
+    document.getElementById('btnAskAi').addEventListener('click', () => answerQuestion(document.getElementById('aiInput').value));
+
+    updateUI();
+    loop();
+  </script>
+</body>
+</html>

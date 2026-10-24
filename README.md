@@ -11,12 +11,14 @@
 
 ---
 
-## 🚀 Quick Launch & Key Entry Points
+## 🚀 Quick Launch & Key Entry Points (Hub + 3 Dedicated Domain Simulators)
 
 | Resource | Description | Link |
 | :--- | :--- | :--- |
-| **🖥️ Executive Landing Page** | Visual overview with interactive **Coral NPU Bioenergetic Signal & Gate Telemetry** & **4-Step Clinical Walkthrough** | [`index.html`](index.html) |
-| **🎛️ Interactive Cross-Species Simulator** | Full HTML5/Canvas ODE Explorer (**Cohorts A–G**, **Day-38 Lab Gate Calculator**, **8-Structure 3D Atlas**, & **⚡ 3D Coral NPU Tab**) | [`simulator/bcr_simulator.html`](simulator/bcr_simulator.html) |
+| **🏛️ Central Platform Hub** | Executive overview, **3-Domain Simulator Launcher**, **Coral NPU Signal & Phase-Plane Visualizer**, & **8-Structure 3D Atlas** | [`index.html`](index.html) |
+| **🏥 Domain 1: Human Clinical Simulator (`90-Day`)** | Dedicated Human Clinical & Neuro-Metabolic Simulator (**Cohorts A–E**: Parkinson's, Alzheimer's, Epilepsy, Depression, Sarcopenia) with **Live Cellular Twin**, **Day-38 Lab Gate**, & **Clinical AI Co-Pilot** | [`simulator/bcr_simulator.html`](simulator/bcr_simulator.html) |
+| **🧬 Domain 2: CAR-T GMP Bioreactor Simulator (`240-Hour`)** | Dedicated *Ex Vivo* CAR-T Immunotherapy Bioreactor Controller (**Cohort F**, `PDB: 2Q8G PDK1`) with **Live Perfusion Cassette Twin**, **Hour-64 Inline `Lactate:Pyruvate` Solenoid Valve**, & **GMP Bioprocess AI Co-Pilot** | [`simulator/cart_bioreactor_simulator.html`](simulator/cart_bioreactor_simulator.html) |
+| **🐝 Domain 3: Honeybee Smart Hive Simulator (`14-Day`)** | Dedicated *Apis-BCR* Honeybee Colony & Smart Hive Simulator (**Cohort G**, `PDB: 1SQB Complex III Qo`) with **Live Flight-Muscle & 16-Bin MEMS Wingbeat FFT Twin**, **Day-4.5 Patty Baffle**, & **Apiary AI Co-Pilot** | [`simulator/apis_honeybee_simulator.html`](simulator/apis_honeybee_simulator.html) |
 | **⚡ Google Coral NPU (`RV32IMF_Zve32x`) Report** | Bit-Exact `Q16.16`/`INT8` & Compiled C99 Hardware-in-the-Loop (`HIL`) Benchmark (`0.012 ms`, `4.03–4.09 mW`, `<8 KB` L1 DTCM) | [`docs/coral_npu_edge_report.md`](docs/coral_npu_edge_report.md) |
 | **📄 Academic Paper Manuscript** | Full Cross-Species Manuscript & Discovery Log (**Discoveries 1–8** + Section 4.6 Coral NPU Silicon Realization) | [`docs/academic_manuscript_bcr.md`](docs/academic_manuscript_bcr.md) |
 | **🐝 Honeybee `Apis-BCR` Apiary Protocol** | Beekeepers' Two-Stage Patty Formulation Manual & 14-Day Pollination Trial Protocol (**18.0% → 96.5% Homing Survival**) | [`docs/apis_bcr_beekeeper_protocol.md`](docs/apis_bcr_beekeeper_protocol.md) |

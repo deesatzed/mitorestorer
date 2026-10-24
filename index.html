@@ -41,15 +41,20 @@
           ⚡ Google Coral NPU (RV32IMF_Zve32x)
         </span>
       </div>
-      <nav class="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-300">
-        <a href="#coral-npu" class="text-cyan-300 hover:text-cyan-200 transition">⚡ 3D Coral NPU Silicon</a>
+      <nav class="flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-300">
+        <a href="#domain-simulators" class="text-emerald-300 hover:text-emerald-200 transition">🎛️ 3 Domain Simulators</a>
+        <a href="#coral-npu" class="text-cyan-300 hover:text-cyan-200 transition">⚡ Coral NPU Silicon</a>
         <a href="#architecture" class="hover:text-emerald-400 transition">Circuit Architecture</a>
-        <a href="#walkthrough" class="hover:text-emerald-400 transition">4-Step Walkthrough</a>
         <a href="#cohorts" class="hover:text-emerald-400 transition">7 Cohorts</a>
         <a href="#structures" class="hover:text-emerald-400 transition">8 Crystal Structures</a>
-        <a href="docs/coral_npu_edge_report.md" class="hover:text-cyan-300 transition">Coral NPU Report</a>
-        <a href="simulator/bcr_simulator.html" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition">
-          Launch Interactive Simulator →
+        <a href="simulator/bcr_simulator.html" class="px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition">
+          🏥 Human Clinical (90d) →
+        </a>
+        <a href="simulator/cart_bioreactor_simulator.html" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold hover:bg-cyan-500/30 transition">
+          🧬 CAR-T Bioreactor (240h) →
+        </a>
+        <a href="simulator/apis_honeybee_simulator.html" class="px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold hover:bg-amber-500/30 transition">
+          🐝 Honeybee Hive (14d) →
         </a>
       </nav>
     </div>
@@ -79,16 +84,16 @@
             <strong>MitoRestorer</strong> unifies cross-species biophysical ODE simulation, <strong>8 atomic-resolution PDB crystal structures</strong>, and <strong>zero-cloud Google Coral NPU (<code>RV32IMF_Zve32x</code>) edge silicon actuation</strong> across <strong>5 Human Clinical Cohorts</strong>, <strong>Ex Vivo CAR-T Bioreactor Manufacturing (<code>Bioreactor-BCR</code>)</strong>, and <strong>Honeybee Colony Rescue (<code>Apis-BCR</code>)</strong>.
           </p>
 
-          <!-- Primary CTA Buttons -->
-          <div class="flex flex-wrap items-center gap-3 pt-1">
-            <a href="simulator/bcr_simulator.html" class="px-5 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-extrabold text-sm hover:bg-emerald-400 transition shadow-lg">
-              Launch Interactive Simulator (Cohorts A–G + 3D NPU) →
+          <!-- Primary CTA Buttons: 3 Dedicated Domain Simulators -->
+          <div class="flex flex-wrap items-center gap-2.5 pt-1">
+            <a href="simulator/bcr_simulator.html" class="px-4 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-extrabold text-xs sm:text-sm hover:bg-emerald-400 transition shadow-lg">
+              🏥 Domain 1: Human Clinical Simulator (90-Day · Cohorts A–E) →
             </a>
-            <a href="#coral-npu" class="px-4 py-2.5 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold text-sm hover:bg-cyan-500/30 transition">
-              ⚡ Explore 3D Google Coral NPU Silicon ↓
+            <a href="simulator/cart_bioreactor_simulator.html" class="px-4 py-2.5 rounded-xl bg-cyan-500/20 text-cyan-200 border border-cyan-500/50 font-extrabold text-xs sm:text-sm hover:bg-cyan-500/30 transition">
+              🧬 Domain 2: CAR-T GMP Bioreactor (240-Hour · Cohort F) →
             </a>
-            <a href="docs/academic_manuscript_bcr.md" class="px-4 py-2.5 rounded-xl bg-teal-500/20 text-teal-300 border border-teal-500/40 font-bold text-sm hover:bg-teal-500/30 transition">
-              📄 Academic Manuscript (Discoveries 1–8)
+            <a href="simulator/apis_honeybee_simulator.html" class="px-4 py-2.5 rounded-xl bg-amber-500/20 text-amber-200 border border-amber-500/50 font-extrabold text-xs sm:text-sm hover:bg-amber-500/30 transition">
+              🐝 Domain 3: Honeybee Smart Hive (14-Day · Cohort G) →
             </a>
           </div>
 
@@ -199,6 +204,109 @@
           <div class="text-xs font-mono text-amber-400 font-bold">REGRESSION &amp; C99 HIL</div>
           <div class="text-2xl font-extrabold text-white mt-1">20 / 20 Verified</div>
           <div class="text-xs text-slate-400 mt-1">0.042% Q16.16 Fixed-Point Error · 0.000000 Gate Discrepancy vs FP64</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 DEDICATED DOMAIN SIMULATORS SECTION -->
+    <section id="domain-simulators" class="glass-card rounded-3xl p-6 md:p-8 border-2 border-emerald-500/35 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2 text-xs font-mono">
+            <span class="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">
+              TAILORED DOMAIN-SPECIFIC WORKFLOWS
+            </span>
+            <span class="text-slate-400">Zero Cross-Species Control Confusion · Continuous Live Time Evolution · Dedicated AI Co-Pilot</span>
+          </div>
+          <h2 class="text-2xl font-extrabold text-white">
+            🎛️ Choose Your Dedicated Domain Simulator (3 Specialized Pages)
+          </h2>
+          <p class="text-xs md:text-sm text-slate-300">
+            Every biological scale shares the same universal law (<strong>EP = éR · f²: Clean Damaged Mitochondria First → Cross Biomarker/Coral NPU Gate → Clone Healthy Mitochondria Second</strong>), but each domain operates on its own timescale, anatomy, and biomarker gate. Launch any dedicated simulator below:
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <!-- Domain 1 Card: Human Clinical -->
+        <div class="p-5 rounded-2xl bg-slate-950/90 border-2 border-emerald-500/45 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-mono font-bold">
+                🏥 DOMAIN 1 · 90-DAY CLINICAL HORIZON
+              </span>
+              <span class="text-xs font-mono text-emerald-400 font-bold">Cohorts A–E</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">
+              Human Clinical &amp; Neuro-Metabolic Simulator
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Dedicated to <strong>Parkinson's (<code>GBA1/LRRK2</code>)</strong>, <strong>APOE4 Alzheimer's (<code>TOMM40</code>)</strong>, <strong>Refractory Epilepsy (<code>PV+ Interneurons</code>)</strong>, <strong>TR-MDD (<code>IDO1/QUIN</code>)</strong>, and <strong>Sarcopenia (<code>FUT2/MTHFR</code>)</strong>.
+            </p>
+            <ul class="text-[11px] text-slate-300 space-y-1.5 font-mono bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+              <li>● <strong>Live Cellular Twin:</strong> Lysosomal GBA1/TOMM40 doors + Mitophagy vs. Biogenesis</li>
+              <li>● <strong>Human Gate:</strong> Day-38 Serum <code>GDF15 (-35%)</code> + Wearable Ring (<code>4.03 mW</code>)</li>
+              <li>● <strong>Controls:</strong> Human SNPs, Stage 0 Chaperones, Fasting Window, NR/SIRT1</li>
+              <li>● <strong>Smart AI Co-Pilot:</strong> Clinical Neuro-Metabolic &amp; Day-38 Lab Gate Advisor</li>
+            </ul>
+          </div>
+          <a href="simulator/bcr_simulator.html" class="w-full py-2.5 px-4 rounded-xl bg-emerald-500 text-slate-950 font-extrabold text-xs text-center hover:bg-emerald-400 transition shadow-lg">
+            Launch Human Clinical Simulator (90-Day) →
+          </a>
+        </div>
+
+        <!-- Domain 2 Card: CAR-T GMP Bioreactor -->
+        <div class="p-5 rounded-2xl bg-slate-950/90 border-2 border-cyan-500/45 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-xs font-mono font-bold">
+                🧬 DOMAIN 2 · 240-HOUR GMP HORIZON
+              </span>
+              <span class="text-xs font-mono text-cyan-400 font-bold">Cohort F · PDB 2Q8G</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">
+              Ex Vivo CAR-T GMP Bioreactor Controller
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Dedicated to 10-day (<code>240-hour</code>) closed-cassette CAR-T immunotherapy manufacturing—breaking the <strong>Warburg <code>PDK1</code> lock (<code>PDB: 2Q8G</code>)</strong> and decoupling <strong>62.9× Fold Expansion</strong> from exhaustion.
+            </p>
+            <ul class="text-[11px] text-slate-300 space-y-1.5 font-mono bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+              <li>● <strong>Live Cassette Twin:</strong> Media-A/Media-B Perfusion Bag + Solenoid Pinch-Valve</li>
+              <li>● <strong>Inline GMP Gate:</strong> Hour-64 <code>Lactate:Pyruvate ≤ 12.0</code> (<code>4.09 mW</code> Coral NPU)</li>
+              <li>● <strong>Controls:</strong> Donor Apheresis Profile, Solenoid Hour, AZD7545, UroA, NR/SIRT1</li>
+              <li>● <strong>Smart AI Co-Pilot:</strong> GMP Bioprocess &amp; T_SCM Stem-Memory Engineer</li>
+            </ul>
+          </div>
+          <a href="simulator/cart_bioreactor_simulator.html" class="w-full py-2.5 px-4 rounded-xl bg-cyan-400 text-slate-950 font-extrabold text-xs text-center hover:bg-cyan-300 transition shadow-lg">
+            Launch CAR-T Bioreactor Simulator (240-Hour) →
+          </a>
+        </div>
+
+        <!-- Domain 3 Card: Honeybee Smart Hive -->
+        <div class="p-5 rounded-2xl bg-slate-950/90 border-2 border-amber-500/45 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold">
+                🐝 DOMAIN 3 · 14-DAY APIARY HORIZON
+              </span>
+              <span class="text-xs font-mono text-amber-400 font-bold">Cohort G · PDB 1SQB</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">
+              Apis-BCR Honeybee Colony &amp; Smart Hive Simulator
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Dedicated to 14-day commercial pollination rescue—clearing <strong>strobilurin fungicide Complex III <code>Qo</code> blockade (<code>PDB: 1SQB</code>)</strong> before restoring ubiquinol so <strong>230 Hz flight muscle</strong> doesn't suffer an ROS storm.
+            </p>
+            <ul class="text-[11px] text-slate-300 space-y-1.5 font-mono bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+              <li>● <strong>Live Flight-Muscle Twin:</strong> Bay-A/Bay-B Patty Feeder + 16-Bin MEMS FFT</li>
+              <li>● <strong>Acoustic Hive Gate:</strong> Day-4.5 Wingbeat <code>f₀ ≥ 220 Hz</code> + <code>Brood ≥ 33°C</code> (<code>4.05 mW</code>)</li>
+              <li>● <strong>Controls:</strong> Pesticide Load, Feeder Rotation Day, p-Coumaric, S. alvi, CoQ10</li>
+              <li>● <strong>Smart AI Co-Pilot:</strong> Apiary Field Specialist &amp; Colony Homing Advisor</li>
+            </ul>
+          </div>
+          <a href="simulator/apis_honeybee_simulator.html" class="w-full py-2.5 px-4 rounded-xl bg-amber-400 text-slate-950 font-extrabold text-xs text-center hover:bg-amber-300 transition shadow-lg">
+            Launch Honeybee Smart Hive Simulator (14-Day) →
+          </a>
         </div>
       </div>
     </section>

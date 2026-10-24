@@ -460,8 +460,33 @@
               ⚡ Coral NPU Silicon (3D)
             </button>
           </div>
-          <div id="hoverReadout" class="text-xs font-mono text-[var(--muted-foreground)] px-2">
-            Hover any chart to inspect Day 0–90 telemetry
+          <div id="hoverReadout" class="text-xs font-mono text-cyan-400 font-semibold px-2">
+            Live Time-Evolution Active (Day 0 → Day 90)
+          </div>
+        </div>
+
+        <!-- Global Live Time-Evolution Scrubber & Playback Bar (Synchronized Across All ODE Charts & Coral NPU Registers) -->
+        <div class="bg-[var(--card)] border border-cyan-500/40 rounded-xl px-4 py-2.5 shadow-sm flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+          <div class="flex items-center gap-2">
+            <button id="btnGlobalPlayPause" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500 text-emerald-300 font-bold hover:bg-emerald-500/30 transition flex items-center gap-1.5">
+              ⏸ Pause Time
+            </button>
+            <button id="btnGlobalSpeed" class="px-2.5 py-1.5 rounded-lg bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] hover:opacity-90 transition" title="Toggle simulation playback speed">
+              1.0× Speed
+            </button>
+          </div>
+          <div class="flex-1 min-w-[200px] flex items-center gap-2.5">
+            <span class="text-[var(--muted-foreground)] shrink-0">t = 0</span>
+            <input id="globalTimeScrubber" type="range" min="0" max="1000" value="0" class="w-full accent-cyan-400 cursor-pointer" />
+            <span id="globalTimeHorizonLabel" class="text-[var(--muted-foreground)] shrink-0">Day 90</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <span id="globalClockBadge" class="px-2.5 py-1 rounded-md bg-slate-900 border border-cyan-500/40 text-cyan-300 font-bold">
+              Day 0.0 / 90.0
+            </span>
+            <span id="globalStageGateBadge" class="px-2.5 py-1 rounded-md bg-amber-500/15 border border-amber-500/40 text-amber-300 font-semibold">
+              🟡 Stage 1: Mitophagy Purge
+            </span>
           </div>
         </div>
 
@@ -888,25 +913,35 @@
             </button>
           </div>
 
-          <!-- Interactive Timepoint / Phase Selector & Live Actuator Bar (Above Canvas — Zero Overlap) -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-950/90 border border-cyan-500/30 text-xs font-mono">
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="text-slate-400 font-bold mr-1">TELEMETRY PHASE:</span>
-              <button data-coral-phase="0" class="coral-phase-btn px-2.5 py-1 rounded-md border border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 transition">
-                t₀: Baseline / Stage 1 Purge
-              </button>
-              <button data-coral-phase="1" class="coral-phase-btn px-2.5 py-1 rounded-md border border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 transition">
-                t₁: ⚡ Coral NPU Gate Crossing
-              </button>
-              <button data-coral-phase="2" class="coral-phase-btn px-2.5 py-1 rounded-md border border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold transition">
-                t₂: Stage 2 Anabolic Rescue
-              </button>
-              <button data-coral-phase="live" class="coral-phase-btn px-2.5 py-1 rounded-md border border-slate-700 bg-slate-900 text-cyan-300 hover:bg-slate-800 transition">
-                🔄 Live ODE Sim Coupled
-              </button>
+          <!-- Interactive Timepoint / Phase Selector & Continuous Time Scrubber Bar (Above Canvas — Zero Overlap) -->
+          <div class="flex flex-col gap-2 p-2.5 rounded-xl bg-slate-950/90 border border-cyan-500/30 text-xs font-mono">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <button id="btnCoralPlayPause" class="px-2.5 py-1 rounded-md border border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold hover:bg-emerald-500/30 transition">
+                  ⏸ Pause Evolution
+                </button>
+                <span class="text-slate-400 font-bold ml-1">SNAP TO:</span>
+                <button data-coral-phase="0" class="coral-phase-btn px-2 py-1 rounded-md border border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 transition">
+                  t₀: Stage 1 Purge
+                </button>
+                <button data-coral-phase="1" class="coral-phase-btn px-2 py-1 rounded-md border border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 transition">
+                  t₁: ⚡ Coral NPU Gate
+                </button>
+                <button data-coral-phase="2" class="coral-phase-btn px-2 py-1 rounded-md border border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 transition">
+                  t₂: Stage 2 Rescue
+                </button>
+                <button data-coral-phase="live" class="coral-phase-btn px-2 py-1 rounded-md border border-cyan-500 bg-cyan-500/20 text-cyan-300 font-bold hover:bg-cyan-500/30 transition">
+                  🔄 Continuous Time (t₀→t₂)
+                </button>
+              </div>
+              <div class="text-emerald-300 font-semibold truncate" id="coral3DLiveActuatorBadge">
+                Actuator: Stage 1 → Stage 2 Gate Ready (0.000000 float64 Discrepancy)
+              </div>
             </div>
-            <div class="text-emerald-300 font-semibold truncate" id="coral3DLiveActuatorBadge">
-              Actuator: Stage 1 → Stage 2 Gate Ready (0.000000 float64 Discrepancy)
+            <div class="flex items-center gap-2.5 pt-1 border-t border-slate-800/80">
+              <span class="text-slate-400 shrink-0" id="coralTimeLabelLeft">t₀ (Start)</span>
+              <input id="coralTimeScrubber" type="range" min="0" max="1000" value="0" class="w-full accent-cyan-400 cursor-pointer" />
+              <span class="text-cyan-300 font-bold shrink-0 min-w-[140px] text-right" id="coralTimeReadoutBadge">Day 0.0 / 90.0</span>
             </div>
           </div>
 
@@ -1867,8 +1902,12 @@
     // --- GOOGLE CORAL NPU (RV32IMF_Zve32x) STUDY-REACTIVE SIGNAL & PHASE-PLANE ENGINE ---
     state.coralTarget = 'HUMAN_WEARABLE_RING_PATCH';
     state.coralStudy = 'parkinsons_snc';
-    state.coralPhase = '2'; // '0' (Baseline/Purge), '1' (Gate Crossing), '2' (Stage 2 Rescue), or 'live'
+    state.coralPhase = 'live'; // '0' (Baseline/Purge), '1' (Gate Crossing), '2' (Stage 2 Rescue), or 'live' (Continuous Time Evolution)
     state.coralAnimTime = 0;
+    state.simTimeFrac = 0.0;
+    state.isPlaying = true;
+    state.playSpeed = 1.0;
+    state.isMouseHovering = false;
 
     const CORAL_STUDY_OVERRIDES = {
       pink1_fut2: {
@@ -2084,54 +2123,72 @@
       return base;
     }
 
+    function lerpVal(a, b, t) {
+      if (typeof a !== 'number' || typeof b !== 'number') return b !== undefined ? b : a;
+      return a + (b - a) * clip(t, 0, 1);
+    }
+
     function getActiveCoralPhaseData() {
       const spec = getActiveCoralSpec();
-      if (state.coralPhase === 'live' && state.lastSimResult) {
-        const sim = state.lastSimResult;
-        const idx = state.hoverIndex !== null ? state.hoverIndex : (sim.steps - 1);
-        const dayVal = (idx * sim.dt).toFixed(1);
-        const hVal = sim.H[idx];
-        const eRVal = sim.eR[idx];
-        const epVal = sim.EP[idx];
-        const f2Val = eRVal > 0.01 ? (epVal / eRVal) : 1.0;
-        const gdfVal = Math.round(sim.GDF15[idx]);
-        return {
-          label: `Live ODE Day ${dayVal} (${state.activeRegimen.toUpperCase()})`,
-          W: sim.W[idx],
-          D: sim.D[idx],
-          h: hVal,
-          eR: eRVal,
-          f2: f2Val,
-          EP: epVal,
-          nad: sim.NAD[idx],
-          guild: sim.But[idx],
-          block: clip(sim.H2S[idx] * 0.65, 0.02, 1.0),
-          f0Hz: clip(240.0 - hVal * 1.05, 165.0, 242.0),
-          tempC: 34.5,
-          co2Pct: 0.82,
-          lacPyr: clip(5.5 + hVal * 0.42, 5.5, 32.0),
-          tscmPct: clip(82.0 - hVal * 1.1, 8.0, 82.0),
-          foldX: clip(sim.ATP[idx] * 42.0, 2.0, 68.0),
-          pH: 7.20,
-          do2: 70,
-          bhbMmol: state.lagHours <= 7.0 ? 1.8 : 0.6,
-          gdf15: gdfVal,
-          lagH: state.lagHours,
-          massDelta: ((sim.W[idx] + sim.D[idx] - 1.0) * 10.0),
-          poreCond: clip(1.0 - hVal * 0.012, 0.25, 0.98),
-          h2s: sim.H2S[idx],
-          eiRatio: clip(0.60 + hVal * 0.065, 0.60, 3.60),
-          quin: clip(0.18 + hVal * 0.035, 0.18, 1.70),
-          spines: clip(sim.ATP[idx] * 0.95, 0.35, 1.30),
-          autoJam: clip(0.06 + hVal * 0.018, 0.06, 1.35),
-          thTone: clip(sim.ATP[idx] * 0.92, 0.12, 1.30),
-          gateText: hVal <= 8.5
-            ? `🟢 GREEN GATE ACTIVE (h=${hVal.toFixed(1)}% ≤ 8% · Stage 2 Anabolic Build)`
-            : `🟡 STAGE 1 PURGE ACTIVE (h=${hVal.toFixed(1)}% > 8% · Hold Anabolic Boosters)`
-        };
+      const gateFrac = state.coralTarget === 'CART_GMP_CASSETTE_VALVE' ? (64.0 / 240.0)
+        : state.coralTarget === 'APIS_SMART_HIVE_NODE' ? (4.5 / 14.0)
+        : (38.0 / 90.0);
+
+      let frac = state.simTimeFrac;
+      if (state.coralPhase === '0') frac = 0.0;
+      else if (state.coralPhase === '1') frac = gateFrac;
+      else if (state.coralPhase === '2') frac = 1.0;
+
+      const p0 = spec.phases[0];
+      const p1 = spec.phases[1];
+      const p2 = spec.phases[2];
+
+      let segA, segB, segT;
+      if (frac <= gateFrac) {
+        segA = p0;
+        segB = p1;
+        segT = gateFrac > 0.001 ? (frac / gateFrac) : 0.0;
+      } else {
+        segA = p1;
+        segB = p2;
+        segT = (1.0 - gateFrac) > 0.001 ? ((frac - gateFrac) / (1.0 - gateFrac)) : 1.0;
       }
-      const pIdx = parseInt(state.coralPhase, 10);
-      return spec.phases[isNaN(pIdx) ? 2 : clip(pIdx, 0, 2)];
+
+      const numKeys = [
+        'W', 'D', 'h', 'eR', 'f2', 'EP', 'nad', 'guild', 'block',
+        'f0Hz', 'tempC', 'co2Pct', 'lacPyr', 'tscmPct', 'foldX', 'pH', 'do2',
+        'bhbMmol', 'gdf15', 'lagH', 'massDelta', 'poreCond', 'h2s', 'eiRatio',
+        'quin', 'spines', 'autoJam', 'thTone'
+      ];
+      const out = { timeFrac: frac, gateFrac: gateFrac };
+      numKeys.forEach(k => {
+        if (segA[k] !== undefined || segB[k] !== undefined) {
+          const v = lerpVal(segA[k] !== undefined ? segA[k] : segB[k], segB[k] !== undefined ? segB[k] : segA[k], segT);
+          out[k] = (k === 'gdf15' || k === 'do2') ? Math.round(v) : v;
+        }
+      });
+
+      let clockStr = '';
+      if (state.coralTarget === 'CART_GMP_CASSETTE_VALVE') {
+        clockStr = `Hour ${(frac * 240.0).toFixed(1)} / 240.0h`;
+      } else if (state.coralTarget === 'APIS_SMART_HIVE_NODE') {
+        clockStr = `Day ${(frac * 14.0).toFixed(1)} / 14.0d`;
+      } else {
+        clockStr = `Day ${(frac * 90.0).toFixed(1)} / 90.0d`;
+      }
+      out.clockStr = clockStr;
+
+      if (Math.abs(frac - gateFrac) < 0.06) {
+        out.activeRowIdx = 1;
+        out.gateText = `⚡ [${clockStr}] ${p1.gateText}`;
+      } else if (frac < gateFrac) {
+        out.activeRowIdx = 0;
+        out.gateText = `🟡 [${clockStr}] ${p0.gateText}`;
+      } else {
+        out.activeRowIdx = 2;
+        out.gateText = `🟢 [${clockStr}] ${p2.gateText}`;
+      }
+      return out;
     }
 
     function updateCoralNpuUI() {
@@ -2191,12 +2248,16 @@
         `;
       }
 
+      const roBadge = document.getElementById('coralTimeReadoutBadge');
+      if (roBadge && pData.clockStr) roBadge.textContent = pData.clockStr;
+
       const tbody = document.getElementById('coralTrajectoryTableBody');
       if (tbody) {
+        const activeRow = pData.activeRowIdx !== undefined ? pData.activeRowIdx : 2;
         tbody.innerHTML = spec.trajectory.map((row, idx) => {
-          const isSel = String(idx) === String(state.coralPhase);
+          const isSel = idx === activeRow;
           return `
-          <tr class="${isSel ? 'bg-cyan-500/10' : ''}">
+          <tr class="${isSel ? 'bg-cyan-500/15 border-l-2 border-cyan-400' : ''}">
             <td class="py-2 px-2.5 font-bold">${row[0]}</td>
             <td class="py-2 px-2.5 text-amber-400">${row[1]}</td>
             <td class="py-2 px-2.5">${row[2]}</td>
@@ -2416,12 +2477,21 @@
         }
         ctx.stroke();
 
-        // Active phase marker dot
-        const curHr = state.coralPhase === '0' ? 0 : (state.coralPhase === '1' ? 64 : 240);
-        const curX = gx + (curHr / 240) * gw;
-        const curY = gy + gh - ((pData.lacPyr || 11.4) / 30.0) * gh;
+        // Active phase time-cursor & glowing markers on both curves
+        const tFracCart = pData.timeFrac !== undefined ? pData.timeFrac : 1.0;
+        const curHr = tFracCart * 240.0;
+        const curX = gx + tFracCart * gw;
+        ctx.strokeStyle = 'rgba(251, 191, 36, 0.75)';
+        ctx.lineWidth = 1.4;
+        ctx.setLineDash([3, 2]);
+        ctx.beginPath(); ctx.moveTo(curX, gy); ctx.lineTo(curX, gy + gh); ctx.stroke();
+        ctx.setLineDash([]);
+        const curLP = 6.5 + 19.9 * Math.exp(-curHr / 46.0);
+        const curTSCM = 18.0 + 60.0 * (1.0 - Math.exp(-curHr / 55.0));
+        ctx.fillStyle = '#f43f5e';
+        ctx.beginPath(); ctx.arc(curX, gy + gh - (curLP / 30.0) * gh, 4.2, 0, Math.PI * 2); ctx.fill();
         ctx.fillStyle = '#fbbf24';
-        ctx.beginPath(); ctx.arc(curX, curY, 4.5, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(curX, gy + gh - (curTSCM / 100.0) * gh, 4.8, 0, Math.PI * 2); ctx.fill();
 
         ctx.fillStyle = '#94a3b8';
         ctx.font = '9.5px monospace';
@@ -2503,9 +2573,20 @@
           }
           ctx.stroke();
 
+          // Live sweeping time-cursor & glowing markers
+          const tfPD = pData.timeFrac !== undefined ? pData.timeFrac : 1.0;
+          const dPD = tfPD * 90.0;
+          const cxPD = gx + tfPD * gw;
+          ctx.strokeStyle = 'rgba(251, 191, 36, 0.8)'; ctx.lineWidth = 1.4; ctx.setLineDash([3, 2]);
+          ctx.beginPath(); ctx.moveTo(cxPD, gy); ctx.lineTo(cxPD, gy + gh); ctx.stroke(); ctx.setLineDash([]);
+          const jamNow = 0.08 + 0.46 * Math.exp(-dPD / 18.0);
+          const thNow = 0.13 + 1.12 / (1.0 + Math.exp(-(dPD - 36.0) / 11.0));
+          ctx.fillStyle = '#22d3ee'; ctx.beginPath(); ctx.arc(cxPD, gy + gh - (jamNow / 1.45) * gh, 4.2, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(cxPD, gy + gh - (thNow / 1.45) * gh, 4.8, 0, Math.PI * 2); ctx.fill();
+
           ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
           ctx.textAlign = 'left'; ctx.fillText('d0 SNc', gx, gy + gh + 13);
-          ctx.textAlign = 'center'; ctx.fillText('Cyan: Auto_Jam | Grn: TH Tone', gx + gw * 0.5, gy + gh + 13);
+          ctx.textAlign = 'center'; ctx.fillText(`d${dPD.toFixed(0)}: Jam=${jamNow.toFixed(2)}x | TH=${thNow.toFixed(2)}x`, gx + gw * 0.5, gy + gh + 13);
           ctx.textAlign = 'right'; ctx.fillText('d90 (95% Rescue)', gx + gw, gy + gh + 13);
 
           ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(236, 72, 153, 0.35)';
@@ -2561,9 +2642,19 @@
           }
           ctx.stroke();
 
+          const tfAD = pData.timeFrac !== undefined ? pData.timeFrac : 1.0;
+          const dAD = tfAD * 90.0;
+          const cxAD = gx + tfAD * gw;
+          ctx.strokeStyle = 'rgba(251, 191, 36, 0.8)'; ctx.lineWidth = 1.4; ctx.setLineDash([3, 2]);
+          ctx.beginPath(); ctx.moveTo(cxAD, gy); ctx.lineTo(cxAD, gy + gh); ctx.stroke(); ctx.setLineDash([]);
+          const hNowAD = 3.3 + 41.7 * Math.exp(-dAD / 24.0);
+          const condNowAD = 0.35 + 0.61 * (1.0 - Math.exp(-dAD / 20.0));
+          ctx.fillStyle = '#22d3ee'; ctx.beginPath(); ctx.arc(cxAD, gy + gh - (hNowAD / 100.0) * gh, 4.2, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(cxAD, gy + gh - condNowAD * gh, 4.8, 0, Math.PI * 2); ctx.fill();
+
           ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
           ctx.textAlign = 'left'; ctx.fillText('d0 Cortex', gx, gy + gh + 13);
-          ctx.textAlign = 'center'; ctx.fillText('Red: Periph BCR (94%) | Grn: 7CK6 Pore', gx + gw * 0.5, gy + gh + 13);
+          ctx.textAlign = 'center'; ctx.fillText(`d${dAD.toFixed(0)}: h=${hNowAD.toFixed(1)}% | Pore=${(condNowAD*100).toFixed(0)}%`, gx + gw * 0.5, gy + gh + 13);
           ctx.textAlign = 'right'; ctx.fillText('d90 (h=3.3%)', gx + gw, gy + gh + 13);
 
           ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
@@ -2616,9 +2707,17 @@
           }
           ctx.stroke();
 
+          const tfEP = pData.timeFrac !== undefined ? pData.timeFrac : 1.0;
+          const dEP = tfEP * 90.0;
+          const cxEP = gx + tfEP * gw;
+          ctx.strokeStyle = 'rgba(251, 191, 36, 0.8)'; ctx.lineWidth = 1.4; ctx.setLineDash([3, 2]);
+          ctx.beginPath(); ctx.moveTo(cxEP, gy); ctx.lineTo(cxEP, gy + gh); ctx.stroke(); ctx.setLineDash([]);
+          const eiNow = 0.65 + 2.73 * Math.exp(-dEP / 20.0);
+          ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(cxEP, gy + gh - (eiNow / 3.6) * gh, 4.8, 0, Math.PI * 2); ctx.fill();
+
           ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
           ctx.textAlign = 'left'; ctx.fillText('d0 (E/I=3.38)', gx, gy + gh + 13);
-          ctx.textAlign = 'center'; ctx.fillText('Red: Keto H₂S (1.97) | Grn: Epi-BCR E/I', gx + gw * 0.5, gy + gh + 13);
+          ctx.textAlign = 'center'; ctx.fillText(`d${dEP.toFixed(0)}: E/I=${eiNow.toFixed(2)} | H₂S=${(pData.h2s || 0.11).toFixed(2)}x`, gx + gw * 0.5, gy + gh + 13);
           ctx.textAlign = 'right'; ctx.fillText('d90 (E/I=0.65)', gx + gw, gy + gh + 13);
 
           ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(6, 182, 212, 0.35)';
@@ -2664,9 +2763,17 @@
           }
           ctx.stroke();
 
+          const tfMDD = pData.timeFrac !== undefined ? pData.timeFrac : 1.0;
+          const dMDD = tfMDD * 90.0;
+          const cxMDD = gx + tfMDD * gw;
+          ctx.strokeStyle = 'rgba(251, 191, 36, 0.8)'; ctx.lineWidth = 1.4; ctx.setLineDash([3, 2]);
+          ctx.beginPath(); ctx.moveTo(cxMDD, gy); ctx.lineTo(cxMDD, gy + gh); ctx.stroke(); ctx.setLineDash([]);
+          const spNow = 0.45 + 0.79 / (1.0 + Math.exp(-(dMDD - 34.0) / 10.0));
+          ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(cxMDD, gy + gh - (spNow / 1.35) * gh, 4.8, 0, Math.PI * 2); ctx.fill();
+
           ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
           ctx.textAlign = 'left'; ctx.fillText('d0 (0.45x)', gx, gy + gh + 13);
-          ctx.textAlign = 'center'; ctx.fillText('Red: Ketamine Relapse | Grn: Affective-BCR', gx + gw * 0.5, gy + gh + 13);
+          ctx.textAlign = 'center'; ctx.fillText(`d${dMDD.toFixed(0)}: Spines=${spNow.toFixed(2)}x | QUIN=${(pData.quin || 0.20).toFixed(2)}x`, gx + gw * 0.5, gy + gh + 13);
           ctx.textAlign = 'right'; ctx.fillText('d90 (1.24x Spines)', gx + gw, gy + gh + 13);
 
           ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(168, 85, 247, 0.35)';
@@ -2719,6 +2826,14 @@
             if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
           }
           ctx.stroke();
+
+          const tfCA = pData.timeFrac !== undefined ? pData.timeFrac : 1.0;
+          const curFastHr = tfCA * 18.0;
+          const cxCA = gx + tfCA * gw;
+          ctx.strokeStyle = 'rgba(251, 191, 36, 0.8)'; ctx.lineWidth = 1.4; ctx.setLineDash([3, 2]);
+          ctx.beginPath(); ctx.moveTo(cxCA, gy); ctx.lineTo(cxCA, gy + gh); ctx.stroke(); ctx.setLineDash([]);
+          const bhbNow = 0.25 + 2.05 / (1.0 + Math.exp(-(curFastHr - (pData.lagH || 6.0)) * 1.25));
+          ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(cxCA, gy + gh - (bhbNow / 2.6) * gh, 4.8, 0, Math.PI * 2); ctx.fill();
 
           ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
           ctx.textAlign = 'left'; ctx.fillText('0h Fast', gx, gy + gh + 13);
@@ -2935,8 +3050,109 @@
       ctx.restore();
     }
 
+    function syncPlayPauseButtons() {
+      const gBtn = document.getElementById('btnGlobalPlayPause');
+      const cBtn = document.getElementById('btnCoralPlayPause');
+      if (gBtn) {
+        gBtn.textContent = state.isPlaying ? '⏸ Pause Time' : '▶ Play Time';
+        gBtn.className = state.isPlaying
+          ? 'px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500 text-emerald-300 font-bold hover:bg-emerald-500/30 transition flex items-center gap-1.5'
+          : 'px-3 py-1.5 rounded-lg bg-cyan-500/20 border border-cyan-500 text-cyan-300 font-bold hover:bg-cyan-500/30 transition flex items-center gap-1.5';
+      }
+      if (cBtn) {
+        cBtn.textContent = state.isPlaying ? '⏸ Pause Evolution' : '▶ Play Evolution';
+        cBtn.className = state.isPlaying
+          ? 'px-2.5 py-1 rounded-md border border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold hover:bg-emerald-500/30 transition'
+          : 'px-2.5 py-1 rounded-md border border-cyan-500 bg-cyan-500/20 text-cyan-300 font-bold hover:bg-cyan-500/30 transition';
+      }
+    }
+
+    function syncLiveTimeCursorUI() {
+      const scrubVal = Math.round(clip(state.simTimeFrac, 0, 1) * 1000);
+      const gScrub = document.getElementById('globalTimeScrubber');
+      const cScrub = document.getElementById('coralTimeScrubber');
+      if (gScrub && document.activeElement !== gScrub) gScrub.value = scrubVal;
+      if (cScrub && document.activeElement !== cScrub) cScrub.value = scrubVal;
+
+      const pData = getActiveCoralPhaseData();
+      const roBadge = document.getElementById('coralTimeReadoutBadge');
+      if (roBadge && pData.clockStr) roBadge.textContent = pData.clockStr;
+      const actEl = document.getElementById('coral3DLiveActuatorBadge');
+      if (actEl && pData.gateText) actEl.textContent = pData.gateText;
+
+      const sim = state.lastSimResult;
+      if (sim) {
+        const idx = (state.isMouseHovering && state.hoverIndex !== null)
+          ? state.hoverIndex
+          : Math.round(clip(state.simTimeFrac, 0, 1) * (sim.steps - 1));
+        state.hoverIndex = idx;
+        const dayVal = idx * sim.dt;
+        const gClock = document.getElementById('globalClockBadge');
+        if (gClock) gClock.textContent = `Day ${dayVal.toFixed(1)} / 90.0`;
+
+        const gGate = document.getElementById('globalStageGateBadge');
+        if (gGate) {
+          if (dayVal < 14.0) {
+            gGate.textContent = '🟣 Stage 0: Chaperone & Import Prime';
+            gGate.className = 'px-2.5 py-1 rounded-md bg-purple-500/15 border border-purple-500/40 text-purple-300 font-semibold';
+          } else if (dayVal < 37.0) {
+            gGate.textContent = '🟡 Stage 1: Mitophagy Purge (Hold NAD⁺)';
+            gGate.className = 'px-2.5 py-1 rounded-md bg-amber-500/15 border border-amber-500/40 text-amber-300 font-semibold';
+          } else if (dayVal <= 41.0) {
+            gGate.textContent = '⚡ Day 38 GDF15 Gate Switch → Stage 2!';
+            gGate.className = 'px-2.5 py-1 rounded-md bg-cyan-500/20 border border-cyan-400 text-cyan-300 font-bold';
+          } else {
+            gGate.textContent = '🟢 Stage 2: Anabolic Biogenesis Build';
+            gGate.className = 'px-2.5 py-1 rounded-md bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-semibold';
+          }
+        }
+
+        const hro = document.getElementById('hoverReadout');
+        if (hro) {
+          hro.textContent = `Day ${dayVal.toFixed(1)} | h: ${sim.H[idx].toFixed(1)}% | W: ${sim.W[idx].toFixed(2)} | éR: ${sim.eR[idx].toFixed(2)} | GDF15: ${Math.round(sim.GDF15[idx])} pg/mL | ATP: ${sim.ATP[idx].toFixed(2)}x`;
+        }
+
+        if (state.activeTab === 'trajectories') {
+          drawChart('canvasMito', sim, [
+            { data: sim.W, color: '#10b981', width: 2.5 },
+            { data: sim.D, color: '#f43f5e', width: 2.5 },
+            { data: sim.H, color: '#f59e0b', width: 2.0, scale: 0.012 }
+          ], 0, 1.25);
+          const maxER = Math.max(8.0, Math.min(40.0, Math.max(...sim.eR) * 1.08));
+          drawChart('canvasERP', sim, [
+            { data: sim.eR, color: '#a855f7', width: 2.5 },
+            { data: sim.EP, color: '#f97316', width: 2.2 }
+          ], 0, maxER);
+          const maxGDF = Math.max(2500, Math.min(9000, Math.max(...sim.GDF15) * 1.08));
+          drawChart('canvasClinical', sim, [
+            { data: sim.GDF15, color: '#ef4444', width: 2.5 },
+            { data: sim.ATP, color: '#06b6d4', width: 2.5, scale: maxGDF / 1.5 }
+          ], 0, maxGDF, { yFormat: v => Math.round(v).toString() });
+          drawChart('canvasGut', sim, [
+            { data: sim.NAD, color: '#3b82f6', width: 2.4 },
+            { data: sim.But, color: '#14b8a6', width: 2.4 },
+            { data: sim.H2S, color: '#ec4899', width: 2.4 }
+          ], 0, 1.40);
+        }
+      }
+    }
+
+    state.endHoldFrames = 0;
     function animateCoralNpuLoop() {
       state.coralAnimTime += 0.016;
+      if (state.isPlaying && !state.isMouseHovering) {
+        state.coralPhase = 'live';
+        if (state.simTimeFrac >= 1.0) {
+          state.endHoldFrames = (state.endHoldFrames || 0) + 1;
+          if (state.endHoldFrames > 75) {
+            state.simTimeFrac = 0.0;
+            state.endHoldFrames = 0;
+          }
+        } else {
+          state.simTimeFrac = Math.min(1.0, state.simTimeFrac + 0.0014 * state.playSpeed);
+        }
+        syncLiveTimeCursorUI();
+      }
       if (state.activeTab === 'coral_npu') {
         renderCoralNpuSiliconCanvas();
       }
@@ -2994,7 +3210,9 @@
     document.querySelectorAll('.coral-study-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const studyId = btn.getAttribute('data-coral-study');
-        const targetId = btn.getAttribute('data-coral-target');
+        const targetId = studyId === 'apis_honeybee' ? 'APIS_SMART_HIVE_NODE'
+          : studyId === 'bioreactor_cart' ? 'CART_GMP_CASSETTE_VALVE'
+          : 'HUMAN_WEARABLE_RING_PATCH';
         state.coralStudy = studyId;
         state.coralTarget = targetId;
         const presetSel = document.getElementById('patientPresetSelect');
@@ -3009,10 +3227,65 @@
     });
     document.querySelectorAll('.coral-phase-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        state.coralPhase = btn.getAttribute('data-coral-phase');
+        const ph = btn.getAttribute('data-coral-phase');
+        state.coralPhase = ph;
+        const gateFrac = state.coralTarget === 'CART_GMP_CASSETTE_VALVE' ? (64.0 / 240.0)
+          : state.coralTarget === 'APIS_SMART_HIVE_NODE' ? (4.5 / 14.0)
+          : (38.0 / 90.0);
+        if (ph === '0') {
+          state.simTimeFrac = 0.0;
+          state.isPlaying = false;
+        } else if (ph === '1') {
+          state.simTimeFrac = gateFrac;
+          state.isPlaying = false;
+        } else if (ph === '2') {
+          state.simTimeFrac = 1.0;
+          state.isPlaying = false;
+        } else {
+          state.isPlaying = true;
+        }
+        syncPlayPauseButtons();
+        syncLiveTimeCursorUI();
         updateCoralNpuUI();
         renderCoralNpuSiliconCanvas();
       });
+    });
+    ['btnGlobalPlayPause', 'btnCoralPlayPause'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('click', () => {
+          state.isPlaying = !state.isPlaying;
+          if (state.isPlaying) {
+            state.coralPhase = 'live';
+            if (state.simTimeFrac >= 0.995) state.simTimeFrac = 0.0;
+          }
+          syncPlayPauseButtons();
+          updateCoralNpuUI();
+        });
+      }
+    });
+    const speedBtn = document.getElementById('btnGlobalSpeed');
+    if (speedBtn) {
+      speedBtn.addEventListener('click', () => {
+        const speeds = [0.5, 1.0, 2.0, 4.0];
+        const nextIdx = (speeds.indexOf(state.playSpeed) + 1) % speeds.length;
+        state.playSpeed = speeds[nextIdx];
+        speedBtn.textContent = `${state.playSpeed.toFixed(1)}× Speed`;
+      });
+    }
+    ['globalTimeScrubber', 'coralTimeScrubber'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('input', e => {
+          state.isPlaying = false;
+          state.coralPhase = 'live';
+          state.simTimeFrac = clip(parseFloat(e.target.value) / 1000.0, 0, 1);
+          syncPlayPauseButtons();
+          syncLiveTimeCursorUI();
+          updateCoralNpuUI();
+          renderCoralNpuSiliconCanvas();
+        });
+      }
     });
     document.getElementById('btnOpenCoral3DTab').addEventListener('click', () => {
       const coralTabBtn = document.querySelector('.tab-btn[data-tab="coral_npu"]');
@@ -3259,19 +3532,15 @@
         const relX = e.clientX - rect.left - padLeft;
         const frac = clip(relX / plotW, 0, 1);
         const idx = Math.round(frac * (state.lastSimResult.steps - 1));
+        state.isMouseHovering = true;
         state.hoverIndex = idx;
-
-        const sim = state.lastSimResult;
-        const d = (idx * sim.dt).toFixed(1);
-        document.getElementById('hoverReadout').textContent =
-          `Day ${d} | h: ${sim.H[idx].toFixed(1)}% | W: ${sim.W[idx].toFixed(2)} | éR: ${sim.eR[idx].toFixed(2)} | GDF15: ${Math.round(sim.GDF15[idx])} pg/mL | ATP: ${sim.ATP[idx].toFixed(2)}x`;
-        updateAll();
+        state.simTimeFrac = frac;
+        syncLiveTimeCursorUI();
       });
 
       c.addEventListener('mouseleave', () => {
-        state.hoverIndex = null;
-        document.getElementById('hoverReadout').textContent = 'Hover any chart to inspect Day 0–90 telemetry';
-        updateAll();
+        state.isMouseHovering = false;
+        syncLiveTimeCursorUI();
       });
     });
 
@@ -3281,6 +3550,7 @@
       attributeFilter: ['class']
     });
 
+    syncPlayPauseButtons();
     updateCoralNpuUI();
     updateAll();
     animateCoralNpuLoop();

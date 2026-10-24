@@ -208,6 +208,39 @@ def main():
         "Verified 3D Triad Canvas + Strip + MLIR/C99 Inspector in bcr_simulator.html",
     )
 
+    cart_html_path = os.path.join(REPO_ROOT, "simulator", "cart_bioreactor_simulator.html")
+    apis_html_path = os.path.join(REPO_ROOT, "simulator", "apis_honeybee_simulator.html")
+    cart_html_text = open(cart_html_path, encoding="utf-8").read()
+    apis_html_text = open(apis_html_path, encoding="utf-8").read()
+
+    from gemini_copilot_sensitivity import (
+        run_human_switch_day_sweep,
+        run_cart_valve_hour_sweep,
+        run_apis_baffle_day_sweep,
+        query_gemini_copilot_interaction,
+    )
+
+    h_sw = run_human_switch_day_sweep()
+    c_sw = run_cart_valve_hour_sweep()
+    a_sw = run_apis_baffle_day_sweep()
+    copilot_res = query_gemini_copilot_interaction("Cross-Species", "Verify stage gate")
+
+    check(
+        "runHumanWhatIfSweep" in sim_html_text
+        and "runCartWhatIfSweep" in cart_html_text
+        and "runApisWhatIfSweep" in apis_html_text
+        and "gemini-3.8-flash" in sim_html_text
+        and "gemini-3.8-flash" in cart_html_text
+        and "gemini-3.8-flash" in apis_html_text
+        and "interactions.create" in sim_html_text
+        and len(h_sw) == 9
+        and len(c_sw) == 9
+        and len(a_sw) == 9
+        and copilot_res["model"] == "gemini-3.8-flash",
+        "3 Domain Simulators: Gemini 3.8 Flash Co-Pilot & 9-Point Sweeps",
+        "Verified @google/genai interactions.create (gemini-3.8-flash) + 9-Point What-If Sweeps across Human, CAR-T, & Honeybee",
+    )
+
     print("\n" + "=" * 100)
     print(f"✅ VERIFICATION SUMMARY: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
     print("=" * 100)

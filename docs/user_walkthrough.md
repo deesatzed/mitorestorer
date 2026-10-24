@@ -1,4 +1,4 @@
-# MitoRestorer Step-by-Step User Walkthrough (Beginner / College-Freshman Guide)
+# MitoRestorer Step-by-Step User Walkthrough (Executive & Clinical Mechanistic Guide)
 
 Welcome to **MitoRestorer**! This guide walks you step-by-step from zero background knowledge to running a complete 90-day cellular simulation, understanding why standard supplement stacks fail, and using the **Day-38 Blood Test Gate** to generate a personalized daily protocol.
 

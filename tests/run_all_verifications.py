@@ -153,6 +153,61 @@ def main():
         f"Plain HFCS Homing={a_hfcs['Forager_Homing_Survival_pct']}% (ATP={a_hfcs['Thoracic_Flight_ATP_day14_x']}x) vs Apis-BCR Homing={a_bcr['Forager_Homing_Survival_pct']}% (ATP={a_bcr['Thoracic_Flight_ATP_day14_x']}x)",
     )
 
+    # -------------------------------------------------------------------------
+    # SUITE 4: GOOGLE CORAL NPU (`RV32IMF_Zve32x`) COMPILER, FIRMWARE & 3D UI
+    # -------------------------------------------------------------------------
+    print("\n--- 4. Verifying Google Coral NPU (`RV32IMF_Zve32x`) Compiler, Firmware & 3D Silicon UI ---")
+    from pathlib import Path
+    from coral_npu_bcr_compiler import CoralNPUBCRCompiler
+
+    coral_compiler = CoralNPUBCRCompiler()
+    coral_summary = coral_compiler.build_all(Path(REPO_ROOT))
+    coral_targets = coral_summary["targets"]
+
+    apis_npu = coral_targets["APIS_SMART_HIVE_NODE"]
+    cart_npu = coral_targets["CART_GMP_CASSETTE_VALVE"]
+    hum_npu = coral_targets["HUMAN_WEARABLE_RING_PATCH"]
+
+    check(
+        apis_npu["active_power_mw"] <= 4.50
+        and apis_npu["total_sram_bytes"] < 8192
+        and apis_npu["latency_ms"] < 0.05,
+        "Coral NPU Target 1 (Apis-BCR Smart Hive Node): <4.5mW & <8KB",
+        f"Cycles={apis_npu['total_cycles']} | Power={apis_npu['active_power_mw']} mW | SRAM={apis_npu['total_sram_bytes']} B",
+    )
+
+    check(
+        cart_npu["active_power_mw"] <= 4.50
+        and cart_npu["total_sram_bytes"] < 8192
+        and hum_npu["total_sram_bytes"] < 8192,
+        "Coral NPU Targets 2 & 3 (CAR-T Valve & Wearable Ring): <8KB TCM",
+        f"CAR-T={cart_npu['active_power_mw']} mW ({cart_npu['total_sram_bytes']} B) | Ring={hum_npu['active_power_mw']} mW ({hum_npu['total_sram_bytes']} B)",
+    )
+
+    mlir_file = os.path.join(REPO_ROOT, "build", "coralnpu", "mitorestorer_bcr.mlir")
+    header_file = os.path.join(REPO_ROOT, "build", "coralnpu", "mitorestorer_coralnpu_kernel.h")
+    hil_out = coral_summary.get("c99_hil_verification", "")
+    check(
+        os.path.exists(mlir_file)
+        and os.path.exists(header_file)
+        and "coralnpu.matrix_mac_int8_skip" in open(mlir_file).read()
+        and "__riscv_vsetvl_e32m2" in open(header_file).read()
+        and "CORAL_NPU_C99_HIL_PASS" in hil_out
+        and apis_npu["max_h_quantization_err_pct"] < 0.10,
+        "Coral NPU C99/RVV HIL Binary & Bit-Exact Q16.16/INT8 Parity",
+        f"{hil_out} | Max Q16.16 Err={apis_npu['max_h_quantization_err_pct']:.4f}%",
+    )
+
+    sim_html_path = os.path.join(REPO_ROOT, "simulator", "bcr_simulator.html")
+    sim_html_text = open(sim_html_path, encoding="utf-8").read()
+    check(
+        "canvasCoralNPU3D" in sim_html_text
+        and "renderCoralNpuSiliconCanvas" in sim_html_text
+        and "APIS_SMART_HIVE_NODE" in sim_html_text,
+        "Simulator Frontend 3D Coral NPU Silicon Triad & Strip UI",
+        "Verified 3D Triad Canvas + Strip + MLIR/C99 Inspector in bcr_simulator.html",
+    )
+
     print("\n" + "=" * 100)
     print(f"✅ VERIFICATION SUMMARY: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
     print("=" * 100)

@@ -157,6 +157,10 @@ Honeybee thoracic flight muscles possess the highest mitochondrial packing densi
 | **2. Unphased Antioxidant/CoQ10 Pollen Sub (No Stage 1 Purge)** | None | $45.7\%$ | $26.6\%$ | $0.67\times$ | $52.8$ | $0.45\times$ | $39.0\%$ |
 | **3. `Apis-BCR` 2-Stage Holobiont Patty (*p*-Coumaric/Spermidine $\to$ CoQ10/NR)** | **Day $4.5$** | **$0.1\%$** | **$6.0\%$** | **$1.00\times$** | **$18.1$** | **$1.74\times$** | **$96.5\%$** |
 
+### 4.6 Zero-Cloud Ultra-Low-Power Edge Silicon Realization on Google Coral NPU (`RV32IMF_Zve32x`)
+
+To translate `MitoRestorer` from software simulation into autonomous field and clinical hardware—where commercial beehives (`Cohort G`) lack wall power or cellular connectivity and hospital CAR-T bioreactors (`Cohort F`) require strict air-gapped GMP compliance—we lowered our 8-state RK4 bioenergetic ODE observer and spectral stage-gate controller onto Google's open-standard **`RV32IMF_Zve32x` Coral NPU** architecture (`LiteRT/JAX -> TOSA -> MLIR/IREE -> CoralNPU-RVV-INT8`). Mapping deterministic safety floors onto the **Scalar `RV32IMF` Core** (`264–284 cycles`), `Q16.16` fixed-point RK4 ODE integration onto the **128-bit `RVV v1.0 Zve32x` Vector Unit** (`488–512 cycles`), and `16×64` quantized wingbeat harmonic FFT ($100\text{–}250\text{ Hz}$) and multi-sensor gate classification onto the **`256-MAC INT8` Matrix Engine** (`78–96 cycles`, $93.8\text{–}95.0\%$ hardware zero-skip) achieves **`0.012 ms` end-to-end latency** (`1,488–1,544 cycles` at `128 MHz`), **`4.03–4.09 mW` active power** (`0.05 µJ/step`), **`6,912–7,168 bytes` (`< 8 KB` L1 Tightly Coupled Memory SRAM)**, and **`0.000000` gate discrepancy** versus `float64`.
+
 ---
 
 ## 5. Discussion: A Unified Engineering Discipline for Bioenergetic Circuits

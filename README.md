@@ -15,7 +15,7 @@
 
 | Resource | Description | Link |
 | :--- | :--- | :--- |
-| **🖥️ Executive Landing Page** | Visual overview with interactive **3D Google Coral NPU Silicon Triad** & **4-Step Beginner Onboarding** | [`index.html`](index.html) |
+| **🖥️ Executive Landing Page** | Visual overview with interactive **Coral NPU Bioenergetic Signal & Gate Telemetry** & **4-Step Clinical Walkthrough** | [`index.html`](index.html) |
 | **🎛️ Interactive Cross-Species Simulator** | Full HTML5/Canvas ODE Explorer (**Cohorts A–G**, **Day-38 Lab Gate Calculator**, **8-Structure 3D Atlas**, & **⚡ 3D Coral NPU Tab**) | [`simulator/bcr_simulator.html`](simulator/bcr_simulator.html) |
 | **⚡ Google Coral NPU (`RV32IMF_Zve32x`) Report** | Bit-Exact `Q16.16`/`INT8` & Compiled C99 Hardware-in-the-Loop (`HIL`) Benchmark (`0.012 ms`, `4.03–4.09 mW`, `<8 KB` L1 DTCM) | [`docs/coral_npu_edge_report.md`](docs/coral_npu_edge_report.md) |
 | **📄 Academic Paper Manuscript** | Full Cross-Species Manuscript & Discovery Log (**Discoveries 1–8** + Section 4.6 Coral NPU Silicon Realization) | [`docs/academic_manuscript_bcr.md`](docs/academic_manuscript_bcr.md) |
@@ -118,7 +118,7 @@ flowchart TD
 
 ---
 
-## 🎓 Step-by-Step Beginner Walkthrough (College-Freshman Level)
+## 🧭 Interactive Clinical & Mechanistic Walkthrough (4-Step Protocol Guide)
 
 Think of **mitochondria** as thousands of tiny rechargeable batteries inside every cell. When a percentage of those batteries suffer DNA damage ($h\%$ / **heteroplasmy**), they resist electron flow (**Energy Resistance**, $\dot{e}_R$). Under Picard & Murugan’s **Energy Resistance Principle ($\text{EP} = \dot{e}_R \cdot f^2$)**, forcing high metabolic flux ($f$) through a high-resistance circuit causes cellular stress ($\text{EP}$) to spike with the **square** of the flux.
 
@@ -166,7 +166,7 @@ mitorestorer/
 │   ├── apis_bcr_beekeeper_protocol.md         # Honeybee Two-Stage Patty Manual & 14-Day Apiary Trial Protocol
 │   ├── cart_bioreactor_sop.md                 # Ex Vivo CAR-T 240-Hour GMP Perfusion Media-A/Media-B SOP
 │   ├── how_to_run_and_test.md                 # Software Verification + Wet-Lab / Apiary Execution Guide
-│   ├── user_walkthrough.md                    # Beginner / College-Freshman Step-by-Step User Walkthrough
+│   ├── user_walkthrough.md                    # Executive & Clinical Step-by-Step User Walkthrough
 │   ├── bcr_clinical_protocol.md               # Complete Human Clinical Protocol & Phase IIa Trial Design
 │   └── bcr_field_manual.md                    # Clinician & Patient Daily Checklist + Day 38/54 Lab Worksheet
 ├── simulator/

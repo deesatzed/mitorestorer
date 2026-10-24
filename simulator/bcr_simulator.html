@@ -862,6 +862,32 @@
             </div>
           </div>
 
+          <!-- 7-Study Quick-Selector Strip (Dynamically Switches All 3 Scientific Panels Across Cohorts A–G) -->
+          <div class="flex items-center gap-1.5 flex-wrap p-2 rounded-xl bg-[var(--content)] border border-[var(--border)] text-xs font-mono">
+            <span class="text-[var(--muted-foreground)] font-bold mr-1">ACTIVE STUDY:</span>
+            <button data-coral-study="pink1_fut2" class="coral-study-btn px-2 py-1 rounded border border-[var(--border)] bg-[var(--card)] hover:opacity-90 transition">
+              Cohort A: Sarcopenia (6FCX/FUT2)
+            </button>
+            <button data-coral-study="apoe4_keto" class="coral-study-btn px-2 py-1 rounded border border-[var(--border)] bg-[var(--card)] hover:opacity-90 transition">
+              Cohort B: APOE4 AD (1B68/7CK6)
+            </button>
+            <button data-coral-study="epilepsy_pv" class="coral-study-btn px-2 py-1 rounded border border-[var(--border)] bg-[var(--card)] hover:opacity-90 transition">
+              Cohort C: Epilepsy PV+ (f²=3.06x)
+            </button>
+            <button data-coral-study="mdd_quin" class="coral-study-btn px-2 py-1 rounded border border-[var(--border)] bg-[var(--card)] hover:opacity-90 transition">
+              Cohort D: TR-MDD (IDO1/QUIN)
+            </button>
+            <button data-coral-study="parkinsons_snc" class="coral-study-btn px-2 py-1 rounded border border-cyan-500 bg-cyan-500/15 text-cyan-400 font-bold transition">
+              Cohort E: Parkinson's (2NSX GBA1)
+            </button>
+            <button data-coral-study="bioreactor_cart" class="coral-study-btn px-2 py-1 rounded border border-[var(--border)] bg-[var(--card)] hover:opacity-90 transition">
+              Cohort F: CAR-T GMP (2Q8G PDK1)
+            </button>
+            <button data-coral-study="apis_honeybee" class="coral-study-btn px-2 py-1 rounded border border-[var(--border)] bg-[var(--card)] hover:opacity-90 transition">
+              Cohort G: Honeybee (1SQB Qo)
+            </button>
+          </div>
+
           <!-- Interactive Timepoint / Phase Selector & Live Actuator Bar (Above Canvas — Zero Overlap) -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-950/90 border border-cyan-500/30 text-xs font-mono">
             <div class="flex items-center gap-1.5 flex-wrap">
@@ -1840,8 +1866,107 @@
 
     // --- GOOGLE CORAL NPU (RV32IMF_Zve32x) STUDY-REACTIVE SIGNAL & PHASE-PLANE ENGINE ---
     state.coralTarget = 'HUMAN_WEARABLE_RING_PATCH';
+    state.coralStudy = 'parkinsons_snc';
     state.coralPhase = '2'; // '0' (Baseline/Purge), '1' (Gate Crossing), '2' (Stage 2 Rescue), or 'live'
     state.coralAnimTime = 0;
+
+    const CORAL_STUDY_OVERRIDES = {
+      pink1_fut2: {
+        studyTitle: 'Cohort A (Metabolic / Sarcopenia): PINK1 Class I + FUT2 Non-Secretor + MTHFR 6FCX',
+        scalarDesc: 'DEXA Lean Mass Safety Override (Δ > -2.5%) & FUT2 Direct Urolithin A Bypass',
+        vectorDesc: '8-State Q16.16 RK4 ODE (Glycogen Lag τ_lag: 13.5h → 6.0h, MTHFR 6FCX FAD Lock)',
+        matrixDesc: '16×64 INT8 Morning Zone-2 HRV + Interstitial β-OHB Window Classifier · 95.0% Zero-Skip',
+        v6Label: 'v6 2\'-FL/Butyrate Guild',
+        v7Label: 'v7 6FCX SAH/Homocyst',
+        maxER: 8.0,
+        phases: [
+          { label: 'Day 15 (16:8 vs 18:6 Fast)', W: 0.65, D: 0.35, h: 35.0, eR: 3.10, f2: 0.55, EP: 1.71, nad: 0.62, guild: 0.45, block: 0.52, bhbMmol: 1.6, gdf15: 1380, lagH: 6.0, massDelta: -0.4, gateText: 'STAGE 1 LAG-COMPRESSED 18:6 (Zone-2 + C8-MCT τ_lag=6h + Direct UroA)' },
+          { label: 'Day 38 (GDF15 -68% Gate)', W: 0.90, D: 0.068, h: 7.0, eR: 1.12, f2: 0.48, EP: 0.54, nad: 0.88, guild: 0.86, block: 0.16, bhbMmol: 1.8, gdf15: 440, lagH: 6.0, massDelta: -0.5, gateText: '🟢 GREEN GATE FLIP → Switch to Stage 2 Weekly 1.75d Purge : 5.25d Build' },
+          { label: 'Day 90 (Sarcopenia Rescue)', W: 1.04, D: 0.035, h: 3.3, eR: 0.78, f2: 0.45, EP: 0.35, nad: 1.16, guild: 0.95, block: 0.07, bhbMmol: 1.9, gdf15: 360, lagH: 6.0, massDelta: +1.8, gateText: 'STAGE 2 ANABOLIC LOCKED (h=3.3%, ATP=1.20x vs Unassisted 16:8 h=69.4%)' }
+        ],
+        trajectory: [
+          ['Day 15 (07:00 AM Zone-2 + C8-MCT)', '35.0%', '3.10 / 1.71', '0.68x', '1.6 mM β-OHB (τ_lag: 13.5h→6.0h)', 'STAGE_1_LAG_COMPRESSED', 'Wrist Haptic: Dose Direct Urolithin A (1,000mg) + 2\'-FL HMO'],
+          ['Day 38 (GDF15 -68.1% Lab Gate)', '7.0%', '1.12 / 0.54', '1.02x', '440 pg/mL GDF15 (Mass Δ=-0.5%)', 'GREEN_GATE_STAGE_2_BUILD', 'Switch to Weekly 1.75d Purge : 5.25d Build (NR + Riboflavin 6FCX + Cr)'],
+          ['Day 90 (Skeletal Muscle Reset)', '3.3%', '0.78 / 0.35', '1.20x', '360 pg/mL GDF15 (Mass Δ=+1.8%)', 'SARCOPENIA_RESCUE_LOCKED', 'Maintain Meso-Cycle (Prevents 91.4% Simultaneous Biogenesis Trap)']
+        ]
+      },
+      apoe4_keto: {
+        studyTitle: 'Cohort B (Prodromal APOE4 AD): APOE4 Arg112–Glu109 (1B68) + TOMM40 Pore (7CK6)',
+        scalarDesc: 'Stage 0 TOMM40 β-Barrel Import Unblocking Check (TUDCA + Citicoline/LPC-DHA)',
+        vectorDesc: '8-State Q16.16 RK4 ODE (Slow Cortical Turnover 0.65x, 7CK6 Pore Conductance, 6EQI Kinetin)',
+        matrixDesc: '16×64 INT8 Sleep Slow-Wave HRV + Ketone/GDF15 Cortical Gate Classifier · 95.0% Zero-Skip',
+        v6Label: 'v6 7CK6 TOMM40 Conduct',
+        v7Label: 'v7 1B68 APOE4 Impedance',
+        maxER: 12.0,
+        phases: [
+          { label: 'Day 14 (Stage 0 7CK6 Unblock)', W: 0.55, D: 0.45, h: 45.0, eR: 6.80, f2: 0.68, EP: 4.62, nad: 0.52, guild: 0.38, block: 0.74, gdf15: 2450, poreCond: 0.42, gateText: 'STAGE 0/1 CORTICAL PURGE (7CK6 TUDCA + Citicoline + 6EQI Kinetin + Trehalose)' },
+          { label: 'Day 54 (Cortical GDF15 Gate)', W: 0.86, D: 0.068, h: 7.3, eR: 1.54, f2: 0.52, EP: 0.80, nad: 0.84, guild: 0.86, block: 0.19, gdf15: 690, poreCond: 0.88, gateText: '🟢 GREEN GATE FLIP → TOMM40 Pore Unblocked (0.88x); Switch to Stage 2 Neuro-Build' },
+          { label: 'Day 90 (Cortical Rescue)', W: 1.06, D: 0.036, h: 3.3, eR: 0.84, f2: 0.48, EP: 0.40, nad: 1.18, guild: 0.96, block: 0.09, gdf15: 571, poreCond: 0.96, gateText: 'NEURO-BCR LOCKED (h=3.3%, ATP=1.19x vs Peripheral-Only BCR h=94.2%!)' }
+        ],
+        trajectory: [
+          ['Day 14 (Stage 0 TOMM40 Prime)', '45.0%', '6.80 / 4.62', '0.41x', '7CK6 Pore Conductance = 0.42x', 'STAGE_0_TOMM40_UNBLOCK', 'Dose TUDCA (1,000mg) + Citicoline/LPC-DHA before Kinetin/UroA'],
+          ['Day 54 (Slow-Neuron Gate)', '7.3%', '1.54 / 0.80', '0.96x', 'GDF15 = 690 pg/mL (vs 4,123 Trap)', 'GREEN_GATE_NEURO_BUILD', 'Flip to Stage 2: NR + PQQ + Resveratrol (4ZZJ) + Creatine'],
+          ['Day 90 (APOE4 Cortical Reset)', '3.3%', '0.84 / 0.40', '1.19x', 'GDF15 = 571 pg/mL | Mass = 1.06x', 'CORTICAL_OXPHOS_LOCKED', 'Confirm 96% TOMM40 Import & 1.19x Cortical Synaptic ATP']
+        ]
+      },
+      epilepsy_pv: {
+        studyTitle: 'Cohort C (Refractory Epilepsy): Fast-Spiking PV+ Interneurons (f²=3.06x) + Keto H₂S Shield',
+        scalarDesc: 'Colonic H₂S Toxicity Floor (≤ 0.25x) & Continuous D-BHB Ketone Lock (≥ 1.5 mM)',
+        vectorDesc: '8-State Q16.16 RK4 ODE (PV+ 40Hz Gamma f²=3.06x Surge, Complex IV H₂S Block, E/I Ratio)',
+        matrixDesc: '16×64 INT8 Autonomic HRV + Breath/Stool Sulfide & Ketone Classifier · 95.0% Zero-Skip',
+        v6Label: 'v6 Akkermansia/gadB GABA',
+        v7Label: 'v7 H₂S Complex IV Block',
+        maxER: 14.0,
+        phases: [
+          { label: 'Day 0 (Refractory Baseline)', W: 0.62, D: 0.38, h: 38.0, eR: 4.10, f2: 3.06, EP: 12.55, nad: 0.54, guild: 0.32, block: 0.47, h2s: 0.47, eiRatio: 3.38, gateText: 'STAGE 1 EPI-BCR PURGE (Mo + Polyphenols + Akkermansia/gadB + D-BHB)' },
+          { label: 'Day 31.5 (Day-30 H₂S Gate)', W: 0.92, D: 0.045, h: 4.6, eR: 1.15, f2: 3.06, EP: 3.52, nad: 0.88, guild: 0.90, block: 0.14, h2s: 0.14, eiRatio: 1.11, gateText: '🟢 DAY-30 H₂S ESCAPE BLOCKED (H₂S=0.14 vs Classic Keto 1.97) → Stage 2 Build' },
+          { label: 'Day 90 (96% Seizure Red.)', W: 1.22, D: 0.006, h: 0.5, eR: 0.62, f2: 3.06, EP: 1.90, nad: 1.24, guild: 0.98, block: 0.11, h2s: 0.11, eiRatio: 0.65, gateText: 'PV+ GAMMA INHIBITION LOCKED (h=0.5%, E/I=0.65, 96.0% Seizure Reduction)' }
+        ],
+        trajectory: [
+          ['Day 0 (Baseline Hyperexcitability)', '38.0%', '4.10 / 12.55', '0.34x', 'E/I Ratio = 3.38 | H₂S = 0.47', 'STAGE_1_PV_INTERNEURON_PURGE', 'Initiate C8-MCT TID + D-BHB + Mo (150µg) + Akkermansia/gadB'],
+          ['Day 31.5 (Sulfide Shield Gate)', '4.6%', '1.15 / 3.52', '1.08x', 'H₂S = 0.14 (vs Keto Alone 1.97!)', 'GREEN_GATE_KETONE_BUILD', 'Hold D-BHB ≥ 1.5 mM while adding NR (500mg) + Creatine (5g)'],
+          ['Day 90 (PV+ Network Stabilized)', '0.5%', '0.62 / 1.90', '1.46x', 'E/I Ratio = 0.65 (96% Seizure Red.)', 'PV_GAMMA_INHIBITION_LOCKED', 'Zero Late-Month Seizure Rebound; Complex IV Protected']
+        ]
+      },
+      mdd_quin: {
+        studyTitle: 'Cohort D (Treatment-Resistant MDD): Microglial IDO1/Quinolinic Shunt + 4ZZJ Synaptogenesis',
+        scalarDesc: 'Anti-Relapse Gate: Hold Ketamine/rTMS Plasticity Bursts Until QUIN ≤ 0.35 & h ≤ 8%',
+        vectorDesc: '8-State Q16.16 RK4 ODE (IDO1→QUIN NMDA Pruning, Brainstem GDF15–GFRAL Lock, Spine Density)',
+        matrixDesc: '16×64 INT8 Circadian Phase-Advance HRV + GDF15/Kynurenine Gate Classifier · 95.0% Zero-Skip',
+        v6Label: 'v6 Prefrontal Spine Density',
+        v7Label: 'v7 Microglial QUIN Load',
+        maxER: 10.0,
+        phases: [
+          { label: 'Day 7 (Ketamine Trap vs BCR)', W: 0.63, D: 0.365, h: 36.5, eR: 3.85, f2: 0.85, EP: 3.27, nad: 0.50, guild: 0.45, block: 0.88, quin: 1.56, spines: 0.45, gdf15: 4099, gateText: 'STAGE 1 DE-INFLAME & PURGE (Tributyrin + High-EPA + UroA; Hold Burst Plasticity)' },
+          { label: 'Day 30.5 (QUIN & GDF15 Gate)', W: 0.91, D: 0.052, h: 5.4, eR: 1.10, f2: 0.65, EP: 0.72, nad: 0.86, guild: 0.84, block: 0.24, quin: 0.34, spines: 0.86, gdf15: 520, gateText: '🟢 GREEN GATE FLIP → QUIN Purged (-78%); Unlock Stage 2 4ZZJ SIRT1 + Ketamine/rTMS' },
+          { label: 'Day 90 (Sustained Remission)', W: 1.19, D: 0.007, h: 0.6, eR: 0.64, f2: 0.58, EP: 0.37, nad: 1.22, guild: 1.24, block: 0.13, quin: 0.20, spines: 1.24, gdf15: 259, gateText: 'SYNAPTOGENESIS LOCKED (Spines=1.24x vs Ketamine-Alone Relapse 0.45x!)' }
+        ],
+        trajectory: [
+          ['Day 7 (Microglial QUIN Storm)', '36.5%', '3.85 / 3.27', '0.42x', 'QUIN = 1.56 | GDF15 = 4,099 pg/mL', 'STAGE_1_IDO1_QUIN_PURGE', 'Block IDO1 with Tributyrin + EPA (2g) + Curcumin; Hold rTMS/Ketamine'],
+          ['Day 30.5 (Neuroimmune Gate)', '5.4%', '1.10 / 0.72', '1.01x', 'QUIN = 0.34 | GDF15 = 520 pg/mL', 'GREEN_GATE_PLASTICITY_WINDOW', 'Open Stage 2 Build: NR + 4ZZJ SIRT1 STAC + ALCAR + Timed Plasticity'],
+          ['Day 90 (Prefrontal Spine Lock)', '0.6%', '0.64 / 0.37', '1.38x', 'Spines = 1.24x | QUIN = 0.20 (-87%)', 'AFFECTIVE_REMISSION_LOCKED', 'Dendritic Spines Sustained (Avoids Day-21 Post-Ketamine Collapse)']
+        ]
+      },
+      parkinsons_snc: {
+        studyTitle: 'Cohort E (Parkinson\'s SNc): GBA1 Asn370Ser (2NSX) + LRRK2 + Ambroxol Rescue',
+        scalarDesc: 'Mandatory Stage 0 Lysosomal Unblocking (2NSX Ambroxol + Spermidine) & Lean Mass > -2.5%',
+        vectorDesc: '8-State Q16.16 RK4 ODE (SNc Pacemaker Flux, Auto_Jam Traffic Jam, DA-Q & TH Tone)',
+        matrixDesc: '16×64 INT8 Tremor/HRV + Interstitial β-OHB & GDF15 Gate Classifier · 95.0% Zero-Skip',
+        v6Label: 'v6 Nigrostriatal TH Tone',
+        v7Label: 'v7 2NSX Auto_Jam / DA-Q',
+        maxER: 10.0,
+        phases: [
+          { label: 'Day 14 (Stage 0 2NSX Unblock)', W: 0.42, D: 0.58, h: 58.0, eR: 5.40, f2: 0.72, EP: 3.89, nad: 0.46, guild: 0.22, block: 0.55, autoJam: 0.54, thTone: 0.13, gdf15: 1950, gateText: 'STAGE 0 LYSOSOMAL UNBLOCK (2NSX Ambroxol 1,200mg + Spermidine 15mg + TUDCA)' },
+          { label: 'Day 38 (GDF15 -73.8% Gate)', W: 0.88, D: 0.070, h: 7.4, eR: 1.18, f2: 0.46, EP: 0.54, nad: 0.86, guild: 0.88, block: 0.12, autoJam: 0.11, thTone: 0.89, gdf15: 510, gateText: '🟢 GREEN GATE FLIP → Auto_Jam Drained (0.11x) & GDF15=510; Switch to Stage 2 NR' },
+          { label: 'Day 90 (95% SNc TH Rescue)', W: 1.18, D: 0.045, h: 3.7, eR: 0.72, f2: 0.43, EP: 0.31, nad: 1.22, guild: 1.25, block: 0.08, autoJam: 0.08, thTone: 1.25, gdf15: 395, gateText: 'PD-BCR LOCKED (h=3.7%, Auto_Jam=0.08x, TH=1.25x vs No-Ambroxol Jam=1.29x!)' }
+        ],
+        trajectory: [
+          ['Day 14 (Stage 0 2NSX Chaperone)', '58.0%', '5.40 / 3.89', '0.36x', 'Auto_Jam = 0.54x | GDF15 = 1,950', 'STAGE_0_GBA1_UNBLOCKING', 'Dose High-Dose Ambroxol (2NSX) + Spermidine before Urolithin A/Kinetin'],
+          ['Day 38 (GDF15 -73.8% Lab Gate)', '7.4%', '1.18 / 0.54', '1.04x', '510 pg/mL GDF15 | Jam = 0.11x', 'GREEN_LIGHT_STAGE_2_BUILD', 'Flip to Stage 2: 1,000mg NR + PncA + Riboflavin (6FCX) + Creatine'],
+          ['Day 90 (SNc Dopamine Rescue)', '3.7%', '0.72 / 0.31', '1.42x', 'TH Tone = 1.25x (95% Rescue)', 'SNc_PACEMAKER_LOCKED', 'VMAT2 Powered; Cytosolic DA-Q Reduced 91% (1.34 → 0.12)']
+        ]
+      }
+    };
 
     const CORAL_NPU_TARGETS = {
       APIS_SMART_HIVE_NODE: {
@@ -1944,36 +2069,23 @@
         vectorDesc: '8-State Q16.16 RK4 ODE (Glycogen Lag τ_lag=6.0h, Track-1 SNPs, GDF15)',
         matrixDesc: '16×64 INT8 HRV + Interstitial β-OHB Circadian Window Classifier · 95.0% Zero-Skip',
         actuatorBadge: 'Actuator: On-Wrist Haptic Gate → Hour 6.0 Glycogen Lag Cleared & Day 38 GDF15 Stage 2 Transition',
-        phases: [
-          {
-            label: 'Day 15 (Stage 1 Purge Start)',
-            W: 0.56, D: 0.42, h: 42.5, eR: 3.45, f2: 0.53, EP: 1.82, nad: 0.58, guild: 0.62, block: 0.48,
-            bhbMmol: 1.6, gdf15: 1420, lagH: 6.0, massDelta: -0.3,
-            gateText: 'STAGE 1 DAILY 18:6 PURGE (Zone-2 + C8-MCT τ_lag=6h + UroA/Kinetin)'
-          },
-          {
-            label: 'Day 38 (GDF15 -73.8% Gate)',
-            W: 0.88, D: 0.070, h: 7.4, eR: 1.18, f2: 0.46, EP: 0.54, nad: 0.86, guild: 0.88, block: 0.15,
-            bhbMmol: 1.8, gdf15: 510, lagH: 6.0, massDelta: -0.6,
-            gateText: '🟢 GREEN GATE FLIP → Switch to Stage 2 Weekly 2.25d Purge : 4.75d Build'
-          },
-          {
-            label: 'Day 90 (Circuit Reset Locked)',
-            W: 1.18, D: 0.025, h: 2.1, eR: 0.72, f2: 0.43, EP: 0.31, nad: 1.18, guild: 0.96, block: 0.08,
-            bhbMmol: 1.9, gdf15: 395, lagH: 6.0, massDelta: +1.2,
-            gateText: 'STAGE 2 HOMEOSTASIS LOCKED (1.42x ATP · 95% Bioenergetic Rescue)'
-          }
-        ],
-        trajectory: [
-          ['Day 15 (07:00 AM Fast + Zone-2)', '42.5%', '3.45 / 1.82', '0.52x', '1.6 mmol/L β-OHB (τ_lag=6.0h)', 'DAILY_LAG_COMPRESSED_PURGE', 'Wrist Haptic: PULSE 2x → Dose Direct Urolithin A + Kinetin'],
-          ['Day 38 (GDF15 -73.8% Lab Gate)', '7.4%', '1.18 / 0.54', '1.04x', '510 pg/mL GDF15 (-73.8% Drop)', 'GREEN_LIGHT_STAGE_2_BUILD', 'Ring & App: Flip to Stage 2 (2.25d Purge : 4.75d NR + Cr + B2)'],
-          ['Day 90 (Circuit Reset Complete)', '2.1%', '0.72 / 0.31', '1.42x', '395 pg/mL GDF15 (Normalized)', 'HOMEOSTASIS_LOCKED', 'Wrist Haptic: Confirm 1.42x ATP & 95% Bioenergetic Rescue']
-        ]
+        phases: CORAL_STUDY_OVERRIDES.parkinsons_snc.phases,
+        trajectory: CORAL_STUDY_OVERRIDES.parkinsons_snc.trajectory
       }
     };
 
+    function getActiveCoralSpec() {
+      const base = CORAL_NPU_TARGETS[state.coralTarget] || CORAL_NPU_TARGETS.HUMAN_WEARABLE_RING_PATCH;
+      if (state.coralTarget === 'HUMAN_WEARABLE_RING_PATCH') {
+        const stKey = CORAL_STUDY_OVERRIDES[state.coralStudy] ? state.coralStudy : 'parkinsons_snc';
+        const ov = CORAL_STUDY_OVERRIDES[stKey];
+        return Object.assign({}, base, ov);
+      }
+      return base;
+    }
+
     function getActiveCoralPhaseData() {
-      const spec = CORAL_NPU_TARGETS[state.coralTarget] || CORAL_NPU_TARGETS.HUMAN_WEARABLE_RING_PATCH;
+      const spec = getActiveCoralSpec();
       if (state.coralPhase === 'live' && state.lastSimResult) {
         const sim = state.lastSimResult;
         const idx = state.hoverIndex !== null ? state.hoverIndex : (sim.steps - 1);
@@ -2006,6 +2118,13 @@
           gdf15: gdfVal,
           lagH: state.lagHours,
           massDelta: ((sim.W[idx] + sim.D[idx] - 1.0) * 10.0),
+          poreCond: clip(1.0 - hVal * 0.012, 0.25, 0.98),
+          h2s: sim.H2S[idx],
+          eiRatio: clip(0.60 + hVal * 0.065, 0.60, 3.60),
+          quin: clip(0.18 + hVal * 0.035, 0.18, 1.70),
+          spines: clip(sim.ATP[idx] * 0.95, 0.35, 1.30),
+          autoJam: clip(0.06 + hVal * 0.018, 0.06, 1.35),
+          thTone: clip(sim.ATP[idx] * 0.92, 0.12, 1.30),
           gateText: hVal <= 8.5
             ? `🟢 GREEN GATE ACTIVE (h=${hVal.toFixed(1)}% ≤ 8% · Stage 2 Anabolic Build)`
             : `🟡 STAGE 1 PURGE ACTIVE (h=${hVal.toFixed(1)}% > 8% · Hold Anabolic Boosters)`
@@ -2016,7 +2135,7 @@
     }
 
     function updateCoralNpuUI() {
-      const spec = CORAL_NPU_TARGETS[state.coralTarget] || CORAL_NPU_TARGETS.HUMAN_WEARABLE_RING_PATCH;
+      const spec = getActiveCoralSpec();
       const pData = getActiveCoralPhaseData();
       document.getElementById('coralTargetSelect').value = state.coralTarget;
       document.getElementById('coralStripCycles').textContent = `${spec.totalCycles.toLocaleString()} cyc (${spec.latencyMs.toFixed(3)} ms @ 128 MHz)`;
@@ -2025,7 +2144,7 @@
       document.getElementById('coralStripZeroSkip').textContent = `256-MAC INT8: ${spec.zeroSkipPct.toFixed(1)}% Zero-Skip`;
 
       const badgeEl = document.getElementById('coralTabTargetBadge');
-      if (badgeEl) badgeEl.textContent = `Active Target: ${state.coralTarget}`;
+      if (badgeEl) badgeEl.textContent = spec.studyTitle ? `${state.coralTarget} · ${spec.studyTitle}` : `Active Target: ${state.coralTarget}`;
 
       const actEl = document.getElementById('coral3DLiveActuatorBadge');
       if (actEl) actEl.textContent = pData.gateText || spec.actuatorBadge;
@@ -2035,6 +2154,16 @@
         btn.className = isAct
           ? 'coral-t-btn px-2.5 py-1.5 rounded-lg border border-cyan-500 bg-cyan-500/15 text-cyan-300 font-bold transition'
           : 'coral-t-btn px-2.5 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition';
+      });
+
+      const activeStudyKey = state.coralTarget === 'APIS_SMART_HIVE_NODE' ? 'apis_honeybee'
+        : state.coralTarget === 'CART_GMP_CASSETTE_VALVE' ? 'bioreactor_cart'
+        : state.coralStudy;
+      document.querySelectorAll('.coral-study-btn').forEach(btn => {
+        const isSt = btn.getAttribute('data-coral-study') === activeStudyKey;
+        btn.className = isSt
+          ? 'coral-study-btn px-2 py-1 rounded border border-cyan-500 bg-cyan-500/15 text-cyan-400 font-bold transition'
+          : 'coral-study-btn px-2 py-1 rounded border border-[var(--border)] bg-[var(--card)] hover:opacity-90 transition';
       });
 
       document.querySelectorAll('.coral-phase-btn').forEach(btn => {
@@ -2131,7 +2260,7 @@
       ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, w, h);
 
-      const spec = CORAL_NPU_TARGETS[state.coralTarget] || CORAL_NPU_TARGETS.HUMAN_WEARABLE_RING_PATCH;
+      const spec = getActiveCoralSpec();
       const pData = getActiveCoralPhaseData();
 
       const pad = 10;
@@ -2317,96 +2446,295 @@
         ctx.restore();
 
       } else {
-        // HUMAN_WEARABLE_RING_PATCH (Adapts to active Human Cohort A-E)
-        const preset = document.getElementById('patientPresetSelect').value;
-        const cohortTag = preset === 'parkinsons_snc' ? 'PD SNc (PDB: 2NSX GBA1)'
-          : preset === 'apoe4_keto' ? 'APOE4 AD (PDB: 7CK6 TOMM40)'
-          : preset === 'epilepsy_pv' ? 'Epilepsy PV+ (f²=3.06x)'
-          : preset === 'mdd_quin' ? 'TR-MDD (IDO1/QUIN Shunt)'
-          : 'Human Clinical (PDB: 6EQI/4ZZJ)';
-        drawPanelBox(
-          ctx, x1, y0, pw, ph, 'rgba(34, 211, 238, 0.45)',
-          '1. GLYCOGEN LAG (τ_lag) & GDF15 SENSOR',
-          `${cohortTag} · RV32IMF ${spec.scalarCycles} cyc`
-        );
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(x1 + 6, y0 + 38, pw - 12, ph - 44);
-        ctx.clip();
-
+        // HUMAN_WEARABLE_RING_PATCH: Renders Distinct Biophysical Curves for Cohorts A, B, C, D, and E!
+        const stKey = state.coralStudy || 'parkinsons_snc';
         const gx = x1 + 32, gy = y0 + 54, gw = pw - 46, gh = 165;
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
-        for (let i = 0; i <= 4; i++) {
-          const yy = gy + (gh * i) / 4;
-          ctx.beginPath(); ctx.moveTo(gx, yy); ctx.lineTo(gx + gw, yy); ctx.stroke();
-        }
-
-        // Hour 6.0 Compressed Lag Gate vs Hour 13.5 Uncompressed Lag
-        const lag6X = gx + (6.0 / 18.0) * gw;
-        const lag13X = gx + (13.5 / 18.0) * gw;
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.11)';
-        ctx.fillRect(lag6X, gy, gw - (lag6X - gx), gh);
-
-        ctx.strokeStyle = 'rgba(16, 185, 129, 0.8)';
-        ctx.setLineDash([4, 3]);
-        ctx.beginPath(); ctx.moveTo(lag6X, gy); ctx.lineTo(lag6X, gy + gh); ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.fillStyle = '#34d399';
-        ctx.font = '9.5px monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText('τ_lag=6h (Zone2+C8)', lag6X + 3, gy + 11);
-
-        // Uncompressed 16:8 Glycogen Depletion Curve (Dashed Rose, crosses threshold at 13.5h)
-        ctx.strokeStyle = 'rgba(244, 63, 94, 0.75)';
-        ctx.lineWidth = 1.8;
-        ctx.setLineDash([3, 3]);
-        ctx.beginPath();
-        for (let i = 0; i <= 36; i++) {
-          const hr = (i / 36) * 18.0;
-          const bhb = 0.2 + 2.1 / (1.0 + Math.exp(-(hr - 13.5) * 1.1));
-          const px = gx + (i / 36) * gw;
-          const py = gy + gh - (bhb / 2.6) * gh;
-          if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-        }
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        // Lag-Compressed 18:6 Curve (Solid Emerald, crosses 1.2 mmol/L β-OHB at 6.0h -> 12h deep mitophagy)
-        ctx.strokeStyle = '#10b981';
-        ctx.lineWidth = 2.4;
-        ctx.beginPath();
-        for (let i = 0; i <= 36; i++) {
-          const hr = (i / 36) * 18.0;
-          const bhb = 0.25 + 2.05 / (1.0 + Math.exp(-(hr - (pData.lagH || 6.0)) * 1.25));
-          const px = gx + (i / 36) * gw;
-          const py = gy + gh - (bhb / 2.6) * gh;
-          if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-        }
-        ctx.stroke();
-
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '9.5px monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText('0h Fast', gx, gy + gh + 13);
-        ctx.textAlign = 'center';
-        ctx.fillText('12h ULK1/PINK1 Window', (lag6X + gx + gw) * 0.5, gy + gh + 13);
-        ctx.textAlign = 'right';
-        ctx.fillText('18h Fast', gx + gw, gy + gh + 13);
-
         const by = gy + gh + 22;
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
-        ctx.strokeStyle = 'rgba(34, 211, 238, 0.35)';
-        ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
-        ctx.fillStyle = '#38bdf8';
-        ctx.font = 'bold 10px monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText(`Plasma GDF15: ${pData.gdf15 || 510} pg/mL | β-OHB: ${(pData.bhbMmol || 1.8).toFixed(1)} mM`, x1 + 16, by + 16);
-        ctx.fillStyle = '#67e8f9';
-        ctx.font = '9.5px monospace';
-        ctx.fillText(`RV32IMF Safety: Lean Mass Δ=${(pData.massDelta || -0.6).toFixed(1)}% (> -2.5% Floor)`, x1 + 16, by + 32);
-        ctx.fillStyle = '#a7f3d0';
-        ctx.fillText(`Stage 0 Lock: 2NSX Ambroxol + 7CK6 TUDCA Verified`, x1 + 16, by + 47);
-        ctx.restore();
+
+        if (stKey === 'parkinsons_snc') {
+          drawPanelBox(
+            ctx, x1, y0, pw, ph, 'rgba(236, 72, 153, 0.45)',
+            '1. GBA1 (2NSX) AUTO_JAM vs. TH TONE',
+            `Cohort E Parkinson's SNc · RV32IMF ${spec.scalarCycles} cyc`
+          );
+          ctx.save();
+          ctx.beginPath(); ctx.rect(x1 + 6, y0 + 38, pw - 12, ph - 44); ctx.clip();
+          ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
+          for (let i = 0; i <= 4; i++) {
+            const yy = gy + (gh * i) / 4;
+            ctx.beginPath(); ctx.moveTo(gx, yy); ctx.lineTo(gx + gw, yy); ctx.stroke();
+          }
+          // Day 14 Stage 0 Ambroxol Unblocking Gate
+          const d14X = gx + (14 / 90) * gw;
+          ctx.strokeStyle = 'rgba(244, 114, 182, 0.8)';
+          ctx.setLineDash([4, 3]);
+          ctx.beginPath(); ctx.moveTo(d14X, gy); ctx.lineTo(d14X, gy + gh); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = '#f472b6'; ctx.font = '9.5px monospace'; ctx.textAlign = 'left';
+          ctx.fillText('d14 2NSX Unblock Gate', d14X + 4, gy + 11);
+
+          // Mitophagy w/o Ambroxol Traffic Jam Curve (Dashed Rose spiking to 1.29x)
+          ctx.strokeStyle = 'rgba(244, 63, 94, 0.8)'; ctx.lineWidth = 1.9; ctx.setLineDash([3, 3]); ctx.beginPath();
+          for (let i = 0; i <= 40; i++) {
+            const d = (i / 40) * 90;
+            const jamTrap = 0.54 + 0.75 * (1.0 - Math.exp(-d / 16.0));
+            const px = gx + (i / 40) * gw, py = gy + gh - (jamTrap / 1.45) * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke(); ctx.setLineDash([]);
+
+          // PD-BCR Auto_Jam Clearance Curve (Solid Cyan dropping 0.54 -> 0.08x)
+          ctx.strokeStyle = '#22d3ee'; ctx.lineWidth = 2.2; ctx.beginPath();
+          for (let i = 0; i <= 40; i++) {
+            const d = (i / 40) * 90;
+            const jamBcr = 0.08 + 0.46 * Math.exp(-d / 18.0);
+            const px = gx + (i / 40) * gw, py = gy + gh - (jamBcr / 1.45) * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+
+          // PD-BCR Nigrostriatal TH Dopamine Tone Curve (Solid Emerald rising 0.13x -> 1.25x)
+          ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2.4; ctx.beginPath();
+          for (let i = 0; i <= 40; i++) {
+            const d = (i / 40) * 90;
+            const th = 0.13 + 1.12 / (1.0 + Math.exp(-(d - 36.0) / 11.0));
+            const px = gx + (i / 40) * gw, py = gy + gh - (th / 1.45) * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+
+          ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+          ctx.textAlign = 'left'; ctx.fillText('d0 SNc', gx, gy + gh + 13);
+          ctx.textAlign = 'center'; ctx.fillText('Cyan: Auto_Jam | Grn: TH Tone', gx + gw * 0.5, gy + gh + 13);
+          ctx.textAlign = 'right'; ctx.fillText('d90 (95% Rescue)', gx + gw, gy + gh + 13);
+
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(236, 72, 153, 0.35)';
+          ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+          ctx.fillStyle = '#f472b6'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+          ctx.fillText(`PDB: 2NSX GBA1 Auto_Jam = ${(pData.autoJam || 0.08).toFixed(2)}x (vs 1.29x Trap)`, x1 + 16, by + 16);
+          ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+          ctx.fillText(`Nigrostriatal TH Tone: ${(pData.thTone || 1.25).toFixed(2)}x | GDF15: ${pData.gdf15 || 395} pg/mL`, x1 + 16, by + 32);
+          ctx.fillStyle = '#a7f3d0';
+          ctx.fillText(`Stage 0 Lock: Ambroxol (Glu235 2.61Å) + Spermidine`, x1 + 16, by + 47);
+          ctx.restore();
+
+        } else if (stKey === 'apoe4_keto') {
+          drawPanelBox(
+            ctx, x1, y0, pw, ph, 'rgba(56, 189, 248, 0.45)',
+            '1. TOMM40 (7CK6) IMPORT & APOE4 (1B68)',
+            `Cohort B Cortical Neurons (0.65x) · RV32IMF ${spec.scalarCycles} cyc`
+          );
+          ctx.save();
+          ctx.beginPath(); ctx.rect(x1 + 6, y0 + 38, pw - 12, ph - 44); ctx.clip();
+          ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
+          for (let i = 0; i <= 4; i++) {
+            const yy = gy + (gh * i) / 4;
+            ctx.beginPath(); ctx.moveTo(gx, yy); ctx.lineTo(gx + gw, yy); ctx.stroke();
+          }
+          // Peripheral-Only BCR Failure Curve in APOE4 Neurons (Dashed Rose rising to h=94.2%)
+          ctx.strokeStyle = 'rgba(244, 63, 94, 0.8)'; ctx.lineWidth = 1.9; ctx.setLineDash([3, 3]); ctx.beginPath();
+          for (let i = 0; i <= 40; i++) {
+            const d = (i / 40) * 90;
+            const hTrap = 45.0 + 49.2 * (1.0 - Math.exp(-d / 28.0));
+            const px = gx + (i / 40) * gw, py = gy + gh - (hTrap / 100.0) * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke(); ctx.setLineDash([]);
+
+          // Complete Neuro-BCR Heteroplasmy Clearance (Solid Cyan dropping 45% -> 3.3%)
+          ctx.strokeStyle = '#22d3ee'; ctx.lineWidth = 2.3; ctx.beginPath();
+          for (let i = 0; i <= 40; i++) {
+            const d = (i / 40) * 90;
+            const hNeuro = 3.3 + 41.7 * Math.exp(-d / 24.0);
+            const px = gx + (i / 40) * gw, py = gy + gh - (hNeuro / 100.0) * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+
+          // TOMM40 7CK6 Pore Conductance Curve (Solid Emerald rising 0.35 -> 0.96x)
+          ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2.3; ctx.beginPath();
+          for (let i = 0; i <= 40; i++) {
+            const d = (i / 40) * 90;
+            const cond = 0.35 + 0.61 * (1.0 - Math.exp(-d / 20.0));
+            const px = gx + (i / 40) * gw, py = gy + gh - cond * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+
+          ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+          ctx.textAlign = 'left'; ctx.fillText('d0 Cortex', gx, gy + gh + 13);
+          ctx.textAlign = 'center'; ctx.fillText('Red: Periph BCR (94%) | Grn: 7CK6 Pore', gx + gw * 0.5, gy + gh + 13);
+          ctx.textAlign = 'right'; ctx.fillText('d90 (h=3.3%)', gx + gw, gy + gh + 13);
+
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+          ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+          ctx.fillStyle = '#38bdf8'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+          ctx.fillText(`PDB: 7CK6 TOMM40 Pore Conduct: ${((pData.poreCond || 0.96) * 100).toFixed(0)}%`, x1 + 16, by + 16);
+          ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+          ctx.fillText(`Cortical GDF15: ${pData.gdf15 || 571} pg/mL (vs 4,123 Periph-Only)`, x1 + 16, by + 32);
+          ctx.fillStyle = '#a7f3d0';
+          ctx.fillText(`1B68 Arg112–Glu109 Unblocked via TUDCA + Citicoline`, x1 + 16, by + 47);
+          ctx.restore();
+
+        } else if (stKey === 'epilepsy_pv') {
+          drawPanelBox(
+            ctx, x1, y0, pw, ph, 'rgba(6, 182, 212, 0.45)',
+            '1. DAY-30 KETO H₂S ESCAPE vs. EPI-BCR',
+            `Cohort C PV+ Interneurons (f²=3.06x) · RV32IMF ${spec.scalarCycles} cyc`
+          );
+          ctx.save();
+          ctx.beginPath(); ctx.rect(x1 + 6, y0 + 38, pw - 12, ph - 44); ctx.clip();
+          ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
+          for (let i = 0; i <= 4; i++) {
+            const yy = gy + (gh * i) / 4;
+            ctx.beginPath(); ctx.moveTo(gx, yy); ctx.lineTo(gx + gw, yy); ctx.stroke();
+          }
+          const d30X = gx + (30 / 90) * gw;
+          ctx.strokeStyle = 'rgba(244, 63, 94, 0.75)'; ctx.setLineDash([4, 3]);
+          ctx.beginPath(); ctx.moveTo(d30X, gy); ctx.lineTo(d30X, gy + gh); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = '#fb7185'; ctx.font = '9.5px monospace'; ctx.textAlign = 'left';
+          ctx.fillText('d30 Classic Keto H₂S Surge', d30X + 4, gy + 11);
+
+          // Classic 4:1 Keto H2S Surge & E/I Rebound (Dashed Rose spiking after d30 to 1.97x)
+          ctx.strokeStyle = 'rgba(244, 63, 94, 0.85)'; ctx.lineWidth = 2.0; ctx.setLineDash([3, 3]); ctx.beginPath();
+          for (let i = 0; i <= 40; i++) {
+            const d = (i / 40) * 90;
+            const h2sKeto = 0.40 + 1.57 / (1.0 + Math.exp(-(d - 31.0) / 4.5));
+            const px = gx + (i / 40) * gw, py = gy + gh - (h2sKeto / 2.2) * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke(); ctx.setLineDash([]);
+
+          // Epi-BCR E/I Ratio Curve (Solid Emerald dropping 3.38 -> 0.65)
+          ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2.4; ctx.beginPath();
+          for (let i = 0; i <= 40; i++) {
+            const d = (i / 40) * 90;
+            const ei = 0.65 + 2.73 * Math.exp(-d / 20.0);
+            const px = gx + (i / 40) * gw, py = gy + gh - (ei / 3.6) * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+
+          ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+          ctx.textAlign = 'left'; ctx.fillText('d0 (E/I=3.38)', gx, gy + gh + 13);
+          ctx.textAlign = 'center'; ctx.fillText('Red: Keto H₂S (1.97) | Grn: Epi-BCR E/I', gx + gw * 0.5, gy + gh + 13);
+          ctx.textAlign = 'right'; ctx.fillText('d90 (E/I=0.65)', gx + gw, gy + gh + 13);
+
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(6, 182, 212, 0.35)';
+          ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+          ctx.fillStyle = '#22d3ee'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+          ctx.fillText(`Cortical E/I Ratio: ${(pData.eiRatio || 0.65).toFixed(2)} | Colonic H₂S: ${(pData.h2s || 0.11).toFixed(2)}x`, x1 + 16, by + 16);
+          ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+          ctx.fillText(`PV+ 40Hz Gamma Load: f² = 3.06x (Complex IV Intact)`, x1 + 16, by + 32);
+          ctx.fillStyle = '#a7f3d0';
+          ctx.fillText(`Sulfide Shield: Mo (150µg) + Akkermansia/Parabact/gadB`, x1 + 16, by + 47);
+          ctx.restore();
+
+        } else if (stKey === 'mdd_quin') {
+          drawPanelBox(
+            ctx, x1, y0, pw, ph, 'rgba(168, 85, 247, 0.45)',
+            '1. KETAMINE SPINE RELAPSE vs. QUIN PURGE',
+            `Cohort D TR-MDD (IDO1/QUIN + 4ZZJ) · RV32IMF ${spec.scalarCycles} cyc`
+          );
+          ctx.save();
+          ctx.beginPath(); ctx.rect(x1 + 6, y0 + 38, pw - 12, ph - 44); ctx.clip();
+          ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
+          for (let i = 0; i <= 4; i++) {
+            const yy = gy + (gh * i) / 4;
+            ctx.beginPath(); ctx.moveTo(gx, yy); ctx.lineTo(gx + gw, yy); ctx.stroke();
+          }
+          // Ketamine Burst Alone Spine Surge at d7 (0.57x) -> Relapse by d90 (0.45x) (Dashed Rose)
+          ctx.strokeStyle = 'rgba(244, 63, 94, 0.85)'; ctx.lineWidth = 2.0; ctx.setLineDash([3, 3]); ctx.beginPath();
+          for (let i = 0; i <= 40; i++) {
+            const d = (i / 40) * 90;
+            const spKet = 0.45 + 0.24 * (d / 7.0) * Math.exp(1.0 - d / 7.0);
+            const px = gx + (i / 40) * gw, py = gy + gh - (spKet / 1.35) * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke(); ctx.setLineDash([]);
+
+          // Affective-BCR Sustained Dendritic Spine Expansion (Solid Emerald rising to 1.24x)
+          ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2.4; ctx.beginPath();
+          for (let i = 0; i <= 40; i++) {
+            const d = (i / 40) * 90;
+            const spBcr = 0.45 + 0.79 / (1.0 + Math.exp(-(d - 34.0) / 10.0));
+            const px = gx + (i / 40) * gw, py = gy + gh - (spBcr / 1.35) * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+
+          ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+          ctx.textAlign = 'left'; ctx.fillText('d0 (0.45x)', gx, gy + gh + 13);
+          ctx.textAlign = 'center'; ctx.fillText('Red: Ketamine Relapse | Grn: Affective-BCR', gx + gw * 0.5, gy + gh + 13);
+          ctx.textAlign = 'right'; ctx.fillText('d90 (1.24x Spines)', gx + gw, gy + gh + 13);
+
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(168, 85, 247, 0.35)';
+          ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+          ctx.fillStyle = '#c084fc'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+          ctx.fillText(`Prefrontal Spines: ${(pData.spines || 1.24).toFixed(2)}x | QUIN: ${(pData.quin || 0.20).toFixed(2)}x (-87%)`, x1 + 16, by + 16);
+          ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+          ctx.fillText(`Brainstem GDF15: ${pData.gdf15 || 259} pg/mL (GFRAL Unlocked)`, x1 + 16, by + 32);
+          ctx.fillStyle = '#a7f3d0';
+          ctx.fillText(`Stage 1 Tributyrin/EPA → Stage 2 4ZZJ SIRT1 + ALCAR`, x1 + 16, by + 47);
+          ctx.restore();
+
+        } else {
+          // Cohort A: Sarcopenia / Metabolic (13.5h vs 6.0h Glycogen Depletion Lag)
+          drawPanelBox(
+            ctx, x1, y0, pw, ph, 'rgba(34, 211, 238, 0.45)',
+            '1. GLYCOGEN LAG (τ_lag) & 6FCX/FUT2 GATE',
+            `Cohort A Sarcopenia / Muscle · RV32IMF ${spec.scalarCycles} cyc`
+          );
+          ctx.save();
+          ctx.beginPath(); ctx.rect(x1 + 6, y0 + 38, pw - 12, ph - 44); ctx.clip();
+          ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
+          for (let i = 0; i <= 4; i++) {
+            const yy = gy + (gh * i) / 4;
+            ctx.beginPath(); ctx.moveTo(gx, yy); ctx.lineTo(gx + gw, yy); ctx.stroke();
+          }
+          const lag6X = gx + (6.0 / 18.0) * gw;
+          ctx.fillStyle = 'rgba(16, 185, 129, 0.11)';
+          ctx.fillRect(lag6X, gy, gw - (lag6X - gx), gh);
+          ctx.strokeStyle = 'rgba(16, 185, 129, 0.8)'; ctx.setLineDash([4, 3]);
+          ctx.beginPath(); ctx.moveTo(lag6X, gy); ctx.lineTo(lag6X, gy + gh); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = '#34d399'; ctx.font = '9.5px monospace'; ctx.textAlign = 'left';
+          ctx.fillText('τ_lag=6h (Zone2+C8)', lag6X + 3, gy + 11);
+
+          ctx.strokeStyle = 'rgba(244, 63, 94, 0.75)'; ctx.lineWidth = 1.8; ctx.setLineDash([3, 3]); ctx.beginPath();
+          for (let i = 0; i <= 36; i++) {
+            const hr = (i / 36) * 18.0;
+            const bhb = 0.2 + 2.1 / (1.0 + Math.exp(-(hr - 13.5) * 1.1));
+            const px = gx + (i / 36) * gw, py = gy + gh - (bhb / 2.6) * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke(); ctx.setLineDash([]);
+
+          ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2.4; ctx.beginPath();
+          for (let i = 0; i <= 36; i++) {
+            const hr = (i / 36) * 18.0;
+            const bhb = 0.25 + 2.05 / (1.0 + Math.exp(-(hr - (pData.lagH || 6.0)) * 1.25));
+            const px = gx + (i / 36) * gw, py = gy + gh - (bhb / 2.6) * gh;
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.stroke();
+
+          ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+          ctx.textAlign = 'left'; ctx.fillText('0h Fast', gx, gy + gh + 13);
+          ctx.textAlign = 'center'; ctx.fillText('12h ULK1/PINK1 Window', (lag6X + gx + gw) * 0.5, gy + gh + 13);
+          ctx.textAlign = 'right'; ctx.fillText('18h Fast', gx + gw, gy + gh + 13);
+
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(34, 211, 238, 0.35)';
+          ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+          ctx.fillStyle = '#38bdf8'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+          ctx.fillText(`Plasma GDF15: ${pData.gdf15 || 360} pg/mL | β-OHB: ${(pData.bhbMmol || 1.9).toFixed(1)} mM`, x1 + 16, by + 16);
+          ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+          ctx.fillText(`RV32IMF Safety: Lean Mass Δ=${(pData.massDelta || 1.8).toFixed(1)}% (> -2.5% Floor)`, x1 + 16, by + 32);
+          ctx.fillStyle = '#a7f3d0';
+          ctx.fillText(`FUT2 Bypass: Direct UroA + 2'-FL | PDB: 6FCX B2+Cr`, x1 + 16, by + 47);
+          ctx.restore();
+        }
       }
 
       // =========================================================================
@@ -2424,10 +2752,10 @@
 
       const guildLabel = state.coralTarget === 'APIS_SMART_HIVE_NODE' ? 'v6 S.alvi Symbiont'
         : state.coralTarget === 'CART_GMP_CASSETTE_VALVE' ? 'v6 T_SCM Stemness'
-        : 'v6 Butyrate/PncA';
+        : (spec.v6Label || 'v6 Butyrate/PncA');
       const blockLabel = state.coralTarget === 'APIS_SMART_HIVE_NODE' ? 'v7 1SQB Qo Block'
         : state.coralTarget === 'CART_GMP_CASSETTE_VALVE' ? 'v7 2Q8G PDK1 Lock'
-        : 'v7 H₂S / QUIN Load';
+        : (spec.v7Label || 'v7 H₂S / QUIN Load');
 
       const regs = [
         { name: 'v0 Wild-Type W(t)', val: pData.W, max: 1.50, col: '#10b981', unit: 'x' },
@@ -2436,7 +2764,7 @@
         { name: 'v3 Resistance éR(t)', val: pData.eR, max: 20.0, col: '#a855f7', unit: '' },
         { name: 'v4 Stress EP=éR·f²', val: pData.EP, max: state.coralTarget === 'APIS_SMART_HIVE_NODE' ? 110.0 : 30.0, col: '#f97316', unit: '' },
         { name: 'v5 NAD⁺/SIRT1 (4ZZJ)', val: pData.nad, max: 1.40, col: '#3b82f6', unit: 'x' },
-        { name: guildLabel, val: pData.guild, max: 1.10, col: '#14b8a6', unit: 'x' },
+        { name: guildLabel, val: pData.guild, max: 1.30, col: '#14b8a6', unit: 'x' },
         { name: blockLabel, val: pData.block, max: 1.00, col: '#ec4899', unit: 'x' }
       ];
 
@@ -2497,7 +2825,7 @@
       const px0 = x3 + 34, py0 = y0 + 52, pwPlot = pw - 48, phPlot = 172;
       const maxH = 80.0;
       const maxER = state.coralTarget === 'APIS_SMART_HIVE_NODE' ? 22.0
-        : state.coralTarget === 'CART_GMP_CASSETTE_VALVE' ? 14.0 : 8.0;
+        : state.coralTarget === 'CART_GMP_CASSETTE_VALVE' ? 14.0 : (spec.maxER || 10.0);
 
       // Shade Stage 2 Anabolic Build Safe Zone (h <= 8%) vs Simultaneous Trap Zone (h > 8%)
       const gate8X = px0 + (8.0 / maxH) * pwPlot;
@@ -2647,14 +2975,36 @@
     // Coral NPU Strip & Study-Reactive Tab Event Listeners
     document.getElementById('coralTargetSelect').addEventListener('change', e => {
       state.coralTarget = e.target.value;
+      if (state.coralTarget === 'CART_GMP_CASSETTE_VALVE') state.coralStudy = 'bioreactor_cart';
+      else if (state.coralTarget === 'APIS_SMART_HIVE_NODE') state.coralStudy = 'apis_honeybee';
+      else if (state.coralStudy === 'bioreactor_cart' || state.coralStudy === 'apis_honeybee') state.coralStudy = 'pink1_fut2';
       updateCoralNpuUI();
       renderCoralNpuSiliconCanvas();
     });
     document.querySelectorAll('.coral-t-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         state.coralTarget = btn.getAttribute('data-coral-t');
+        if (state.coralTarget === 'CART_GMP_CASSETTE_VALVE') state.coralStudy = 'bioreactor_cart';
+        else if (state.coralTarget === 'APIS_SMART_HIVE_NODE') state.coralStudy = 'apis_honeybee';
+        else if (state.coralStudy === 'bioreactor_cart' || state.coralStudy === 'apis_honeybee') state.coralStudy = 'pink1_fut2';
         updateCoralNpuUI();
         renderCoralNpuSiliconCanvas();
+      });
+    });
+    document.querySelectorAll('.coral-study-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const studyId = btn.getAttribute('data-coral-study');
+        const targetId = btn.getAttribute('data-coral-target');
+        state.coralStudy = studyId;
+        state.coralTarget = targetId;
+        const presetSel = document.getElementById('patientPresetSelect');
+        if (presetSel && presetSel.value !== studyId) {
+          presetSel.value = studyId;
+          presetSel.dispatchEvent(new Event('change'));
+        } else {
+          updateCoralNpuUI();
+          renderCoralNpuSiliconCanvas();
+        }
       });
     });
     document.querySelectorAll('.coral-phase-btn').forEach(btn => {
@@ -2820,12 +3170,16 @@
 
       if (val === 'apis_honeybee') {
         state.coralTarget = 'APIS_SMART_HIVE_NODE';
+        state.coralStudy = 'apis_honeybee';
       } else if (val === 'bioreactor_cart') {
         state.coralTarget = 'CART_GMP_CASSETTE_VALVE';
+        state.coralStudy = 'bioreactor_cart';
       } else {
         state.coralTarget = 'HUMAN_WEARABLE_RING_PATCH';
+        state.coralStudy = (val === 'standard' || val === 'pgc1a_mthfr') ? 'pink1_fut2' : val;
       }
       updateCoralNpuUI();
+      renderCoralNpuSiliconCanvas();
 
       document.getElementById('snp_ppargc1a').value = state.snp_ppargc1a;
       document.getElementById('snp_fut2').value = state.snp_fut2;

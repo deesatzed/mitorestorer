@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Domain 2: CAR-T GMP Bioreactor Simulator (240-Hour Controller) — MitoRestorer</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="bcr_ux_4d_engine.js"></script>
   <style>
     :root {
       --background: #050a14;
@@ -30,23 +31,19 @@
 <body class="antialiased p-4 md:p-6">
   <div class="max-w-7xl mx-auto space-y-5">
 
-    <!-- Top 3-Domain Navigation Switcher Bar -->
+    <!-- Top 7-Cohort Dedicated Workstation Switcher Bar -->
     <div class="bg-slate-950 border border-teal-500/40 rounded-xl p-2.5 shadow-sm flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-      <div class="flex items-center gap-2 flex-wrap">
-        <a href="../index.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition flex items-center gap-1.5">
-          🏛️ Platform Hub
-        </a>
-        <a href="bcr_simulator.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/15 transition flex items-center gap-1.5">
-          🏥 Domain 1: Human Clinical &amp; Neuro Medicine (90-Day · Cohorts A–E) →
-        </a>
-        <a href="cart_bioreactor_simulator.html" class="px-3 py-1.5 rounded-lg bg-teal-500/20 border-2 border-teal-400 text-teal-200 font-bold transition flex items-center gap-1.5">
-          🧬 Domain 2: CAR-T GMP Bioreactor (240-Hour · Cohort F)
-        </a>
-        <a href="apis_honeybee_simulator.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-amber-500/40 text-amber-300 hover:bg-amber-500/15 transition flex items-center gap-1.5">
-          🐝 Domain 3: Honeybee Smart Hive (14-Day · Cohort G) →
-        </a>
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <a href="../index.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">🏛️ Hub</a>
+        <a href="parkinsons_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">🧠 Parkinson's</a>
+        <a href="alzheimers_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">🧬 Alzheimer's</a>
+        <a href="epilepsy_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">⚡ Epilepsy</a>
+        <a href="depression_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">🔬 Depression</a>
+        <a href="sarcopenia_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">💪 Sarcopenia</a>
+        <a href="cart_bioreactor_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-teal-950 border-2 border-teal-400 text-teal-200 font-bold transition">🧫 CAR-T Bioreactor</a>
+        <a href="apis_honeybee_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-amber-500/50 text-amber-200 hover:bg-amber-950 transition">🐝 Apis Colony</a>
       </div>
-      <span class="text-teal-300 hidden xl:inline">100% Ex Vivo GMP Bioreactor Controls &amp; Perfusion Telemetry</span>
+      <span class="text-teal-300 hidden xl:inline">Dedicated Cohort F Workstation · 240h GMP Ex Vivo Perfusion</span>
     </div>
 
     <!-- Header Banner -->
@@ -164,13 +161,13 @@
         </div>
       </div>
 
-      <!-- STEP 3: Live 240-Hour Playback Bar + Animated CAR-T Bioreactor Twin + GMP AI Co-Pilot -->
-      <div class="bg-slate-950/90 border border-teal-500/40 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+      <!-- STEP 3: Live 240-Hour Playback Bar + 4D Phase-Space Manifold + GMP AI Co-Pilot -->
+      <div class="bg-slate-950 border border-teal-500/40 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
         <div class="flex items-center gap-2">
-          <button id="btnPlayPause" class="px-3 py-1.5 rounded-lg bg-teal-500/20 border border-teal-400 text-teal-200 font-bold hover:bg-teal-500/30 transition">
-            ⏸ Pause 240h Run
+          <button id="btnPlayPause" class="px-3 py-1.5 rounded-lg bg-cyan-950 border border-cyan-500 text-cyan-200 font-bold hover:bg-cyan-900 transition">
+            ▶ Play 240h Run
           </button>
-          <button id="btnSpeed" class="px-2.5 py-1.5 rounded-lg bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] hover:opacity-90 transition">
+          <button id="btnSpeed" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 hover:bg-slate-800 transition">
             1.0× Speed
           </button>
           <button data-snap="0" class="snap-btn px-2 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:bg-slate-800">t₀: 0h Apheresis</button>
@@ -179,29 +176,34 @@
         </div>
         <div class="flex-1 min-w-[180px] flex items-center gap-2">
           <span class="text-slate-400">0h</span>
-          <input id="timeScrubber" type="range" min="0" max="1000" value="0" class="w-full accent-teal-400 cursor-pointer" />
+          <input id="timeScrubber" type="range" min="0" max="1000" value="267" class="w-full accent-teal-400 cursor-pointer" />
           <span class="text-slate-400">240h</span>
         </div>
         <div class="flex items-center gap-2">
-          <span id="clockBadge" class="px-2.5 py-1 rounded bg-slate-900 border border-teal-500/40 text-teal-300 font-bold">Hour 0.0 / 240.0h</span>
-          <span id="valveBadge" class="px-2.5 py-1 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold">🟡 Valve A: Mitophagy Media</span>
+          <span id="clockBadge" class="px-2.5 py-1 rounded bg-slate-900 border border-teal-500/40 text-teal-200 font-bold">Hour 64.0 / 240.0h</span>
+          <span id="valveBadge" class="px-2.5 py-1 rounded bg-cyan-950 border border-cyan-500/50 text-cyan-200 font-bold">⚡ Hour 64 Solenoid Valve Gate</span>
         </div>
       </div>
 
-      <!-- 2-Column Stage: Left Animated CAR-T Perfusion Cassette + Right GMP AI Co-Pilot -->
+      <!-- 2-Column Stage: Left 4D Bioenergetic Phase-Space Manifold + Right GMP AI Co-Pilot -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-        <div class="lg:col-span-7 rounded-xl border border-teal-500/40 bg-[#050b16] p-3 space-y-2 flex flex-col justify-between">
-          <div class="flex items-center justify-between text-xs font-mono">
-            <span class="font-bold text-teal-300">LIVE PERFUSION CASSETTE: CD8+ CAR-T Clonal Expansion &amp; Mitochondrial State</span>
-            <span id="cassetteStatusPill" class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-200 font-bold">Phase 1 Conditioning</span>
+        <div class="lg:col-span-7 rounded-xl border border-teal-500/40 bg-[#040914] p-3 space-y-2 flex flex-col justify-between">
+          <div class="flex items-center justify-between flex-wrap gap-2 text-xs font-mono">
+            <span class="font-bold text-teal-300">📐 4D BIOENERGETIC PHASE-SPACE MANIFOLD (Drag to Rotate 3D · 240h GMP Trajectory)</span>
+            <div class="flex items-center gap-1">
+              <button data-cam4d="0" class="cam4d-btn px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-200 hover:border-cyan-400 text-[10px]">Isometric 4D</button>
+              <button data-cam4d="2" class="cam4d-btn px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-cyan-300 hover:border-cyan-400 text-[10px]">64h Gate Front</button>
+              <button data-cam4d="3" class="cam4d-btn px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-emerald-300 hover:border-emerald-400 text-[10px]">Top-Down</button>
+              <span id="cassetteStatusPill" class="px-2 py-0.5 rounded bg-teal-950 border border-teal-500/50 text-teal-200 font-bold">Phase 1→2 Gate</span>
+            </div>
           </div>
           <div class="rounded-lg overflow-hidden border border-slate-800 bg-[#030710]">
-            <canvas id="canvasCartTwin" height="330"></canvas>
+            <canvas id="canvasCartTwin" height="360"></canvas>
           </div>
           <div class="flex items-center justify-between flex-wrap gap-2 text-[11px] font-mono text-slate-300">
-            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 mr-1"></span>Exhausted CAR-T (High D / PD-1+)</span>
-            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-teal-400 mr-1"></span>Stem-Cell Memory T_SCM (Clean W)</span>
-            <span><span class="inline-block w-2.5 h-2.5 rounded-full border-2 border-amber-400 mr-1"></span>Urolithin A + Kinetin Purge</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 mr-1"></span>❌ 25mM High-Glucose (Exhausted)</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-400 mr-1"></span>⚠️ Continuous UroA (10.8× Low Yield)</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 mr-1"></span>✅ Bioreactor-BCR (62.9× &amp; 78% T_SCM)</span>
           </div>
         </div>
 
@@ -285,6 +287,9 @@
           </div>
         </div>
       </div>
+
+      <!-- 5-Pillar Clinical & Methodological Transparency Inspector -->
+      <div id="transparencyInspectorContainer"></div>
     </div>
 
     <!-- Dedicated GMP Bioreactor Controls (Left 4 Cols) + 4-Panel 240-Hour Bioreactor ODE Charts & Coral NPU Valve Visualizer (Right 8 Cols) -->
@@ -406,11 +411,13 @@
       pdk1Inhib: 0.95,
       uroA: 0.95,
       nadBuild: 0.95,
-      timeFrac: 0.0,
-      isPlaying: true,
+      timeFrac: 64.0 / 240.0,
+      isPlaying: false,
       speed: 1.0,
       animTime: 0,
-      sim: null
+      sim: null,
+      activeUxPhaseIdx: 2,
+      manifold4DViewer: null
     };
 
     function clip(v, min, max) { return Math.max(min, Math.min(max, v)); }
@@ -553,130 +560,22 @@
     }
 
     function renderCartTwinCanvas() {
-      const c = document.getElementById('canvasCartTwin');
-      if (!c || !cartState.sim) return;
-      const rect = c.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      const w = Math.max(rect.width || 560, 420);
-      const h = 330;
-      if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) {
-        c.width = Math.round(w * dpr);
-        c.height = Math.round(h * dpr);
+      const uxSpec = window.MitoUX4DEngine && window.MitoUX4DEngine.SPECS.bioreactor_cart;
+      if (!uxSpec) return;
+      if (!cartState.manifold4DViewer) {
+        cartState.manifold4DViewer = window.MitoUX4DEngine.attach4DManifoldViewer(
+          'canvasCartTwin',
+          uxSpec,
+          () => ({
+            timeFrac: cartState.timeFrac,
+            activeRegimen: cartState.protocol === 'bioreactor_bcr' ? 'bcr'
+              : cartState.protocol === 'static_uroa' ? 'unphased' : 'baseline'
+          })
+        );
       }
-      const ctx = c.getContext('2d');
-      ctx.save();
-      ctx.scale(dpr, dpr);
-      ctx.clearRect(0, 0, w, h);
-
-      const sim = cartState.sim;
-      const hr = clip(Math.round(cartState.timeFrac * 240), 0, 240);
-      const hPct = sim.H[hr];
-      const tscmPct = sim.TSCM[hr];
-      const foldVal = sim.Fold[hr];
-      const lpVal = sim.LacPyr[hr];
-      const exhPct = sim.Exh[hr];
-
-      // Bioreactor Vessel Chamber (Top Zone y = 10..195)
-      const vx = 18, vy = 12, vw = w - 36, vh = 180;
-      ctx.fillStyle = 'rgba(8, 22, 40, 0.94)';
-      ctx.strokeStyle = hr >= cartState.switchHour && cartState.protocol === 'bioreactor_bcr' ? '#10b981' : '#14b8a6';
-      ctx.lineWidth = 2;
-      ctx.fillRect(vx, vy, vw, vh);
-      ctx.strokeRect(vx, vy, vw, vh);
-
-      // Draw T-Cells dividing & circulating inside the perfusion cassette
-      const numCells = Math.min(34, Math.max(8, Math.round(8 + (foldVal / 63.0) * 26)));
-      const numExhausted = Math.round((exhPct / 100.0) * numCells);
-
-      for (let i = 0; i < numCells; i++) {
-        const isExh = i < numExhausted;
-        const row = i % 3;
-        const col = Math.floor(i / 3);
-        const cx = vx + 36 + ((col * 46 + cartState.animTime * 22 * (row % 2 === 0 ? 1 : -1)) % (vw - 72) + (vw - 72)) % (vw - 72);
-        const cy = vy + 46 + row * 44 + Math.sin(cartState.animTime * 2.5 + i) * 7;
-
-        ctx.beginPath();
-        ctx.arc(cx, cy, 13, 0, Math.PI * 2);
-        ctx.fillStyle = isExh ? 'rgba(244, 63, 94, 0.28)' : 'rgba(20, 184, 166, 0.30)';
-        ctx.strokeStyle = isExh ? '#f43f5e' : '#2dd4bf';
-        ctx.lineWidth = 1.8;
-        ctx.fill();
-        ctx.stroke();
-
-        // Inner T-cell nucleus + mitochondria dot
-        ctx.beginPath();
-        ctx.arc(cx, cy, 5.5, 0, Math.PI * 2);
-        ctx.fillStyle = isExh ? '#fda4af' : '#99f6e4';
-        ctx.fill();
-
-        if (!isExh && hr <= cartState.switchHour && cartState.protocol === 'bioreactor_bcr') {
-          ctx.beginPath();
-          ctx.arc(cx, cy, 16 + Math.sin(cartState.animTime * 5 + i) * 2, 0, Math.PI * 2);
-          ctx.strokeStyle = '#fbbf24';
-          ctx.lineWidth = 1.2;
-          ctx.setLineDash([3, 2]);
-          ctx.stroke();
-          ctx.setLineDash([]);
-        }
+      if (cartState.manifold4DViewer) {
+        cartState.manifold4DViewer.render();
       }
-
-      ctx.fillStyle = '#f8fafc';
-      ctx.font = 'bold 10.5px monospace';
-      ctx.textAlign = 'left';
-      ctx.fillText(`GMP PERFUSION CHAMBER @ Hour ${hr} / 240h (${numCells} Visualized Clones)`, vx + 10, vy + 18);
-
-      ctx.textAlign = 'right';
-      ctx.fillStyle = cartState.protocol === 'bioreactor_bcr' ? '#2dd4bf' : '#fb7185';
-      const modeText = cartState.protocol === 'high_glucose' ? '❌ 25mM Glucose Warburg Lock (PDK1 Active)'
-        : cartState.protocol === 'static_uroa' ? '⚠️ Static Urolithin A (mTORC1 Suppressed)'
-        : hr < cartState.switchHour ? '🟡 Valve A: Phase 1 Mitophagy Conditioning'
-        : '🟢 Valve B: Phase 2 Clonal OXPHOS Expansion!';
-      ctx.fillText(modeText, vx + vw - 10, vy + 18);
-
-      // Bottom Zone: 240-Hour Timeline + 3 Bioreactor KPI Gauges
-      const tlX = 18, tlY = 202, tlW = w - 36, tlH = 22;
-      const p1W = tlW * (cartState.switchHour / 240.0);
-      ctx.fillStyle = 'rgba(245, 158, 11, 0.22)';
-      ctx.fillRect(tlX, tlY, p1W, tlH);
-      ctx.strokeStyle = '#f59e0b';
-      ctx.strokeRect(tlX, tlY, p1W, tlH);
-      ctx.fillStyle = '#fde68a';
-      ctx.font = 'bold 9.5px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText(`Phase 1 Purge (0–${cartState.switchHour}h)`, tlX + p1W * 0.5, tlY + 14);
-
-      ctx.fillStyle = 'rgba(20, 184, 166, 0.22)';
-      ctx.fillRect(tlX + p1W, tlY, tlW - p1W, tlH);
-      ctx.strokeStyle = '#14b8a6';
-      ctx.strokeRect(tlX + p1W, tlY, tlW - p1W, tlH);
-      ctx.fillStyle = '#99f6e4';
-      ctx.fillText(`⚡ Valve Switch → Phase 2 Clonal Expansion (${cartState.switchHour}–240h)`, tlX + p1W + (tlW - p1W) * 0.5, tlY + 14);
-
-      const px = tlX + cartState.timeFrac * tlW;
-      ctx.fillStyle = '#22d3ee';
-      ctx.fillRect(px - 2, tlY - 3, 4, tlH + 6);
-
-      const gw3 = (tlW - 20) / 3, gy3 = 234, gh3 = 86;
-      const gauges = [
-        { title: '1. T_SCM STEMNESS (%)', sub: 'Target: ≥ 70% CD62L+CD95+', val: `${tscmPct.toFixed(1)}%`, frac: tscmPct / 85.0, col: tscmPct >= 65 ? '#14b8a6' : '#f43f5e' },
-        { title: '2. CLONAL EXPANSION', sub: 'Target: ≥ 50× Infusion Dose', val: `${foldVal.toFixed(1)}×`, frac: foldVal / 68.0, col: foldVal >= 45 ? '#10b981' : '#f59e0b' },
-        { title: '3. LACTATE:PYRUVATE', sub: 'Valve Gate: ≤ 12.0 Ratio', val: `${lpVal.toFixed(1)}`, frac: lpVal / 30.0, col: lpVal <= 13.5 ? '#2dd4bf' : '#f43f5e' }
-      ];
-      gauges.forEach((g, idx) => {
-        const bx = tlX + idx * (gw3 + 10);
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
-        ctx.fillRect(bx, gy3, gw3, gh3);
-        ctx.strokeRect(bx, gy3, gw3, gh3);
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#cbd5e1'; ctx.font = 'bold 9.5px monospace'; ctx.fillText(g.title, bx + 8, gy3 + 15);
-        ctx.fillStyle = '#94a3b8'; ctx.font = '8.5px monospace'; ctx.fillText(g.sub, bx + 8, gy3 + 28);
-        ctx.fillStyle = '#f8fafc'; ctx.font = 'bold 15px monospace'; ctx.fillText(g.val, bx + 8, gy3 + 50);
-        ctx.fillStyle = 'rgba(30, 41, 59, 0.95)'; ctx.fillRect(bx + 8, gy3 + 60, gw3 - 16, 12);
-        ctx.fillStyle = g.col; ctx.fillRect(bx + 8, gy3 + 60, (gw3 - 16) * clip(g.frac, 0.04, 1.0), 12);
-      });
-
-      ctx.restore();
     }
 
     function updateUI() {
@@ -686,6 +585,28 @@
       document.getElementById('clockBadge').textContent = `Hour ${hr.toFixed(1)} / 240.0h`;
       document.getElementById('aiHourLabel').textContent = `Hour ${hr} / 240h`;
       document.getElementById('timeScrubber').value = Math.round(cartState.timeFrac * 1000);
+
+      // Update 5-Pillar Clinical & Methodological Transparency Inspector
+      const uxSpec = window.MitoUX4DEngine && window.MitoUX4DEngine.SPECS.bioreactor_cart;
+      if (uxSpec) {
+        cartState.activeUxPhaseIdx = hr < 16 ? 0 : hr < cartState.switchHour - 4 ? 1 : hr <= cartState.switchHour + 6 ? 2 : 3;
+        window.MitoUX4DEngine.render5PillarTransparencyInspector(
+          'transparencyInspectorContainer',
+          uxSpec,
+          cartState.activeUxPhaseIdx,
+          (newPhaseIdx) => {
+            cartState.activeUxPhaseIdx = newPhaseIdx;
+            cartState.isPlaying = false;
+            document.getElementById('btnPlayPause').textContent = '▶ Play 240h Run';
+            const p = uxSpec.phases[newPhaseIdx];
+            const mid = (p.timeRange[0] + p.timeRange[1]) * 0.5;
+            cartState.timeFrac = clip(mid / 240.0, 0, 1);
+            if (cartState.manifold4DViewer) cartState.manifold4DViewer.setCameraPreset(newPhaseIdx);
+            updateUI();
+            renderCartTwinCanvas();
+          }
+        );
+      }
 
       const vBadge = document.getElementById('valveBadge');
       const cPill = document.getElementById('cassetteStatusPill');
@@ -713,6 +634,7 @@
       drawBioreactorChart('chartLacPyr', [{ data: sim.LacPyr, color: '#f43f5e' }], 0, 32);
       drawBioreactorChart('chartExpansion', [{ data: sim.Fold, color: '#10b981' }, { data: sim.Exh, color: '#fb7185' }], 0, 70);
       drawBioreactorChart('chartSrc', [{ data: sim.SRC, color: '#22d3ee' }, { data: sim.W, color: '#10b981', scale: 2.0 }], 0, 4.2);
+      renderCartTwinCanvas();
     }
 
     function loop() {
@@ -725,6 +647,13 @@
       renderCartTwinCanvas();
       requestAnimationFrame(loop);
     }
+
+    document.querySelectorAll('.cam4d-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cam = parseInt(btn.getAttribute('data-cam4d'), 10);
+        if (cartState.manifold4DViewer) cartState.manifold4DViewer.setCameraPreset(cam);
+      });
+    });
 
     document.querySelectorAll('.donor-card').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -740,7 +669,8 @@
         cartState.protocol = btn.getAttribute('data-protocol');
         document.querySelectorAll('.protocol-card').forEach(b => b.className = 'protocol-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1');
         btn.className = 'protocol-card text-left p-3 rounded-xl border-2 border-teal-400 bg-teal-500/15 transition space-y-1';
-        cartState.timeFrac = 0.0;
+        cartState.isPlaying = false;
+        document.getElementById('btnPlayPause').textContent = '▶ Play 240h Run';
         updateUI();
       });
     });

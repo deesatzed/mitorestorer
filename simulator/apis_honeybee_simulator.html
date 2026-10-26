@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Domain 3: Apis-BCR Honeybee Smart Hive Simulator (14-Day Rescue) — MitoRestorer</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="bcr_ux_4d_engine.js"></script>
   <style>
     :root {
       --background: #060911;
@@ -30,23 +31,19 @@
 <body class="antialiased p-4 md:p-6">
   <div class="max-w-7xl mx-auto space-y-5">
 
-    <!-- Top 3-Domain Navigation Switcher Bar -->
+    <!-- Top 7-Cohort Dedicated Workstation Switcher Bar -->
     <div class="bg-slate-950 border border-amber-500/40 rounded-xl p-2.5 shadow-sm flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-      <div class="flex items-center gap-2 flex-wrap">
-        <a href="../index.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition flex items-center gap-1.5">
-          🏛️ Platform Hub
-        </a>
-        <a href="bcr_simulator.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/15 transition flex items-center gap-1.5">
-          🏥 Domain 1: Human Clinical &amp; Neuro Medicine (90-Day · Cohorts A–E) →
-        </a>
-        <a href="cart_bioreactor_simulator.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-teal-500/40 text-teal-300 hover:bg-teal-500/15 transition flex items-center gap-1.5">
-          🧬 Domain 2: CAR-T GMP Bioreactor (240-Hour · Cohort F) →
-        </a>
-        <a href="apis_honeybee_simulator.html" class="px-3 py-1.5 rounded-lg bg-amber-500/20 border-2 border-amber-400 text-amber-200 font-bold transition flex items-center gap-1.5">
-          🐝 Domain 3: Honeybee Smart Hive (14-Day · Cohort G)
-        </a>
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <a href="../index.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">🏛️ Hub</a>
+        <a href="parkinsons_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">🧠 Parkinson's</a>
+        <a href="alzheimers_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">🧬 Alzheimer's</a>
+        <a href="epilepsy_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">⚡ Epilepsy</a>
+        <a href="depression_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">🔬 Depression</a>
+        <a href="sarcopenia_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition">💪 Sarcopenia</a>
+        <a href="cart_bioreactor_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-teal-500/50 text-teal-200 hover:bg-teal-950 transition">🧫 CAR-T Bioreactor</a>
+        <a href="apis_honeybee_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-amber-950 border-2 border-amber-400 text-amber-200 font-bold transition">🐝 Apis Colony</a>
       </div>
-      <span class="text-amber-300 hidden xl:inline">100% Apiary Field Controls, 1SQB Detox &amp; 246 Hz Acoustic Telemetry</span>
+      <span class="text-amber-300 hidden xl:inline">Dedicated Cohort G Workstation · 14d Apiary &amp; 246 Hz Acoustic Hive</span>
     </div>
 
     <!-- Header Banner -->
@@ -164,13 +161,13 @@
         </div>
       </div>
 
-      <!-- STEP 3: Live 14-Day Playback Bar + Animated Flight-Muscle & Beehive Twin + Apiary AI Co-Pilot -->
-      <div class="bg-slate-950/90 border border-amber-500/40 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+      <!-- STEP 3: Live 14-Day Playback Bar + 4D Phase-Space Manifold + Apiary AI Co-Pilot -->
+      <div class="bg-slate-950 border border-amber-500/40 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
         <div class="flex items-center gap-2">
-          <button id="btnPlayPause" class="px-3 py-1.5 rounded-lg bg-amber-500/20 border border-amber-400 text-amber-200 font-bold hover:bg-amber-500/30 transition">
-            ⏸ Pause 14d Colony Run
+          <button id="btnPlayPause" class="px-3 py-1.5 rounded-lg bg-cyan-950 border border-cyan-500 text-cyan-200 font-bold hover:bg-cyan-900 transition">
+            ▶ Play 14d Colony Run
           </button>
-          <button id="btnSpeed" class="px-2.5 py-1.5 rounded-lg bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] hover:opacity-90 transition">
+          <button id="btnSpeed" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 hover:bg-slate-800 transition">
             1.0× Speed
           </button>
           <button data-snap="0" class="snap-btn px-2 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:bg-slate-800">t₀: d0 Exposure</button>
@@ -179,29 +176,34 @@
         </div>
         <div class="flex-1 min-w-[180px] flex items-center gap-2">
           <span class="text-slate-400">Day 0</span>
-          <input id="timeScrubber" type="range" min="0" max="1000" value="0" class="w-full accent-amber-400 cursor-pointer" />
+          <input id="timeScrubber" type="range" min="0" max="1000" value="321" class="w-full accent-amber-400 cursor-pointer" />
           <span class="text-slate-400">Day 14</span>
         </div>
         <div class="flex items-center gap-2">
-          <span id="clockBadge" class="px-2.5 py-1 rounded bg-slate-900 border border-amber-500/40 text-amber-300 font-bold">Day 0.0 / 14.0d</span>
-          <span id="feederBadge" class="px-2.5 py-1 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold">🟡 Slot A: Stage 1 Detox Patty</span>
+          <span id="clockBadge" class="px-2.5 py-1 rounded bg-slate-900 border border-amber-500/40 text-amber-200 font-bold">Day 4.5 / 14.0d</span>
+          <span id="feederBadge" class="px-2.5 py-1 rounded bg-cyan-950 border border-cyan-500/50 text-cyan-200 font-bold">⚡ Day 4.5 (220 Hz Acoustic Gate)</span>
         </div>
       </div>
 
-      <!-- 2-Column Stage: Left Animated Thoracic Flight Muscle & Acoustic Spectrum + Right Apiary AI Co-Pilot -->
+      <!-- 2-Column Stage: Left 4D Bioenergetic Phase-Space Manifold + Right Apiary AI Co-Pilot -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-        <div class="lg:col-span-7 rounded-xl border border-amber-500/40 bg-[#060a14] p-3 space-y-2 flex flex-col justify-between">
-          <div class="flex items-center justify-between text-xs font-mono">
-            <span class="font-bold text-amber-300">LIVE THORACIC FLIGHT MUSCLE &amp; TOP-BAR ACOUSTIC WINGBEAT SPECTRUM</span>
-            <span id="hiveStatusPill" class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-200 font-bold">Stage 1: CYP9Q 1SQB Detox</span>
+        <div class="lg:col-span-7 rounded-xl border border-amber-500/40 bg-[#040914] p-3 space-y-2 flex flex-col justify-between">
+          <div class="flex items-center justify-between flex-wrap gap-2 text-xs font-mono">
+            <span class="font-bold text-amber-300">📐 4D BIOENERGETIC PHASE-SPACE MANIFOLD (Drag to Rotate 3D · 14d Colony Trajectory)</span>
+            <div class="flex items-center gap-1">
+              <button data-cam4d="0" class="cam4d-btn px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-200 hover:border-cyan-400 text-[10px]">Isometric 4D</button>
+              <button data-cam4d="2" class="cam4d-btn px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-cyan-300 hover:border-cyan-400 text-[10px]">d4.5 Gate Front</button>
+              <button data-cam4d="3" class="cam4d-btn px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-emerald-300 hover:border-emerald-400 text-[10px]">Top-Down</button>
+              <span id="hiveStatusPill" class="px-2 py-0.5 rounded bg-amber-950 border border-amber-500/50 text-amber-200 font-bold">220 Hz Gate</span>
+            </div>
           </div>
           <div class="rounded-lg overflow-hidden border border-slate-800 bg-[#04070f]">
-            <canvas id="canvasApisTwin" height="330"></canvas>
+            <canvas id="canvasApisTwin" height="360"></canvas>
           </div>
           <div class="flex items-center justify-between flex-wrap gap-2 text-[11px] font-mono text-slate-300">
-            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 mr-1"></span>1SQB Strobilurin-Blocked Mito</span>
-            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 mr-1"></span>Healthy 246 Hz Flight Mito (W)</span>
-            <span><span class="inline-block w-2.5 h-2.5 rounded-full border-2 border-amber-400 mr-1"></span>p-Coumaric CYP9Q + UroA Detox</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 mr-1"></span>❌ Plain HFCS Syrup (18% Homing)</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-400 mr-1"></span>⚠️ Unphased CoQ10 Patty (39% Homing)</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 mr-1"></span>✅ Apis-BCR Two-Stage Patty (96.5% Homing)</span>
           </div>
         </div>
 
@@ -285,6 +287,9 @@
           </div>
         </div>
       </div>
+
+      <!-- 5-Pillar Clinical & Methodological Transparency Inspector -->
+      <div id="transparencyInspectorContainer"></div>
     </div>
 
     <!-- Dedicated Beekeeper & Hive Controls (Left 4 Cols) + 4-Panel 14-Day Colony ODE Charts (Right 8 Cols) -->
@@ -406,11 +411,13 @@
       detox: 0.95,
       symbiont: 0.95,
       coq10: 0.95,
-      timeFrac: 0.0,
-      isPlaying: true,
+      timeFrac: 4.5 / 14.0,
+      isPlaying: false,
       speed: 1.0,
       animTime: 0,
-      sim: null
+      sim: null,
+      activeUxPhaseIdx: 2,
+      manifold4DViewer: null
     };
 
     function clip(v, min, max) { return Math.max(min, Math.min(max, v)); }
@@ -547,151 +554,22 @@
     }
 
     function renderApisTwinCanvas() {
-      const c = document.getElementById('canvasApisTwin');
-      if (!c || !apisState.sim) return;
-      const rect = c.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      const w = Math.max(rect.width || 560, 420);
-      const h = 330;
-      if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) {
-        c.width = Math.round(w * dpr);
-        c.height = Math.round(h * dpr);
+      const uxSpec = window.MitoUX4DEngine && window.MitoUX4DEngine.SPECS.apis_honeybee;
+      if (!uxSpec) return;
+      if (!apisState.manifold4DViewer) {
+        apisState.manifold4DViewer = window.MitoUX4DEngine.attach4DManifoldViewer(
+          'canvasApisTwin',
+          uxSpec,
+          () => ({
+            timeFrac: apisState.timeFrac,
+            activeRegimen: apisState.regimen === 'apis_bcr' ? 'bcr'
+              : apisState.regimen === 'unphased_pollen' ? 'unphased' : 'baseline'
+          })
+        );
       }
-      const ctx = c.getContext('2d');
-      ctx.save();
-      ctx.scale(dpr, dpr);
-      ctx.clearRect(0, 0, w, h);
-
-      const sim = apisState.sim;
-      const idx = clip(Math.round(apisState.timeFrac * 140), 0, 140);
-      const day = idx * 0.1;
-      const blockPct = sim.Block[idx];
-      const f0Hz = sim.F0[idx];
-      const homingPct = sim.Homing[idx];
-      const atpVal = sim.ATP[idx];
-
-      // Top Left Pane (w * 0.54): Thoracic Flight-Muscle Mitochondria (1SQB Block vs Healthy)
-      const lx = 14, ly = 12, lw = w * 0.53 - 18, lh = 180;
-      ctx.fillStyle = 'rgba(12, 18, 34, 0.94)';
-      ctx.strokeStyle = f0Hz >= 220 ? '#10b981' : '#f59e0b';
-      ctx.lineWidth = 1.8;
-      ctx.fillRect(lx, ly, lw, lh);
-      ctx.strokeRect(lx, ly, lw, lh);
-
-      ctx.fillStyle = '#fde68a';
-      ctx.font = 'bold 10px monospace';
-      ctx.textAlign = 'left';
-      ctx.fillText(`THORACIC FLIGHT MUSCLE (1SQB Qo Block: ${blockPct.toFixed(0)}%)`, lx + 8, ly + 16);
-
-      const numMito = 15;
-      const numBlocked = Math.round((blockPct / 100.0) * numMito);
-      for (let i = 0; i < numMito; i++) {
-        const isBlk = i < numBlocked;
-        const r = Math.floor(i / 5);
-        const col = i % 5;
-        const mx = lx + 28 + col * ((lw - 56) / 4);
-        const my = ly + 48 + r * 46 + Math.sin(apisState.animTime * (f0Hz / 35.0) + i) * 3.5;
-
-        ctx.beginPath();
-        ctx.ellipse(mx, my, 13, 7, 0, 0, Math.PI * 2);
-        ctx.fillStyle = isBlk ? 'rgba(244, 63, 94, 0.35)' : 'rgba(16, 185, 129, 0.35)';
-        ctx.strokeStyle = isBlk ? '#f43f5e' : '#10b981';
-        ctx.lineWidth = 1.6;
-        ctx.fill();
-        ctx.stroke();
-
-        if (isBlk && apisState.regimen === 'apis_bcr' && day <= apisState.switchDay) {
-          ctx.beginPath();
-          ctx.arc(mx, my, 15.5, 0, Math.PI * 2);
-          ctx.strokeStyle = '#fbbf24';
-          ctx.lineWidth = 1.2;
-          ctx.setLineDash([3, 2]);
-          ctx.stroke();
-          ctx.setLineDash([]);
-        }
+      if (apisState.manifold4DViewer) {
+        apisState.manifold4DViewer.render();
       }
-
-      // Top Right Pane (w * 0.46): Live 16-Bin MEMS Wingbeat Acoustic FFT Spectrum (120–260 Hz)
-      const rx = lx + lw + 10, ry = 12, rw = w - rx - 14, rh = 180;
-      ctx.fillStyle = 'rgba(12, 18, 34, 0.94)';
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
-      ctx.fillRect(rx, ry, rw, rh);
-      ctx.strokeRect(rx, ry, rw, rh);
-
-      ctx.fillStyle = '#38bdf8';
-      ctx.font = 'bold 10px monospace';
-      ctx.textAlign = 'left';
-      ctx.fillText(`MEMS WINGBEAT FFT (Peak f₀ = ${f0Hz.toFixed(1)} Hz)`, rx + 8, ry + 16);
-
-      const gx = rx + 14, gy = ry + 30, gw = rw - 28, gh = 124;
-      const gateX = gx + ((220 - 120) / 140.0) * gw;
-      ctx.strokeStyle = '#10b981';
-      ctx.setLineDash([4, 3]);
-      ctx.beginPath(); ctx.moveTo(gateX, gy); ctx.lineTo(gateX, gy + gh); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = '#34d399';
-      ctx.font = '9px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText('220Hz Gate', gateX, gy - 3);
-
-      for (let b = 0; b < 16; b++) {
-        const freq = 125 + b * 8.5;
-        const dist = Math.abs(freq - f0Hz);
-        const amp = Math.exp(-Math.pow(dist / 19.0, 2)) * 0.92;
-        const bx = gx + (b / 16.0) * gw + 1.5;
-        const bw = Math.max(4, gw / 16.0 - 3);
-        const bh = amp * gh;
-        ctx.fillStyle = dist < 24 ? (f0Hz >= 220 ? '#10b981' : '#f59e0b') : 'rgba(148, 163, 184, 0.2)';
-        ctx.fillRect(bx, gy + gh - bh, bw, bh);
-      }
-      ctx.fillStyle = '#94a3b8';
-      ctx.textAlign = 'left'; ctx.fillText('120Hz', gx, gy + gh + 14);
-      ctx.textAlign = 'right'; ctx.fillText('260Hz', gx + gw, gy + gh + 14);
-
-      // Bottom Zone: 14-Day Timeline + 3 Colony Gauges
-      const tlX = 14, tlY = 202, tlW = w - 28, tlH = 22;
-      const p1W = tlW * (apisState.switchDay / 14.0);
-      ctx.fillStyle = 'rgba(245, 158, 11, 0.22)';
-      ctx.fillRect(tlX, tlY, p1W, tlH);
-      ctx.strokeStyle = '#f59e0b';
-      ctx.strokeRect(tlX, tlY, p1W, tlH);
-      ctx.fillStyle = '#fde68a';
-      ctx.font = 'bold 9.5px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText(`Stage 1: CYP9Q Detox & S.alvi Patty (d0–d${apisState.switchDay})`, tlX + p1W * 0.5, tlY + 14);
-
-      ctx.fillStyle = 'rgba(16, 185, 129, 0.22)';
-      ctx.fillRect(tlX + p1W, tlY, tlW - p1W, tlH);
-      ctx.strokeStyle = '#10b981';
-      ctx.strokeRect(tlX + p1W, tlY, tlW - p1W, tlH);
-      ctx.fillStyle = '#a7f3d0';
-      ctx.fillText(`⚡ 220Hz Gate → Stage 2: CoQ10 + NR Flight Build Patty (d${apisState.switchDay}–d14)`, tlX + p1W + (tlW - p1W) * 0.5, tlY + 14);
-
-      const px = tlX + apisState.timeFrac * tlW;
-      ctx.fillStyle = '#38bdf8';
-      ctx.fillRect(px - 2, tlY - 3, 4, tlH + 6);
-
-      const gw3 = (tlW - 20) / 3, gy3 = 234, gh3 = 86;
-      const gauges = [
-        { title: '1. FORAGER HOMING (%)', sub: 'RFID Return Survival Goal ≥90%', val: `${homingPct.toFixed(1)}%`, frac: homingPct / 100.0, col: homingPct >= 85 ? '#10b981' : '#f43f5e' },
-        { title: '2. FLIGHT-MUSCLE ATP', sub: '246 Hz Hovering Power (f²=5.76×)', val: `${atpVal.toFixed(2)}×`, frac: atpVal / 1.80, col: atpVal >= 1.2 ? '#22d3ee' : '#f59e0b' },
-        { title: '3. 1SQB Qo BLOCKADE', sub: 'Strobilurin Occupancy (Lower=Good)', val: `${blockPct.toFixed(1)}%`, frac: blockPct / 80.0, col: blockPct <= 15 ? '#10b981' : '#f43f5e' }
-      ];
-      gauges.forEach((g, idxG) => {
-        const bx = tlX + idxG * (gw3 + 10);
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
-        ctx.fillRect(bx, gy3, gw3, gh3);
-        ctx.strokeRect(bx, gy3, gw3, gh3);
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#cbd5e1'; ctx.font = 'bold 9.5px monospace'; ctx.fillText(g.title, bx + 8, gy3 + 15);
-        ctx.fillStyle = '#94a3b8'; ctx.font = '8.5px monospace'; ctx.fillText(g.sub, bx + 8, gy3 + 28);
-        ctx.fillStyle = '#f8fafc'; ctx.font = 'bold 15px monospace'; ctx.fillText(g.val, bx + 8, gy3 + 50);
-        ctx.fillStyle = 'rgba(30, 41, 59, 0.95)'; ctx.fillRect(bx + 8, gy3 + 60, gw3 - 16, 12);
-        ctx.fillStyle = g.col; ctx.fillRect(bx + 8, gy3 + 60, (gw3 - 16) * clip(g.frac, 0.04, 1.0), 12);
-      });
-
-      ctx.restore();
     }
 
     function updateUI() {
@@ -702,6 +580,28 @@
       document.getElementById('clockBadge').textContent = `Day ${day.toFixed(1)} / 14.0d`;
       document.getElementById('aiDayLabel').textContent = `Day ${day.toFixed(1)} / 14d`;
       document.getElementById('timeScrubber').value = Math.round(apisState.timeFrac * 1000);
+
+      // Update 5-Pillar Clinical & Methodological Transparency Inspector
+      const uxSpec = window.MitoUX4DEngine && window.MitoUX4DEngine.SPECS.apis_honeybee;
+      if (uxSpec) {
+        apisState.activeUxPhaseIdx = day < 1.5 ? 0 : day < apisState.switchDay - 0.3 ? 1 : day <= apisState.switchDay + 0.6 ? 2 : 3;
+        window.MitoUX4DEngine.render5PillarTransparencyInspector(
+          'transparencyInspectorContainer',
+          uxSpec,
+          apisState.activeUxPhaseIdx,
+          (newPhaseIdx) => {
+            apisState.activeUxPhaseIdx = newPhaseIdx;
+            apisState.isPlaying = false;
+            document.getElementById('btnPlayPause').textContent = '▶ Play 14d Colony Run';
+            const p = uxSpec.phases[newPhaseIdx];
+            const mid = (p.timeRange[0] + p.timeRange[1]) * 0.5;
+            apisState.timeFrac = clip(mid / 14.0, 0, 1);
+            if (apisState.manifold4DViewer) apisState.manifold4DViewer.setCameraPreset(newPhaseIdx);
+            updateUI();
+            renderApisTwinCanvas();
+          }
+        );
+      }
 
       const fBadge = document.getElementById('feederBadge');
       const hPill = document.getElementById('hiveStatusPill');
@@ -729,6 +629,7 @@
       drawHiveChart('chartWingbeat', [{ data: sim.F0, color: '#f59e0b' }], 160, 250);
       drawHiveChart('chartHoming', [{ data: sim.Homing, color: '#10b981' }, { data: sim.ATP, color: '#22d3ee', scale: 50.0 }], 0, 100);
       drawHiveChart('chartSymbiont', [{ data: sim.EP, color: '#f97316' }, { data: sim.Salvi, color: '#14b8a6', scale: 100.0 }], 0, 150);
+      renderApisTwinCanvas();
     }
 
     function loop() {
@@ -741,6 +642,13 @@
       renderApisTwinCanvas();
       requestAnimationFrame(loop);
     }
+
+    document.querySelectorAll('.cam4d-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cam = parseInt(btn.getAttribute('data-cam4d'), 10);
+        if (apisState.manifold4DViewer) apisState.manifold4DViewer.setCameraPreset(cam);
+      });
+    });
 
     document.querySelectorAll('.scenario-card').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -756,7 +664,8 @@
         apisState.regimen = btn.getAttribute('data-regimen');
         document.querySelectorAll('.reg-card').forEach(b => b.className = 'reg-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1');
         btn.className = 'reg-card text-left p-3 rounded-xl border-2 border-amber-400 bg-amber-500/15 transition space-y-1';
-        apisState.timeFrac = 0.0;
+        apisState.isPlaying = false;
+        document.getElementById('btnPlayPause').textContent = '▶ Play 14d Colony Run';
         updateUI();
       });
     });

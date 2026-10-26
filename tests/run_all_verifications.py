@@ -241,6 +241,32 @@ def main():
         "Verified @google/genai interactions.create (gemini-3.8-flash) + 9-Point What-If Sweeps across Human, CAR-T, & Honeybee",
     )
 
+    ux_engine_path = os.path.join(REPO_ROOT, "simulator", "bcr_ux_4d_engine.js")
+    ux_engine_text = open(ux_engine_path, encoding="utf-8").read() if os.path.exists(ux_engine_path) else ""
+    dedicated_pages = [
+        "parkinsons_simulator.html",
+        "alzheimers_simulator.html",
+        "epilepsy_simulator.html",
+        "depression_simulator.html",
+        "sarcopenia_simulator.html",
+        "cart_bioreactor_simulator.html",
+        "apis_honeybee_simulator.html",
+    ]
+    all_pages_ok = all(
+        os.path.exists(os.path.join(REPO_ROOT, "simulator", fn))
+        and "bcr_ux_4d_engine.js" in open(os.path.join(REPO_ROOT, "simulator", fn), encoding="utf-8").read()
+        and "attach4DManifoldViewer" in open(os.path.join(REPO_ROOT, "simulator", fn), encoding="utf-8").read()
+        and "render5PillarTransparencyInspector" in open(os.path.join(REPO_ROOT, "simulator", fn), encoding="utf-8").read()
+        for fn in dedicated_pages
+    )
+    check(
+        all_pages_ok
+        and "attach4DManifoldViewer" in ux_engine_text
+        and "render5PillarTransparencyInspector" in ux_engine_text,
+        "7 Dedicated Cohort Workstations: 4D Phase-Space Manifold & 5-Pillar UX",
+        "Verified all 7 standalone cohort pages + rotatable 4D Phase-Space Manifold + 5-Pillar Clinical Transparency Inspector",
+    )
+
     print("\n" + "=" * 100)
     print(f"✅ VERIFICATION SUMMARY: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
     print("=" * 100)

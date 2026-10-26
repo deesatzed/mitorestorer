@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bioenergetic Circuit Reset (BCR) Simulation Explorer — Track 1 Calibrated</title>
+  <title>Bioenergetic Circuit Reset (BCR) Simulation Explorer — 4D Phase-Space &amp; Decision Transparency Workstation</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="bcr_ux_4d_engine.js"></script>
   <style>
     input[type="range"] {
       accent-color: var(--primary);
@@ -18,23 +19,35 @@
 <body class="bg-[var(--background)] text-[var(--foreground)] antialiased p-4 md:p-6">
   <div class="max-w-7xl mx-auto space-y-5">
 
-    <!-- Top 3-Domain Navigation Switcher Bar (Separates Human Clinical, CAR-T Bioreactor, & Honeybee Smart Hive) -->
+    <!-- Top 7-Cohort Dedicated Workstation Switcher Bar (Each Cohort Has Its Own Standalone Page) -->
     <div class="bg-slate-950 border border-cyan-500/40 rounded-xl p-2.5 shadow-sm flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-      <div class="flex items-center gap-2 flex-wrap">
-        <a href="../index.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition flex items-center gap-1.5">
-          🏛️ Platform Hub
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <a href="../index.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 hover:border-emerald-400 transition">
+          🏛️ Hub
         </a>
-        <a href="bcr_simulator.html" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 border-2 border-emerald-500 text-emerald-300 font-bold transition flex items-center gap-1.5">
-          🏥 Domain 1: Human Clinical &amp; Neuro Medicine (90-Day · Cohorts A–E)
+        <a href="parkinsons_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-emerald-500/50 text-emerald-300 hover:bg-emerald-950 transition font-bold">
+          🧠 Parkinson's (Cohort E)
         </a>
-        <a href="cart_bioreactor_simulator.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-teal-500/40 text-teal-300 hover:bg-teal-500/15 transition flex items-center gap-1.5">
-          🧬 Domain 2: CAR-T GMP Bioreactor (240-Hour · Cohort F) →
+        <a href="alzheimers_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-cyan-500/50 text-cyan-300 hover:bg-cyan-950 transition font-bold">
+          🔬 Alzheimer's (Cohort B)
         </a>
-        <a href="apis_honeybee_simulator.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-amber-500/40 text-amber-300 hover:bg-amber-500/15 transition flex items-center gap-1.5">
-          🐝 Domain 3: Honeybee Smart Hive (14-Day · Cohort G) →
+        <a href="epilepsy_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-amber-500/50 text-amber-300 hover:bg-amber-950 transition font-bold">
+          ⚡ Epilepsy (Cohort C)
+        </a>
+        <a href="depression_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-purple-500/50 text-purple-300 hover:bg-purple-950 transition font-bold">
+          🌱 Depression (Cohort D)
+        </a>
+        <a href="sarcopenia_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-teal-500/50 text-teal-300 hover:bg-teal-950 transition font-bold">
+          💪 Sarcopenia (Cohort A)
+        </a>
+        <a href="cart_bioreactor_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-950 transition">
+          🧬 CAR-T (240h)
+        </a>
+        <a href="apis_honeybee_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-amber-500/40 text-amber-200 hover:bg-amber-950 transition">
+          🐝 Honeybee (14d)
         </a>
       </div>
-      <span class="text-slate-400 hidden xl:inline">100% Human Clinical Controls &amp; Biomarkers</span>
+      <span class="text-slate-300 hidden xl:inline">Click any indication above to open its dedicated standalone workstation</span>
     </div>
 
     <!-- Header Banner -->
@@ -78,194 +91,191 @@
     <!-- ======================================================================================== -->
     <div class="bg-[var(--card)] border-2 border-emerald-500/50 rounded-2xl p-4 md:p-5 shadow-md space-y-4" id="guidedWizardBanner">
 
-      <!-- Top Instruction Banner: How This Human Clinical Simulator Works in 3 Simple Steps -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 p-3 rounded-xl bg-[var(--content)] border border-[var(--border)] text-xs">
-        <div class="flex items-start gap-2.5">
-          <span class="px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-bold shrink-0">STEP 1</span>
+      <!-- Top Instruction Banner & Dedicated Single-Disease Workstation Launcher -->
+      <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 space-y-2.5">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
           <div>
-            <div class="font-bold text-[var(--foreground)]">Select a Human Clinical Cohort Below</div>
-            <div class="text-[var(--muted-foreground)]">Choose from the 5 human patient cohorts (Parkinson's, Alzheimer's APOE4, Epilepsy, Depression, or Sarcopenia).</div>
+            <span class="px-2 py-0.5 rounded bg-emerald-500 text-slate-950 font-extrabold font-mono text-[10.5px] mr-1.5">DEDICATED DISEASE WORKSTATIONS</span>
+            <span class="font-bold text-white">Each clinical cohort has its own dedicated, standalone 4D workstation page (click to open):</span>
           </div>
+          <span class="font-mono text-[11px] text-cyan-300" id="heroActiveStudySubtitle">Active Inspector: Cohort E — Parkinson's (PDB: 2NSX GBA1)</span>
         </div>
-        <div class="flex items-start gap-2.5">
-          <span class="px-2 py-0.5 rounded-full bg-cyan-400 text-slate-950 font-bold shrink-0">STEP 2</span>
-          <div>
-            <div class="font-bold text-[var(--foreground)]">Compare Clinical Treatment Strategies</div>
-            <div class="text-[var(--muted-foreground)]">Toggle between <strong>❌ Standard Care</strong>, <strong>⚠️ All-at-Once Supplements (Backfires!)</strong>, and <strong>✅ Proposed 90-Day Phased Reset</strong>.</div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-2" id="heroStudyCardsGrid">
+          <div class="p-2.5 rounded-xl border-2 border-emerald-500 bg-slate-900 space-y-1.5">
+            <button data-hero-study="parkinsons_snc" class="hero-study-card w-full text-left">
+              <div class="font-bold text-white flex items-center justify-between"><span>🧠 Parkinson's (SNc)</span><span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40">95% Rescue</span></div>
+              <div class="text-[11px] text-slate-300 mt-0.5">PDB: 2NSX GBA1 + 6EQI PINK1</div>
+            </button>
+            <a href="parkinsons_simulator.html" class="block text-center py-1 rounded bg-emerald-500 text-slate-950 font-bold text-[10.5px] hover:bg-emerald-400 transition">Open Dedicated Page →</a>
           </div>
-        </div>
-        <div class="flex items-start gap-2.5">
-          <span class="px-2 py-0.5 rounded-full bg-purple-400 text-slate-950 font-bold shrink-0">STEP 3</span>
-          <div>
-            <div class="font-bold text-[var(--foreground)]">Watch the Patient's Cells Evolve &amp; Ask AI</div>
-            <div class="text-[var(--muted-foreground)]">Watch red damaged mitochondria get recycled in Stage 1 before green healthy ones multiply after the Day-38 GDF15 gate.</div>
+          <div class="p-2.5 rounded-xl border border-slate-700 bg-slate-900 space-y-1.5">
+            <button data-hero-study="apoe4_keto" class="hero-study-card w-full text-left">
+              <div class="font-bold text-white flex items-center justify-between"><span>🔬 Alzheimer's (APOE4)</span><span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40">h=3.3%</span></div>
+              <div class="text-[11px] text-slate-300 mt-0.5">PDB: 1B68 APOE4 + 7CK6 TOMM40</div>
+            </button>
+            <a href="alzheimers_simulator.html" class="block text-center py-1 rounded bg-cyan-400 text-slate-950 font-bold text-[10.5px] hover:bg-cyan-300 transition">Open Dedicated Page →</a>
+          </div>
+          <div class="p-2.5 rounded-xl border border-slate-700 bg-slate-900 space-y-1.5">
+            <button data-hero-study="epilepsy_pv" class="hero-study-card w-full text-left">
+              <div class="font-bold text-white flex items-center justify-between"><span>⚡ Epilepsy (PV+ 40Hz)</span><span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-500/40">-96% Seiz</span></div>
+              <div class="text-[11px] text-slate-300 mt-0.5">Keto H₂S Block + PV+ ATP Grid</div>
+            </button>
+            <a href="epilepsy_simulator.html" class="block text-center py-1 rounded bg-amber-400 text-slate-950 font-bold text-[10.5px] hover:bg-amber-300 transition">Open Dedicated Page →</a>
+          </div>
+          <div class="p-2.5 rounded-xl border border-slate-700 bg-slate-900 space-y-1.5">
+            <button data-hero-study="mdd_quin" class="hero-study-card w-full text-left">
+              <div class="font-bold text-white flex items-center justify-between"><span>🌱 Depression (TR-MDD)</span><span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-500/40">1.24× Spines</span></div>
+              <div class="text-[11px] text-slate-300 mt-0.5">IDO1/QUIN Block + PDB: 4ZZJ</div>
+            </button>
+            <a href="depression_simulator.html" class="block text-center py-1 rounded bg-purple-400 text-slate-950 font-bold text-[10.5px] hover:bg-purple-300 transition">Open Dedicated Page →</a>
+          </div>
+          <div class="p-2.5 rounded-xl border border-slate-700 bg-slate-900 space-y-1.5">
+            <button data-hero-study="pink1_fut2" class="hero-study-card w-full text-left">
+              <div class="font-bold text-white flex items-center justify-between"><span>💪 Sarcopenia (Muscle)</span><span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-teal-950 text-teal-300 border border-teal-500/40">1.20× ATP</span></div>
+              <div class="text-[11px] text-slate-300 mt-0.5">FUT2 Direct UroA + PDB: 6FCX</div>
+            </button>
+            <a href="sarcopenia_simulator.html" class="block text-center py-1 rounded bg-teal-400 text-slate-950 font-bold text-[10.5px] hover:bg-teal-300 transition">Open Dedicated Page →</a>
           </div>
         </div>
       </div>
 
-      <!-- STEP 1: 5 Human Clinical Cohort Cards (100% Human Clinical — Zero Cross-Species Confusion) -->
-      <div class="space-y-1.5">
-        <div class="flex items-center justify-between text-xs flex-wrap gap-2">
-          <span class="font-bold uppercase tracking-wider text-emerald-400">Step 1 — Select Human Patient Cohort (5 Validated Clinical Indications):</span>
-          <span class="font-mono text-[var(--muted-foreground)]" id="heroActiveStudySubtitle">Active: Cohort E — Parkinson's Dopamine Neurons (PDB: 2NSX GBA1)</span>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 text-xs" id="heroStudyCardsGrid">
-          <button data-hero-study="parkinsons_snc" class="hero-study-card text-left p-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-500/15 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🧠 Cohort E: Parkinson's</span><span class="text-[10px] font-mono text-emerald-400">95% Rescue</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Unjam GBA1 (2NSX) lysosomes first, then clear &amp; rebuild SNc dopamine tone</div>
-          </button>
-          <button data-hero-study="apoe4_keto" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🧩 Cohort B: Alzheimer's</span><span class="text-[10px] font-mono text-cyan-400">h=3.3%</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Unblock APOE4 / TOMM40 (7CK6) import pore before cortical mitophagy</div>
-          </button>
-          <button data-hero-study="epilepsy_pv" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>⚡ Cohort C: Epilepsy</span><span class="text-[10px] font-mono text-cyan-400">-96% Seiz</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Block Day-30 keto gut H₂S surge to protect PV+ 40 Hz interneurons</div>
-          </button>
-          <button data-hero-study="mdd_quin" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>🌱 Cohort D: Depression</span><span class="text-[10px] font-mono text-purple-400">1.24× Spines</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Purge neurotoxic QUIN &amp; GDF15 so new prefrontal synapses don't relapse</div>
-          </button>
-          <button data-hero-study="pink1_fut2" class="hero-study-card text-left p-2.5 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-0.5">
-            <div class="font-bold text-[var(--foreground)] flex items-center justify-between"><span>💪 Cohort A: Sarcopenia</span><span class="text-[10px] font-mono text-emerald-400">1.20× ATP</span></div>
-            <div class="text-[11px] text-[var(--muted-foreground)] leading-tight">Compress 13.5h→6h fasting glycogen lag + FUT2 direct Urolithin A</div>
-          </button>
-        </div>
-      </div>
+      <!-- 4-PHASE WORKFLOW STEPPER & 5-PILLAR HUMAN-UX TRANSPARENCY INSPECTOR -->
+      <div id="transparencyInspectorContainer"></div>
 
-      <!-- STEP 2: 3-Way Strategy Comparison Selector (Why Standard & Unphased Fail vs. Why Phased Reset Works) -->
+      <!-- STEP 2: 3-Way Strategy Comparison Selector (High-Contrast Dark Cards for Both Light & Dark Themes) -->
       <div class="space-y-1.5">
         <div class="flex items-center justify-between text-xs flex-wrap gap-2">
-          <span class="font-bold uppercase tracking-wider text-cyan-400">Step 2 — Compare What Happens Inside the Cell Under 3 Different Approaches:</span>
+          <span class="font-bold uppercase tracking-wider text-emerald-600 dark:text-cyan-400">Compare 4D Phase-Space Trajectories Under 3 Clinical Approaches:</span>
           <div class="flex items-center gap-1.5">
             <button id="btnRunSampleCase" class="px-2.5 py-1 rounded-md bg-emerald-600 text-white text-xs font-bold hover:opacity-90 transition">
-              🔄 Restart Live Demo
+              🔄 Reset to Day-38 Gate
             </button>
-            <button id="btnWizardPrev" class="px-2 py-1 rounded-md bg-[var(--content)] border border-[var(--border)] text-xs font-semibold hover:opacity-90 transition">
-              ← Prev
+            <button id="btnWizardPrev" class="px-2 py-1 rounded-md bg-slate-900 text-slate-100 border border-slate-700 text-xs font-semibold hover:opacity-90 transition">
+              ← Prev Phase
             </button>
-            <button id="btnWizardNext" class="px-2.5 py-1 rounded-md bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-bold hover:opacity-90 transition">
-              Next Step →
+            <button id="btnWizardNext" class="px-2.5 py-1 rounded-md bg-emerald-600 text-white text-xs font-bold hover:opacity-90 transition">
+              Next Phase →
             </button>
-            <button id="btnTogglePlainEnglish" class="px-2 py-1 rounded-md bg-[var(--content)] border border-[var(--border)] text-xs font-mono hover:opacity-90 transition">
+            <button id="btnTogglePlainEnglish" class="px-2 py-1 rounded-md bg-slate-900 text-slate-100 border border-slate-700 text-xs font-mono hover:opacity-90 transition">
               Summary Mode: Executive
             </button>
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
-          <button data-hero-regimen="untreated" class="hero-regimen-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1">
-            <div class="font-bold text-rose-400 flex items-center justify-between">
-              <span>❌ 1. Standard Care / Do Nothing</span>
-              <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-300">Fails (Stays Sick)</span>
+          <button data-hero-regimen="untreated" class="hero-regimen-card text-left p-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-100 hover:border-rose-400 transition space-y-1">
+            <div class="font-bold text-rose-300 flex items-center justify-between">
+              <span>❌ 1. Standard Care / Unassisted</span>
+              <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-rose-950 text-rose-200 border border-rose-500/50 font-bold">Fails (High éR)</span>
             </div>
-            <p class="text-[var(--muted-foreground)] leading-snug">
-              Damaged mitochondria stay clogged inside the cell (<strong>45%–78% damaged</strong>), leaking toxic free radicals and starving the tissue of ATP energy.
+            <p class="text-slate-300 leading-snug">
+              Damaged mitochondria remain congested (<strong>45%–78% heteroplasmy</strong>), driving high circuit impedance (<code>EP = éR · f²</code>) and progressive ATP decline.
             </p>
           </button>
-          <button data-hero-regimen="unphased" class="hero-regimen-card text-left p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] hover:opacity-90 transition space-y-1">
-            <div class="font-bold text-amber-400 flex items-center justify-between">
-              <span>⚠️ 2. Take All Supplements at Once (The Trap!)</span>
-              <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300">Backfires (84%+ Bad!)</span>
+          <button data-hero-regimen="unphased" class="hero-regimen-card text-left p-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-100 hover:border-amber-400 transition space-y-1">
+            <div class="font-bold text-amber-300 flex items-center justify-between">
+              <span>⚠️ 2. Simultaneous "All-at-Once" Stack</span>
+              <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-amber-950 text-amber-200 border border-amber-500/50 font-bold">Backfires (84%+ D!)</span>
             </div>
-            <p class="text-[var(--muted-foreground)] leading-snug">
-              Taking growth boosters (<code>NAD⁺/NR</code>) at the same time as cleaners (<code>Urolithin A</code>) turns off recycling and accidentally <strong>clones shorter damaged DNA</strong>!
+            <p class="text-slate-300 leading-snug">
+              Co-administering anabolic <code>NAD⁺/NR</code> during Phase 1 keeps <code>mTORC1</code> active, inhibiting <code>ULK1(Ser757)</code> mitophagy while preferentially cloning shorter deletion-mutant mtDNA.
             </p>
           </button>
-          <button data-hero-regimen="bcr" class="hero-regimen-card text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/15 transition space-y-1">
-            <div class="font-bold text-emerald-400 flex items-center justify-between">
+          <button data-hero-regimen="bcr" class="hero-regimen-card text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-950 text-white transition space-y-1 shadow-md">
+            <div class="font-bold text-emerald-300 flex items-center justify-between">
               <span>✅ 3. Proposed MitoRestorer Phased Reset</span>
-              <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-emerald-500/25 text-emerald-200 font-bold">Proposed Solution</span>
+              <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-emerald-900 text-emerald-100 border border-emerald-400 font-bold">Verified Rescue</span>
             </div>
-            <p class="text-[var(--foreground)] leading-snug">
-              <strong>Phase 0:</strong> Unblock exits → <strong>Phase 1:</strong> Clean out red damaged mitochondria (hold <code>NAD⁺</code> off!) → <strong>⚡ Gate Switch</strong> → <strong>Phase 2:</strong> Multiply green healthy mitochondria!
+            <p class="text-emerald-100 leading-snug">
+              <strong>Phase 0:</strong> Unblock 3D doors → <strong>Phase 1:</strong> Mitophagy purge (withhold <code>NAD⁺</code>) → <strong>⚡ Day-38 GDF15 Gate</strong> → <strong>Phase 2:</strong> Wild-type clonal expansion!
             </p>
           </button>
         </div>
       </div>
 
-      <!-- STEP 3: LIVE ANIMATED CELLULAR TWIN (Left 7 Cols) + SMART AI BIOENERGETIC CO-PILOT (Right 5 Cols) -->
+      <!-- STEP 3: INTERACTIVE 4D BIOENERGETIC PHASE-SPACE MANIFOLD (Left 7 Cols) + SMART AI CO-PILOT (Right 5 Cols) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
 
-        <!-- Left 7 Cols: Live Animated Cell & Mitochondrial Twin Canvas -->
-        <div class="lg:col-span-7 flex flex-col justify-between rounded-xl border border-cyan-500/40 bg-[#060b16] p-3 space-y-2.5">
+        <!-- Left 7 Cols: Interactive 4D Bioenergetic Phase-Space Manifold Canvas -->
+        <div class="lg:col-span-7 flex flex-col justify-between rounded-xl border-2 border-cyan-500/40 bg-[#060b16] p-3 space-y-2.5">
           <div class="flex items-center justify-between flex-wrap gap-2 text-xs font-mono">
             <div class="flex items-center gap-2">
-              <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span class="font-bold text-slate-100" id="liveCellCanvasTitle">LIVE CELLULAR TWIN: Inside the Mitochondrial Network Over Time</span>
+              <span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+              <span class="font-bold text-slate-100" id="liveCellCanvasTitle">📐 4D BIOENERGETIC PHASE-SPACE MANIFOLD (Drag to Rotate 3D · X=Time, Y=Purity, Z=ATP, Color=EP)</span>
             </div>
-            <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold" id="liveCellPhasePill">
-              Phase 1: Recycling Damaged Mitochondria
+            <span class="px-2 py-0.5 rounded bg-cyan-950 border border-cyan-500/50 text-cyan-200 font-bold" id="liveCellPhasePill">
+              ⚡ Day-38 GDF15 Gate Plane
             </span>
           </div>
 
-          <!-- High-Resolution Animated Cell & Timeline Canvas -->
+          <!-- High-Resolution 4D Phase-Space Manifold Canvas -->
           <div class="rounded-lg overflow-hidden border border-slate-800 bg-[#040811]">
-            <canvas id="canvasLiveCellTwin" height="335" class="w-full block"></canvas>
+            <canvas id="canvasLiveCellTwin" height="360" class="w-full block cursor-grab active:cursor-grabbing"></canvas>
           </div>
 
-          <!-- Bottom Legend & Quick Snapshot Buttons -->
+          <!-- Bottom Camera Presets & Phase Jump Buttons -->
           <div class="flex items-center justify-between flex-wrap gap-2 text-[11px] font-mono text-slate-300 pt-1">
-            <div class="flex items-center gap-3 flex-wrap">
-              <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 mr-1"></span>Red = Damaged Mitochondria (D)</span>
-              <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 mr-1"></span>Green = Healthy Mitochondria (W)</span>
-              <span><span class="inline-block w-2.5 h-2.5 rounded-full border-2 border-amber-400 mr-1"></span>Gold Ring = Mitophagy Cleaner</span>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-slate-400">🖱️ Drag 3D surface to rotate | Camera:</span>
+              <button data-cam4d="0" class="cam4d-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 text-slate-200 hover:border-cyan-400">Isometric</button>
+              <button data-cam4d="1" class="cam4d-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 text-slate-200 hover:border-cyan-400">Phase-Plane</button>
+              <button data-cam4d="2" class="cam4d-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 text-slate-200 hover:border-cyan-400">Top Ridge</button>
             </div>
             <div class="flex items-center gap-1">
-              <button data-wstep="1" class="wstep-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 hover:bg-slate-800">1. Baseline</button>
-              <button data-wstep="2" class="wstep-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 hover:bg-slate-800">2. Trap</button>
-              <button data-wstep="3" class="wstep-btn px-2 py-0.5 rounded border border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold">3. Phased Reset</button>
-              <button data-wstep="4" class="wstep-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 hover:bg-slate-800">4. Lab Gate</button>
+              <button data-wstep="1" class="wstep-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 text-slate-200 hover:bg-slate-800">1. Baseline</button>
+              <button data-wstep="2" class="wstep-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 text-slate-200 hover:bg-slate-800">2. Trap</button>
+              <button data-wstep="3" class="wstep-btn px-2 py-0.5 rounded border border-emerald-500 bg-emerald-950 text-emerald-200 font-bold">3. Phased BCR</button>
+              <button data-wstep="4" class="wstep-btn px-2 py-0.5 rounded border border-slate-700 bg-slate-900 text-slate-200 hover:bg-slate-800">4. Lab Gate</button>
             </div>
           </div>
         </div>
 
         <!-- Right 5 Cols: Smart AI Bioenergetic Co-Pilot & Actionable Prescription Engine -->
-        <div class="lg:col-span-5 flex flex-col justify-between rounded-xl border border-emerald-500/40 bg-[var(--content)] p-3.5 space-y-3 text-xs">
+        <div class="lg:col-span-5 flex flex-col justify-between rounded-xl border border-emerald-500/40 bg-slate-950 text-slate-100 p-3.5 space-y-3 text-xs">
           <div class="space-y-2">
-            <div class="flex items-center justify-between border-b border-[var(--border)] pb-2">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
               <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 font-mono font-bold">🤖 AI BIOENERGETIC CO-PILOT</span>
-                <span id="wizardStepTitle" class="font-bold text-[var(--foreground)] truncate">Live Mechanistic Narrator</span>
+                <span class="px-2 py-0.5 rounded-md bg-emerald-950 border border-emerald-500/50 text-emerald-300 font-mono font-bold">🤖 AI BIOENERGETIC CO-PILOT</span>
+                <span id="wizardStepTitle" class="font-bold text-white truncate">Mechanistic &amp; Decision Narrator</span>
               </div>
-              <span class="font-mono text-[11px] text-cyan-400" id="aiCopilotClockLabel">Day 0.0</span>
+              <span class="font-mono text-[11px] text-cyan-300 font-bold" id="aiCopilotClockLabel">Day 38.0 / 90d</span>
             </div>
 
             <!-- Live Time-Synced Explanation: What Is Happening Right Now & Why -->
-            <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)] space-y-1.5">
-              <div class="font-bold text-cyan-400 uppercase tracking-wider text-[11px]" id="aiWhatIsHappeningTitle">
-                📍 What Is Happening Right Now &amp; Why:
+            <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1.5">
+              <div class="font-bold text-cyan-300 uppercase tracking-wider text-[11px]" id="aiWhatIsHappeningTitle">
+                📍 What Is Happening at This Timeline Point &amp; Why:
               </div>
-              <div id="aiLiveNarrativeBox" class="leading-relaxed text-[var(--foreground)]">
+              <div id="aiLiveNarrativeBox" class="leading-relaxed text-slate-100">
                 Loading live cellular telemetry...
               </div>
             </div>
 
             <!-- Proposed Protocol Concrete Prescription & Expected Outcome Box -->
-            <div class="p-3 rounded-lg bg-[var(--card)] border border-emerald-500/30 space-y-1.5">
-              <div class="font-bold text-emerald-400 uppercase tracking-wider text-[11px]">
+            <div class="p-3 rounded-lg bg-slate-900 border border-emerald-500/40 space-y-1.5">
+              <div class="font-bold text-emerald-300 uppercase tracking-wider text-[11px]">
                 💊 Proposed Phased Prescription &amp; Verified Outcome:
               </div>
-              <div id="wizardStepBody" class="leading-relaxed text-[var(--foreground)] space-y-1">
+              <div id="wizardStepBody" class="leading-relaxed text-slate-100 space-y-1">
               </div>
             </div>
           </div>
 
           <!-- Interactive "Ask the AI Co-Pilot" + What-If Sensitivity Sweeps + Live Gemini API (@google/genai) -->
-          <div class="space-y-2 pt-1 border-t border-[var(--border)]">
+          <div class="space-y-2 pt-1 border-t border-slate-800">
             <!-- What-If Sensitivity Sweep Buttons -->
             <div class="space-y-1">
-              <div class="font-bold text-amber-400 flex items-center justify-between text-[11px] uppercase tracking-wider">
+              <div class="font-bold text-amber-300 flex items-center justify-between text-[11px] uppercase tracking-wider">
                 <span>🔬 1-Click "What-If" ODE Sensitivity Sweeps:</span>
-                <span class="font-mono text-[10px] text-[var(--muted-foreground)]">9-Point Parameter Scan</span>
+                <span class="font-mono text-[10px] text-slate-400">9-Point Parameter Scan</span>
               </div>
               <div class="grid grid-cols-3 gap-1.5" id="aiSensitivityRow">
-                <button data-sweep="switch_day" class="ai-sweep-btn px-2 py-1 rounded-md bg-amber-500/15 border border-amber-500/40 text-amber-300 hover:bg-amber-500/25 font-mono font-bold text-[10px] transition">
+                <button data-sweep="switch_day" class="ai-sweep-btn px-2 py-1 rounded-md bg-amber-950 border border-amber-500/60 text-amber-200 hover:bg-amber-900 font-mono font-bold text-[10px] transition">
                   🔬 Sweep Switch Day (d14→d65)
                 </button>
-                <button data-sweep="stage0_chaperone" class="ai-sweep-btn px-2 py-1 rounded-md bg-purple-500/15 border border-purple-500/40 text-purple-300 hover:bg-purple-500/25 font-mono font-bold text-[10px] transition">
+                <button data-sweep="stage0_chaperone" class="ai-sweep-btn px-2 py-1 rounded-md bg-purple-950 border border-purple-500/60 text-purple-200 hover:bg-purple-900 font-mono font-bold text-[10px] transition">
                   🔬 Sweep Stage 0 Dose (0→100%)
                 </button>
-                <button data-sweep="baseline_h0" class="ai-sweep-btn px-2 py-1 rounded-md bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/25 font-mono font-bold text-[10px] transition">
+                <button data-sweep="baseline_h0" class="ai-sweep-btn px-2 py-1 rounded-md bg-cyan-950 border border-cyan-500/60 text-cyan-200 hover:bg-cyan-900 font-mono font-bold text-[10px] transition">
                   🔬 Sweep Initial h₀ (25→80%)
                 </button>
               </div>
@@ -2181,6 +2191,18 @@
       });
     }
 
+    state.activeUxPhaseIdx = 2;
+    state.manifold4DViewer = null;
+    state.manifold4DSpecKey = null;
+
+    function getActiveUxSpec() {
+      const stKey = getActiveHeroStudyKey();
+      if (window.MitoUX4DEngine && window.MitoUX4DEngine.COHORT_SPECS) {
+        return window.MitoUX4DEngine.COHORT_SPECS[stKey] || window.MitoUX4DEngine.COHORT_SPECS.parkinsons_snc;
+      }
+      return null;
+    }
+
     function renderGuidedWizard(sim) {
       updateHeroCardsUI();
       const stKey = getActiveHeroStudyKey();
@@ -2189,7 +2211,43 @@
       if (bodyEl) {
         bodyEl.innerHTML = prof.prescriptionHtml;
       }
+      const uxSpec = getActiveUxSpec();
+      if (uxSpec && window.MitoUX4DEngine) {
+        window.MitoUX4DEngine.render5PillarTransparencyInspector(
+          'transparencyInspectorContainer',
+          uxSpec,
+          state.activeUxPhaseIdx,
+          (newPhaseIdx) => {
+            state.activeUxPhaseIdx = newPhaseIdx;
+            state.isPlaying = false;
+            syncPlayPauseButtons();
+            const p = uxSpec.phases[newPhaseIdx];
+            const mid = (p.timeRange[0] + p.timeRange[1]) * 0.5;
+            state.simTimeFrac = clip(mid / (uxSpec.horizonMax || 90.0), 0, 1);
+            if (state.manifold4DViewer) state.manifold4DViewer.setCameraPreset(newPhaseIdx);
+            syncLiveTimeCursorUI();
+            renderGuidedWizard(state.lastSimResult);
+          }
+        );
+      }
       updateAiCopilotLiveNarrative(sim);
+      renderLiveCellTwinCanvas();
+    }
+
+    function renderLiveCellTwinCanvas() {
+      const uxSpec = getActiveUxSpec();
+      if (!uxSpec || !window.MitoUX4DEngine) return;
+      if (!state.manifold4DViewer || state.manifold4DSpecKey !== uxSpec.id) {
+        state.manifold4DSpecKey = uxSpec.id;
+        state.manifold4DViewer = window.MitoUX4DEngine.attach4DManifoldViewer(
+          'canvasLiveCellTwin',
+          uxSpec,
+          () => ({ timeFrac: state.simTimeFrac, activeRegimen: state.activeRegimen })
+        );
+      }
+      if (state.manifold4DViewer) {
+        state.manifold4DViewer.render();
+      }
     }
 
     function updateAiCopilotLiveNarrative(simInput) {
@@ -2255,289 +2313,6 @@
           narrEl.innerHTML = prof.stage2Text;
         }
       }
-    }
-
-    function renderLiveCellTwinCanvas() {
-      const canvas = document.getElementById('canvasLiveCellTwin');
-      if (!canvas) return;
-      const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      const w = Math.max(rect.width || 620, 480);
-      const h = 335;
-      if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
-        canvas.width = Math.round(w * dpr);
-        canvas.height = Math.round(h * dpr);
-      }
-      const ctx = canvas.getContext('2d');
-      ctx.save();
-      ctx.scale(dpr, dpr);
-      ctx.clearRect(0, 0, w, h);
-
-      const stKey = getActiveHeroStudyKey();
-      const prof = HERO_STUDY_PROFILES[stKey] || HERO_STUDY_PROFILES.parkinsons_snc;
-      const tFrac = clip(state.simTimeFrac || 0, 0, 1);
-      const gateFrac = stKey === 'bioreactor_cart' ? (64 / 240) : stKey === 'apis_honeybee' ? (4.5 / 14) : (38 / 90);
-
-      // Compute instantaneous biological metrics for the cell visualization
-      let hPct = 45.0, atpVal = 0.50, gdfVal = 1950, totalMitoCount = 20;
-      if (state.activeRegimen === 'unphased') {
-        hPct = 45.0 + 44.0 * (1.0 - Math.exp(-tFrac * 3.2));
-        atpVal = 0.52 - 0.30 * tFrac;
-        gdfVal = Math.round(1950 + 2400 * tFrac);
-        totalMitoCount = Math.round(20 + 4 * tFrac);
-      } else if (state.activeRegimen !== 'bcr') {
-        hPct = 48.0 + 14.0 * tFrac;
-        atpVal = 0.48 - 0.08 * tFrac;
-        gdfVal = Math.round(1950 + 450 * tFrac);
-        totalMitoCount = 18;
-      } else {
-        // Phased Reset (BCR): Stage 0 (0..0.16), Stage 1 Purge (0.16..gateFrac), Stage 2 Build (gateFrac..1.0)
-        if (tFrac <= gateFrac) {
-          const p = tFrac / Math.max(gateFrac, 0.01);
-          hPct = 46.0 - 38.8 * Math.pow(p, 1.15);
-          atpVal = 0.50 + 0.42 * p;
-          gdfVal = Math.round(1950 - 1440 * p);
-          totalMitoCount = Math.round(20 - 4 * Math.sin(p * Math.PI * 0.8));
-        } else {
-          const b = (tFrac - gateFrac) / Math.max(1.0 - gateFrac, 0.01);
-          hPct = 7.2 - 3.9 * (1.0 - Math.exp(-b * 3.0));
-          const maxAtp = stKey === 'apis_honeybee' ? 1.74 : stKey === 'epilepsy_pv' ? 1.46 : 1.25;
-          atpVal = 0.92 + (maxAtp - 0.92) * (1.0 - Math.exp(-b * 2.8));
-          gdfVal = Math.round(510 - 190 * b);
-          totalMitoCount = Math.round(18 + 8 * (1.0 - Math.exp(-b * 2.5)));
-        }
-      }
-
-      // =========================================================================
-      // TOP ZONE (y = 6..196): LIVE ANIMATED CELL & MITOCHONDRIAL NETWORK
-      // =========================================================================
-      const cellX = w * 0.5;
-      const cellY = 102;
-      const cellRx = w * 0.46;
-      const cellRy = 86;
-
-      // Cell membrane outer glow & boundary
-      const isGateMoment = state.activeRegimen === 'bcr' && Math.abs(tFrac - gateFrac) < 0.06;
-      ctx.save();
-      ctx.beginPath();
-      ctx.ellipse(cellX, cellY, cellRx, cellRy, 0, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(10, 19, 38, 0.92)';
-      ctx.fill();
-      ctx.lineWidth = isGateMoment ? 3.0 : 1.8;
-      ctx.strokeStyle = state.activeRegimen === 'unphased' ? 'rgba(245, 158, 11, 0.65)'
-        : state.activeRegimen !== 'bcr' ? 'rgba(244, 63, 94, 0.55)'
-        : isGateMoment ? '#22d3ee'
-        : tFrac < gateFrac ? 'rgba(251, 191, 36, 0.65)' : 'rgba(16, 185, 129, 0.75)';
-      ctx.stroke();
-
-      // Subtle cytoplasmic grid & central cell nucleus
-      ctx.beginPath();
-      ctx.ellipse(cellX, cellY, 34, 24, 0, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(59, 130, 246, 0.14)';
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(96, 165, 250, 0.4)';
-      ctx.lineWidth = 1.2;
-      ctx.stroke();
-      ctx.fillStyle = '#93c5fd';
-      ctx.font = 'bold 9.5px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText('NUCLEUS', cellX, cellY - 2);
-      ctx.font = '8.5px monospace';
-      ctx.fillStyle = '#cbd5e1';
-      ctx.fillText(state.activeRegimen === 'bcr' && tFrac > gateFrac ? 'PGC-1α ON' : 'ULK1/TFEB', cellX, cellY + 9);
-
-      // Cell header label inside top-left of cell box
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#e2e8f0';
-      ctx.font = 'bold 10.5px monospace';
-      ctx.fillText(prof.cellLabel, 14, 20);
-
-      // Draw 24 individual animated mitochondria orbiting in the cytoplasm
-      const numDamaged = Math.round((hPct / 100.0) * totalMitoCount);
-      for (let i = 0; i < totalMitoCount; i++) {
-        const isDamaged = i < numDamaged;
-        const ring = i % 2 === 0 ? 0.52 : 0.80;
-        const baseAngle = (i / totalMitoCount) * Math.PI * 2 + state.coralAnimTime * (isDamaged ? 0.18 : 0.34);
-        const mx = cellX + Math.cos(baseAngle) * (cellRx * ring) * 0.88;
-        const my = cellY + Math.sin(baseAngle) * (cellRy * ring) * 0.78;
-        const mAngle = baseAngle + Math.PI * 0.5;
-
-        ctx.save();
-        ctx.translate(mx, my);
-        ctx.rotate(mAngle);
-
-        // Organelle capsule body
-        ctx.beginPath();
-        ctx.ellipse(0, 0, 12, 6.2, 0, 0, Math.PI * 2);
-        if (isDamaged) {
-          ctx.fillStyle = 'rgba(244, 63, 94, 0.32)';
-          ctx.strokeStyle = '#f43f5e';
-        } else {
-          ctx.fillStyle = 'rgba(16, 185, 129, 0.32)';
-          ctx.strokeStyle = '#10b981';
-        }
-        ctx.lineWidth = 1.6;
-        ctx.fill();
-        ctx.stroke();
-
-        // Inner cristae folds
-        ctx.beginPath();
-        ctx.moveTo(-7, -3); ctx.lineTo(-4, 3);
-        ctx.moveTo(0, -3.5); ctx.lineTo(2, 3.5);
-        ctx.moveTo(6, -3); ctx.lineTo(7, 3);
-        ctx.strokeStyle = isDamaged ? 'rgba(253, 164, 175, 0.65)' : 'rgba(167, 243, 208, 0.85)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // If Stage 1 Mitophagy is active in BCR, draw Golden Autophagosome Cleaner Rings around Red Damaged Mitochondria!
-        if (isDamaged && state.activeRegimen === 'bcr' && tFrac >= 0.12 && tFrac <= gateFrac + 0.05) {
-          const pulse = 14 + Math.sin(state.coralAnimTime * 6 + i) * 2.5;
-          ctx.beginPath();
-          ctx.arc(0, 0, pulse, 0, Math.PI * 2);
-          ctx.strokeStyle = '#fbbf24';
-          ctx.lineWidth = 1.5;
-          ctx.setLineDash([3, 2]);
-          ctx.stroke();
-          ctx.setLineDash([]);
-        }
-        ctx.restore();
-      }
-
-      // Top-right live status callout badge inside cell arena
-      let statusBannerText = '';
-      let statusBannerCol = '#34d399';
-      if (state.activeRegimen === 'unphased') {
-        statusBannerText = '⚠️ TRAP: NAD+ Clones Shorter Damaged DNA First!';
-        statusBannerCol = '#fbbf24';
-      } else if (state.activeRegimen !== 'bcr') {
-        statusBannerText = '❌ UNTREATED: Damaged Mitochondria Stay Clogged';
-        statusBannerCol = '#fb7185';
-      } else if (tFrac < 0.16) {
-        statusBannerText = '🟣 STAGE 0: Opening Import & Lysosomal Doors';
-        statusBannerCol = '#c084fc';
-      } else if (isGateMoment) {
-        statusBannerText = '⚡ GATE UNLOCKED (h ≤ 8%): Switching to Rebuild!';
-        statusBannerCol = '#22d3ee';
-      } else if (tFrac < gateFrac) {
-        statusBannerText = '🟡 STAGE 1: Recycling Red Mitochondria (Hold NAD+)';
-        statusBannerCol = '#fbbf24';
-      } else {
-        statusBannerText = '🟢 STAGE 2: Cloning Healthy Green Mitochondria!';
-        statusBannerCol = '#34d399';
-      }
-      ctx.textAlign = 'right';
-      ctx.font = 'bold 10.5px monospace';
-      ctx.fillStyle = statusBannerCol;
-      ctx.fillText(statusBannerText, w - 14, 20);
-      ctx.restore();
-
-      // =========================================================================
-      // BOTTOM ZONE (y = 200..330): 3-STAGE TIMELINE PLAYHEAD & 3 HEALTH METERS
-      // =========================================================================
-      const tlX = 16, tlY = 204, tlW = w - 32, tlH = 24;
-      const s0W = tlW * 0.16;
-      const s1W = tlW * Math.max(0.18, gateFrac - 0.16);
-      const s2W = tlW - s0W - s1W;
-
-      // Stage 0 segment
-      ctx.fillStyle = 'rgba(168, 85, 247, 0.22)';
-      ctx.fillRect(tlX, tlY, s0W, tlH);
-      ctx.strokeStyle = 'rgba(168, 85, 247, 0.55)';
-      ctx.strokeRect(tlX, tlY, s0W, tlH);
-      ctx.fillStyle = '#e9d5ff';
-      ctx.font = 'bold 9.5px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText('Stage 0: Unblock', tlX + s0W * 0.5, tlY + 15);
-
-      // Stage 1 segment
-      ctx.fillStyle = 'rgba(245, 158, 11, 0.22)';
-      ctx.fillRect(tlX + s0W, tlY, s1W, tlH);
-      ctx.strokeStyle = 'rgba(245, 158, 11, 0.55)';
-      ctx.strokeRect(tlX + s0W, tlY, s1W, tlH);
-      ctx.fillStyle = '#fde68a';
-      ctx.fillText('Stage 1: Clean Damaged (No NAD+)', tlX + s0W + s1W * 0.5, tlY + 15);
-
-      // Stage 2 segment
-      ctx.fillStyle = 'rgba(16, 185, 129, 0.22)';
-      ctx.fillRect(tlX + s0W + s1W, tlY, s2W, tlH);
-      ctx.strokeStyle = 'rgba(16, 185, 129, 0.55)';
-      ctx.strokeRect(tlX + s0W + s1W, tlY, s2W, tlH);
-      ctx.fillStyle = '#a7f3d0';
-      ctx.fillText('⚡ Gate → Stage 2: Multiply Healthy Mitochondria', tlX + s0W + s1W + s2W * 0.5, tlY + 15);
-
-      // Moving Time Playhead Marker on Timeline Bar
-      const playX = tlX + tFrac * tlW;
-      ctx.fillStyle = '#22d3ee';
-      ctx.fillRect(playX - 2, tlY - 4, 4, tlH + 8);
-      ctx.beginPath();
-      ctx.arc(playX, tlY - 4, 5, 0, Math.PI * 2);
-      ctx.fill();
-
-      // 3 High-Contrast Health Gauges ("Right Now vs. Healthy Goal")
-      const gw3 = (tlW - 20) / 3;
-      const gy3 = 242;
-      const gh3 = 82;
-      const gauges = [
-        {
-          title: '1. DAMAGED MITOCHONDRIA (h%)',
-          sub: 'Goal: Drop Below 8% Before Rebuild',
-          valText: `${hPct.toFixed(1)}%`,
-          status: hPct <= 8.5 ? '✅ CLEANED (<8%)' : hPct <= 35 ? '🟡 CLEANING...' : '🔴 OVERLOADED',
-          frac: clip(hPct / 95.0, 0.03, 1.0),
-          col: hPct <= 8.5 ? '#10b981' : hPct <= 35 ? '#f59e0b' : '#f43f5e'
-        },
-        {
-          title: '2. CELLULAR ENERGY (NET ATP)',
-          sub: 'Goal: Restore Above 1.15× Baseline',
-          valText: `${atpVal.toFixed(2)}×`,
-          status: atpVal >= 1.10 ? '✅ RESTORED' : atpVal >= 0.75 ? '🟡 RECOVERING' : '🔴 ENERGY STARVED',
-          frac: clip(atpVal / 1.75, 0.05, 1.0),
-          col: atpVal >= 1.10 ? '#10b981' : atpVal >= 0.75 ? '#38bdf8' : '#f43f5e'
-        },
-        {
-          title: '3. STRESS ALARM (PLASMA GDF15)',
-          sub: 'Goal: Drop Below 550 pg/mL Gate',
-          valText: `${gdfVal} pg/mL`,
-          status: gdfVal <= 550 ? '✅ GATE GREEN' : gdfVal <= 1200 ? '🟡 DROPPING' : '🔴 HIGH ALARM',
-          frac: clip(gdfVal / 4200.0, 0.04, 1.0),
-          col: gdfVal <= 550 ? '#10b981' : gdfVal <= 1200 ? '#f59e0b' : '#f43f5e'
-        }
-      ];
-
-      gauges.forEach((g, idx) => {
-        const bx = tlX + idx * (gw3 + 10);
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.22)';
-        ctx.lineWidth = 1;
-        ctx.fillRect(bx, gy3, gw3, gh3);
-        ctx.strokeRect(bx, gy3, gw3, gh3);
-
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#cbd5e1';
-        ctx.font = 'bold 9.5px monospace';
-        ctx.fillText(g.title, bx + 8, gy3 + 15);
-
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '8.5px monospace';
-        ctx.fillText(g.sub, bx + 8, gy3 + 28);
-
-        ctx.fillStyle = '#f8fafc';
-        ctx.font = 'bold 14px monospace';
-        ctx.fillText(g.valText, bx + 8, gy3 + 49);
-
-        ctx.textAlign = 'right';
-        ctx.fillStyle = g.col;
-        ctx.font = 'bold 9.5px monospace';
-        ctx.fillText(g.status, bx + gw3 - 8, gy3 + 48);
-
-        // Progress bar
-        ctx.fillStyle = 'rgba(30, 41, 59, 0.95)';
-        ctx.fillRect(bx + 8, gy3 + 58, gw3 - 16, 12);
-        ctx.fillStyle = g.col;
-        ctx.fillRect(bx + 8, gy3 + 58, (gw3 - 16) * g.frac, 12);
-      });
-
-      ctx.restore();
     }
 
     state.previousInteractionId = null;
@@ -2844,8 +2619,8 @@ console.log(interaction.output_text);`;
     state.coralStudy = 'parkinsons_snc';
     state.coralPhase = 'live'; // '0' (Baseline/Purge), '1' (Gate Crossing), '2' (Stage 2 Rescue), or 'live' (Continuous Time Evolution)
     state.coralAnimTime = 0;
-    state.simTimeFrac = 0.0;
-    state.isPlaying = true;
+    state.simTimeFrac = 38.0 / 90.0;
+    state.isPlaying = false;
     state.playSpeed = 1.0;
     state.isMouseHovering = false;
 
@@ -4235,12 +4010,19 @@ console.log(interaction.output_text);`;
     });
 
     // Hero Study Cards (Step 1), Strategy Cards (Step 2), & AI Co-Pilot Listeners (Step 3)
+    document.querySelectorAll('.cam4d-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cam = parseInt(btn.getAttribute('data-cam4d'), 10);
+        if (state.manifold4DViewer) state.manifold4DViewer.setCameraPreset(cam);
+      });
+    });
+
     document.querySelectorAll('.hero-study-card').forEach(btn => {
       btn.addEventListener('click', () => {
         const studyId = btn.getAttribute('data-hero-study');
         state.coralStudy = studyId;
-        state.simTimeFrac = 0.0;
-        state.isPlaying = true;
+        state.simTimeFrac = 38.0 / 90.0;
+        state.isPlaying = false;
         syncPlayPauseButtons();
         const presetSel = document.getElementById('patientPresetSelect');
         if (presetSel) {
@@ -4256,8 +4038,7 @@ console.log(interaction.output_text);`;
       btn.addEventListener('click', () => {
         const reg = btn.getAttribute('data-hero-regimen');
         state.activeRegimen = reg;
-        state.simTimeFrac = 0.0;
-        state.isPlaying = true;
+        state.isPlaying = false;
         syncPlayPauseButtons();
         document.querySelectorAll('.regimen-btn').forEach(b => {
           const isAct = b.getAttribute('data-regimen') === state.activeRegimen;

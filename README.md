@@ -11,19 +11,24 @@
 
 ---
 
-## 🚀 Quick Launch & Key Entry Points (Hub + 3 Dedicated Domain Simulators)
+## 🚀 Quick Launch & Key Entry Points (Hub + 7 Dedicated Cohort Workstations)
 
 | Resource | Description | Link |
 | :--- | :--- | :--- |
-| **🏛️ Central Platform Hub** | Executive overview, **3-Domain Simulator Launcher**, **Coral NPU Signal & Phase-Plane Visualizer**, & **8-Structure 3D Atlas** | [`index.html`](index.html) |
-| **🏥 Domain 1: Human Clinical Simulator (`90-Day`)** | Dedicated Human Clinical & Neuro-Metabolic Simulator (**Cohorts A–E**: Parkinson's, Alzheimer's, Epilepsy, Depression, Sarcopenia) with **Live Cellular Twin**, **Day-38 Lab Gate**, & **Clinical AI Co-Pilot** | [`simulator/bcr_simulator.html`](simulator/bcr_simulator.html) |
-| **🧬 Domain 2: CAR-T GMP Bioreactor Simulator (`240-Hour`)** | Dedicated *Ex Vivo* CAR-T Immunotherapy Bioreactor Controller (**Cohort F**, `PDB: 2Q8G PDK1`) with **Live Perfusion Cassette Twin**, **Hour-64 Inline `Lactate:Pyruvate` Solenoid Valve**, & **GMP Bioprocess AI Co-Pilot** | [`simulator/cart_bioreactor_simulator.html`](simulator/cart_bioreactor_simulator.html) |
-| **🐝 Domain 3: Honeybee Smart Hive Simulator (`14-Day`)** | Dedicated *Apis-BCR* Honeybee Colony & Smart Hive Simulator (**Cohort G**, `PDB: 1SQB Complex III Qo`) with **Live Flight-Muscle & 16-Bin MEMS Wingbeat FFT Twin**, **Day-4.5 Patty Baffle**, & **Apiary AI Co-Pilot** | [`simulator/apis_honeybee_simulator.html`](simulator/apis_honeybee_simulator.html) |
+| **🏛️ Central Platform Hub** | Executive overview, **7 Dedicated Cohort Workstation Launcher**, **Coral NPU Signal & Phase-Plane Visualizer**, & **8-Structure 3D Atlas** | [`index.html`](index.html) |
+| **🧠 Cohort E: Parkinson's Workstation (`90-Day`)** | Dedicated SNc Dopaminergic Pacemaker Workstation (`GBA1 2NSX` + `LRRK2` + `PINK1 6EQI`) with **4D Phase-Space Manifold** & **5-Pillar Transparency Inspector** | [`simulator/parkinsons_simulator.html`](simulator/parkinsons_simulator.html) |
+| **🧬 Cohort B: Alzheimer's APOE4 Workstation (`90-Day`)** | Dedicated Prodromal *APOE4* Cortical Workstation (`APOE4 1B68` + `TOMM40 7CK6`) with **4D Phase-Space Manifold** & **Day-54 Slow-Neuron Gate** | [`simulator/alzheimers_simulator.html`](simulator/alzheimers_simulator.html) |
+| **⚡ Cohort C: Epilepsy PV+ Workstation (`90-Day`)** | Dedicated Fast-Spiking $\text{PV}^+$ Interneuron Workstation ($f^2=3.06\times$ + Day-30 Ketogenic $\text{H}_2\text{S}$ Shield) with **4D Phase-Space Manifold** | [`simulator/epilepsy_simulator.html`](simulator/epilepsy_simulator.html) |
+| **🔬 Cohort D: Depression TR-MDD Workstation (`90-Day`)** | Dedicated Microglial `IDO1/QUIN` Kynurenine Steal & Prefrontal `SIRT1` Workstation with **4D Phase-Space Manifold** | [`simulator/depression_simulator.html`](simulator/depression_simulator.html) |
+| **💪 Cohort A: Sarcopenia & Metabolic Workstation (`90-Day`)** | Dedicated Skeletal Muscle `FUT2` Non-Secretor + `MTHFR 6FCX` + Lag-Compression ($\tau_{\text{lag}} = 6.0\text{h}$) Workstation with **4D Phase-Space Manifold** | [`simulator/sarcopenia_simulator.html`](simulator/sarcopenia_simulator.html) |
+| **🧫 Cohort F: CAR-T GMP Bioreactor Workstation (`240-Hour`)** | Dedicated *Ex Vivo* CAR-T Immunotherapy Bioreactor Controller (`PDB: 2Q8G PDK1`) with **4D Phase-Space Manifold**, **Hour-64 Inline `Lactate:Pyruvate` Solenoid Valve**, & **5-Pillar GMP Transparency Inspector** | [`simulator/cart_bioreactor_simulator.html`](simulator/cart_bioreactor_simulator.html) |
+| **🐝 Cohort G: Honeybee Smart Hive Workstation (`14-Day`)** | Dedicated *Apis-BCR* Honeybee Colony & Smart Hive Simulator (`PDB: 1SQB Complex III Qo`) with **4D Phase-Space Manifold**, **Day-4.5 (220 Hz) Patty Baffle**, & **5-Pillar Apiary Transparency Inspector** | [`simulator/apis_honeybee_simulator.html`](simulator/apis_honeybee_simulator.html) |
+| **🔬 Multi-Cohort Master Suite (`All 7 Cohorts`)** | Cross-compare all cohorts side-by-side with full access to the **Bifurcation Phase-Plane**, **8-PDB 3D Structural Proof Table**, **Ensembl VEP Matrix**, & **Coral NPU Silicon Visualizer** | [`simulator/bcr_simulator.html`](simulator/bcr_simulator.html) |
 | **⚡ Google Coral NPU (`RV32IMF_Zve32x`) Report** | Bit-Exact `Q16.16`/`INT8` & Compiled C99 Hardware-in-the-Loop (`HIL`) Benchmark (`0.012 ms`, `4.03–4.09 mW`, `<8 KB` L1 DTCM) | [`docs/coral_npu_edge_report.md`](docs/coral_npu_edge_report.md) |
 | **📄 Academic Paper Manuscript** | Full Cross-Species Manuscript & Discovery Log (**Discoveries 1–8** + Section 4.6 Coral NPU Silicon Realization) | [`docs/academic_manuscript_bcr.md`](docs/academic_manuscript_bcr.md) |
 | **🐝 Honeybee `Apis-BCR` Apiary Protocol** | Beekeepers' Two-Stage Patty Formulation Manual & 14-Day Pollination Trial Protocol (**18.0% → 96.5% Homing Survival**) | [`docs/apis_bcr_beekeeper_protocol.md`](docs/apis_bcr_beekeeper_protocol.md) |
 | **🧬 CAR-T `Bioreactor-BCR` GMP SOP** | 240-Hour Perfusion Media-A/Media-B Recipe & Hour-64 `Lactate:Pyruvate` Gate (**62.9x Expansion & 78.0% $\text{T}_{\text{SCM}}$**) | [`docs/cart_bioreactor_sop.md`](docs/cart_bioreactor_sop.md) |
-| **🧪 How to Run & Test Guide** | Step-by-step CLI commands, **20-Point Automated Verification Suite**, & Wet-Lab / Apiary Execution Guide | [`docs/how_to_run_and_test.md`](docs/how_to_run_and_test.md) |
+| **🧪 How to Run & Test Guide** | Step-by-step CLI commands, **22-Point Automated Verification Suite**, & Wet-Lab / Apiary Execution Guide | [`docs/how_to_run_and_test.md`](docs/how_to_run_and_test.md) |
 
 ---
 

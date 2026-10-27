@@ -1,0 +1,177 @@
+{
+  "generated_at_utc": "2026-10-27T13:40:51.217096+00:00",
+  "flagship_focus": "Flagship #1: Parkinson's Disease (PD-BCR 10-State ODE) + Phase 2: Apis-BCR",
+  "watch_topics": [
+    {
+      "topic": "Flagship #1 (PD-BCR): PINK1 / GBA1 Mitophagy & Lysosomal Flux",
+      "query": "(Parkinson) AND (PINK1 OR GBA1 OR mitophagy OR ambroxol)",
+      "target_cohort": "Parkinsons_SNc",
+      "hits": [
+        {
+          "title": "Offline/Cached Watch Entry for Flagship #1 (PD-BCR): PINK1 / GBA1 Mitophagy & Lysosomal Flux",
+          "author": "MitoRestorer Curated Radar",
+          "journal": "Cached Snapshot",
+          "year": "2026",
+          "doi": "10.1111/acel.70751",
+          "note": "HTTP Error 403: Forbidden"
+        }
+      ]
+    },
+    {
+      "topic": "Flagship #1 (PD-BCR): Brain Tissue Hyperoxia & HIF-2a / Oxygen Shield",
+      "query": "(Parkinson OR neurodegeneration) AND (hyperoxia OR hypoxia OR EPAS1 OR HIF-2)",
+      "target_cohort": "Parkinsons_SNc",
+      "hits": [
+        {
+          "title": "Offline/Cached Watch Entry for Flagship #1 (PD-BCR): Brain Tissue Hyperoxia & HIF-2a / Oxygen Shield",
+          "author": "MitoRestorer Curated Radar",
+          "journal": "Cached Snapshot",
+          "year": "2026",
+          "doi": "10.1111/acel.70751",
+          "note": "HTTP Error 403: Forbidden"
+        }
+      ]
+    },
+    {
+      "topic": "Flagship #1 (PD-BCR): Mitochondrial Creatine Kinase (uMtCK / CKMT1A) & Axonal PCr Shuttle",
+      "query": "(Parkinson) AND (\"creatine kinase\" OR phosphocreatine OR CKMT1A OR SLC6A8)",
+      "target_cohort": "Parkinsons_SNc",
+      "hits": [
+        {
+          "title": "Offline/Cached Watch Entry for Flagship #1 (PD-BCR): Mitochondrial Creatine Kinase (uMtCK / CKMT1A) & Axonal PCr Shuttle",
+          "author": "MitoRestorer Curated Radar",
+          "journal": "Cached Snapshot",
+          "year": "2026",
+          "doi": "10.1111/acel.70751",
+          "note": "HTTP Error 403: Forbidden"
+        }
+      ]
+    },
+    {
+      "topic": "Flagship #1 (PD-BCR): Neuronal Epigenetic Clock & TET / Alpha-Ketoglutarate",
+      "query": "(\"epigenetic clock\" OR \"epigenetic age\") AND (neuron OR mitochondrial OR ketoglutarate)",
+      "target_cohort": "Parkinsons_SNc",
+      "hits": [
+        {
+          "title": "Offline/Cached Watch Entry for Flagship #1 (PD-BCR): Neuronal Epigenetic Clock & TET / Alpha-Ketoglutarate",
+          "author": "MitoRestorer Curated Radar",
+          "journal": "Cached Snapshot",
+          "year": "2026",
+          "doi": "10.1111/acel.70751",
+          "note": "HTTP Error 403: Forbidden"
+        }
+      ]
+    },
+    {
+      "topic": "Phase 2 Target (Apis-BCR): Honeybee Thoracic Mitochondria & Holobiont Rescue",
+      "query": "(\"Apis mellifera\" OR honeybee) AND (mitochondria OR fungicide OR \"Snodgrassella\")",
+      "target_cohort": "Apis_BCR_Honeybee",
+      "hits": [
+        {
+          "title": "Offline/Cached Watch Entry for Phase 2 Target (Apis-BCR): Honeybee Thoracic Mitochondria & Holobiont Rescue",
+          "author": "MitoRestorer Curated Radar",
+          "journal": "Cached Snapshot",
+          "year": "2026",
+          "doi": "10.1111/acel.70751",
+          "note": "HTTP Error 403: Forbidden"
+        }
+      ]
+    }
+  ],
+  "creatine_umtck_1qk1_benchmark": {
+    "1_Standard_Levodopa_Care_Alone": {
+      "arm": "1_Standard_Levodopa_Care_Alone",
+      "h_day90_pct": 44.7,
+      "uMtCK_Octamer_1QK1_pct": 44.0,
+      "SLC6A8_BBB_Active_pct": 85.0,
+      "Axonal_PCr_Shuttle_x": 0.45,
+      "SAMe_Methyl_Reserve_x": 0.36,
+      "eAge_d90_pct": 100.0,
+      "TH_Motor_Rescue_pct": 8.5,
+      "switch_day": null
+    },
+    "2_Unphased_Continuous_Creatine_10g_NET_PD_LS1_Trial": {
+      "arm": "2_Unphased_Continuous_Creatine_10g_NET_PD_LS1_Trial",
+      "h_day90_pct": 51.7,
+      "uMtCK_Octamer_1QK1_pct": 42.4,
+      "SLC6A8_BBB_Active_pct": 38.0,
+      "Axonal_PCr_Shuttle_x": 0.53,
+      "SAMe_Methyl_Reserve_x": 0.77,
+      "eAge_d90_pct": 100.0,
+      "TH_Motor_Rescue_pct": 10.5,
+      "switch_day": null
+    },
+    "3_Baseline_PD_BCR_Without_Stage2_Creatine_Shuttle": {
+      "arm": "3_Baseline_PD_BCR_Without_Stage2_Creatine_Shuttle",
+      "h_day90_pct": 1.0,
+      "uMtCK_Octamer_1QK1_pct": 96.9,
+      "SLC6A8_BBB_Active_pct": 85.0,
+      "Axonal_PCr_Shuttle_x": 1.19,
+      "SAMe_Methyl_Reserve_x": 0.86,
+      "eAge_d90_pct": 7.8,
+      "TH_Motor_Rescue_pct": 90.1,
+      "switch_day": 20.5
+    },
+    "4_PD_BCR_Plus_Stage2_Gated_Creatine_uMtCK_1QK1_6FCX_Synergy": {
+      "arm": "4_PD_BCR_Plus_Stage2_Gated_Creatine_uMtCK_1QK1_6FCX_Synergy",
+      "h_day90_pct": 0.9,
+      "uMtCK_Octamer_1QK1_pct": 97.0,
+      "SLC6A8_BBB_Active_pct": 88.0,
+      "Axonal_PCr_Shuttle_x": 1.66,
+      "SAMe_Methyl_Reserve_x": 1.27,
+      "eAge_d90_pct": 2.6,
+      "TH_Motor_Rescue_pct": 99.1,
+      "switch_day": 20.5
+    }
+  },
+  "berg_2026_acel70751_benchmark": {
+    "1_Aged_Donor_Baseline_Untreated": {
+      "arm": "1_Aged_Donor_Baseline_Untreated",
+      "h_day100_pct": 39.5,
+      "aKG_Succinate_day100": 0.32,
+      "PAX6_Early_Fate_d25": 0.05,
+      "eAge_d25_pct": 100.0,
+      "eAge_d50_pct": 100.0,
+      "eAge_d100_pct": 100.0,
+      "Equivalent_Bio_Age_Yrs_From_80yo": 80.0,
+      "Transcriptomic_Maturation_d100": 0.0,
+      "switch_day": null
+    },
+    "2_Unphased_Rapid_Proliferation_Without_Mito_Purge": {
+      "arm": "2_Unphased_Rapid_Proliferation_Without_Mito_Purge",
+      "h_day100_pct": 19.4,
+      "aKG_Succinate_day100": 0.53,
+      "PAX6_Early_Fate_d25": 0.76,
+      "eAge_d25_pct": 94.4,
+      "eAge_d50_pct": 87.1,
+      "eAge_d100_pct": 70.9,
+      "Equivalent_Bio_Age_Yrs_From_80yo": 56.7,
+      "Transcriptomic_Maturation_d100": 0.18,
+      "switch_day": null
+    },
+    "3_Standard_SOX2_cMYC_iNSC_Conversion_Berg2026": {
+      "arm": "3_Standard_SOX2_cMYC_iNSC_Conversion_Berg2026",
+      "h_day100_pct": 1.1,
+      "aKG_Succinate_day100": 1.02,
+      "PAX6_Early_Fate_d25": 0.84,
+      "eAge_d25_pct": 78.9,
+      "eAge_d50_pct": 41.7,
+      "eAge_d100_pct": 6.8,
+      "Equivalent_Bio_Age_Yrs_From_80yo": 17.4,
+      "Transcriptomic_Maturation_d100": 0.83,
+      "switch_day": 38.0
+    },
+    "4_MitoRestorer_BCR_Plus_Berg2026_TET_SIRT1_6FCX_Synergy": {
+      "arm": "4_MitoRestorer_BCR_Plus_Berg2026_TET_SIRT1_6FCX_Synergy",
+      "h_day100_pct": 1.1,
+      "aKG_Succinate_day100": 1.15,
+      "PAX6_Early_Fate_d25": 0.89,
+      "eAge_d25_pct": 70.0,
+      "eAge_d50_pct": 20.7,
+      "eAge_d100_pct": 3.1,
+      "Equivalent_Bio_Age_Yrs_From_80yo": 14.5,
+      "Transcriptomic_Maturation_d100": 0.93,
+      "switch_day": 25.5
+    }
+  }
+}

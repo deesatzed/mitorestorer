@@ -54,14 +54,23 @@
             Domain 2: Ex Vivo CAR-T Bioreactor Controller (240-Hour / 10-Day GMP Horizon)
           </span>
           <span class="text-xs font-mono text-teal-300">
-            PDB: 2Q8G (PDK1 Ser75/Phe62) + 6EQI (PINK1) + 4ZZJ (SIRT1) + Coral NPU 4.09 mW Valve
+            PDB: 2Q8G (PDK1 Ser75/Phe62) + 6EQI (PINK1) + 4ZZJ (SIRT1) + Automated GMP PLC Valve
           </span>
+          <a href="https://deepmind.google.com/science/alphagenome/atlas?q=PDK1&m=entity" target="_blank" rel="noopener" class="px-2 py-0.5 text-[11px] font-mono rounded bg-purple-950 border border-purple-500/40 text-purple-200 hover:border-purple-400">
+            🧬 AlphaGenome: PDK1
+          </a>
+          <a href="https://deepmind.google.com/science/alphagenome/atlas?q=TCF7&m=entity" target="_blank" rel="noopener" class="px-2 py-0.5 text-[11px] font-mono rounded bg-cyan-950 border border-cyan-500/40 text-cyan-200 hover:border-cyan-400">
+            🧬 AlphaGenome: TCF7 (T_SCM)
+          </a>
+          <a href="https://alphafold.ebi.ac.uk/entry/Q15118" target="_blank" rel="noopener" class="px-2 py-0.5 text-[11px] font-mono rounded bg-teal-950 border border-teal-500/40 text-teal-200 hover:border-teal-400">
+            🔬 AlphaFold: PDK1 (Q15118)
+          </a>
         </div>
         <h1 class="text-xl md:text-2xl font-bold mt-1.5 text-[var(--foreground)]">
           Bioreactor-BCR: Closed-Loop Stem-Cell Memory (T_SCM) CAR-T Manufacturing Simulator
         </h1>
         <p class="text-sm text-[var(--muted-foreground)] mt-1">
-          Resolves the <strong>CAR-T Expansion vs. Exhaustion Paradox</strong> by separating ex vivo manufacturing into <strong>Phase 1 Mitophagy Conditioning (Hours 0–64)</strong> and <strong>Phase 2 Clonal OXPHOS Expansion (Hours 64–240)</strong>, gated by inline supernatant <span class="font-mono">Lactate:Pyruvate ≤ 12.0</span> on a 4.09 mW Google Coral NPU perfusion controller.
+          Resolves the <strong>CAR-T Expansion vs. Exhaustion Paradox</strong> by separating ex vivo manufacturing into <strong>Phase 1 Mitophagy Conditioning (Hours 0–64)</strong> and <strong>Phase 2 Clonal OXPHOS Expansion (Hours 64–240)</strong>, gated by inline amperometric supernatant <span class="font-mono">Lactate:Pyruvate ≤ 12.0</span> and guided by the <strong>Google DeepMind Bio-AI Stack (AlphaFold/PDB + AlphaGenome Atlas + Gemini 3.8)</strong>.
         </p>
       </div>
     </div>
@@ -221,7 +230,7 @@
               <div class="font-bold text-teal-300 uppercase tracking-wider text-[11px]">📋 GMP Cassette Perfusion Recipe &amp; Harvest Target:</div>
               <div id="aiRecipeBox" class="leading-relaxed text-[var(--foreground)] space-y-1">
                 <div>• <strong>Hours 0–64 (Valve A — Conditioning Media):</strong> 4 mM Glucose + <code>AZD7545 (5 µM, PDB: 2Q8G PDK1)</code> + <code>Urolithin A (25 µM)</code> + <code>Kinetin (10 µM, 6EQI)</code> + IL-7/IL-15.</div>
-                <div>• <strong>Hour 64 Coral NPU Solenoid Gate:</strong> Triggered automatically when inline amperometric <code>Lactate:Pyruvate ≤ 12.0</code>.</div>
+                <div>• <strong>Hour 64 Inline GMP PLC Solenoid Gate:</strong> Triggered automatically when inline amperometric <code>Lactate:Pyruvate ≤ 12.0</code>.</div>
                 <div>• <strong>Hours 64–240 (Valve B — Clonal Build Media):</strong> <code>NR (500 µM)</code> + <code>SIRT1 STAC (4ZZJ)</code> + <code>Creatine (2 mM)</code> + <code>L-Arginine</code> → <strong>62.9× Fold Expansion &amp; 78.0% T_SCM!</strong></div>
               </div>
             </div>
@@ -275,7 +284,7 @@
             <div class="flex flex-wrap gap-1.5">
               <button data-q="why_pdk1" class="ai-q px-2 py-1 rounded bg-[var(--card)] border border-[var(--border)] hover:border-teal-400 text-[11px]">Why block PDK1 (2Q8G) at Hour 0?</button>
               <button data-q="why_not_static" class="ai-q px-2 py-1 rounded bg-[var(--card)] border border-[var(--border)] hover:border-teal-400 text-[11px]">Why not keep Urolithin A on all 10 days?</button>
-              <button data-q="valve_sensor" class="ai-q px-2 py-1 rounded bg-[var(--card)] border border-[var(--border)] hover:border-teal-400 text-[11px]">How does the Hour-64 Coral NPU valve switch work?</button>
+              <button data-q="valve_sensor" class="ai-q px-2 py-1 rounded bg-[var(--card)] border border-[var(--border)] hover:border-teal-400 text-[11px]">How does the Hour-64 GMP PLC valve switch work?</button>
             </div>
             <div class="flex items-center gap-1.5">
               <input id="aiInput" type="text" placeholder="Ask GMP AI (e.g. 'Why does high glucose cause exhaustion?', 'What is SRC?')" class="w-full px-2.5 py-1.5 rounded-lg bg-[var(--card)] border border-[var(--border)] text-xs focus:outline-none focus:border-teal-400" />
@@ -292,7 +301,7 @@
       <div id="transparencyInspectorContainer"></div>
     </div>
 
-    <!-- Dedicated GMP Bioreactor Controls (Left 4 Cols) + 4-Panel 240-Hour Bioreactor ODE Charts & Coral NPU Valve Visualizer (Right 8 Cols) -->
+    <!-- Dedicated GMP Bioreactor Controls (Left 4 Cols) + 4-Panel 240-Hour Bioreactor ODE Charts & GMP PLC Valve Visualizer (Right 8 Cols) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
 
       <!-- Left 4 Cols: 100% Ex Vivo Bioreactor Media & Valve Controls -->
@@ -344,15 +353,15 @@
           </button>
         </div>
 
-        <!-- Google Coral NPU Inline Perfusion Valve Hardware Card -->
+        <!-- Google DeepMind Bio-AI Stack & Inline GMP Perfusion Valve Card -->
         <div class="bg-[var(--card)] border border-cyan-500/40 rounded-xl p-4 space-y-2 text-xs font-mono">
-          <div class="font-bold text-cyan-400">⚡ GOOGLE CORAL NPU (CART_GMP_CASSETTE_VALVE)</div>
-          <div class="text-[var(--muted-foreground)] font-sans">Autonomous 4.09 mW RISC-V (<span class="font-mono">RV32IMF_Zve32x</span>) controller embedded on the disposable bioreactor cassette:</div>
+          <div class="font-bold text-cyan-400">🧬 GOOGLE DEEPMIND BIO-AI &amp; INLINE GMP PLC CONTROLLER</div>
+          <div class="text-[var(--muted-foreground)] font-sans">Structure-guided allosteric docking + non-coding regulatory scoring + inline amperometric cassette automation:</div>
           <div class="p-2.5 rounded-lg bg-slate-950 space-y-1 text-[11px]">
-            <div>• <strong>Scalar Core (310 cyc):</strong> GMP pH (7.05–7.35) &amp; DO₂ (&gt;45%) safety lock</div>
-            <div>• <strong>Vector RVV (512 cyc):</strong> 8-state Q16.16 T-cell bioenergetic ODE</div>
-            <div>• <strong>Matrix INT8 (64 cyc):</strong> 93.8% Zero-Skip inline Lac:Pyr gate classifier</div>
-            <div class="text-emerald-400 font-bold">• Power: 4.09 mW | SRAM: 7,168 B / 8,192 B DTCM</div>
+            <div>• <strong>AlphaFold / PDB 3D Pockets:</strong> <code>2Q8G</code> (PDK1 Ser75 2.50 Å H-bond), <code>6EQI</code> (PINK1), <code>4ZZJ</code> (SIRT1 Glu230)</div>
+            <div>• <strong>AlphaGenome Atlas:</strong> <a href="https://deepmind.google.com/science/alphagenome/atlas?q=PDK1&m=entity" target="_blank" rel="noopener" class="text-purple-300 underline">PDK1</a> &amp; <a href="https://deepmind.google.com/science/alphagenome/atlas?q=TCF7&m=entity" target="_blank" rel="noopener" class="text-cyan-300 underline">TCF7 (TCF-1 stemness locus)</a> chromatin open-state</div>
+            <div>• <strong>Inline GMP PLC Gate:</strong> Amperometric <code>Lactate:Pyruvate ≤ 12.0</code> &amp; DO₂ (&gt;45%) solenoid pinch-valve</div>
+            <div class="text-emerald-400 font-bold">• Release Potency: 62.9× Fold | 78.0% T_SCM | 3.78× SRC</div>
           </div>
         </div>
       </div>
@@ -627,7 +636,7 @@
       } else {
         vBadge.textContent = '🟢 Valve B: Phase 2 Clonal Build Media';
         cPill.textContent = `Phase 2 Expansion (${sim.Fold[hr].toFixed(1)}× | ${sim.TSCM[hr].toFixed(1)}% T_SCM)`;
-        narr.innerHTML = `<strong class="text-teal-300">🟢 Phase 2 (Hours ${cartState.switchHour}–240 — Clonal Stem-Cell Memory Expansion):</strong> Having crossed the <code>Lac:Pyr ≤ 12.0</code> gate at Hour ${cartState.switchHour}, the Google Coral NPU switched the solenoid valve to <code>NR + SIRT1 STAC (4ZZJ) + Creatine</code>—driving <strong>${sim.Fold[hr].toFixed(1)}× Fold Expansion</strong> with <strong>${sim.TSCM[hr].toFixed(1)}% T_SCM Stemness</strong> and <strong>${sim.SRC[hr].toFixed(2)}× SRC</strong>!`;
+        narr.innerHTML = `<strong class="text-teal-300">🟢 Phase 2 (Hours ${cartState.switchHour}–240 — Clonal Stem-Cell Memory Expansion):</strong> Having crossed the <code>Lac:Pyr ≤ 12.0</code> gate at Hour ${cartState.switchHour}, the automated GMP PLC controller switched the solenoid valve to <code>NR + SIRT1 STAC (4ZZJ) + Creatine</code>—driving <strong>${sim.Fold[hr].toFixed(1)}× Fold Expansion</strong> with <strong>${sim.TSCM[hr].toFixed(1)}% T_SCM Stemness</strong> and <strong>${sim.SRC[hr].toFixed(2)}× SRC</strong>!`;
       }
 
       drawBioreactorChart('chartTscm', [{ data: sim.TSCM, color: '#14b8a6' }, { data: sim.H, color: '#f59e0b' }], 0, 85);
@@ -748,8 +757,8 @@
 Donor Profile: ${cartState.donor} | Active Regimen: ${cartState.protocol} | Solenoid Switch Hour: ${cartState.switchHour}h.
 Current Hour: ${hr}h / 240h | Instantaneous T_SCM=${sim.TSCM[hr].toFixed(1)}%, Damaged mtDNA h=${sim.H[hr].toFixed(1)}%, Lac:Pyr=${sim.LacPyr[hr].toFixed(1)}, Fold=${sim.Fold[hr].toFixed(1)}x.
 Harvest 240h Endpoint: Fold=${sim.Fold[240].toFixed(1)}x, T_SCM=${sim.TSCM[240].toFixed(1)}%, SRC=${sim.SRC[240].toFixed(2)}x, Exhaustion=${sim.Exh[240].toFixed(1)}%.
-Crystal Targets: PDB 2Q8G (PDK1 L2 Pocket Ser75 2.50 A H-bond to AZD7545), PDB 6EQI (PINK1 + Kinetin), PDB 4ZZJ (SIRT1 Glu230 STAC).
-Hardware: Google Coral NPU (RV32IMF_Zve32x) inline cassette controller (1,544 cycles, 0.012 ms, 4.09 mW, 7,168 B SRAM).`;
+Crystal Targets: PDB 2Q8G (PDK1 L2 Pocket Ser75 2.50 A H-bond to AZD7545, AlphaFold Q15118), PDB 6EQI (PINK1 + Kinetin), PDB 4ZZJ (SIRT1 Glu230 STAC).
+Bio-AI & Automation Stack: Google DeepMind AlphaFold/PDB + AlphaGenome Atlas (PDK1 & TCF7 regulatory scoring) + Inline GMP PLC amperometric Lactate:Pyruvate solenoid valve controller.`;
     }
 
     async function callCartGeminiApi(userPrompt, deterministicHtml) {
@@ -895,10 +904,10 @@ Hardware: Google Coral NPU (RV32IMF_Zve32x) inline cassette controller (1,544 cy
             <td class="py-0.5 pr-2 font-mono">${fold}× Fold</td>
             <td class="py-0.5 pr-2 font-mono">${tscm}% T_SCM</td>
             <td class="py-0.5 pr-2 font-mono">Gate ~${optGateH}h</td>
-            <td class="py-0.5 text-[10px]">${h0 <= 50 ? '🟢 Standard Hour-64 Gate' : '🟡 Coral NPU Delays Valve to ~' + optGateH + 'h'}</td>
+            <td class="py-0.5 text-[10px]">${h0 <= 50 ? '🟢 Standard Hour-64 Gate' : '🟡 GMP PLC Delays Valve to ~' + optGateH + 'h'}</td>
           </tr>`;
         });
-        takeaway = `<strong>Key GMP Takeaway:</strong> Because the <code>4.09 mW</code> Google Coral NPU gates on inline <code>Lactate:Pyruvate ≤ 12.0</code> rather than a blind timer, it automatically extends Phase 1 conditioning to <code>~76–82h</code> for heavily pretreated donors (<code>h₀ ≥ 60%</code>)!`;
+        takeaway = `<strong>Key GMP Takeaway:</strong> Because the inline GMP PLC perfusion controller gates on supernatant <code>Lactate:Pyruvate ≤ 12.0</code> rather than a blind timer, it automatically extends Phase 1 conditioning to <code>~76–82h</code> for heavily pretreated donors (<code>h₀ ≥ 60%</code>)!`;
       }
 
       ans.innerHTML = `
@@ -951,7 +960,7 @@ console.log(interaction.output_text);`;
       } else if (ql.includes('static') || ql.includes('10 days') || ql.includes('all')) {
         detHtml = `<strong>🤖 GMP AI — Why Not Keep Urolithin A On All 240 Hours:</strong> Continuous mitophagy suppression of <code>mTORC1</code> yields great stemness (<code>72.8% T_SCM</code>) but starves clonal division—producing only <strong>10.8× expansion</strong> (below clinical infusion thresholds). Switching the perfusion valve at <strong>Hour 64</strong> gives you <strong>62.9× expansion AND 78.0% T_SCM</strong>!`;
       } else {
-        detHtml = `<strong>🤖 GMP AI — Autonomous Hour-64 Google Coral NPU Solenoid Valve Gate:</strong> The <code>4.09 mW</code> Coral NPU samples inline amperometric <code>Lactate:Pyruvate</code> and dissolved O₂ every 60s. Once <code>Lac:Pyr ≤ 12.0</code> (indicating mutant mtDNA <code>h &lt; 7%</code>), the <code>256-MAC INT8</code> classifier triggers the cassette solenoid valve to switch from Valve A (Urolithin A/Kinetin) to Valve B (NR + SIRT1 STAC + Creatine).`;
+        detHtml = `<strong>🤖 GMP AI — Automated Hour-64 GMP PLC Solenoid Valve Gate:</strong> Inline amperometric biosensors sample supernatant <code>Lactate:Pyruvate</code> and dissolved O₂ every 60s. Once <code>Lac:Pyr ≤ 12.0</code> (indicating mutant mtDNA <code>h &lt; 7%</code> and unblocked <code>PDK1 2Q8G</code>), the GMP PLC controller switches the cassette solenoid valve from Valve A (Urolithin A/Kinetin) to Valve B (NR + SIRT1 STAC + Creatine).`;
       }
       callCartGeminiApi(String(q || 'valve_sensor'), detHtml);
     }

@@ -40,6 +40,10 @@ COHORT_PAGES = [
         "slider3_label": "Stage 2 NR (1,000 mg) + SIRT1 STAC (PDB: 4ZZJ) + B2/Cr",
         "slider3_desc": "NADPARK-dose biogenesis after Day-34/38 GDF15 gate (<550 pg/mL).",
         "default_gate_day": 34,
+        "alphagenome_gene": "GBA1",
+        "alphagenome_var": "chr1:155235843:T>C",
+        "alphafold_id": "P04062",
+        "alphamissense_summary": "GBA1 N370S (AM = 0.562) · LRRK2 G2019S (AM = 0.941) · PINK1 A339T (AM = 0.784)",
     },
     {
         "spec_key": "apoe4_keto",
@@ -58,6 +62,10 @@ COHORT_PAGES = [
         "slider3_label": "Stage 2 NR + PncA + Resveratrol (4ZZJ) + PQQ + Cr/B2",
         "slider3_desc": "Expands wild-type cortical mitochondria after Day-38 GDF15 gate.",
         "default_gate_day": 38,
+        "alphagenome_gene": "TOMM40",
+        "alphagenome_var": "chr19:44908684:T>C",
+        "alphafold_id": "O96008",
+        "alphamissense_summary": "APOE Cys112Arg (rs429358) · TOMM40 β-Barrel Import Stall (PDB: 7CK6)",
     },
     {
         "spec_key": "epilepsy_pv",
@@ -76,6 +84,10 @@ COHORT_PAGES = [
         "slider3_label": "Stage 2 Ketone-Maintained NR + SIRT1 (4ZZJ) + Creatine",
         "slider3_desc": "Builds PV+ phosphocreatine ATP grid while keeping D-BHB ≥ 1.5 mmol/L.",
         "default_gate_day": 32,
+        "alphagenome_gene": "PPARGC1A",
+        "alphagenome_var": "chr4:23815662:C>T",
+        "alphafold_id": "Q9BXM7",
+        "alphamissense_summary": "PV+ 40 Hz Gamma Load (f² = 3.06×) · SUOX / Complex IV Sulfide Shield",
     },
     {
         "spec_key": "mdd_quin",
@@ -94,6 +106,10 @@ COHORT_PAGES = [
         "slider3_label": "Stage 2 Gated Synaptogenesis (NR + 4ZZJ + ALCAR + 6FCX B2)",
         "slider3_desc": "Locks in 1.24× prefrontal spine density and BH4/SAMe monoamine drive.",
         "default_gate_day": 31,
+        "alphagenome_gene": "SIRT1",
+        "alphagenome_var": "chr1:11796321:G>A",
+        "alphafold_id": "Q96EB6",
+        "alphamissense_summary": "MTHFR Ala222Val (AM = 0.632) · IDO1/QUIN Shunt · SIRT1 Glu230 (PDB: 4ZZJ)",
     },
     {
         "spec_key": "pink1_fut2",
@@ -112,6 +128,10 @@ COHORT_PAGES = [
         "slider3_label": "Stage 2 Weekly 5.25d Build (NR + 4ZZJ + 6FCX B2 + Creatine)",
         "slider3_desc": "Switches from daily 18:6 to 5.25d/wk anabolic refeed at Day 38 to prevent atrophy.",
         "default_gate_day": 38,
+        "alphagenome_gene": "MTHFR",
+        "alphagenome_var": "chr1:11796321:G>A",
+        "alphafold_id": "P42898",
+        "alphamissense_summary": "FUT2 Trp154Ter (VEP HIGH · 22.5% Hom) · MTHFR Ala222Val (AM = 0.632 · PDB: 6FCX)",
     },
 ]
 
@@ -191,12 +211,18 @@ def build_page_html(cfg: dict) -> str:
           <div class="flex items-center gap-2 flex-wrap text-xs font-mono">
             <span id="hdrBadge" class="px-2.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/50 font-bold"></span>
             <span id="hdrPdb" class="px-2.5 py-0.5 rounded bg-purple-950 text-purple-200 border border-purple-500/40"></span>
-            <span class="px-2.5 py-0.5 rounded bg-cyan-950 text-cyan-200 border border-cyan-500/40">
-              ⚡ Google Coral NPU Wearable Gate (4.03 mW · 0.012 ms)
-            </span>
+            <a href="https://deepmind.google.com/science/alphagenome/atlas?q={cfg['alphagenome_gene']}&m=entity" target="_blank" rel="noopener" class="px-2.5 py-0.5 rounded bg-cyan-950 text-cyan-200 border border-cyan-500/50 hover:bg-cyan-900 transition font-bold">
+              🧬 AlphaGenome Atlas ({cfg['alphagenome_gene']}) ↗
+            </a>
+            <a href="https://alphafold.ebi.ac.uk/entry/{cfg['alphafold_id']}" target="_blank" rel="noopener" class="px-2.5 py-0.5 rounded bg-indigo-950 text-indigo-200 border border-indigo-500/50 hover:bg-indigo-900 transition font-bold">
+              🔬 AlphaFold DB ({cfg['alphafold_id']}) ↗
+            </a>
           </div>
           <h1 id="hdrTitle" class="text-xl sm:text-2xl font-extrabold tracking-tight text-white"></h1>
           <p id="hdrSubtitle" class="text-xs sm:text-sm text-slate-300"></p>
+          <div class="text-[11px] font-mono text-cyan-300 pt-0.5">
+            ⚡ <strong>Google DeepMind Bio-AI Stack:</strong> {cfg['alphamissense_summary']} · <a href="https://deepmind.google.com/science/alphagenome/atlas?q={cfg['alphagenome_var']}&m=variant" target="_blank" rel="noopener" class="underline hover:text-white">Inspect Variant on AlphaGenome Atlas ({cfg['alphagenome_var']}) ↗</a>
+          </div>
         </div>
 
         <!-- Non-Jumpy Precision Timeline Scrubber & Optional Smooth Play -->

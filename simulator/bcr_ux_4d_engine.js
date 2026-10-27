@@ -115,12 +115,12 @@
         },
         {
           id: 2,
-          shortTitle: '⚡ Gate Decision: Day-38 Lab & Coral NPU Check',
+          shortTitle: '⚡ Gate Decision: Day-38 Lab & Bio-AI Gate',
           timeRange: [34, 40],
           purpose: 'Verify quantitatively that damaged mitochondria (D) have been purged below the replicative escape threshold (<8%) and that lean muscle mass is preserved before unlocking anabolic NAD+/SIRT1 biogenesis.',
           whyFlags: '• GREEN GATE (Unlock Stage 2): Plasma GDF15 drops ≥35% from baseline (1,950 → 510 pg/mL, -73.8%) OR absolute GDF15 < 550 pg/mL, with morning D-BHB ≥ 1.5 mmol/L.\n• YELLOW GATE (Hold Stage 1): GDF15 drop < 35% and Day < 54 (extend Stage 1 up to Day 54).\n• RED SAFETY OVERRIDE: DEXA lean mass loss ≤ -2.5% or GDF15 rises >15% above baseline.',
-          decisionScope: 'DECISION NODE: Transition protocol state machine from Catabolic Purge (Stage 1) to Anabolic Biogenesis (Stage 2). Executed either via Day-38 clinical blood draw or autonomously on the 4.03 mW Google Coral NPU (RV32IMF_Zve32x) wearable ring.',
-          methodsUsed: '• Biophysical Bifurcation Criterion: When h(t) < h_crit (8.0%), wild-type replication rate k_bio·W exceeds mutant replication k_bio·(1 + δ_short)·D.\n• Coral NPU Silicon Execution: 1,518 cycles (0.012 ms @ 128 MHz) in 7,040 B L1 DTCM SRAM; Q16.16 RK4 observer + 256-MAC INT8 gate projection (0.000000 discrepancy vs FP64).',
+          decisionScope: 'DECISION NODE: Transition protocol state machine from Catabolic Purge (Stage 1) to Anabolic Biogenesis (Stage 2), governed by Day-38 clinical blood draw (Serum GDF15 + D-BHB) and Gemini 3.8 Flash Clinical Digital-Twin verification.',
+          methodsUsed: '• Biophysical Bifurcation Criterion: When h(t) < h_crit (8.0%), wild-type replication rate k_bio·W exceeds mutant replication k_bio·(1 + δ_short)·D.\n• Google DeepMind Bio-AI Stack: AlphaMissense (GBA1 N370S = 0.562, LRRK2 G2019S = 0.941) + AlphaGenome Atlas Substantia Nigra eQTLs (https://deepmind.google.com/science/alphagenome/atlas?q=GBA1&m=entity) + AlphaFold/PDB 2NSX & 6EQI.',
           overallImpact: 'Eliminates guesswork and arbitrary calendar switching: ensures Stage 2 NAD+ expansion only fires when the mitochondrial pool is >92% wild-type.'
         },
         {
@@ -238,7 +238,7 @@
           purpose: 'Confirm cortical and systemic mitokine stress resolution (ΔGDF15 ≤ -35% or < 600 pg/mL) and lean mass preservation (ΔDEXA > -2.5%) before triggering PGC-1α/NRF1 mitochondrial biogenesis.',
           whyFlags: 'Flags GREEN when GDF15 drops from ~1,850 to ≤ 571 pg/mL with morning D-BHB ≥ 1.5 mmol/L. Flags RED if lean mass drops below -2.5% (immediate transition to Stage 2).',
           decisionScope: 'Switch chrono-architecture from Daily 18:6 Ketogenic Purge to Weekly 2.25d Purge : 4.75d Cortical Synaptogenic Build.',
-          methodsUsed: '• Coral NPU Wearable Ring (HUMAN_WEARABLE_RING_PATCH): 4.03 mW, 0.012 ms latency, monitoring autonomic HRV + interstitial β-OHB ketones + lab GDF15 gate.',
+          methodsUsed: '• Google DeepMind Bio-AI Stack: AlphaGenome Atlas APOE/TOMM40 locus chromatin & RNA-seq tracks (https://deepmind.google.com/science/alphagenome/atlas?q=TOMM40&m=entity) + AlphaFold/PDB 1B68 & 7CK6 + Gemini 3.8 Flash Clinical Stage-Gate Advisor.',
           overallImpact: 'Guarantees that newly synthesized OXPHOS subunits enter unblocked TOMM40 pores to replicate exclusively wild-type mtDNA (W).'
         },
         {
@@ -474,7 +474,7 @@
           purpose: 'Confirm resolution of neuro-inflammation (hs-CRP < 1.0 mg/L, QUIN < 0.25) and mitochondrial stress (ΔGDF15 ≤ -35%) before opening the Stage 2 Synaptogenesis Window.',
           whyFlags: 'Flags GREEN at Day 30.5 when GDF15 < 550 pg/mL and hs-CRP < 1.0 mg/L.',
           decisionScope: 'Open the Stage 2 Anabolic & Neuroplastogen Window: clinical ketamine, rTMS, or BDNF bursts are now permitted ONLY on Stage 2 Build Days.',
-          methodsUsed: '• Coral NPU Wearable Ring: Tracks nocturnal HRV recovery + autonomic vagal tone + GDF15 lab gate.',
+          methodsUsed: '• Google DeepMind Bio-AI Stack: AlphaGenome Atlas IDO1/QPRT/SIRT1 prefrontal regulatory tracks (https://deepmind.google.com/science/alphagenome/atlas?q=SIRT1&m=entity) + AlphaMissense MTHFR rs1801133 (0.632) + Gemini 3.8 Flash Clinical Stage-Gate Advisor.',
           overallImpact: 'Ensures newly formed dendritic spines have the local mitochondrial ATP (1.24×) to mature into permanent PSD-95 synapses rather than collapsing at Day 14.'
         },
         {
@@ -592,7 +592,7 @@
           purpose: 'Prevent skeletal muscle atrophy (which occurs at 0.83× mass if daily 18:6 is continued indefinitely) by switching to Stage 2 Weekly Anabolic Expansion once plasma GDF15 drops ≥35%.',
           whyFlags: '• GREEN GATE: Plasma GDF15 drops ≥35% (or <550 pg/mL).\n• RED SAFETY OVERRIDE: DEXA appendicular lean mass drops ≤ -2.5% (triggers immediate transition to Stage 2 refeed).',
           decisionScope: 'Switch chrono-schedule from Daily 18:6 Purge to Weekly Meso-Cycle (1.75d Purge : 5.25d Anabolic Build).',
-          methodsUsed: '• Coral NPU Wearable Ring (HUMAN_WEARABLE_RING_PATCH): 4.03 mW scalar guard enforces the -2.5% DEXA/bioimpedance lean-mass safety floor.',
+          methodsUsed: '• Google DeepMind Bio-AI Stack: AlphaGenome Atlas Skeletal Muscle eQTL & DNASE tracks for PPARGC1A/FUT2 (https://deepmind.google.com/science/alphagenome/atlas?q=PPARGC1A&m=entity) + AlphaMissense MTHFR/PINK1 + Clinical DEXA & GDF15 Gate.',
           overallImpact: 'Eliminates the -17% mitochondrial mass atrophy of chronic fasting, rebounding muscle mitochondrial mass to 1.04×.'
         },
         {
@@ -655,12 +655,12 @@
         },
         {
           id: 2,
-          shortTitle: '⚡ Gate Decision: Hour-64 Coral NPU Solenoid Switch',
+          shortTitle: '⚡ Gate Decision: Hour-64 GMP Perfusion Solenoid Switch',
           timeRange: [60, 68],
           purpose: 'Autonomously switch the closed-cassette peristaltic pinch-valve from Media Bag A (Catabolic Purge) to Media Bag B (Anabolic Clonal Expansion) at the exact moment metabolic conditioning completes.',
           whyFlags: '• GREEN VALVE TRIGGER: Inline amperometric Lactate:Pyruvate ≤ 12.0 AND optical supernatant GDF15 slope ≤ 0.\n• RED GMP SAFETY OVERRIDE: Cassette pH < 6.85 or Dissolved O₂ < 35% (triggers immediate fresh buffer perfusion).',
-          decisionScope: 'Google Coral NPU (CART_GMP_CASSETTE_VALVE, 4.09 mW, 0.012 ms) fires GPIO pin 2 to switch solenoid pinch-valve from Bag A to Bag B.',
-          methodsUsed: '• C99 / RVV v1.0 Zve32x HIL Kernel: 1,544 cycles in 7,168 B L1 DTCM SRAM; 94.5% zero-skip on 256-MAC INT8 gate projection.',
+          decisionScope: 'Automated GMP Perfusion PLC & Gemini 3.8 Bioprocess Digital-Twin Controller switches the cassette solenoid pinch-valve from Media Bag A to Media Bag B once inline Lactate:Pyruvate ≤ 12.0.',
+          methodsUsed: '• Google DeepMind Bio-AI Stack: AlphaGenome Atlas CD8+ T-cell chromatin accessibility at PDK1 & TCF7 stemness loci (https://deepmind.google.com/science/alphagenome/atlas?q=PDK1&m=entity) + AlphaFold/PDB 2Q8G & 4ZZJ.',
           overallImpact: 'Adapts automatically to donor variability (switching at ~52h for healthy donors vs. ~76h for heavily pretreated lymphoma/myeloma donors).'
         },
         {

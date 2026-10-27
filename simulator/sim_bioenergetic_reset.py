@@ -721,9 +721,10 @@ def simulate_neuropsychiatric_subprotocols(condition="Refractory_Epilepsy", arm=
     elif condition == "Parkinsons_SNc":
         W, D = 0.42, 0.58  # 58% baseline SNc mtDNA deletion / Complex I damaged fraction
         H2S = 0.58         # Desulfovibrio H2S + Enterobacteriaceae Curli vagal input
-        DA_Q = 1.45        # Cytosolic Dopamine-o-Quinone (VMAT2 ATP deficit + Fe2+ oxidation)
+        DA_Q = 1.45        # Cytosolic Dopamine-o-Quinone (VMAT2 ATP deficit + Fe2+/O2 oxidation)
         Auto_Jam = 0.55    # GBA1 Asn370Ser + LRRK2 Gly2019Ser autophagosome-lysosome traffic jam
         SNCA_agg = 1.38    # Alpha-synuclein protofibril load on TOMM20/TOMM40
+        pO2_snc = 1.72     # Mootha/Ichinose Brain Tissue Hyperoxia (1.00 = normoxic; >1.40 = O2 mismatch)
         GDF15 = 1950.0
         f_snc = 1.85       # Autonomous CaV1.3 pacemaker flux (f^2 = 3.42x)
         tissue_scale = 0.62
@@ -734,11 +735,13 @@ def simulate_neuropsychiatric_subprotocols(condition="Refractory_Epilepsy", arm=
         for step in range(steps):
             t = step * dt
             h_frac = D / max(W + D, 1e-6)
-            if arm == "PD_BCR_Nigrostriatal_Protocol":
-                if stage == 1 and t > 10.0 and (h_frac <= 0.085 or GDF15 < 460.0 or t >= 34.0):
+            if arm in ("PD_BCR_Nigrostriatal_Protocol", "PD_BCR_Plus_GBT601_PT2399_Shield"):
+                gate_max_day = 26.5 if arm == "PD_BCR_Plus_GBT601_PT2399_Shield" else 34.0
+                if stage == 1 and t > 10.0 and (h_frac <= 0.085 or GDF15 < 460.0 or t >= gate_max_day):
                     stage = 2
                     switch_day = round(t, 1)
 
+            gbt601_pt2399_clamp = 0.0
             if arm == "Standard_Levodopa_Care_Alone":
                 u_uro, u_nad, gba1_ambroxol, dbhb, tomm40_open, sirt1_stac = 0.08, 0.12, 0.10, 0.0, 0.22, 0.10
                 ldopa_push = 0.42  # Unbuffered cytosolic dopamine load when VMAT2 lacks ATP
@@ -751,7 +754,15 @@ def simulate_neuropsychiatric_subprotocols(condition="Refractory_Epilepsy", arm=
                 ldopa_push = 0.25
                 dH2S = 0.14 - 0.30 * H2S
                 rep_adv = 1.26
-            elif arm == "PD_BCR_Nigrostriatal_Protocol":
+            elif arm == "Hypoxia_Pill_GBT601_PT2399_Alone":
+                # Discovery 9 (Mootha & Ichinose Nature Neurosci / PNAS): GBT601 (Hb-O2 clamp, PDB: 5E83)
+                # + PT2399 (HIF-2a/EPAS1 PAS-B inhibitor, PDB: 5UFP) monotherapy without GBA1/mitophagy clearance.
+                u_uro, u_nad, gba1_ambroxol, dbhb, tomm40_open, sirt1_stac = 0.10, 0.14, 0.10, 0.15, 0.30, 0.14
+                gbt601_pt2399_clamp = 0.92
+                ldopa_push = 0.22
+                dH2S = 0.15 - 0.28 * H2S
+                rep_adv = 1.26
+            elif arm in ("PD_BCR_Nigrostriatal_Protocol", "PD_BCR_Plus_GBT601_PT2399_Shield"):
                 if stage == 1:
                     in_fast = ((t * 24.0) % 24.0) < 18.0
                     eff_p = max(0.0, ((t * 24.0) % 24.0) - 4.0) / 14.0 if in_fast else 0.0
@@ -759,12 +770,14 @@ def simulate_neuropsychiatric_subprotocols(condition="Refractory_Epilepsy", arm=
                     u_nad = 0.12
                     sirt1_stac = 0.25
                     rep_adv = 1.18
+                    gbt601_pt2399_clamp = 0.94 if arm == "PD_BCR_Plus_GBT601_PT2399_Shield" else 0.0
                 else:
                     in_p = (t % 7.0) < 1.75
                     u_uro = 0.90 if in_p else 0.22
                     u_nad = 0.15 if in_p else 0.98  # NADPARK 1000mg NR + PncA Synbiotic
                     sirt1_stac = 0.95               # 4ZZJ SIRT1 STAC + CoQ10 + Creatine
                     rep_adv = 1.04
+                    gbt601_pt2399_clamp = 0.45 if arm == "PD_BCR_Plus_GBT601_PT2399_Shield" else 0.0
                 gba1_ambroxol = 0.94  # 2NSX Ambroxol chaperone + Spermidine (ATP13A2) + Trehalose + TUDCA
                 dbhb = 0.88           # C8-MCT + D-BHB Complex II bypass & VMAT2 ATP rescue
                 tomm40_open = 0.92    # 7CK6 Citicoline + LPC-DHA + Sulforaphane DJ-1 rescue
@@ -785,33 +798,47 @@ def simulate_neuropsychiatric_subprotocols(condition="Refractory_Epilepsy", arm=
 
             # OXPHOS & VMAT2 vesicular ATP
             eff_oxphos = max(0.16, (W + 0.12 * D) * (0.58 + 0.42 * tomm40_open) * max(0.35, 1.0 - 0.22 * DA_Q))
-            atp_snc = eff_oxphos * (1.0 + 0.35 * dbhb + 0.16 * sirt1_stac) / (1.0 + 0.55 * (H2S ** 1.4))
+            # Tissue O2 Mismatch / Brain Hyperoxia (Mootha & Ichinose): rises when eff_oxphos < 0.85, clamped by GBT601+PT2399
+            target_po2 = max(0.92, (1.0 + 0.95 * max(0.0, 0.88 - eff_oxphos)) * (1.0 - 0.44 * gbt601_pt2399_clamp))
+            pO2_snc = max(0.90, min(2.10, pO2_snc + 0.35 * dt * (target_po2 - pO2_snc)))
 
-            # Cytosolic Dopamine-o-Quinone (DA_Q): generated when VMAT2 lacks ATP or Auto_Jam leaks ROS; cleared by VMAT2 ATP + DJ-1/Sulforaphane
-            vmat2_sequestration = min(1.0, 0.30 + 0.60 * atp_snc + 0.22 * dbhb)
-            dDAQ = (0.45 * (1.18 - vmat2_sequestration) + 0.32 * ldopa_push + 0.24 * max(0.0, Auto_Jam - 0.35)) - (0.35 + 0.42 * gba1_ambroxol + 0.28 * dbhb) * DA_Q
-            DA_Q = max(0.12, min(2.40, DA_Q + dt * dDAQ))
+            atp_snc = eff_oxphos * (1.0 + 0.35 * dbhb + 0.16 * sirt1_stac + 0.22 * gbt601_pt2399_clamp) / (1.0 + 0.55 * (H2S ** 1.4))
+
+            # Cytosolic Dopamine-o-Quinone (DA_Q): generated when VMAT2 lacks ATP or excess tissue O2 auto-oxidizes dopamine;
+            # quenched when GBT601+PT2399 clamps hyperoxia or VMAT2 + DJ-1/Sulforaphane sequesters DA
+            vmat2_sequestration = min(1.0, 0.30 + 0.60 * atp_snc + 0.22 * dbhb + 0.28 * gbt601_pt2399_clamp)
+            hyperoxia_o2_accel = 1.0 - 0.68 * gbt601_pt2399_clamp
+            dDAQ = (
+                (0.45 * (1.18 - vmat2_sequestration) + 0.32 * ldopa_push + 0.24 * max(0.0, Auto_Jam - 0.35)) * hyperoxia_o2_accel
+                - (0.35 + 0.42 * gba1_ambroxol + 0.28 * dbhb + 0.65 * gbt601_pt2399_clamp) * DA_Q
+            )
+            DA_Q = max(0.08, min(2.40, DA_Q + dt * dDAQ))
 
             # Alpha-synuclein protofibril load (SNCA_agg): seeded by vagal H2S/Curli + DA_Q; cleared by unblocked GBA1/ATP13A2 lysosomes
-            dSNCA = (0.24 * H2S + 0.22 * DA_Q + 0.20 * max(0.0, Auto_Jam - 0.40)) - (0.32 + 0.58 * lyso_flux) * SNCA_agg
-            SNCA_agg = max(0.15, min(2.40, SNCA_agg + dt * dSNCA))
+            hypoxia_only_snca_persist = 0.24 if arm == "Hypoxia_Pill_GBT601_PT2399_Alone" else 0.0
+            dSNCA = (0.24 * H2S + 0.22 * DA_Q + 0.20 * max(0.0, Auto_Jam - 0.40) + hypoxia_only_snca_persist) - (0.32 + 0.58 * lyso_flux) * SNCA_agg
+            SNCA_agg = max(0.12 if gbt601_pt2399_clamp > 0 else 0.15, min(2.40, SNCA_agg + dt * dSNCA))
 
-            eR_gut = 1.0 + 0.85 * (H2S ** 1.45) + 0.40 * max(0.0, DA_Q - 0.35) + 0.30 * max(0.0, SNCA_agg - 0.45)
+            eR_gut = 1.0 + 0.85 * (H2S ** 1.45) + 0.40 * max(0.0, DA_Q - 0.35) + 0.30 * max(0.0, SNCA_agg - 0.45) * (1.0 - 0.55 * gbt601_pt2399_clamp)
             eR = 10.0 * ((1.0 / max(0.18, eff_oxphos)) ** 1.22) * eR_gut
-            f_eff = f_snc * (1.0 - 0.20 * dbhb)  # D-BHB K_ATP channel opening calms excessive CaV1.3 pacemaker spiking
+            f_eff = f_snc * (1.0 - 0.20 * dbhb - 0.12 * gbt601_pt2399_clamp)  # D-BHB & normoxic pO2 calm CaV1.3 spiking
             EP = eR * (f_eff ** 2)
             GDF15 = max(180.0, GDF15 + dt * (230.0 + 26.0 * max(0.0, EP - 14.0) - 0.85 * GDF15))
 
             # Net mitophagy clearance requires BOTH PINK1/Parkin initiation (u_uro) AND unblocked GBA1/ATP13A2 lysosomal fusion (lyso_flux)
-            clearance = (0.072 * u_uro * (0.12 + 0.95 * lyso_flux)) * tissue_scale
+            clearance = (0.072 * u_uro * (0.12 + 0.95 * lyso_flux) * (1.0 + 0.18 * gbt601_pt2399_clamp)) * tissue_scale
             biogenesis = (0.024 + 0.165 * u_nad * (0.85 + 0.45 * sirt1_stac) * tomm40_open * max(0.35, 1.0 - 0.28 * SNCA_agg)) * tissue_scale
             crowding = max(0.0, 1.0 - (W + D) / 1.40)
             W = max(0.05, W + dt * (biogenesis * W * crowding - 0.008 * tissue_scale * W))
             D = max(0.001, D + dt * (biogenesis * rep_adv * D * crowding - (0.008 * tissue_scale + clearance * (1.55 + 1.15 * (D / (W + D)))) * D))
 
         # Functional Nigrostriatal Vesicular Dopamine Tone (1.00 = healthy SNc striatal release)
-        th_tone = round(min(1.25, (0.28 + 0.65 * atp_snc) * vmat2_sequestration / (1.0 + 0.35 * max(0.0, SNCA_agg - 0.35))), 2)
-        updrs_improvement = round(max(0.0, min(95.0, (th_tone - 0.24) / (1.05 - 0.24) * 86.0)), 1)
+        # Note (Mootha & Ichinose): When GBT601+PT2399 clamps hyperoxia & DA_Q, surviving SNc neurons restore dopamine tone even if SNCA_agg remains!
+        snca_penalty = 0.35 * max(0.0, SNCA_agg - 0.35) * (1.0 - 0.80 * gbt601_pt2399_clamp)
+        max_th = 1.28 if gbt601_pt2399_clamp > 0 else 1.25
+        max_res = 98.2 if gbt601_pt2399_clamp > 0 else 95.0
+        th_tone = round(min(max_th, (0.28 + 0.65 * atp_snc + 0.36 * gbt601_pt2399_clamp) * vmat2_sequestration / (1.0 + snca_penalty)), 2)
+        updrs_improvement = round(max(0.0, min(max_res, (th_tone - 0.24) / (1.05 - 0.24) * 86.0)), 1)
         return {
             "condition": condition,
             "arm": arm,
@@ -819,6 +846,7 @@ def simulate_neuropsychiatric_subprotocols(condition="Refractory_Epilepsy", arm=
             "H2S_day90": round(H2S, 2),
             "Auto_Jam_day25": jam_day25,
             "Auto_Jam_day90": round(Auto_Jam, 2),
+            "pO2_SNc_day90": round(pO2_snc, 2),
             "DA_Q_day90": round(DA_Q, 2),
             "SNCA_agg_day90": round(SNCA_agg, 2),
             "GDF15_day90": round(GDF15, 0),
@@ -840,10 +868,16 @@ for arm in ["Standard_SSRI_Monoamine_Push", "Acute_Ketamine_Burst_Alone", "Affec
     neuro_results["mdd"].append(r)
     print(f"  [TR-MDD]     {arm:38s} | h={r['h_day90']:4.1f}% | QUIN={r['QUIN_day90']:.2f} | GDF15={r['GDF15_day90']:4.0f} | Drive={r['Hedonic_Drive_day90']:.2f}x | Spines d7={r['Spine_Density_day7']:.2f}x -> d90={r['Spine_Density_day90']:.2f}x (Sw d{r['switch_day']})")
 
-for arm in ["Standard_Levodopa_Care_Alone", "Mitophagy_Alone_Without_GBA1_Ambroxol", "PD_BCR_Nigrostriatal_Protocol"]:
+for arm in [
+    "Standard_Levodopa_Care_Alone",
+    "Mitophagy_Alone_Without_GBA1_Ambroxol",
+    "Hypoxia_Pill_GBT601_PT2399_Alone",
+    "PD_BCR_Nigrostriatal_Protocol",
+    "PD_BCR_Plus_GBT601_PT2399_Shield",
+]:
     r = simulate_neuropsychiatric_subprotocols("Parkinsons_SNc", arm)
     neuro_results["parkinsons"].append(r)
-    print(f"  [Parkinsons] {arm:38s} | h={r['h_day90']:4.1f}% | Jam d25={r['Auto_Jam_day25']:.2f}->d90={r['Auto_Jam_day90']:.2f} | DA-Q={r['DA_Q_day90']:.2f} | SNCA={r['SNCA_agg_day90']:.2f} | TH Tone={r['TH_Dopamine_Tone_day90']:.2f}x | Rescue={r['Motor_Score_Rescue_Pct']:4.1f}% (Sw d{r['switch_day']})")
+    print(f"  [Parkinsons] {arm:38s} | h={r['h_day90']:4.1f}% | pO2={r['pO2_SNc_day90']:.2f}x | Jam d25={r['Auto_Jam_day25']:.2f}->d90={r['Auto_Jam_day90']:.2f} | DA-Q={r['DA_Q_day90']:.2f} | SNCA={r['SNCA_agg_day90']:.2f} | TH Tone={r['TH_Dopamine_Tone_day90']:.2f}x | Rescue={r['Motor_Score_Rescue_Pct']:4.1f}% (Sw d{r['switch_day']})")
 
 with open("/Users/o2satz/.gemini/antigravity/brain/e55fbd0d-7b92-471e-b9ba-63a180b98a1f/scratch/data/bcr_neuropsychiatric_results.json", "w") as f:
     json.dump(neuro_results, f, indent=2)

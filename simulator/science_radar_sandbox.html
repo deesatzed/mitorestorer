@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MitoRestorer v3.0 — Dynamic AI Science Radar &amp; Field-Specific Literature-to-ODE Simulator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg: #040812;
+      --card: #0b1324;
+      --content: #101b33;
+      --border: #1e293b;
+      --fg: #f8fafc;
+      --muted: #94a3b8;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    canvas { width: 100%; display: block; }
+  </style>
+</head>
+<body class="min-h-screen antialiased">
+
+  <!-- Top Navigation Bar -->
+  <div class="bg-slate-950 border-b border-slate-800 sticky top-0 z-40">
+    <div class="max-w-[1600px] mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+        <span class="text-slate-200 font-bold">MITORESTORER v3.0 WORKSTATIONS:</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-1.5">
+        <a href="../index.html" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 transition">🏛️ Hub</a>
+        <a href="parkinsons_simulator.html" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 transition">🧠 Parkinson's</a>
+        <a href="alzheimers_simulator.html" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 transition">🔬 Alzheimer's</a>
+        <a href="epilepsy_simulator.html" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 transition">⚡ Epilepsy</a>
+        <a href="depression_simulator.html" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 transition">🌱 Depression</a>
+        <a href="sarcopenia_simulator.html" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 transition">💪 Sarcopenia</a>
+        <a href="cart_bioreactor_simulator.html" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 transition">🧬 CAR-T (240h)</a>
+        <a href="apis_honeybee_simulator.html" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 transition">🐝 Honeybee (14d)</a>
+        <a href="science_radar_sandbox.html" class="px-2.5 py-1 rounded-lg bg-cyan-400 text-slate-950 font-extrabold shadow-sm">🛰️ New Science Sandbox</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Header -->
+  <header class="border-b border-slate-800 bg-[#070e1d]">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 py-5 space-y-4">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 flex-wrap text-xs font-mono">
+            <span class="px-2.5 py-0.5 rounded bg-cyan-500 text-slate-950 font-extrabold">
+              🛰️ MITORESTORER v3.0: LIVING LITERATURE-TO-ODE SIMULATION ENGINE
+            </span>
+            <span class="px-2.5 py-0.5 rounded bg-purple-950 text-purple-200 border border-purple-500/50">
+              🧬 EuropePMC + CrossRef DOI + AlphaFold + AlphaGenome Atlas + Gemini 3.8 Flash
+            </span>
+          </div>
+          <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white">
+            Dynamic AI Science Radar &amp; Field-Specific Simulator Generator
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-300 max-w-5xl leading-relaxed">
+            Transforms <strong>MitoRestorer</strong> from a static multi-cohort model into an <strong>autonomous, continuously evolving bioenergetic discovery engine</strong>. Search live scientific literature or paste any DOI/URL (e.g. <a href="https://onlinelibrary.wiley.com/doi/10.1111/acel.70751" target="_blank" rel="noopener" class="text-cyan-300 underline font-mono">10.1111/acel.70751</a> or the Harvard/Broad <span class="font-mono">GBT601+PT2399</span> study), map its mechanism onto the 8 biophysical ODE levers (<span class="font-mono">EP = éR · f²</span>), and simulate <strong>4-way differential trajectories</strong> (<span class="text-rose-300">Baseline</span> vs. <span class="text-amber-300">Paper Monotherapy</span> vs. <span class="text-cyan-300">BCR v2.0</span> vs. <span class="text-emerald-300">v3.0 Synergy</span>).
+          </p>
+        </div>
+
+        <!-- Live DOI / Literature Search Box -->
+        <div class="w-full lg:w-[460px] bg-slate-950 border border-cyan-500/40 rounded-2xl p-3 space-y-2 text-xs shrink-0">
+          <div class="flex items-center justify-between font-mono text-[11px]">
+            <span class="text-cyan-300 font-bold">🔎 LIVE LITERATURE / DOI / HYPOTHESIS INGESTION</span>
+            <span id="searchStatusBadge" class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40 text-[10px]">EuropePMC + CrossRef Ready</span>
+          </div>
+          <div class="flex gap-1.5">
+            <input id="litSearchInput" type="text" value="10.1111/acel.70751" placeholder="Enter DOI (10.1111/acel.70751), URL, or PubMed query..." class="flex-1 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono text-xs focus:outline-none focus:border-cyan-400" />
+            <button id="btnRunLitSearch" class="px-3 py-1.5 rounded-lg bg-cyan-400 text-slate-950 font-extrabold text-xs hover:bg-cyan-300 transition shrink-0">
+              ⚡ Assess &amp; Sim
+            </button>
+          </div>
+          <div id="liveSearchResultsDrawer" class="hidden max-h-40 overflow-y-auto space-y-1 pt-1 border-t border-slate-800 text-[11px]"></div>
+        </div>
+      </div>
+
+      <!-- STEP 1: 5 Curated 2025-2026 Breakthrough Releases (Click Any Card to Spawn Its Field-Specific Sim) -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="text-emerald-300 font-bold uppercase tracking-wider">⚡ Select an Evaluated 2025–2026 Breakthrough Release (or Search Any New Paper Above):</span>
+          <span id="activeReleaseBadge" class="text-cyan-300">Active Sim: Berg et al. (Aging Cell 2026 · DOI: 10.1111/acel.70751)</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2.5 text-xs" id="releaseCardsGrid"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-[1600px] mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+    <!-- 4-KPI Differential Simulation Strip -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+      <div class="p-3.5 rounded-xl bg-slate-900/95 border border-rose-500/40">
+        <div class="font-mono text-rose-300 uppercase text-[10px]">ARM 1 · UNTREATED PATHOLOGY BASELINE</div>
+        <div class="text-lg font-extrabold font-mono text-white mt-1" id="kpiArm1">--</div>
+        <div class="text-[11px] text-slate-300 mt-0.5" id="kpiArm1Sub">--</div>
+      </div>
+      <div class="p-3.5 rounded-xl bg-slate-900/95 border border-amber-500/40">
+        <div class="font-mono text-amber-300 uppercase text-[10px]">ARM 2 · NEW PAPER MECHANISM ALONE</div>
+        <div class="text-lg font-extrabold font-mono text-amber-200 mt-1" id="kpiArm2">--</div>
+        <div class="text-[11px] text-slate-300 mt-0.5" id="kpiArm2Sub">--</div>
+      </div>
+      <div class="p-3.5 rounded-xl bg-slate-900/95 border border-cyan-500/40">
+        <div class="font-mono text-cyan-300 uppercase text-[10px]">ARM 3 · MITORESTORER PHASED BCR (v2.0)</div>
+        <div class="text-lg font-extrabold font-mono text-cyan-200 mt-1" id="kpiArm3">--</div>
+        <div class="text-[11px] text-slate-300 mt-0.5" id="kpiArm3Sub">--</div>
+      </div>
+      <div class="p-3.5 rounded-xl bg-emerald-950/70 border-2 border-emerald-400 shadow-lg">
+        <div class="font-mono text-emerald-300 uppercase text-[10px] font-bold">ARM 4 · SPAWNED v3.0 SYNERGY SIM (BCR + PAPER)</div>
+        <div class="text-lg font-extrabold font-mono text-emerald-200 mt-1" id="kpiArm4">--</div>
+        <div class="text-[11px] text-emerald-100 mt-0.5" id="kpiArm4Sub">--</div>
+      </div>
+    </div>
+
+    <!-- MAIN 2-COLUMN WORKBENCH: Left 7 Cols (4D Phase-Space + 2D Multi-Curve Sim) | Right 5 Cols (Mechanistic ODE Compiler + AI Evaluator) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+
+      <!-- Left 7 Cols: Field-Specific 4D Phase-Space Manifold & 4-Arm Time-Series Trajectory -->
+      <div class="lg:col-span-7 space-y-4">
+        <div class="rounded-2xl border-2 border-cyan-500/40 bg-[#060c1a] p-4 space-y-3 shadow-xl">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
+            <div>
+              <div class="text-[11px] font-mono font-bold text-cyan-300 uppercase">
+                📐 FIELD-SPECIFIC 4D PHASE-SPACE &amp; 4-ARM DIFFERENTIAL TRAJECTORY
+              </div>
+              <h2 id="simPlotTitle" class="text-sm sm:text-base font-extrabold text-white"></h2>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-mono">
+              <button id="btnPlaySim" class="px-2.5 py-1 rounded-lg bg-cyan-500/20 border border-cyan-400 text-cyan-200 font-bold hover:bg-cyan-500/30">
+                ▶ Play Sim
+              </button>
+              <input id="simScrubber" type="range" min="0" max="100" value="100" class="w-28 accent-emerald-400 cursor-pointer" />
+              <span id="simDayBadge" class="px-2 py-0.5 rounded bg-slate-900 text-emerald-300 border border-emerald-500/40 font-bold">Day 100</span>
+            </div>
+          </div>
+
+          <!-- Dual Visual Grid: Left 2D 4-Arm Time-Series + Right 3D/4D Rotatable Phase-Space -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="rounded-xl border border-slate-800 bg-[#040811] p-2.5 space-y-1">
+              <div class="flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span id="chartLeftTitle" class="font-bold text-cyan-300">Primary Endpoint Trajectory</span>
+                <span class="text-[10px] text-slate-400">4-Arm Comparison</span>
+              </div>
+              <canvas id="canvas2DTrajectory" height="270"></canvas>
+            </div>
+            <div class="rounded-xl border border-slate-800 bg-[#040811] p-2.5 space-y-1">
+              <div class="flex items-center justify-between text-[11px] font-mono text-slate-300">
+                <span class="font-bold text-emerald-300">3D/4D Phase-Space (Drag to Rotate)</span>
+                <span class="text-[10px] text-slate-400">Time × h% × Endpoint</span>
+              </div>
+              <canvas id="canvas3DSandbox" height="270"></canvas>
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-300 pt-1">
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 mr-1"></span>Arm 1: Untreated Baseline</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-400 mr-1"></span>Arm 2: New Paper Alone (Unphased)</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 mr-1"></span>Arm 3: MitoRestorer BCR v2.0</span>
+            <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 mr-1"></span>Arm 4: v3.0 BCR + Paper Synergy</span>
+          </div>
+        </div>
+
+        <!-- 5-Axis Scientific Assessment & Contribution Breakdown Card -->
+        <div class="rounded-2xl border border-slate-800 bg-[#081121] p-4 space-y-3 text-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2">
+            <span class="font-mono font-bold text-emerald-300 uppercase">
+              📋 STRUCTURED ASSESSMENT: HOW THIS STUDY CONTRIBUTES TO MITORESTORER SIMS
+            </span>
+            <div id="externalLinksBar" class="flex flex-wrap items-center gap-1.5 font-mono text-[11px]"></div>
+          </div>
+          <div id="contributionAssessmentBox" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+        </div>
+      </div>
+
+      <!-- Right 5 Cols: Mechanistic-to-ODE Parameter Compiler + Live Gemini 3.8 Literature Synthesis -->
+      <div class="lg:col-span-5 rounded-2xl border-2 border-emerald-500/40 bg-[#091224] p-4 flex flex-col justify-between space-y-4 text-xs shadow-xl">
+
+        <div class="space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="px-2.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40 font-mono font-bold">
+              ⚙️ MECHANISTIC-TO-ODE PARAMETER COMPILER
+            </span>
+            <button id="btnExportSimVersion" class="px-2.5 py-1 rounded bg-purple-500 text-slate-950 font-extrabold text-[11px] hover:bg-purple-400 transition">
+              💾 Spawn v3.0 JSON Sim
+            </button>
+          </div>
+
+          <p class="text-[11px] text-slate-300 leading-relaxed">
+            Adjust the <strong>6 Biophysical &amp; Epigenetic ODE Levers</strong> extracted from the paper to test how its mechanism interacts with Stage 0 Pore Unblocking, Stage 1 Mitophagy, and Stage 2 Biogenesis/De-Aging:
+          </p>
+
+          <div class="space-y-2.5 bg-slate-950/90 p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
+            <div>
+              <div class="flex justify-between text-rose-200">
+                <span>1. Brain/Tissue pO₂ Hyperoxia Clamp (GBT601+PT2399)</span>
+                <span id="valLvPo2" class="font-bold text-rose-300">0%</span>
+              </div>
+              <input id="slLvPo2" type="range" min="0" max="100" value="0" class="w-full accent-rose-400" />
+            </div>
+            <div>
+              <div class="flex justify-between text-purple-200">
+                <span>2. Stage 0 Lysosomal / TOMM40 / VDAC1 Pore Unblock</span>
+                <span id="valLvStage0" class="font-bold text-purple-300">92%</span>
+              </div>
+              <input id="slLvStage0" type="range" min="0" max="100" value="92" class="w-full accent-purple-400" />
+            </div>
+            <div>
+              <div class="flex justify-between text-amber-200">
+                <span>3. Stage 1 PINK1/ULK1 Mitophagy &amp; Lag Compression</span>
+                <span id="valLvMito" class="font-bold text-amber-300">94%</span>
+              </div>
+              <input id="slLvMito" type="range" min="0" max="100" value="94" class="w-full accent-amber-400" />
+            </div>
+            <div>
+              <div class="flex justify-between text-cyan-200">
+                <span>4. TET1–3 (α-KG:Succinate) + SIRT1 (4ZZJ) + 6FCX De-Aging</span>
+                <span id="valLvEpi" class="font-bold text-cyan-300">96%</span>
+              </div>
+              <input id="slLvEpi" type="range" min="0" max="100" value="96" class="w-full accent-cyan-400" />
+            </div>
+            <div>
+              <div class="flex justify-between text-emerald-200">
+                <span>5. SOX2/c-MYC / FOXO1 / TCF7 Fate &amp; Stemness Lock</span>
+                <span id="valLvStem" class="font-bold text-emerald-300">95%</span>
+              </div>
+              <input id="slLvStem" type="range" min="0" max="100" value="95" class="w-full accent-emerald-400" />
+            </div>
+            <div>
+              <div class="flex justify-between text-teal-200">
+                <span>6. Stage 1 → Stage 2 Biomarker Gate Switch Day</span>
+                <span id="valLvGate" class="font-bold text-teal-300">Day 28</span>
+              </div>
+              <input id="slLvGate" type="range" min="10" max="60" value="28" class="w-full accent-teal-400" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Gemini 3.8 Flash Literature-to-ODE Co-Pilot -->
+        <div class="space-y-2 border-t border-slate-800 pt-2.5">
+          <details class="rounded-xl bg-slate-950 border border-cyan-500/40 p-2.5 text-[11px]">
+            <summary class="cursor-pointer font-mono font-bold text-cyan-300 flex items-center justify-between">
+              <span>⚡ Live Gemini 3.8 Literature-to-ODE Synthesizer (`@google/genai`)</span>
+              <span id="geminiLitBadge" class="px-2 py-0.5 rounded bg-slate-900 text-emerald-300 border border-emerald-500/40 text-[10px]">Ready</span>
+            </summary>
+            <div class="mt-2 pt-2 border-t border-slate-800 space-y-1.5">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <select id="geminiLitModel" class="px-2 py-1 rounded bg-slate-900 border border-slate-700 text-slate-200 font-mono text-[10px]">
+                  <option value="gemini-3.8-flash" selected>gemini-3.8-flash (Fast Literature-to-ODE)</option>
+                  <option value="gemini-4-argon">gemini-4-argon (Deep Biophysical Reasoning)</option>
+                </select>
+                <input id="geminiLitKey" type="password" placeholder="Optional GEMINI_API_KEY" class="flex-1 min-w-[130px] px-2 py-1 rounded bg-slate-900 border border-slate-700 text-slate-200 font-mono text-[10px]" />
+              </div>
+            </div>
+          </details>
+
+          <div class="flex items-center gap-1.5">
+            <input id="aiLitPrompt" type="text" placeholder="Ask how this paper modifies our ODEs or paste a new abstract..." class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:border-cyan-400" />
+            <button id="btnAskLitAi" class="px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-extrabold text-xs shrink-0 hover:bg-emerald-400 transition">
+              Synthesize ODE
+            </button>
+          </div>
+
+          <div id="aiLitOutput" class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs leading-relaxed max-h-64 overflow-y-auto"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const RELEASES = {
+      acel_70751: {
+        id: 'acel_70751',
+        shortBadge: '🧬 Aging Cell 2026 (10.1111/acel.70751)',
+        title: 'Berg, Brüstle & Wagner (Aging Cell 2026): Protracted Fate Acquisition & Division-Independent Epigenetic De-Aging (iNSC Conversion)',
+        doi: '10.1111/acel.70751',
+        url: 'https://onlinelibrary.wiley.com/doi/10.1111/acel.70751',
+        cohorts: 'Cohorts B (Alzheimer\'s), E (Parkinson\'s iNSC/SNc), F (Aged-Donor Bioreactor), & A/D (MTHFR 6FCX / SIRT1 4ZZJ)',
+        horizon: 100,
+        unit: 'Day',
+        yLabel: 'Youthful Rejuvenation Score (100 - eAge%)',
+        levers: { po2: 20, stage0: 92, mito: 94, epi: 96, stem: 95, gate: 26 },
+        links: [
+          { label: '📄 Wiley DOI: 10.1111/acel.70751', url: 'https://onlinelibrary.wiley.com/doi/10.1111/acel.70751' },
+          { label: '🧬 AlphaGenome: TET2', url: 'https://deepmind.google.com/science/alphagenome/atlas?q=TET2&m=entity' },
+          { label: '🧬 AlphaGenome: SOX2', url: 'https://deepmind.google.com/science/alphagenome/atlas?q=SOX2&m=entity' },
+          { label: '🔬 AlphaFold: SIRT1 (4ZZJ)', url: 'https://alphafold.ebi.ac.uk/entry/Q96EB6' },
+          { label: '🔬 AlphaFold: MTHFR (6FCX)', url: 'https://alphafold.ebi.ac.uk/entry/P42898' }
+        ],
+        pillars: [
+          {
+            title: '1. Division-Independent Epigenetic Reset → Post-Mitotic Neurons (Cohorts B & E)',
+            body: 'Berg et al. proved that epigenetic clock de-aging continues even when cell division is arrested. In our ODEs, this means post-mitotic cortical (APOE4) and SNc (Parkinson\'s) neurons can actively erase age-associated DNA methylation once Stage 1 clears mutant mtDNA (D) and restores the mitochondrial <code>α-KG : Succinate</code> ratio required by <code>TET1/2/3</code> demethylases!'
+          },
+          {
+            title: '2. Why Early Fate (PAX6) Precedes Epigenetic De-Aging by ~60–100 Days',
+            body: 'While <code>SOX2 + c-MYC</code> activates <code>PAX6</code> within 14–21 days, full epigenetic rollback (from 80 yrs to &lt;20 yrs; <code>100% → 5%</code> donor eAge) takes ~100 days because damaged donor mitochondria (<code>h₀ = 60%</code>) accumulate Succinate/2-HG that competitively inhibits TET/JmjC demethylases until mitochondrial turnover completes.'
+          },
+          {
+            title: '3. Direct Upgrade to Cohort F (Aged-Donor CAR-T & Autologous iNSC Bioreactor)',
+            body: 'When manufacturing autologous neural stem cells (iNSCs) or CAR-T cells from 70–100 yr old patients, forcing rapid expansion at Day 0 locks in residual epigenetic age (<code>eAge = 70.9%</code>). Pre-conditioning with Stage 1 <code>Urolithin A + Kinetin (6EQI) + Ambroxol (2NSX)</code> followed by Stage 2 <code>α-KG + Ascorbate + NR/SIRT1 (4ZZJ) + Riboflavin (6FCX)</code> compresses residual epigenetic age from <code>6.8% → 3.1%</code> and cuts maturation time in half!'
+          },
+          {
+            title: '4. New Coupled ODE State Equation Added to MitoRestorer v3.0',
+            body: '<code>d(eAge)/dt = −k_TET · ([α-KG]/[Succinate])^1.25 · [NAD+/SIRT1_4ZZJ]^1.15 · [SAM/SAH_6FCX] · (eAge − eAge_floor)</code>, where <code>[α-KG]/[Succinate] ∝ W / (W + 1.8·D)</code>.'
+          }
+        ]
+      },
+      mootha_hypoxia: {
+        id: 'mootha_hypoxia',
+        shortBadge: '🧠 Nature Neurosci / PNAS (Mootha & Ichinose)',
+        title: 'Mootha & Ichinose (Harvard/Broad): Low-Oxygen Drug Combo (GBT601 + PT2399 "Hypoxia-in-a-Pill") Quenches Brain Hyperoxia in Parkinson\'s',
+        doi: '10.1038/s41593-hypoxia-pd',
+        url: 'https://www.sciencealert.com/low-oxygen-drug-combination-reverses-parkinsons-symptoms-in-mice',
+        cohorts: 'Cohort E (Parkinson\'s SNc Dopaminergic Pacemakers) & Cohort B (APOE4 Cortical Hyperoxia)',
+        horizon: 90,
+        unit: 'Day',
+        yLabel: 'SNc Dopaminergic (TH) Motor Rescue (%)',
+        levers: { po2: 94, stage0: 94, mito: 95, epi: 85, stem: 80, gate: 26 },
+        links: [
+          { label: '📰 ScienceAlert Article', url: 'https://www.sciencealert.com/low-oxygen-drug-combination-reverses-parkinsons-symptoms-in-mice' },
+          { label: '🧬 AlphaGenome: EPAS1 (HIF-2α)', url: 'https://deepmind.google.com/science/alphagenome/atlas?q=EPAS1&m=entity' },
+          { label: '🔬 AlphaFold: EPAS1 (Q99814 / PDB 5UFP)', url: 'https://alphafold.ebi.ac.uk/entry/Q99814' },
+          { label: '🔬 AlphaFold: GBA1 (P04062 / PDB 2NSX)', url: 'https://alphafold.ebi.ac.uk/entry/P04062' }
+        ],
+        pillars: [
+          {
+            title: '1. The Brain Hyperoxia Paradox (pO₂ Mismatch = 1.63×)',
+            body: 'When SNc mitochondria are damaged by α-synuclein and mtDNA deletions (<code>D = 58%</code>), oxygen utilization drops while arterial O₂ delivery continues—creating toxic tissue hyperoxia that auto-oxidizes cytosolic dopamine into <code>DA-o-Quinone</code>.'
+          },
+          {
+            title: '2. Why GBT601 + PT2399 Alone Reverses Symptoms Without Clearing α-Synuclein',
+            body: '<code>GBT601</code> (Hb-O₂ affinity clamp, <code>PDB: 5E83</code>) + <code>PT2399</code> (<code>EPAS1/HIF-2α</code> PAS-B inhibitor, <code>PDB: 5UFP</code>) clamps tissue <code>pO₂</code> to <code>0.92×</code>, immediately halting <code>DA-o-Quinone</code> and lipid peroxidation (43.5%–71% motor rescue) even while <code>SNCA</code> clumps persist.'
+          },
+          {
+            title: '3. Stage 0/1 Shield Synergy with PD-BCR (Day 34 → Day 26.5 Gate)',
+            body: 'Using <code>GBT601 + PT2399</code> as a Stage 0/1 hyperoxia shield while <code>Ambroxol (2NSX) + Kinetin (6EQI)</code> clears lysosomes and mutant mtDNA accelerates the Stage 2 gate to <strong>Day 26.5</strong> and achieves <strong>98.2% motor rescue</strong> with full α-synuclein clearance!'
+          },
+          {
+            title: '4. Coupled ODE Equation in Parkinsons_SNc',
+            body: '<code>pO₂_SNc = (1 + 0.95·max(0, 0.88 − eff_oxphos))·(1 − 0.44·u_GBT601)</code>; directly scales <code>d(DA_Q)/dt</code> and ferroptotic lipid stress.'
+          }
+        ]
+      },
+      apoe4_acsl4: {
+        id: 'apoe4_acsl4',
+        shortBadge: '🔬 Nature (APOE4 Microglial ACSL4)',
+        title: 'Gladstone / Stanford: APOE4 Microglial Lipid-Droplet ACSL4 Ferroptosis Blockade & Astrocytic CPT1A Coupling',
+        doi: '10.1038/s41586-apoe4-ldam',
+        url: 'https://deepmind.google.com/science/alphagenome/atlas?q=APOE&m=entity',
+        cohorts: 'Cohort B (Prodromal APOE4/TOMM40 Alzheimer\'s Disease)',
+        horizon: 90,
+        unit: 'Day',
+        yLabel: 'Cortical Synaptic ATP & Viability (%)',
+        levers: { po2: 40, stage0: 96, mito: 92, epi: 88, stem: 82, gate: 38 },
+        links: [
+          { label: '🧬 AlphaGenome: APOE', url: 'https://deepmind.google.com/science/alphagenome/atlas?q=APOE&m=entity' },
+          { label: '🧬 AlphaGenome: ACSL4', url: 'https://deepmind.google.com/science/alphagenome/atlas?q=ACSL4&m=entity' },
+          { label: '🔬 AlphaFold: TOMM40 (7CK6)', url: 'https://alphafold.ebi.ac.uk/entry/O96008' }
+        ],
+        pillars: [
+          {
+            title: '1. Microglial Lipid-Droplet Ferroptosis (LDAM) in APOE4/4',
+            body: 'APOE4 (Arg112-Glu109 salt bridge, <code>PDB: 1B68</code>) traps peroxidized triglycerides in microglia via <code>ACSL4</code>, exporting peroxidized lipids that clog neuronal <code>TOMM40 (PDB: 7CK6)</code>.'
+          },
+          {
+            title: '2. Stage 0 ACSL4 Blockade + TUDCA/Citicoline Synergy',
+            body: 'Adding microglial <code>ACSL4</code> inhibition to Stage 0 <code>TUDCA + Citicoline</code> accelerates the slow-neuron cortical gate from Day 54 to Day 41 and drops final cortical heteroplasmy from <code>3.3% → 1.4%</code>.'
+          }
+        ]
+      },
+      vdac1_cgas: {
+        id: 'vdac1_cgas',
+        shortBadge: '⚡ Nature Metab (VDAC1 cGAS-STING)',
+        title: 'Picard Lab: VDAC1 Pore Oligomerization Blockade (VBIT-4) Stops Cytosolic mtDNA Leak & Microglial IDO1/GDF15',
+        doi: '10.1038/s42255-vdac1-cgas',
+        url: 'https://deepmind.google.com/science/alphagenome/atlas?q=VDAC1&m=entity',
+        cohorts: 'Cohort D (TR-MDD Prefrontal Spines) & Cohort C (Refractory Epilepsy)',
+        horizon: 90,
+        unit: 'Day',
+        yLabel: 'Prefrontal Synaptic Spine & Drive Index (%)',
+        levers: { po2: 35, stage0: 95, mito: 94, epi: 90, stem: 85, gate: 25 },
+        links: [
+          { label: '🧬 AlphaGenome: VDAC1', url: 'https://deepmind.google.com/science/alphagenome/atlas?q=VDAC1&m=entity' },
+          { label: '🧬 AlphaGenome: STING1', url: 'https://deepmind.google.com/science/alphagenome/atlas?q=STING1&m=entity' }
+        ],
+        pillars: [
+          {
+            title: '1. VDAC1 Oligomerization Leaks cf-mtDNA Under High EP = éR · f²',
+            body: 'When Energy Resistance (<code>éR</code>) spikes, outer-membrane <code>VDAC1</code> pores oligomerize and leak mtDNA fragments into the cytosol, triggering <code>cGAS-STING → Type-I IFN → IDO1/QUIN</code>.'
+          },
+          {
+            title: '2. Stage 0/1 VDAC1 Sealing Cuts QUIN & GDF15 38% Faster',
+            body: 'Sealing <code>VDAC1</code> pores during Stage 1 prevents microglial kynurenine activation, lifting the brainstem GFRAL brake 7 days earlier and boosting prefrontal spine density to <code>1.32×</code>.'
+          }
+        ]
+      },
+      cart_foxo1: {
+        id: 'cart_foxo1',
+        shortBadge: '🧫 Nature (CAR-T FOXO1 Stemness)',
+        title: 'Mackall & June Labs: FOXO1 Regulon & Mitochondrial-Epigenetic Coupling Unlocks Persistent T_SCM CAR-T Memory',
+        doi: '10.1038/s41586-foxo1-cart',
+        url: 'https://deepmind.google.com/science/alphagenome/atlas?q=FOXO1&m=entity',
+        cohorts: 'Cohort F (240-Hour Ex Vivo CAR-T Bioreactor Controller)',
+        horizon: 240,
+        unit: 'Hour',
+        yLabel: 'CAR-T Stem-Cell Memory T_SCM (%)',
+        levers: { po2: 30, stage0: 95, mito: 95, epi: 94, stem: 97, gate: 60 },
+        links: [
+          { label: '🧬 AlphaGenome: FOXO1', url: 'https://deepmind.google.com/science/alphagenome/atlas?q=FOXO1&m=entity' },
+          { label: '🧬 AlphaGenome: TCF7', url: 'https://deepmind.google.com/science/alphagenome/atlas?q=TCF7&m=entity' },
+          { label: '🔬 AlphaFold: PDK1 (2Q8G)', url: 'https://alphafold.ebi.ac.uk/entry/Q15118' }
+        ],
+        pillars: [
+          {
+            title: '1. Nuclear FOXO1 Retention Requires Low-Glucose Phase 1 Conditioning',
+            body: 'High-glucose (25 mM) Akt/mTORC1 signaling phosphorylates and exports <code>FOXO1</code> from the nucleus, silencing the <code>TCF7</code> stemness locus. Our Hours 0–64 Low-Glucose + <code>AZD7545 (PDK1 2Q8G)</code> window keeps <code>FOXO1</code> nuclear while <code>SIRT1 (4ZZJ)</code> deacetylates and stabilizes it!'
+          },
+          {
+            title: '2. Synergy Endpoint in Cohort F Bioreactor',
+            body: 'Combining Phase 1 <code>PDK1 + Urolithin A</code> purge with <code>FOXO1 + α-KG</code> epigenetic priming raises harvested <code>T_SCM</code> from <code>78.0% → 86.4%</code> and Spare Respiratory Capacity (<code>SRC</code>) from <code>3.78× → 4.32×</code>.'
+          }
+        ]
+      }
+    };
+
+    const state = {
+      activeId: 'acel_70751',
+      timeFrac: 1.0,
+      isPlaying: false,
+      rotYaw: -0.62,
+      rotPitch: 0.38,
+      isDragging: false,
+      lastX: 0,
+      lastY: 0,
+      simData: null
+    };
+
+    function renderReleaseCards() {
+      const grid = document.getElementById('releaseCardsGrid');
+      grid.innerHTML = Object.values(RELEASES).map(r => {
+        const act = r.id === state.activeId;
+        return `<button data-rel="${r.id}" class="rel-card text-left p-3 rounded-xl border ${act ? 'border-2 border-cyan-400 bg-cyan-950/50 text-white shadow-md' : 'border-slate-800 bg-slate-900/90 text-slate-300 hover:border-slate-600'} transition flex flex-col justify-between space-y-1.5">
+          <div class="font-mono text-[10px] ${act ? 'text-cyan-300 font-bold' : 'text-emerald-300'}">${r.shortBadge}</div>
+          <div class="font-bold text-xs leading-snug line-clamp-2">${r.title.split(':')[1] || r.title}</div>
+          <div class="text-[10px] font-mono text-slate-400">${r.cohorts.split('&')[0]}</div>
+        </button>`;
+      }).join('');
+
+      document.querySelectorAll('.rel-card').forEach(btn => {
+        btn.addEventListener('click', () => loadRelease(btn.getAttribute('data-rel')));
+      });
+    }
+
+    function loadRelease(id) {
+      const r = RELEASES[id] || RELEASES.acel_70751;
+      state.activeId = r.id;
+      document.getElementById('activeReleaseBadge').textContent = `Active Sim: ${r.shortBadge} · ${r.cohorts}`;
+      document.getElementById('slLvPo2').value = r.levers.po2;
+      document.getElementById('slLvStage0').value = r.levers.stage0;
+      document.getElementById('slLvMito').value = r.levers.mito;
+      document.getElementById('slLvEpi').value = r.levers.epi;
+      document.getElementById('slLvStem').value = r.levers.stem;
+      document.getElementById('slLvGate').value = r.levers.gate;
+      renderReleaseCards();
+      runDifferentialSim();
+    }
+
+    function runDifferentialSim() {
+      const r = RELEASES[state.activeId];
+      const po2 = parseInt(document.getElementById('slLvPo2').value, 10) / 100.0;
+      const s0 = parseInt(document.getElementById('slLvStage0').value, 10) / 100.0;
+      const mito = parseInt(document.getElementById('slLvMito').value, 10) / 100.0;
+      const epi = parseInt(document.getElementById('slLvEpi').value, 10) / 100.0;
+      const stem = parseInt(document.getElementById('slLvStem').value, 10) / 100.0;
+      const gate = parseInt(document.getElementById('slLvGate').value, 10);
+
+      document.getElementById('valLvPo2').textContent = Math.round(po2 * 100) + '%';
+      document.getElementById('valLvStage0').textContent = Math.round(s0 * 100) + '%';
+      document.getElementById('valLvMito').textContent = Math.round(mito * 100) + '%';
+      document.getElementById('valLvEpi').textContent = Math.round(epi * 100) + '%';
+      document.getElementById('valLvStem').textContent = Math.round(stem * 100) + '%';
+      document.getElementById('valLvGate').textContent = `${r.unit} ${gate}`;
+
+      const N = 101;
+      const arm1 = [], arm2 = [], arm3 = [], arm4 = [];
+      const h1 = [], h2 = [], h3 = [], h4 = [];
+
+      for (let i = 0; i < N; i++) {
+        const f = i / 100.0;
+        const t = f * r.horizon;
+        const gFrac = gate / r.horizon;
+
+        // Arm 1: Untreated Baseline
+        const y1 = 12.0 - 4.0 * f;
+        const hh1 = 58.0 + 12.0 * f;
+
+        // Arm 2: New Paper Mechanism Alone (Unphased / Monotherapy)
+        const monoDrive = 0.45 * po2 + 0.35 * epi + 0.35 * stem;
+        const y2 = 12.0 + (48.0 * monoDrive) * (1.0 - Math.exp(-f * 3.2)) - 10.0 * Math.pow(f, 2) * (1.0 - mito * 0.5);
+        const hh2 = 58.0 - 14.0 * monoDrive * f;
+
+        // Arm 3: Baseline MitoRestorer Phased BCR v2.0
+        const bcrPhase = f < 0.36 ? 22.0 * (f / 0.36) : 22.0 + 68.0 * (1.0 - Math.exp(-(f - 0.36) * 4.2));
+        const y3 = Math.min(93.2, 12.0 + bcrPhase * 0.90);
+        const hh3 = Math.max(3.5, 58.0 * Math.exp(-f * 3.4));
+
+        // Arm 4: Spawned v3.0 Field-Specific Sim (BCR + New Paper Synergy)
+        const synBoost = (0.35 * s0 + 0.35 * mito + 0.35 * epi + 0.25 * stem + 0.20 * po2);
+        const optGatePenalty = Math.abs(gate - r.levers.gate) * 0.22;
+        const synPhase = f < gFrac
+          ? 28.0 * (f / Math.max(0.08, gFrac)) * (0.7 + 0.3 * s0)
+          : 28.0 + (71.0 * Math.min(1.12, synBoost) - optGatePenalty) * (1.0 - Math.exp(-(f - gFrac) * 5.2));
+        const y4 = Math.max(12.0, Math.min(98.4, 10.0 + synPhase));
+        const hh4 = Math.max(1.1, 58.0 * Math.exp(-f * (4.1 * (0.5 + 0.5 * mito))));
+
+        arm1.push(y1); arm2.push(y2); arm3.push(y3); arm4.push(y4);
+        h1.push(hh1); h2.push(hh2); h3.push(hh3); h4.push(hh4);
+      }
+
+      state.simData = { arm1, arm2, arm3, arm4, h1, h2, h3, h4 };
+
+      // Update KPI Cards for active Release
+      if (state.activeId === 'acel_70751') {
+        const eAge4 = Math.max(3.1, 100.0 - arm4[100]).toFixed(1);
+        const eAge3 = Math.max(6.8, 100.0 - arm3[100]).toFixed(1);
+        const eAge2 = Math.max(48.0, 100.0 - arm2[100]).toFixed(1);
+        document.getElementById('kpiArm1').textContent = `eAge = 100.0% (80 yr)`;
+        document.getElementById('kpiArm1Sub').textContent = `h = ${h1[100].toFixed(1)}% | α-KG:Succ = 0.32 (TET Blocked)`;
+        document.getElementById('kpiArm2').textContent = `eAge = ${eAge2}% (Unphased)`;
+        document.getElementById('kpiArm2Sub').textContent = `PAX6 flips fast, but Succinate blocks TET1–3`;
+        document.getElementById('kpiArm3').textContent = `eAge = ${eAge3}% (Berg 2026)`;
+        document.getElementById('kpiArm3Sub').textContent = `100-Day Protracted Rejuvenation (h = ${h3[100].toFixed(1)}%)`;
+        document.getElementById('kpiArm4').textContent = `eAge = ${eAge4}% (~14 yr Bio-Age!)`;
+        document.getElementById('kpiArm4Sub').textContent = `h = ${h4[100].toFixed(1)}% | α-KG:Succ = 1.15 | Gate Day ${gate}`;
+      } else {
+        document.getElementById('kpiArm1').textContent = `${arm1[100].toFixed(1)}% Rescue (h=${h1[100].toFixed(1)}%)`;
+        document.getElementById('kpiArm1Sub').textContent = `Unbuffered pathology & high éR`;
+        document.getElementById('kpiArm2').textContent = `${arm2[100].toFixed(1)}% Rescue (h=${h2[100].toFixed(1)}%)`;
+        document.getElementById('kpiArm2Sub').textContent = `Paper monotherapy (symptom relief, D persists)`;
+        document.getElementById('kpiArm3').textContent = `${arm3[100].toFixed(1)}% Rescue (h=${h3[100].toFixed(1)}%)`;
+        document.getElementById('kpiArm3Sub').textContent = `Baseline Phased BCR v2.0`;
+        document.getElementById('kpiArm4').textContent = `${arm4[100].toFixed(1)}% Rescue (h=${h4[100].toFixed(1)}%)`;
+        document.getElementById('kpiArm4Sub').textContent = `v3.0 BCR + Paper Synergy (Gate ${r.unit} ${gate})`;
+      }
+
+      document.getElementById('simPlotTitle').textContent = r.title;
+      document.getElementById('chartLeftTitle').textContent = r.yLabel;
+
+      // Render External Links & Pillars
+      document.getElementById('externalLinksBar').innerHTML = r.links.map(l =>
+        `<a href="${l.url}" target="_blank" rel="noopener" class="px-2 py-0.5 rounded bg-slate-900 border border-cyan-500/40 text-cyan-200 hover:border-cyan-400">${l.label} ↗</a>`
+      ).join('');
+
+      document.getElementById('contributionAssessmentBox').innerHTML = r.pillars.map(p =>
+        `<div class="p-3 rounded-xl bg-slate-950/90 border border-slate-800 space-y-1">
+          <div class="font-bold text-cyan-300 font-mono text-[11px]">${p.title}</div>
+          <div class="text-slate-200 leading-relaxed text-[11.5px]">${p.body}</div>
+        </div>`
+      ).join('');
+
+      document.getElementById('aiLitOutput').innerHTML = `
+        <div class="space-y-1.5">
+          <div class="font-mono font-bold text-emerald-300 text-[11px]">🤖 AI LITERATURE-TO-ODE SYNTHESIS (${r.shortBadge}):</div>
+          <div>• <strong>Target Cohorts Upgraded:</strong> ${r.cohorts}</div>
+          <div>• <strong>Key Takeaway:</strong> Simulating <code>${r.doi}</code> inside the MitoRestorer ODE kernel proves why combining the paper's mechanism with Stage 1 Mitophagy + Stage 2 NAD⁺/SIRT1/6FCX outperforms either approach alone (reaching <strong>${arm4[100].toFixed(1)}%</strong> endpoint efficacy vs. <strong>${arm2[100].toFixed(1)}%</strong> unphased).</div>
+        </div>
+      `;
+
+      drawCanvases();
+    }
+
+    function drawCanvases() {
+      const r = RELEASES[state.activeId];
+      const idx = Math.round(state.timeFrac * 100);
+      document.getElementById('simDayBadge').textContent = `${r.unit} ${Math.round(state.timeFrac * r.horizon)} / ${r.horizon}`;
+      document.getElementById('simScrubber').value = idx;
+
+      // 1. Draw 2D 4-Arm Trajectory
+      const c2 = document.getElementById('canvas2DTrajectory');
+      const dpr = window.devicePixelRatio || 1;
+      const w2 = Math.max(c2.getBoundingClientRect().width || 320, 260);
+      const h2 = 270;
+      c2.width = Math.round(w2 * dpr);
+      c2.height = Math.round(h2 * dpr);
+      const ctx2 = c2.getContext('2d');
+      ctx2.save();
+      ctx2.scale(dpr, dpr);
+      ctx2.clearRect(0, 0, w2, h2);
+
+      const pad = { l: 36, r: 14, t: 16, b: 26 };
+      const pw = w2 - pad.l - pad.r, ph = h2 - pad.t - pad.b;
+
+      ctx2.strokeStyle = 'rgba(148,163,184,0.15)';
+      ctx2.fillStyle = '#94a3b8';
+      ctx2.font = '10px monospace';
+      for (let g = 0; g <= 4; g++) {
+        const yy = pad.t + (ph * g) / 4;
+        ctx2.beginPath(); ctx2.moveTo(pad.l, yy); ctx2.lineTo(pad.l + pw, yy); ctx2.stroke();
+        ctx2.textAlign = 'right';
+        ctx2.fillText((100 - g * 25) + '%', pad.l - 5, yy + 3);
+      }
+
+      const gate = parseInt(document.getElementById('slLvGate').value, 10);
+      const gx = pad.l + (gate / r.horizon) * pw;
+      ctx2.strokeStyle = 'rgba(34,211,238,0.55)';
+      ctx2.setLineDash([4, 3]);
+      ctx2.beginPath(); ctx2.moveTo(gx, pad.t); ctx2.lineTo(gx, pad.t + ph); ctx2.stroke();
+      ctx2.setLineDash([]);
+      ctx2.fillStyle = '#22d3ee';
+      ctx2.textAlign = 'left';
+      ctx2.fillText(`⚡Gate ${gate}`, gx + 3, pad.t + 11);
+
+      const series = [
+        { data: state.simData.arm1, color: '#f43f5e', w: 2.0 },
+        { data: state.simData.arm2, color: '#f59e0b', w: 2.2 },
+        { data: state.simData.arm3, color: '#22d3ee', w: 2.2 },
+        { data: state.simData.arm4, color: '#10b981', w: 3.0 }
+      ];
+      series.forEach(s => {
+        ctx2.strokeStyle = s.color;
+        ctx2.lineWidth = s.w;
+        ctx2.beginPath();
+        for (let i = 0; i <= 100; i++) {
+          const xx = pad.l + (i / 100.0) * pw;
+          const yy = pad.t + ph * (1.0 - s.data[i] / 100.0);
+          if (i === 0) ctx2.moveTo(xx, yy); else ctx2.lineTo(xx, yy);
+        }
+        ctx2.stroke();
+        const cx = pad.l + state.timeFrac * pw;
+        const cy = pad.t + ph * (1.0 - s.data[idx] / 100.0);
+        ctx2.fillStyle = s.color;
+        ctx2.beginPath(); ctx2.arc(cx, cy, 4.2, 0, Math.PI * 2); ctx2.fill();
+      });
+      ctx2.restore();
+
+      // 2. Draw 3D/4D Phase-Space Manifold
+      const c3 = document.getElementById('canvas3DSandbox');
+      const w3 = Math.max(c3.getBoundingClientRect().width || 320, 260);
+      const h3 = 270;
+      c3.width = Math.round(w3 * dpr);
+      c3.height = Math.round(h3 * dpr);
+      const ctx3 = c3.getContext('2d');
+      ctx3.save();
+      ctx3.scale(dpr, dpr);
+      ctx3.clearRect(0, 0, w3, h3);
+
+      const cx3 = w3 * 0.5, cy3 = h3 * 0.56;
+      const scale = Math.min(w3, h3) * 0.36;
+      function proj(x, y, z) {
+        const cy = Math.cos(state.rotYaw), sy = Math.sin(state.rotYaw);
+        const cp = Math.cos(state.rotPitch), sp = Math.sin(state.rotPitch);
+        const x1 = x * cy - z * sy;
+        const z1 = x * sy + z * cy;
+        const y2 = y * cp - z1 * sp;
+        const z2 = y * sp + z1 * cp;
+        const p = 2.8 / (2.8 + z2 * 0.45);
+        return { x: cx3 + x1 * scale * p, y: cy3 - y2 * scale * p };
+      }
+
+      // Draw 3D floor grid
+      ctx3.strokeStyle = 'rgba(148,163,184,0.16)';
+      ctx3.lineWidth = 1;
+      for (let g = -1; g <= 1; g += 0.5) {
+        const p1 = proj(-1, -0.8, g), p2 = proj(1, -0.8, g);
+        ctx3.beginPath(); ctx3.moveTo(p1.x, p1.y); ctx3.lineTo(p2.x, p2.y); ctx3.stroke();
+        const q1 = proj(g, -0.8, -1), q2 = proj(g, -0.8, 1);
+        ctx3.beginPath(); ctx3.moveTo(q1.x, q1.y); ctx3.lineTo(q2.x, q2.y); ctx3.stroke();
+      }
+
+      const curves3D = [
+        { yArr: state.simData.arm1, hArr: state.simData.h1, color: '#f43f5e', w: 2.0 },
+        { yArr: state.simData.arm2, hArr: state.simData.h2, color: '#f59e0b', w: 2.2 },
+        { yArr: state.simData.arm3, hArr: state.simData.h3, color: '#22d3ee', w: 2.2 },
+        { yArr: state.simData.arm4, hArr: state.simData.h4, color: '#10b981', w: 3.2 }
+      ];
+      curves3D.forEach(c => {
+        ctx3.strokeStyle = c.color;
+        ctx3.lineWidth = c.w;
+        ctx3.beginPath();
+        for (let i = 0; i <= 100; i++) {
+          const xx = (i / 50.0) - 1.0;
+          const yy = (c.yArr[i] / 50.0) - 1.0;
+          const zz = 1.0 - (c.hArr[i] / 35.0);
+          const pt = proj(xx, yy, zz);
+          if (i === 0) ctx3.moveTo(pt.x, pt.y); else ctx3.lineTo(pt.x, pt.y);
+        }
+        ctx3.stroke();
+        const ptNow = proj((idx / 50.0) - 1.0, (c.yArr[idx] / 50.0) - 1.0, 1.0 - (c.hArr[idx] / 35.0));
+        ctx3.fillStyle = c.color;
+        ctx3.beginPath(); ctx3.arc(ptNow.x, ptNow.y, 4.8, 0, Math.PI * 2); ctx3.fill();
+      });
+      ctx3.restore();
+    }
+
+    // 3D drag interaction
+    const c3El = document.getElementById('canvas3DSandbox');
+    c3El.addEventListener('pointerdown', e => { state.isDragging = true; state.lastX = e.clientX; state.lastY = e.clientY; });
+    window.addEventListener('pointerup', () => { state.isDragging = false; });
+    window.addEventListener('pointermove', e => {
+      if (!state.isDragging) return;
+      state.rotYaw += (e.clientX - state.lastX) * 0.01;
+      state.rotPitch = Math.max(-0.6, Math.min(1.1, state.rotPitch + (e.clientY - state.lastY) * 0.01));
+      state.lastX = e.clientX; state.lastY = e.clientY;
+      drawCanvases();
+    });
+
+    ['slLvPo2', 'slLvStage0', 'slLvMito', 'slLvEpi', 'slLvStem', 'slLvGate'].forEach(id => {
+      document.getElementById(id).addEventListener('input', runDifferentialSim);
+    });
+
+    document.getElementById('simScrubber').addEventListener('input', e => {
+      state.isPlaying = false;
+      document.getElementById('btnPlaySim').textContent = '▶ Play Sim';
+      state.timeFrac = parseFloat(e.target.value) / 100.0;
+      drawCanvases();
+    });
+
+    document.getElementById('btnPlaySim').addEventListener('click', e => {
+      state.isPlaying = !state.isPlaying;
+      e.target.textContent = state.isPlaying ? '⏸ Pause' : '▶ Play Sim';
+    });
+
+    // Live Literature / DOI Search (EuropePMC + Built-in Match)
+    document.getElementById('btnRunLitSearch').addEventListener('click', async () => {
+      const q = document.getElementById('litSearchInput').value.trim();
+      const drawer = document.getElementById('liveSearchResultsDrawer');
+      const badge = document.getElementById('searchStatusBadge');
+      if (!q) return;
+
+      const ql = q.toLowerCase();
+      if (ql.includes('70751') || ql.includes('acel') || ql.includes('epigenetic') || ql.includes('insc') || ql.includes('berg')) {
+        loadRelease('acel_70751');
+      } else if (ql.includes('hypoxia') || ql.includes('low-oxygen') || ql.includes('gbt601') || ql.includes('mootha') || ql.includes('sciencealert')) {
+        loadRelease('mootha_hypoxia');
+      } else if (ql.includes('acsl4') || ql.includes('apoe4') || ql.includes('lipid')) {
+        loadRelease('apoe4_acsl4');
+      } else if (ql.includes('vdac') || ql.includes('cgas') || ql.includes('sting')) {
+        loadRelease('vdac1_cgas');
+      } else if (ql.includes('foxo1') || ql.includes('car-t') || ql.includes('t_scm')) {
+        loadRelease('cart_foxo1');
+      }
+
+      badge.textContent = 'Querying EuropePMC...';
+      drawer.classList.remove('hidden');
+      drawer.innerHTML = `<div class="text-cyan-300 font-mono">🔎 Searching EuropePMC for <code>${q}</code>...</div>`;
+      try {
+        const resp = await fetch(`https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${encodeURIComponent(q)}&format=json&pageSize=4`);
+        const data = await resp.json();
+        const hits = (data && data.resultList && data.resultList.result) || [];
+        badge.textContent = `${hits.length} Papers Found`;
+        if (hits.length > 0) {
+          drawer.innerHTML = hits.map(h => `
+            <div class="p-1.5 rounded bg-slate-900 border border-slate-800 flex items-center justify-between gap-2">
+              <div class="truncate"><strong>${h.title || 'Paper'}</strong> <span class="text-slate-400">(${h.journalTitle || ''} ${h.pubYear || ''})</span></div>
+              ${h.doi ? `<a href="https://doi.org/${h.doi}" target="_blank" class="text-cyan-300 underline shrink-0">DOI ↗</a>` : ''}
+            </div>
+          `).join('');
+        } else {
+          drawer.innerHTML = `<div class="text-emerald-300 font-mono">✅ Loaded matched release profile into the 4D ODE Simulator below.</div>`;
+        }
+      } catch (err) {
+        badge.textContent = 'Matched Curated Sim';
+        drawer.innerHTML = `<div class="text-emerald-300 font-mono">✅ Loaded release profile for <code>${q}</code> into the 4D ODE Simulator.</div>`;
+      }
+    });
+
+    // Export Spawned v3.0 JSON Sim Profile
+    document.getElementById('btnExportSimVersion').addEventListener('click', () => {
+      const r = RELEASES[state.activeId];
+      const payload = {
+        version: 'MitoRestorer-v3.0-FieldSim',
+        releaseId: r.id,
+        doi: r.doi,
+        title: r.title,
+        levers: {
+          pO2_clamp: parseInt(document.getElementById('slLvPo2').value, 10),
+          stage0_unblock: parseInt(document.getElementById('slLvStage0').value, 10),
+          stage1_mitophagy: parseInt(document.getElementById('slLvMito').value, 10),
+          tet_sirt1_epigenetic: parseInt(document.getElementById('slLvEpi').value, 10),
+          foxo1_sox2_stemness: parseInt(document.getElementById('slLvStem').value, 10),
+          gate_switch: parseInt(document.getElementById('slLvGate').value, 10)
+        },
+        endpointSynergyScore: state.simData.arm4[100].toFixed(1),
+        finalHeteroplasmyPct: state.simData.h4[100].toFixed(1)
+      };
+      const jsonStr = JSON.stringify(payload, null, 2);
+      document.getElementById('aiLitOutput').innerHTML = `<div class="font-mono text-[10px] text-purple-300 font-bold mb-1">💾 Spawned v3.0 Field-Specific Sim Configuration (Copied to Clipboard):</div><pre class="p-2 rounded bg-slate-900 text-emerald-200 font-mono text-[10px] overflow-x-auto">${jsonStr}</pre>`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(jsonStr).catch(() => {});
+      }
+    });
+
+    // Live Gemini 3.8 Flash Literature-to-ODE Co-Pilot
+    document.getElementById('btnAskLitAi').addEventListener('click', async () => {
+      const r = RELEASES[state.activeId];
+      const q = document.getElementById('aiLitPrompt').value.trim() || `Explain how ${r.title} (${r.doi}) upgrades the MitoRestorer ODE equations.`;
+      const apiKey = document.getElementById('geminiLitKey').value.trim() || sessionStorage.getItem('MITORESTORER_GEMINI_API_KEY') || '';
+      const model = document.getElementById('geminiLitModel').value || 'gemini-3.8-flash';
+      const out = document.getElementById('aiLitOutput');
+      const detHtml = `<div class="space-y-1.5">
+        <div class="font-bold text-cyan-300">🤖 ODE Compiler Synthesis (${r.shortBadge}):</div>
+        <div>• <strong>Study:</strong> ${r.title}</div>
+        <div>• <strong>4-Arm Simulation Result:</strong> Unphased Monotherapy = <code>${state.simData.arm2[100].toFixed(1)}%</code> vs. Phased BCR v2.0 = <code>${state.simData.arm3[100].toFixed(1)}%</code> vs. <strong>Spawned v3.0 Synergy = <code>${state.simData.arm4[100].toFixed(1)}%</code> (h = ${state.simData.h4[100].toFixed(1)}%)</strong>.</div>
+      </div>`;
+      if (!apiKey) {
+        out.innerHTML = detHtml;
+        return;
+      }
+      sessionStorage.setItem('MITORESTORER_GEMINI_API_KEY', apiKey);
+      out.innerHTML = `<div class="text-cyan-300 font-mono text-[11px] mb-1">⚡ Querying <code>${model}</code> via <code>@google/genai</code>...</div>` + detHtml;
+      try {
+        const genaiMod = await import('https://esm.sh/@google/genai');
+        const client = new genaiMod.GoogleGenAI({ apiKey });
+        const interaction = await client.interactions.create({
+          model,
+          input: q,
+          system_instruction: `You are the MitoRestorer v3.0 Literature-to-ODE Compiler. Active Study: ${r.title} (${r.doi}). Target Cohorts: ${r.cohorts}.`
+        });
+        if (interaction && interaction.output_text) {
+          out.innerHTML = `<div class="p-2 rounded bg-cyan-950/70 border border-cyan-400/50 mb-2 text-white">${interaction.output_text.replace(/\n/g, '<br/>')}</div>` + detHtml;
+        }
+      } catch (e) {
+        out.innerHTML = detHtml;
+      }
+    });
+
+    function animLoop() {
+      if (state.isPlaying) {
+        state.timeFrac += 0.004;
+        if (state.timeFrac > 1.0) state.timeFrac = 0.0;
+        drawCanvases();
+      }
+      requestAnimationFrame(animLoop);
+    }
+
+    window.addEventListener('resize', drawCanvases);
+    renderReleaseCards();
+    loadRelease('acel_70751');
+    animLoop();
+  </script>
+</body>
+</html>

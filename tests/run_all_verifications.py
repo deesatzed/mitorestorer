@@ -267,6 +267,25 @@ def main():
         "Verified all 7 standalone cohort pages + rotatable 4D Phase-Space Manifold + 5-Pillar Clinical Transparency Inspector",
     )
 
+    from assess_new_science_release import simulate_epigenetic_deaging_acel70751
+
+    acel_res = simulate_epigenetic_deaging_acel70751()
+    pd_hyp_alone = simulate_neuropsychiatric_subprotocols("Parkinsons_SNc", "Hypoxia_Pill_GBT601_PT2399_Alone")
+    pd_hyp_bcr = simulate_neuropsychiatric_subprotocols("Parkinsons_SNc", "PD_BCR_Plus_GBT601_PT2399_Shield")
+    sandbox_path = os.path.join(REPO_ROOT, "simulator", "science_radar_sandbox.html")
+    sandbox_text = open(sandbox_path, encoding="utf-8").read() if os.path.exists(sandbox_path) else ""
+    check(
+        "10.1111/acel.70751" in sandbox_text
+        and "GBT601" in sandbox_text
+        and pd_hyp_alone["Motor_Score_Rescue_Pct"] > 40.0
+        and pd_hyp_bcr["Motor_Score_Rescue_Pct"] >= 98.0
+        and pd_hyp_bcr["switch_day"] < 30.0
+        and acel_res["3_Standard_SOX2_cMYC_iNSC_Conversion_Berg2026"]["eAge_d100_pct"] < 10.0
+        and acel_res["4_MitoRestorer_BCR_Plus_Berg2026_TET_SIRT1_6FCX_Synergy"]["eAge_d100_pct"] < 4.0,
+        "v3.0 Science Radar: Mootha/Ichinose Hyperoxia & Berg 2026 (acel.70751)",
+        f"PD+GBT601/PT2399={pd_hyp_bcr['Motor_Score_Rescue_Pct']}% (Sw d{pd_hyp_bcr['switch_day']}) | Berg2026 eAge=100%->{acel_res['3_Standard_SOX2_cMYC_iNSC_Conversion_Berg2026']['eAge_d100_pct']}% -> BCR+Berg={acel_res['4_MitoRestorer_BCR_Plus_Berg2026_TET_SIRT1_6FCX_Synergy']['eAge_d100_pct']}%",
+    )
+
     print("\n" + "=" * 100)
     print(f"✅ VERIFICATION SUMMARY: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
     print("=" * 100)

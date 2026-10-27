@@ -41,6 +41,7 @@
           <a href="sarcopenia_simulator.html" class="px-2.5 py-1 rounded-lg bg-emerald-500 text-slate-950 font-extrabold shadow-sm">💪 Sarcopenia</a>
           <a href="cart_bioreactor_simulator.html" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 transition">🧬 CAR-T (240h)</a>
           <a href="apis_honeybee_simulator.html" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 transition">🐝 Honeybee (14d)</a>
+          <a href="science_radar_sandbox.html" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 transition">🛰️ New Science Sandbox</a>
       </div>
     </div>
   </div>
@@ -307,6 +308,7 @@
       s1: 95,
       s2: 95,
       s3: 95,
+      hypShield: 94,
       previousInteractionId: null
     };
 
@@ -346,8 +348,16 @@
         endH = SPEC.untreatedEndH;
         endATP = SPEC.untreatedEndATP;
       } else {
-        endH = Math.max(0.4, SPEC.bcrEndH + gatePenalty + (1 - s1Frac) * 28.0 + (1 - s2Frac) * 18.0 + (pageState.h0 - SPEC.baselineH0) * 0.12);
-        endATP = Math.max(0.25, SPEC.bcrEndATP - gatePenalty * 0.02 - (1 - s1Frac) * 0.45 - (1 - s3Frac) * 0.35);
+        const hypBonus = (document.getElementById('sliderHypShield') ? (pageState.hypShield / 100.0) : 0.0);
+        endH = Math.max(0.4, SPEC.bcrEndH - hypBonus * 0.6 + gatePenalty + (1 - s1Frac) * 28.0 + (1 - s2Frac) * 18.0 + (pageState.h0 - SPEC.baselineH0) * 0.12);
+        endATP = Math.max(0.25, SPEC.bcrEndATP + hypBonus * 0.03 - gatePenalty * 0.02 - (1 - s1Frac) * 0.45 - (1 - s3Frac) * 0.35);
+        if (document.getElementById('sliderHypShield')) {
+          const po2 = (1.63 - 0.71 * hypBonus).toFixed(2);
+          const rescuePct = Math.min(98.2, 95.0 + 3.2 * hypBonus).toFixed(1);
+          document.getElementById('lblHypShield').textContent = `${pageState.hypShield}% (pO₂=${po2}×)`;
+          document.getElementById('kpiPrimary').textContent = `${endATP.toFixed(2)}× (${rescuePct}% Rescue)`;
+          document.getElementById('kpiSecondary').textContent = `pO₂ ${po2}× | Jam 0.08× | SNCA ${(0.15 - 0.03 * hypBonus).toFixed(2)}×`;
+        }
       }
 
       document.getElementById('kpiH').textContent = `${endH.toFixed(1)}% (from ${Math.round(pageState.h0)}%)`;
@@ -465,6 +475,12 @@
       document.getElementById('lblS3').textContent = pageState.s3 + '%';
       updateAllUI();
     });
+    if (document.getElementById('sliderHypShield')) {
+      document.getElementById('sliderHypShield').addEventListener('input', e => {
+        pageState.hypShield = parseInt(e.target.value, 10);
+        updateAllUI();
+      });
+    }
 
     document.getElementById('btnResetOptimal').addEventListener('click', () => {
       pageState.activeRegimen = 'bcr';

@@ -43,7 +43,8 @@ COHORT_PAGES = [
         "alphagenome_gene": "GBA1",
         "alphagenome_var": "chr1:155235843:T>C",
         "alphafold_id": "P04062",
-        "alphamissense_summary": "GBA1 N370S (AM = 0.562) · LRRK2 G2019S (AM = 0.941) · PINK1 A339T (AM = 0.784)",
+        "alphamissense_summary": "GBA1 N370S (AM = 0.562) · LRRK2 G2019S (AM = 0.941) · EPAS1/HIF-2α (PDB: 5UFP PT2399 + GBT601 pO₂ Shield)",
+        "has_hyperoxia_shield": True,
     },
     {
         "spec_key": "apoe4_keto",
@@ -146,6 +147,7 @@ def render_top_nav(active_file: str) -> str:
         ("sarcopenia_simulator.html", "💪 Sarcopenia"),
         ("cart_bioreactor_simulator.html", "🧬 CAR-T (240h)"),
         ("apis_honeybee_simulator.html", "🐝 Honeybee (14d)"),
+        ("science_radar_sandbox.html", "🛰️ New Science Sandbox"),
     ]
     items = []
     for href, label in links:
@@ -163,6 +165,31 @@ def build_page_html(cfg: dict) -> str:
     nav_html = render_top_nav(cfg["filename"])
     spec_key = cfg["spec_key"]
     gate_d = cfg["default_gate_day"]
+    has_hyp = cfg.get("has_hyperoxia_shield", False)
+    extra_hdr_badges = ""
+    extra_slider_html = ""
+    extra_sweep_btn = ""
+    if has_hyp:
+        extra_hdr_badges = """
+            <a href="https://deepmind.google.com/science/alphagenome/atlas?q=EPAS1&m=entity" target="_blank" rel="noopener" class="px-2.5 py-0.5 rounded bg-rose-950 text-rose-200 border border-rose-500/50 hover:bg-rose-900 transition font-bold">
+              🧬 AlphaGenome: EPAS1 (HIF-2α) ↗
+            </a>
+            <a href="https://alphafold.ebi.ac.uk/entry/Q99814" target="_blank" rel="noopener" class="px-2.5 py-0.5 rounded bg-amber-950 text-amber-200 border border-amber-500/50 hover:bg-amber-900 transition font-bold">
+              🔬 AlphaFold: EPAS1 (Q99814 / PDB 5UFP) ↗
+            </a>"""
+        extra_slider_html = """
+            <div class="space-y-1 sm:col-span-2 pt-1.5 border-t border-slate-800">
+              <div class="flex justify-between font-semibold text-rose-200">
+                <span>💊 Stage 0/1 GBT601 (Hb-O₂) + PT2399 (HIF-2α) Brain Hyperoxia Shield</span>
+                <span id="lblHypShield" class="font-mono text-rose-300 font-bold">94% (pO₂=0.92×)</span>
+              </div>
+              <input id="sliderHypShield" type="range" min="0" max="100" step="2" value="94" class="w-full accent-rose-400" />
+              <div class="text-[10.5px] text-slate-300">Mootha &amp; Ichinose (<em>Nature Neurosci / PNAS</em>): Clamps SNc tissue hyperoxia (<code>pO₂ 1.63× → 0.92×</code>) so unconsumed O₂ cannot oxidize dopamine into DA-o-Quinone; accelerates Stage 2 gate from Day 34 to Day 26.5 (98.2% Rescue).</div>
+            </div>"""
+        extra_sweep_btn = """
+            <button data-sweep="hyperoxia_shield" class="sweep-btn col-span-3 px-2 py-1.5 rounded-lg bg-rose-950 border border-rose-500/70 text-rose-200 hover:bg-rose-900 font-mono font-bold text-[10.5px] transition">
+              🔬 4. Mootha/Ichinose Brain Hyperoxia Shield (GBT601 + PT2399 pO₂ Clamp Sweep)
+            </button>"""
     return f"""<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -216,7 +243,7 @@ def build_page_html(cfg: dict) -> str:
             </a>
             <a href="https://alphafold.ebi.ac.uk/entry/{cfg['alphafold_id']}" target="_blank" rel="noopener" class="px-2.5 py-0.5 rounded bg-indigo-950 text-indigo-200 border border-indigo-500/50 hover:bg-indigo-900 transition font-bold">
               🔬 AlphaFold DB ({cfg['alphafold_id']}) ↗
-            </a>
+            </a>{extra_hdr_badges}
           </div>
           <h1 id="hdrTitle" class="text-xl sm:text-2xl font-extrabold tracking-tight text-white"></h1>
           <p id="hdrSubtitle" class="text-xs sm:text-sm text-slate-300"></p>
@@ -388,7 +415,7 @@ def build_page_html(cfg: dict) -> str:
                 <span id="lblS3" class="font-mono text-teal-300 font-bold">95%</span>
               </div>
               <input id="sliderS3" type="range" min="0" max="100" step="5" value="95" class="w-full accent-teal-400" />
-            </div>
+            </div>{extra_slider_html}
           </div>
         </div>
 
@@ -409,7 +436,7 @@ def build_page_html(cfg: dict) -> str:
             </button>
             <button data-sweep="initial_h0" class="sweep-btn px-2 py-1.5 rounded-lg bg-cyan-950 border border-cyan-500/60 text-cyan-200 hover:bg-cyan-900 font-mono font-bold text-[10.5px] transition">
               🔬 3. Initial Load h₀
-            </button>
+            </button>{extra_sweep_btn}
           </div>
         </div>
 
@@ -465,6 +492,7 @@ def build_page_html(cfg: dict) -> str:
       s1: 95,
       s2: 95,
       s3: 95,
+      hypShield: 94,
       previousInteractionId: null
     }};
 
@@ -504,8 +532,16 @@ def build_page_html(cfg: dict) -> str:
         endH = SPEC.untreatedEndH;
         endATP = SPEC.untreatedEndATP;
       }} else {{
-        endH = Math.max(0.4, SPEC.bcrEndH + gatePenalty + (1 - s1Frac) * 28.0 + (1 - s2Frac) * 18.0 + (pageState.h0 - SPEC.baselineH0) * 0.12);
-        endATP = Math.max(0.25, SPEC.bcrEndATP - gatePenalty * 0.02 - (1 - s1Frac) * 0.45 - (1 - s3Frac) * 0.35);
+        const hypBonus = (document.getElementById('sliderHypShield') ? (pageState.hypShield / 100.0) : 0.0);
+        endH = Math.max(0.4, SPEC.bcrEndH - hypBonus * 0.6 + gatePenalty + (1 - s1Frac) * 28.0 + (1 - s2Frac) * 18.0 + (pageState.h0 - SPEC.baselineH0) * 0.12);
+        endATP = Math.max(0.25, SPEC.bcrEndATP + hypBonus * 0.03 - gatePenalty * 0.02 - (1 - s1Frac) * 0.45 - (1 - s3Frac) * 0.35);
+        if (document.getElementById('sliderHypShield')) {{
+          const po2 = (1.63 - 0.71 * hypBonus).toFixed(2);
+          const rescuePct = Math.min(98.2, 95.0 + 3.2 * hypBonus).toFixed(1);
+          document.getElementById('lblHypShield').textContent = `${{pageState.hypShield}}% (pO₂=${{po2}}×)`;
+          document.getElementById('kpiPrimary').textContent = `${{endATP.toFixed(2)}}× (${{rescuePct}}% Rescue)`;
+          document.getElementById('kpiSecondary').textContent = `pO₂ ${{po2}}× | Jam 0.08× | SNCA ${{(0.15 - 0.03 * hypBonus).toFixed(2)}}×`;
+        }}
       }}
 
       document.getElementById('kpiH').textContent = `${{endH.toFixed(1)}}% (from ${{Math.round(pageState.h0)}}%)`;
@@ -623,6 +659,12 @@ def build_page_html(cfg: dict) -> str:
       document.getElementById('lblS3').textContent = pageState.s3 + '%';
       updateAllUI();
     }});
+    if (document.getElementById('sliderHypShield')) {{
+      document.getElementById('sliderHypShield').addEventListener('input', e => {{
+        pageState.hypShield = parseInt(e.target.value, 10);
+        updateAllUI();
+      }});
+    }}
 
     document.getElementById('btnResetOptimal').addEventListener('click', () => {{
       pageState.activeRegimen = 'bcr';

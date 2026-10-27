@@ -245,12 +245,24 @@ def main():
     ux_engine_text = open(ux_engine_path, encoding="utf-8").read() if os.path.exists(ux_engine_path) else ""
     pd_flagship_path = os.path.join(REPO_ROOT, "simulator", "parkinsons_simulator.html")
     pd_flagship_text = open(pd_flagship_path, encoding="utf-8").read() if os.path.exists(pd_flagship_path) else ""
+    apis_flagship_path = os.path.join(REPO_ROOT, "simulator", "apis_honeybee_simulator.html")
+    apis_flagship_text = open(apis_flagship_path, encoding="utf-8").read() if os.path.exists(apis_flagship_path) else ""
     pd_flagship_ok = (
         "solveSingleArmODE" in pd_flagship_text
         and "draw4DManifold" in pd_flagship_text
         and "renderPhaseInspector" in pd_flagship_text
+        and "GENOTYPE_PROFILES" in pd_flagship_text
+        and "TRIAL_AUDIT_PRESETS" in pd_flagship_text
         and "10.1111/acel.70751" in pd_flagship_text
         and "GBT601" in pd_flagship_text
+    )
+    apis_flagship_ok = (
+        "solveSingleArmODE" in apis_flagship_text
+        and "draw4DManifold" in apis_flagship_text
+        and "renderPhaseInspector" in apis_flagship_text
+        and "BEE_TRIAL_PRESETS" in apis_flagship_text
+        and "BEE_SCENARIOS" in apis_flagship_text
+        and "1SQB" in apis_flagship_text
     )
     secondary_pages = [
         "alzheimers_simulator.html",
@@ -258,9 +270,8 @@ def main():
         "depression_simulator.html",
         "sarcopenia_simulator.html",
         "cart_bioreactor_simulator.html",
-        "apis_honeybee_simulator.html",
     ]
-    all_pages_ok = pd_flagship_ok and all(
+    all_pages_ok = pd_flagship_ok and apis_flagship_ok and all(
         os.path.exists(os.path.join(REPO_ROOT, "simulator", fn))
         and "bcr_ux_4d_engine.js" in open(os.path.join(REPO_ROOT, "simulator", fn), encoding="utf-8").read()
         and "attach4DManifoldViewer" in open(os.path.join(REPO_ROOT, "simulator", fn), encoding="utf-8").read()
@@ -271,8 +282,8 @@ def main():
         all_pages_ok
         and "attach4DManifoldViewer" in ux_engine_text
         and "render5PillarTransparencyInspector" in ux_engine_text,
-        "Flagship #1 Parkinson's 10-State Live ODE + 4D Phase-Space Manifold & 5-Pillar UX",
-        "Verified bespoke 10-state RK4/Euler ODE Flagship #1 (parkinsons_simulator.html) + 6 secondary cohort workstations",
+        "Flagships #1 (PD-BCR) & #2 (Apis-BCR): 10-State Live ODE + Trial Audit & Genotype/Hive Stratifier",
+        "Verified bespoke 10-state RK4/Euler ODE Flagships (parkinsons_simulator.html & apis_honeybee_simulator.html) + 5 exploratory workstations",
     )
 
     from assess_new_science_release import simulate_epigenetic_deaging_acel70751

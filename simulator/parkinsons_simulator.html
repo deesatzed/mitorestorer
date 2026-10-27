@@ -348,6 +348,63 @@
           </div>
         </div>
       </details>
+
+      <!-- Patient Genotype & Co-Medication Stratifier Bar (5 Precision Clinical PD Subtypes) -->
+      <div class="rounded-xl border border-emerald-500/40 bg-slate-950/95 p-3 space-y-2.5 text-xs">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="px-2 py-0.5 rounded bg-emerald-500 text-slate-950 font-mono font-extrabold text-[10.5px]">PRECISION GENOTYPE &amp; CO-MEDICATION STRATIFIER</span>
+            <span class="text-slate-300 text-[11px]">Select a patient genetic &amp; medication profile to dynamically re-parameterize the 10-state ODE boundary conditions (<code>h₀</code>, <code>2NSX Jam</code>, <code>6EQI Class I/II</code>, <code>6FCX SAMe Drain</code>, &amp; <code>Gate Day</code>):</span>
+          </div>
+          <span id="activeGenotypeBadge" class="font-mono text-[10.5px] text-emerald-300 font-bold shrink-0">Active: GBA1 N370S + LRRK2 G2019S</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-2 text-[11px]">
+          <button data-geno="gba1_lrrk2" class="geno-btn text-left p-2.5 rounded-lg border-2 border-emerald-400 bg-emerald-950/60 text-white transition space-y-1">
+            <div class="flex items-center justify-between font-mono text-[10px]">
+              <span class="text-emerald-300 font-bold">1. GBA1 + LRRK2</span>
+              <span>Sw Day 27</span>
+            </div>
+            <div class="font-bold">GBA1 N370S + LRRK2 G2019S</div>
+            <div class="text-slate-300 text-[10px]">Severe <code>2NSX</code> lysosomal jam (<code>1.15×</code>). Requires Stage-0 Ambroxol + Spermidine before Kinetin purge.</div>
+          </button>
+
+          <button data-geno="pink1_class1" class="geno-btn text-left p-2.5 rounded-lg border border-slate-800 bg-slate-900/90 text-slate-300 hover:border-teal-400 transition space-y-1">
+            <div class="flex items-center justify-between font-mono text-[10px]">
+              <span class="text-teal-300 font-bold">2. PINK1 CLASS I</span>
+              <span>Sw Day 25</span>
+            </div>
+            <div class="font-bold">PINK1 Ala339Thr (ATP Pocket)</div>
+            <div class="text-slate-400 text-[10px]"><code>PDB: 6EQI</code> ATP-pocket defect with intact Ins3 cradle. Directly rescued by Kinetin (KTP) neo-substrate!</div>
+          </button>
+
+          <button data-geno="pink1_class2" class="geno-btn text-left p-2.5 rounded-lg border border-slate-800 bg-slate-900/90 text-slate-300 hover:border-purple-400 transition space-y-1">
+            <div class="flex items-center justify-between font-mono text-[10px]">
+              <span class="text-purple-300 font-bold">3. PINK1 CLASS II</span>
+              <span>Sw Day 33</span>
+            </div>
+            <div class="font-bold">PINK1 Ins3 / Parkin-Low</div>
+            <div class="text-slate-400 text-[10px]"><code>6EQI</code> Ubiquitin-cradle defect: Kinetin alone fails! Requires <code>USP30 (5OHP)</code> block + Urolithin A BNIP3/NIX.</div>
+          </button>
+
+          <button data-geno="mthfr_ldopa" class="geno-btn text-left p-2.5 rounded-lg border border-slate-800 bg-slate-900/90 text-slate-300 hover:border-amber-400 transition space-y-1">
+            <div class="flex items-center justify-between font-mono text-[10px]">
+              <span class="text-amber-300 font-bold">4. MTHFR + HIGH L-DOPA</span>
+              <span>Sw Day 29</span>
+            </div>
+            <div class="font-bold">MTHFR C677T + L-DOPA Drain</div>
+            <div class="text-slate-400 text-[10px]">L-DOPA <code>COMT</code> + <code>6FCX</code> drains <code>SAMe</code> &amp; spikes <code>DA-Q</code>. Requires Stage-2 Creatine (40% SAMe spared) + B2/5-MTHF!</div>
+          </button>
+
+          <button data-geno="sporadic_hyperoxic" class="geno-btn text-left p-2.5 rounded-lg border border-slate-800 bg-slate-900/90 text-slate-300 hover:border-rose-400 transition space-y-1">
+            <div class="flex items-center justify-between font-mono text-[10px]">
+              <span class="text-rose-300 font-bold">5. SPORADIC HYPEROXIC</span>
+              <span>Sw Day 22</span>
+            </div>
+            <div class="font-bold">Complex I / Rotenone pO₂ Spike</div>
+            <div class="text-slate-400 text-[10px]">Intact GBA1, but severe Complex I stall drives <code>pO₂=1.75×</code> hyperoxia. Fast rescue via <code>GBT601+PT2399</code>!</div>
+          </button>
+        </div>
+      </div>
     </section>
 
     <!-- ========================================================================================= -->
@@ -606,6 +663,11 @@
       vdacShield: 0.0,
       deagingEnabled: true,
       creatineMode: 'stage2_gated', // 'stage2_gated' | 'stage1_unphased_trap' | 'off'
+      genotypeProfile: 'gba1_lrrk2',
+      genoJamScale: 1.0,
+      genoPurgeScale: 1.0,
+      genoMethylScale: 1.0,
+      genoHyperoxiaScale: 1.0,
       rotYaw: -0.62,
       rotPitch: 0.36,
       isDragging: false,
@@ -720,15 +782,15 @@
         const dH2S = (armName === 'pd_bcr' ? 0.035 - 0.38 * H2S : 0.15 - 0.28 * H2S);
         H2S = clip(H2S + dt * dH2S, 0.05, 1.5);
 
-        // 2. Autophagosome-Lysosome Traffic Jam (PDB: 2NSX GBA1)
-        const dJam = (0.36 * u_kin * (1.0 - 0.80 * u_amb) + 0.15 * SNCA * (1.0 - 0.68 * u_amb)) - (0.28 + 0.74 * u_amb) * Jam;
+        // 2. Autophagosome-Lysosome Traffic Jam (PDB: 2NSX GBA1, scaled by patient genotype)
+        const dJam = (0.36 * pdState.genoJamScale * u_kin * (1.0 - 0.80 * u_amb) + 0.15 * pdState.genoJamScale * SNCA * (1.0 - 0.68 * u_amb)) - (0.28 + 0.74 * u_amb) * Jam;
         Jam = clip(Jam + dt * dJam, 0.07, 1.85);
         const lysoFlux = Math.max(0.08, u_amb / (1.0 + 1.35 * Math.max(0.0, Jam - 0.30)));
 
         // 3. OXPHOS & Tissue Hyperoxia pO2 Mismatch (Mootha & Ichinose Nature Neurosci / PNAS)
         const tomm40Open = armName === 'pd_bcr' ? (0.35 + 0.60 * u_amb) : 0.25;
         const effOxphos = Math.max(0.15, (W + 0.12 * D) * (0.58 + 0.42 * tomm40Open) * Math.max(0.35, 1.0 - 0.22 * DAQ));
-        const targetPo2 = Math.max(0.90, (1.0 + 0.95 * Math.max(0.0, 0.88 - effOxphos)) * (1.0 - 0.44 * u_hyp));
+        const targetPo2 = Math.max(0.90, (1.0 + 0.95 * pdState.genoHyperoxiaScale * Math.max(0.0, 0.88 - effOxphos)) * (1.0 - 0.44 * u_hyp));
         pO2 = clip(pO2 + 0.35 * dt * (targetPo2 - pO2), 0.88, 2.05);
 
         // 4. SNc ATP & Cytosolic Dopamine-o-Quinone (DAQ)
@@ -758,15 +820,15 @@
         const ampkCreatineFactor = isStage1CreatineTrap ? 0.72 : 1.0; // Unphased Stage 1 Creatine blunts AMPK->ULK1 mitophagy by 28%!
         const umtckOctamerBonus = isStage2CreatineGated ? 1.14 : 1.0; // Intact uMtCK (1QK1) octamer + pulsed Stage 2 PCr shuttle
 
-        const clearance = (0.074 * u_kin * ampkCreatineFactor * (0.12 + 0.95 * lysoFlux) * (1.0 + 0.18 * u_hyp)) * 0.62;
+        const clearance = (0.074 * pdState.genoPurgeScale * u_kin * ampkCreatineFactor * (0.12 + 0.95 * lysoFlux) * (1.0 + 0.18 * u_hyp)) * 0.62;
         const biogenesis = (0.024 + 0.170 * u_nad * umtckOctamerBonus * (0.85 + 0.45 * u_nad) * tomm40Open * Math.max(0.35, 1.0 - 0.28 * SNCA)) * 0.62;
         const crowding = Math.max(0.0, 1.0 - (W + D) / 1.42);
         W = clip(W + dt * (biogenesis * W * crowding - 0.005 * W), 0.05, 1.35);
         D = clip(D + dt * (biogenesis * rep_adv * D * crowding - (0.005 + clearance * (1.55 + 1.15 * hFrac)) * D), 0.001, 1.20);
 
         // 8. Mitochondrial alpha-KG : Succinate & Division-Independent Epigenetic Clock Age (Berg et al. 2026 + GAMT 40% SAMe Sparing)
-        const gamtMethylBonus = isStage2CreatineGated ? 0.12 : 0.0;
-        const targetAKG = clip((W / Math.max(0.20, W + 1.8 * D)) * (0.65 + 0.55 * u_epi) + gamtMethylBonus, 0.22, 1.45);
+        const gamtMethylBonus = isStage2CreatineGated ? 0.12 * pdState.genoMethylScale : 0.0;
+        const targetAKG = clip((W / Math.max(0.20, W + 1.8 * D)) * (0.65 + 0.55 * u_epi * pdState.genoMethylScale) + gamtMethylBonus, 0.22, 1.45);
         aKG = clip(aKG + 0.22 * dt * (targetAKG - aKG), 0.20, 1.45);
         if (armName === 'pd_bcr' && pdState.deagingEnabled) {
           const deageRate = 0.052 * Math.pow(aKG, 1.25) * (0.35 + 0.85 * u_epi);
@@ -1254,6 +1316,76 @@
 
     document.getElementById('btnRestoreFromGraveyard').addEventListener('click', () => {
       document.getElementById('btnResetOptimal').click();
+    });
+
+    const GENOTYPE_PROFILES = {
+      gba1_lrrk2: {
+        label: 'GBA1 N370S + LRRK2 G2019S (PDB: 2NSX)',
+        h0: 58, gateDay: 27, ambroxol: 0.95, hypoxiaShield: 0.94, kinetin: 0.95, stage2Build: 0.96,
+        jamScale: 1.15, purgeScale: 1.0, methylScale: 1.0, hyperoxiaScale: 1.0,
+        note: '🧬 <strong>Genotype Active — GBA1 rs2230288 (Asn370Ser) + LRRK2 rs34637584 (G2019S):</strong> Severe lysosomal GCase traffic jam (1.15×). Mandatory Stage-0 Ambroxol (1,200 mg, PDB: 2NSX) + Spermidine drains autophagosomes before Kinetin (6EQI) mitophagy; Gate Day = Day 27.'
+      },
+      pink1_class1: {
+        label: 'PINK1 Class I Ala339Thr (PDB: 6EQI ATP Pocket)',
+        h0: 60, gateDay: 25, ambroxol: 0.90, hypoxiaShield: 0.94, kinetin: 1.0, stage2Build: 0.96,
+        jamScale: 0.85, purgeScale: 1.12, methylScale: 1.0, hyperoxiaScale: 1.0,
+        note: '🧬 <strong>Genotype Active — PINK1 Class I ATP-Pocket Carrier (Ala339Thr, PDB: 6EQI):</strong> Intact Ins3 Ubiquitin cradle allows Kinetin Riboside (KTP neo-substrate) to restore 100% Ubiquitin-Ser65 phosphorylation velocity, accelerating the Stage-2 Gate to Day 25!'
+      },
+      pink1_class2: {
+        label: 'PINK1 Class II Ins3 Cradle / Parkin-Low (PDB: 6EQI + 5OHP)',
+        h0: 64, gateDay: 33, ambroxol: 0.96, hypoxiaShield: 0.96, kinetin: 0.98, stage2Build: 0.96,
+        jamScale: 1.05, purgeScale: 0.82, methylScale: 1.0, hyperoxiaScale: 1.08,
+        note: '🧬 <strong>Genotype Active — PINK1 Class II Ubiquitin-Cradle Mutant (Ins3):</strong> Because Ubiquitin cannot dock efficiently into the mutated Ins3 cradle (PDB: 6EQI), Kinetin monotherapy fails! Requires co-administering USP30 Inhibitor (MTX325, PDB: 5OHP) + Urolithin A (BNIP3/NIX pathway) and extending Stage 1 to Day 33.'
+      },
+      mthfr_ldopa: {
+        label: 'MTHFR C677T (rs1801133 TT) + High-Dose L-DOPA COMT Drain (PDB: 6FCX)',
+        h0: 56, gateDay: 29, ambroxol: 0.94, hypoxiaShield: 0.94, kinetin: 0.95, stage2Build: 0.98,
+        jamScale: 1.0, purgeScale: 0.96, methylScale: 1.15, hyperoxiaScale: 1.05,
+        note: '🧬 <strong>Genotype &amp; Co-Med Active — MTHFR C677T (PDB: 6FCX) + High-Dose L-DOPA:</strong> L-DOPA methylation via COMT drains systemic SAMe while MTHFR Ala222Val loses FAD cofactor. Stage-2 Pulsed Creatine (sparing 40% endogenous SAMe via GAMT repression) + Riboflavin/5-MTHF (6FCX) restores methylation and drives eAge to 2.6%!'
+      },
+      sporadic_hyperoxic: {
+        label: 'Sporadic Complex I / Environmental Hyperoxia Phenotype (PDB: 5UFP)',
+        h0: 52, gateDay: 22, ambroxol: 0.88, hypoxiaShield: 0.98, kinetin: 0.95, stage2Build: 0.95,
+        jamScale: 0.75, purgeScale: 1.15, methylScale: 1.0, hyperoxiaScale: 1.22,
+        note: '🧬 <strong>Genotype Active — Sporadic Complex I / Hyperoxia Phenotype:</strong> Intact GBA1 lysosomes, but severe Complex I stall creates a 1.75× brain tissue hyperoxia spike (Mootha &amp; Ichinose). Clamping pO₂ with GBT601+PT2399 (PDB: 5UFP) + D-BHB unlocks an early Stage-2 Gate at Day 22!'
+      }
+    };
+
+    document.querySelectorAll('.geno-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-geno');
+        const g = GENOTYPE_PROFILES[key];
+        if (!g) return;
+        pdState.genotypeProfile = key;
+        pdState.h0 = g.h0;
+        pdState.gateDay = g.gateDay;
+        pdState.ambroxol = g.ambroxol;
+        pdState.hypoxiaShield = g.hypoxiaShield;
+        pdState.kinetin = g.kinetin;
+        pdState.stage2Build = g.stage2Build;
+        pdState.genoJamScale = g.jamScale;
+        pdState.genoPurgeScale = g.purgeScale;
+        pdState.genoMethylScale = g.methylScale;
+        pdState.genoHyperoxiaScale = g.hyperoxiaScale;
+        pdState.creatineMode = 'stage2_gated';
+        document.querySelectorAll('.geno-btn').forEach(b => b.className = 'geno-btn text-left p-2.5 rounded-lg border border-slate-800 bg-slate-900/90 text-slate-300 hover:border-emerald-400 transition space-y-1');
+        btn.className = 'geno-btn text-left p-2.5 rounded-lg border-2 border-emerald-400 bg-emerald-950/60 text-white transition space-y-1 shadow-md';
+        document.getElementById('activeGenotypeBadge').textContent = 'Active: ' + g.label;
+        document.getElementById('slH0').value = pdState.h0;
+        document.getElementById('lblH0').textContent = pdState.h0 + '%';
+        document.getElementById('slGateDay').value = pdState.gateDay;
+        document.getElementById('lblGateDay').textContent = 'Day ' + pdState.gateDay;
+        document.getElementById('slAmbroxol').value = Math.round(pdState.ambroxol * 100);
+        document.getElementById('lblAmbroxol').textContent = Math.round(pdState.ambroxol * 100) + '%';
+        document.getElementById('slHypoxia').value = Math.round(pdState.hypoxiaShield * 100);
+        document.getElementById('lblHypoxia').textContent = Math.round(pdState.hypoxiaShield * 100) + '%';
+        document.getElementById('slKinetin').value = Math.round(pdState.kinetin * 100);
+        document.getElementById('lblKinetin').textContent = Math.round(pdState.kinetin * 100) + '%';
+        document.getElementById('slStage2').value = Math.round(pdState.stage2Build * 100);
+        document.getElementById('lblStage2').textContent = Math.round(pdState.stage2Build * 100) + '%';
+        updateDashboard();
+        document.getElementById('aiOutputBox').innerHTML = `<div class="p-2.5 rounded bg-emerald-950/80 border border-emerald-400/60 text-emerald-100 leading-relaxed">${g.note}</div>`;
+      });
     });
 
     document.getElementById('btnTestHypoxiaAlone').addEventListener('click', () => {

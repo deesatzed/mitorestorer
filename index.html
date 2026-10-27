@@ -45,31 +45,29 @@
         </span>
       </div>
       <nav class="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-300">
-        <a href="#domain-simulators" class="text-emerald-300 hover:text-emerald-200 transition">🎛️ 7 Cohort Workstations</a>
-        <a href="simulator/parkinsons_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition">
-          🧠 Parkinson's →
+        <a href="simulator/parkinsons_simulator.html" class="px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-extrabold hover:bg-emerald-400 transition shadow-sm">
+          🧠 Flagship #1: Parkinson's (Live 10-State ODE + Science Injector) →
         </a>
-        <a href="simulator/alzheimers_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-emerald-500/40 text-emerald-300 font-bold hover:bg-slate-800 transition">
-          🧬 Alzheimer's →
-        </a>
-        <a href="simulator/epilepsy_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-emerald-500/40 text-emerald-300 font-bold hover:bg-slate-800 transition">
-          ⚡ Epilepsy →
-        </a>
-        <a href="simulator/depression_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-emerald-500/40 text-emerald-300 font-bold hover:bg-slate-800 transition">
-          🔬 Depression →
-        </a>
-        <a href="simulator/sarcopenia_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-emerald-500/40 text-emerald-300 font-bold hover:bg-slate-800 transition">
-          💪 Sarcopenia →
-        </a>
-        <a href="simulator/cart_bioreactor_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-cyan-950 text-cyan-200 border border-cyan-500/50 font-bold hover:bg-cyan-900 transition">
-          🧫 CAR-T (240h) →
+        <a href="simulator/science_radar_sandbox.html" class="px-3 py-1.5 rounded-lg bg-cyan-400 text-slate-950 font-extrabold hover:bg-cyan-300 transition shadow-sm">
+          🛰️ AI Science Radar Lab →
         </a>
         <a href="simulator/apis_honeybee_simulator.html" class="px-2.5 py-1.5 rounded-lg bg-amber-950 text-amber-200 border border-amber-500/50 font-bold hover:bg-amber-900 transition">
-          🐝 Honeybee (14d) →
+          🐝 Phase 2 Target: Apis-BCR (Coral NPU) →
         </a>
-        <a href="simulator/science_radar_sandbox.html" class="px-2.5 py-1.5 rounded-lg bg-cyan-400 text-slate-950 font-extrabold hover:bg-cyan-300 transition shadow-sm">
-          🛰️ New Science Sandbox →
-        </a>
+        <details class="relative group">
+          <summary class="list-none cursor-pointer px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition font-mono">
+            📂 Exploratory Cohorts Archive ▾
+          </summary>
+          <div class="absolute right-0 mt-1.5 w-64 rounded-xl bg-slate-950 border border-slate-700 shadow-2xl p-2 z-50 space-y-1 text-[11px]">
+            <div class="px-2 py-1 text-[10px] font-mono text-slate-400 uppercase">Exploratory Secondary Cohorts</div>
+            <a href="simulator/cart_bioreactor_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-cyan-300">🧫 CAR-T GMP Bioreactor (240h)</a>
+            <a href="simulator/alzheimers_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-slate-200">🧬 Prodromal APOE4 Alzheimer's</a>
+            <a href="simulator/epilepsy_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-slate-200">⚡ Refractory Epilepsy (PV+)</a>
+            <a href="simulator/depression_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-slate-200">🔬 Treatment-Resistant MDD</a>
+            <a href="simulator/sarcopenia_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-slate-200">💪 Sarcopenia &amp; Metabolic</a>
+            <a href="simulator/bcr_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-purple-300 border-t border-slate-800 mt-1 pt-1.5">🔬 Multi-Cohort Master Suite</a>
+          </div>
+        </details>
       </nav>
     </div>
   </header>
@@ -98,19 +96,16 @@
             <strong>MitoRestorer</strong> unifies cross-species biophysical ODE simulation with the <strong>Google Science &amp; DeepMind Bio-AI Stack</strong> (<strong>8 PDB/AlphaFold 3D structures</strong>, <strong>AlphaMissense + Ensembl VEP</strong>, <strong>AlphaGenome Atlas non-coding regulatory scoring</strong>, and <strong>Gemini 3.8 Flash clinical reasoning</strong>) across <strong>5 Human Clinical Cohorts</strong>, <strong>Ex Vivo CAR-T Bioreactor Manufacturing (<code>Bioreactor-BCR</code>)</strong>, and <strong>Honeybee Colony Rescue (<code>Apis-BCR</code> with a 4.05 mW Solar Google Coral NPU Smart-Hive Node)</strong>.
           </p>
 
-          <!-- Primary CTA Buttons: 3 Dedicated Domain Simulators -->
+          <!-- Primary CTA Buttons: Focused Flagship #1 (Parkinson's + Dynamic Science Radar) & Phase 2 Target (Apis-BCR) -->
           <div class="flex flex-wrap items-center gap-2.5 pt-1">
-            <a href="simulator/bcr_simulator.html" class="px-4 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-extrabold text-xs sm:text-sm hover:bg-emerald-400 transition shadow-lg">
-              🏥 Domain 1: Human Clinical Simulator (90-Day · Cohorts A–E) →
+            <a href="simulator/parkinsons_simulator.html" class="px-4 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-extrabold text-xs sm:text-sm hover:bg-emerald-400 transition shadow-lg">
+              🧠 Launch Flagship #1: Parkinson's 10-State Live ODE + Science Injector →
             </a>
-            <a href="simulator/cart_bioreactor_simulator.html" class="px-4 py-2.5 rounded-xl bg-cyan-500/20 text-cyan-200 border border-cyan-500/50 font-extrabold text-xs sm:text-sm hover:bg-cyan-500/30 transition">
-              🧬 Domain 2: CAR-T GMP Bioreactor (240-Hour · Cohort F) →
+            <a href="simulator/science_radar_sandbox.html" class="px-4 py-2.5 rounded-xl bg-cyan-500/25 text-cyan-200 border-2 border-cyan-400 font-extrabold text-xs sm:text-sm hover:bg-cyan-500/35 transition shadow-lg">
+              🛰️ Launch v3.0 AI Science Radar &amp; Literature-to-ODE Lab →
             </a>
             <a href="simulator/apis_honeybee_simulator.html" class="px-4 py-2.5 rounded-xl bg-amber-500/20 text-amber-200 border border-amber-500/50 font-extrabold text-xs sm:text-sm hover:bg-amber-500/30 transition">
-              🐝 Domain 3: Honeybee Smart Hive (14-Day · Cohort G) →
-            </a>
-            <a href="simulator/science_radar_sandbox.html" class="px-4 py-2.5 rounded-xl bg-purple-500/25 text-purple-200 border-2 border-purple-400 font-extrabold text-xs sm:text-sm hover:bg-purple-500/35 transition shadow-lg">
-              🛰️ v3.0 AI Science Radar &amp; Literature-to-ODE Sandbox →
+              🐝 Phase 2 Target: Apis-BCR Smart Hive (4.05 mW Coral NPU) →
             </a>
           </div>
 
@@ -225,144 +220,77 @@
       </div>
     </section>
 
-    <!-- 7 DEDICATED SINGLE-COHORT CLINICAL & TRANSLATIONAL WORKSTATIONS SECTION -->
+    <!-- FOCUSED FLAGSHIP #1 (PARKINSON'S + DYNAMIC AI SCIENCE INJECTOR) & PHASE 2 ROADMAP (APIS-BCR) -->
     <section id="domain-simulators" class="glass-card rounded-3xl p-6 md:p-8 border-2 border-emerald-500/35 space-y-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="space-y-1">
           <div class="flex items-center gap-2 flex-wrap text-xs font-mono">
             <span class="px-2.5 py-0.5 rounded bg-emerald-950 text-emerald-200 border border-emerald-500/50 font-bold">
-              7 DEDICATED SINGLE-COHORT WORKSTATIONS
+              ★ FLAGSHIP #1: PARKINSON'S DISEASE (PD-BCR) + DYNAMIC AI LITERATURE-TO-ODE ENGINE
             </span>
-            <span class="px-2.5 py-0.5 rounded bg-cyan-950 text-cyan-200 border border-cyan-500/50 font-bold">
-              📐 Rotatable 4D Phase-Space Manifold + 5-Pillar Clinical Transparency Inspector
+            <span class="px-2.5 py-0.5 rounded bg-amber-950 text-amber-200 border border-amber-500/50 font-bold">
+              🐝 PHASE 2 TRANSFER TARGET: APIS-BCR SMART HIVE (4.05 mW CORAL NPU)
             </span>
           </div>
           <h2 class="text-2xl font-extrabold text-white">
-            🎛️ Launch Any Dedicated Cohort Workstation (7 Standalone Clinical &amp; Translational Pages)
+            🎛️ Focused Flagship Architecture: Deep Real-Time 10-State ODE Physics &amp; Live Science Injection
           </h2>
           <p class="text-xs md:text-sm text-slate-300">
-            Each indication has its own dedicated, zero-clutter workstation featuring an interactive <strong>4D Bioenergetic Phase-Space Manifold</strong> (drag-to-rotate 3D trajectory + <code>EP = éR · f²</code> dissipative surface) and a <strong>5-Pillar Clinical &amp; Methodological Transparency Inspector</strong> explaining step purpose, biomarker flag thresholds, decision scope, exact ODE/PDB/VEP equations, and endpoint impact:
+            Rather than spreading thin across static templates, our primary focus is a <strong>10/10 bespoke, self-contained 10-state RK4/Euler ODE workstation for Parkinson's Disease (<code>PD-BCR</code>)</strong> with live scientific discovery injection (<strong>Mootha/Ichinose <code>GBT601+PT2399</code> Brain Hyperoxia Shield</strong> + <strong>Berg, Brüstle &amp; Wagner 2026 <code>DOI: 10.1111/acel.70751</code> Epigenetic Clock Reset</strong>), engineered so its core dynamic modules transfer directly to <strong><code>Apis-BCR</code> (Honeybee Smart Hive)</strong> in Phase 2:
           </p>
         </div>
       </div>
 
-      <!-- 5 Dedicated Human Clinical Cohort Workstations (Cohorts E, B, C, D, A) -->
-      <div class="space-y-2">
-        <div class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-300">
-          🏥 Human Clinical &amp; Neuro-Metabolic Workstations (90-Day Horizon · 5 Standalone Disease Pages):
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3.5 text-xs">
-          <a href="simulator/parkinsons_simulator.html" class="p-4 rounded-2xl bg-slate-950 border-2 border-emerald-500/50 hover:border-emerald-400 transition flex flex-col justify-between space-y-3">
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between font-mono text-[10px]">
-                <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-200 border border-emerald-500/40 font-bold">COHORT E · PD</span>
-                <span class="text-emerald-300 font-bold">95% TH Rescue</span>
-              </div>
-              <div class="text-sm font-extrabold text-white">🧠 Parkinson's Disease (SNc)</div>
-              <p class="text-slate-300 text-[11px] leading-relaxed">
-                <code>GBA1 rs2230288</code> + <code>LRRK2 G2019S</code> + <code>PINK1</code>. Unblocks <code>GCase (2NSX)</code> &amp; <code>MCJ</code> before <code>Kinetin (6EQI)</code> purge.
-              </p>
-            </div>
-            <div class="py-1.5 px-3 rounded-lg bg-emerald-500 text-slate-950 font-extrabold text-center text-[11px]">
-              Open Parkinson's Workstation →
-            </div>
-          </a>
-
-          <a href="simulator/alzheimers_simulator.html" class="p-4 rounded-2xl bg-slate-950 border-2 border-emerald-500/50 hover:border-emerald-400 transition flex flex-col justify-between space-y-3">
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between font-mono text-[10px]">
-                <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-200 border border-emerald-500/40 font-bold">COHORT B · AD</span>
-                <span class="text-emerald-300 font-bold">3.3% Cortical h</span>
-              </div>
-              <div class="text-sm font-extrabold text-white">🧬 Prodromal APOE4 Alzheimer's</div>
-              <p class="text-slate-300 text-[11px] leading-relaxed">
-                <code>APOE4 Arg112 (1B68)</code> + <code>TOMM40 (7CK6)</code>. Stage 0 <code>TUDCA + Citicoline</code> import prime before <code>Day 54</code> gate.
-              </p>
-            </div>
-            <div class="py-1.5 px-3 rounded-lg bg-emerald-500 text-slate-950 font-extrabold text-center text-[11px]">
-              Open Alzheimer's Workstation →
-            </div>
-          </a>
-
-          <a href="simulator/epilepsy_simulator.html" class="p-4 rounded-2xl bg-slate-950 border-2 border-emerald-500/50 hover:border-emerald-400 transition flex flex-col justify-between space-y-3">
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between font-mono text-[10px]">
-                <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-200 border border-emerald-500/40 font-bold">COHORT C · EPI</span>
-                <span class="text-emerald-300 font-bold">96% Seizure ↓</span>
-              </div>
-              <div class="text-sm font-extrabold text-white">⚡ Refractory Epilepsy (PV+)</div>
-              <p class="text-slate-300 text-[11px] leading-relaxed">
-                Fast-spiking <code>PV+ Interneurons (f²=3.06×)</code>. Blocks the Day-30 Ketogenic <code>Bilophila H₂S</code> Complex IV escape.
-              </p>
-            </div>
-            <div class="py-1.5 px-3 rounded-lg bg-emerald-500 text-slate-950 font-extrabold text-center text-[11px]">
-              Open Epilepsy Workstation →
-            </div>
-          </a>
-
-          <a href="simulator/depression_simulator.html" class="p-4 rounded-2xl bg-slate-950 border-2 border-emerald-500/50 hover:border-emerald-400 transition flex flex-col justify-between space-y-3">
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between font-mono text-[10px]">
-                <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-200 border border-emerald-500/40 font-bold">COHORT D · MDD</span>
-                <span class="text-emerald-300 font-bold">93.8% Synaptic</span>
-              </div>
-              <div class="text-sm font-extrabold text-white">🔬 Treatment-Resistant MDD</div>
-              <p class="text-slate-300 text-[11px] leading-relaxed">
-                <code>IDO1 Kynurenine Steal</code> + <code>QPRT Bottleneck</code>. Shuts down microglial <code>QUIN</code> before prefrontal <code>SIRT1</code> build.
-              </p>
-            </div>
-            <div class="py-1.5 px-3 rounded-lg bg-emerald-500 text-slate-950 font-extrabold text-center text-[11px]">
-              Open Depression Workstation →
-            </div>
-          </a>
-
-          <a href="simulator/sarcopenia_simulator.html" class="p-4 rounded-2xl bg-slate-950 border-2 border-emerald-500/50 hover:border-emerald-400 transition flex flex-col justify-between space-y-3">
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between font-mono text-[10px]">
-                <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-200 border border-emerald-500/40 font-bold">COHORT A · SARC</span>
-                <span class="text-emerald-300 font-bold">+1.8% Lean Mass</span>
-              </div>
-              <div class="text-sm font-extrabold text-white">💪 Sarcopenia &amp; Metabolic</div>
-              <p class="text-slate-300 text-[11px] leading-relaxed">
-                <code>FUT2 Non-Secretor</code> + <code>MTHFR 6FCX</code>. Compresses <code>τ_lag (13.5h→6.0h)</code> &amp; unlocks <code>12.0h</code> autophagy window.
-              </p>
-            </div>
-            <div class="py-1.5 px-3 rounded-lg bg-emerald-500 text-slate-950 font-extrabold text-center text-[11px]">
-              Open Sarcopenia Workstation →
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Domain 2 (CAR-T Bioreactor), Domain 3 (Honeybee Hive), and Multi-Cohort Comparison Suite -->
+      <!-- Primary Spotlight Grid: Flagship #1 (Parkinson's), AI Science Radar Lab, and Phase 2 Target (Apis-BCR) -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <!-- Domain 2 Card: CAR-T GMP Bioreactor -->
-        <div class="p-5 rounded-2xl bg-slate-950 border-2 border-cyan-500/50 flex flex-col justify-between space-y-4">
+        <!-- Card 1: Flagship #1 Parkinson's Disease -->
+        <div class="p-6 rounded-2xl bg-slate-950 border-2 border-emerald-400 flex flex-col justify-between space-y-4 shadow-xl">
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-200 border border-emerald-400 text-xs font-mono font-bold">
+                ★ PRIMARY FLAGSHIP #1 · 10-STATE LIVE ODE
+              </span>
+              <span class="text-xs font-mono text-emerald-300 font-bold">98.5% TH · 3.4% eAge</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">
+              🧠 Parkinson's Disease (`PD-BCR`) &amp; Inline Science-Release Injector
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Integrates <code>10 coupled differential equations</code> (<code>451 steps</code>, <code>&lt;2 ms</code> recompute) across <code>W(t)</code>, <code>D(t)</code>, <code>GCase Jam (2NSX)</code>, <code>Brain pO₂ Hyperoxia (5UFP)</code>, <code>DAQ</code>, <code>SNCA</code>, <code>GDF15</code>, <code>α-KG:Succinate</code>, <code>Epigenetic Clock eAge(t)</code>, and <code>TH Motor Rescue</code>. Toggle <code>Mootha/Ichinose GBT601+PT2399</code> and <code>Berg 2026 (10.1111/acel.70751)</code> or search EuropePMC live.
+            </p>
+          </div>
+          <a href="simulator/parkinsons_simulator.html" class="w-full py-2.5 px-4 rounded-xl bg-emerald-400 text-slate-950 font-extrabold text-xs text-center hover:bg-emerald-300 transition shadow-lg">
+            Launch Flagship #1: Parkinson's Workstation →
+          </a>
+        </div>
+
+        <!-- Card 2: Dynamic AI Science Radar & Literature-to-ODE Lab -->
+        <div class="p-6 rounded-2xl bg-slate-950 border-2 border-cyan-400/80 flex flex-col justify-between space-y-4 shadow-xl">
           <div class="space-y-2.5">
             <div class="flex items-center justify-between">
               <span class="px-2.5 py-1 rounded-lg bg-cyan-950 text-cyan-200 border border-cyan-500/50 text-xs font-mono font-bold">
-                🧫 COHORT F · 240-HOUR GMP BIOREACTOR
+                🛰️ AI LITERATURE-TO-ODE COMPILER
               </span>
-              <span class="text-xs font-mono text-cyan-300 font-bold">PDB 2Q8G · 78% T_SCM</span>
+              <span class="text-xs font-mono text-cyan-300 font-bold">EuropePMC + DOI → ODE</span>
             </div>
             <h3 class="text-lg font-extrabold text-white">
-              Ex Vivo CAR-T GMP Bioreactor Workstation
+              v3.0 Dynamic AI Science Radar &amp; Sandbox
             </h3>
             <p class="text-xs text-slate-300 leading-relaxed">
-              Dedicated 10-day (<code>240-hour</code>) closed-cassette CAR-T perfusion workstation with <strong>4D Phase-Space Manifold</strong> &amp; <strong>5-Pillar GMP Transparency Inspector</strong>—breaking <code>PDK1 (2Q8G)</code> Warburg lock and gating at <code>Hour 64 (Lac:Pyr ≤ 12.0)</code>.
+              Query live scientific releases from <strong>EuropePMC / PubMed / bioRxiv</strong>, map findings to exact state variables and PDB structures via <strong>Gemini 3.8 Flash + AlphaFold + AlphaGenome Atlas</strong>, and evaluate multi-arm differential equation curves side-by-side (including our full 100-day simulation of <code>DOI: 10.1111/acel.70751</code>).
             </p>
           </div>
-          <a href="simulator/cart_bioreactor_simulator.html" class="w-full py-2.5 px-4 rounded-xl bg-cyan-400 text-slate-950 font-extrabold text-xs text-center hover:bg-cyan-300 transition shadow-lg">
-            Launch CAR-T Bioreactor Workstation (240h) →
+          <a href="simulator/science_radar_sandbox.html" class="w-full py-2.5 px-4 rounded-xl bg-cyan-400 text-slate-950 font-extrabold text-xs text-center hover:bg-cyan-300 transition shadow-lg">
+            Launch AI Science Radar Sandbox →
           </a>
         </div>
 
-        <!-- Domain 3 Card: Honeybee Smart Hive -->
-        <div class="p-5 rounded-2xl bg-slate-950 border-2 border-amber-500/50 flex flex-col justify-between space-y-4">
+        <!-- Card 3: Phase 2 Roadmap Target — Apis-BCR Honeybee Smart Hive -->
+        <div class="p-6 rounded-2xl bg-slate-950 border-2 border-amber-500/70 flex flex-col justify-between space-y-4">
           <div class="space-y-2.5">
             <div class="flex items-center justify-between">
               <span class="px-2.5 py-1 rounded-lg bg-amber-950 text-amber-200 border border-amber-500/50 text-xs font-mono font-bold">
-                🐝 COHORT G · 14-DAY APIARY HIVE
+                🐝 PHASE 2 TARGET · 4.05 mW CORAL NPU
               </span>
               <span class="text-xs font-mono text-amber-300 font-bold">PDB 1SQB · 96.5% Homing</span>
             </div>
@@ -370,35 +298,97 @@
               Apis-BCR Honeybee Smart Hive Workstation
             </h3>
             <p class="text-xs text-slate-300 leading-relaxed">
-              Dedicated 14-day pollination rescue workstation with <strong>4D Phase-Space Manifold</strong> &amp; <strong>5-Pillar Apiary Transparency Inspector</strong>—clearing <code>1SQB</code> strobilurin fungicide block before the <code>Day 4.5 (220 Hz)</code> acoustic feeder gate.
+              Our next target to receive the transferable live multi-state ODE + EuropePMC Science Injector architecture. Combines a <strong><code>4.05 mW</code> solar-powered Google Coral NPU</strong> (<code>246 Hz</code> wingbeat acoustic FFT) with biphasic <code>PDB 1SQB</code> Complex III fungicide rescue.
             </p>
           </div>
           <a href="simulator/apis_honeybee_simulator.html" class="w-full py-2.5 px-4 rounded-xl bg-amber-400 text-slate-950 font-extrabold text-xs text-center hover:bg-amber-300 transition shadow-lg">
-            Launch Honeybee Smart Hive Workstation (14d) →
-          </a>
-        </div>
-
-        <!-- Multi-Cohort Master Research Suite -->
-        <div class="p-5 rounded-2xl bg-slate-950 border-2 border-purple-500/50 flex flex-col justify-between space-y-4">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 rounded-lg bg-purple-950 text-purple-200 border border-purple-500/50 text-xs font-mono font-bold">
-                🔬 MULTI-COHORT MASTER SUITE
-              </span>
-              <span class="text-xs font-mono text-purple-300 font-bold">All 7 Cohorts + 7 Tabs</span>
-            </div>
-            <h3 class="text-lg font-extrabold text-white">
-              Cross-Cohort Master Comparison &amp; Coral NPU Suite
-            </h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Cross-compare all cohorts side-by-side with full access to the <strong>Bifurcation Phase-Plane</strong>, <strong>8-PDB 3D Structural Proof Table</strong>, <strong>Ensembl VEP / gnomAD Matrix</strong>, and <strong>Google Coral NPU Silicon Visualizer</strong>.
-            </p>
-          </div>
-          <a href="simulator/bcr_simulator.html" class="w-full py-2.5 px-4 rounded-xl bg-purple-400 text-slate-950 font-extrabold text-xs text-center hover:bg-purple-300 transition shadow-lg">
-            Open Multi-Cohort Master Suite →
+            Open Apis-BCR Smart Hive Workstation (14d) →
           </a>
         </div>
       </div>
+
+      <!-- Collapsible Exploratory Secondary Cohorts Archive (Preserves Full Access Without Visual Clutter) -->
+      <details class="rounded-2xl bg-slate-950/90 border border-slate-800 p-4">
+        <summary class="cursor-pointer font-mono text-xs font-bold text-slate-300 hover:text-white flex items-center justify-between">
+          <span>📂 Exploratory Secondary Cohorts Archive (CAR-T GMP Bioreactor, APOE4 Alzheimer's, Epilepsy, TR-MDD, Sarcopenia, &amp; Multi-Cohort Suite)</span>
+          <span class="text-emerald-400">Click to Expand / Collapse ▾</span>
+        </summary>
+        <div class="mt-4 space-y-4 pt-3 border-t border-slate-800/80">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+            <a href="simulator/cart_bioreactor_simulator.html" class="p-4 rounded-2xl bg-slate-900/90 border border-cyan-500/40 hover:border-cyan-400 transition flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between font-mono text-[10px] text-cyan-300 font-bold">
+                  <span>COHORT F · CAR-T GMP (240h)</span>
+                  <span>PDB 2Q8G · 78% T_SCM</span>
+                </div>
+                <div class="text-sm font-extrabold text-white mt-1">🧫 Ex Vivo CAR-T Bioreactor</div>
+                <p class="text-slate-400 text-[11px] mt-1">Closed-cassette 240-hour perfusion breaking <code>PDK1 (2Q8G)</code> Warburg lock at <code>Hour 64</code>.</p>
+              </div>
+              <span class="text-cyan-300 font-mono font-bold text-[11px]">Open CAR-T Workstation →</span>
+            </a>
+
+            <a href="simulator/alzheimers_simulator.html" class="p-4 rounded-2xl bg-slate-900/90 border border-slate-700 hover:border-emerald-400 transition flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between font-mono text-[10px] text-emerald-300 font-bold">
+                  <span>COHORT B · AD</span>
+                  <span>3.3% Cortical h</span>
+                </div>
+                <div class="text-sm font-extrabold text-white mt-1">🧬 Prodromal APOE4 Alzheimer's</div>
+                <p class="text-slate-400 text-[11px] mt-1"><code>APOE4 Arg112 (1B68)</code> + <code>TOMM40 (7CK6)</code> import prime before <code>Day 54</code> gate.</p>
+              </div>
+              <span class="text-emerald-300 font-mono font-bold text-[11px]">Open Alzheimer's Workstation →</span>
+            </a>
+
+            <a href="simulator/epilepsy_simulator.html" class="p-4 rounded-2xl bg-slate-900/90 border border-slate-700 hover:border-emerald-400 transition flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between font-mono text-[10px] text-emerald-300 font-bold">
+                  <span>COHORT C · EPI</span>
+                  <span>96% Seizure ↓</span>
+                </div>
+                <div class="text-sm font-extrabold text-white mt-1">⚡ Refractory Epilepsy (PV+)</div>
+                <p class="text-slate-400 text-[11px] mt-1">Fast-spiking <code>PV+ Interneurons (f²=3.06×)</code> &amp; <code>Bilophila H₂S</code> Complex IV shield.</p>
+              </div>
+              <span class="text-emerald-300 font-mono font-bold text-[11px]">Open Epilepsy Workstation →</span>
+            </a>
+
+            <a href="simulator/depression_simulator.html" class="p-4 rounded-2xl bg-slate-900/90 border border-slate-700 hover:border-emerald-400 transition flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between font-mono text-[10px] text-emerald-300 font-bold">
+                  <span>COHORT D · MDD</span>
+                  <span>93.8% Synaptic</span>
+                </div>
+                <div class="text-sm font-extrabold text-white mt-1">🔬 Treatment-Resistant MDD</div>
+                <p class="text-slate-400 text-[11px] mt-1"><code>IDO1 Kynurenine Steal</code> + <code>QPRT Bottleneck</code> microglial <code>QUIN</code> blockade.</p>
+              </div>
+              <span class="text-emerald-300 font-mono font-bold text-[11px]">Open Depression Workstation →</span>
+            </a>
+
+            <a href="simulator/sarcopenia_simulator.html" class="p-4 rounded-2xl bg-slate-900/90 border border-slate-700 hover:border-emerald-400 transition flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between font-mono text-[10px] text-emerald-300 font-bold">
+                  <span>COHORT A · SARC</span>
+                  <span>+1.8% Lean Mass</span>
+                </div>
+                <div class="text-sm font-extrabold text-white mt-1">💪 Sarcopenia &amp; Metabolic</div>
+                <p class="text-slate-400 text-[11px] mt-1"><code>FUT2 Non-Secretor</code> + <code>MTHFR 6FCX</code> compressing <code>τ_lag (13.5h→6.0h)</code>.</p>
+              </div>
+              <span class="text-emerald-300 font-mono font-bold text-[11px]">Open Sarcopenia Workstation →</span>
+            </a>
+
+            <a href="simulator/bcr_simulator.html" class="p-4 rounded-2xl bg-slate-900/90 border border-purple-500/40 hover:border-purple-400 transition flex flex-col justify-between space-y-2">
+              <div>
+                <div class="flex items-center justify-between font-mono text-[10px] text-purple-300 font-bold">
+                  <span>MULTI-COHORT ARCHIVE</span>
+                  <span>All 7 Cohorts</span>
+                </div>
+                <div class="text-sm font-extrabold text-white mt-1">🔬 Cross-Cohort Comparison Suite</div>
+                <p class="text-slate-400 text-[11px] mt-1">Side-by-side bifurcation phase-plane, 8-PDB structural table, and VEP matrix.</p>
+              </div>
+              <span class="text-purple-300 font-mono font-bold text-[11px]">Open Multi-Cohort Suite →</span>
+            </a>
+          </div>
+        </div>
+      </details>
     </section>
 
     <!-- INTERACTIVE STUDY-REACTIVE GOOGLE CORAL NPU (RV32IMF_Zve32x) SILICON SHOWCASE -->

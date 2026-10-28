@@ -286,7 +286,11 @@ def main():
         "Verified bespoke 10-state RK4/Euler ODE Flagships (parkinsons_simulator.html & apis_honeybee_simulator.html) + 5 exploratory workstations",
     )
 
-    from assess_new_science_release import simulate_epigenetic_deaging_acel70751
+    from assess_new_science_release import (
+        PD_LANDMARK_TRIAL_AUDIT_MATRIX,
+        simulate_creatine_umtck_shuttle_pd,
+        simulate_epigenetic_deaging_acel70751,
+    )
 
     acel_res = simulate_epigenetic_deaging_acel70751()
     pd_hyp_alone = simulate_neuropsychiatric_subprotocols("Parkinsons_SNc", "Hypoxia_Pill_GBT601_PT2399_Alone")
@@ -303,6 +307,25 @@ def main():
         and acel_res["4_MitoRestorer_BCR_Plus_Berg2026_TET_SIRT1_6FCX_Synergy"]["eAge_d100_pct"] < 4.0,
         "v3.0 Science Radar: Mootha/Ichinose Hyperoxia & Berg 2026 (acel.70751)",
         f"PD+GBT601/PT2399={pd_hyp_bcr['Motor_Score_Rescue_Pct']}% (Sw d{pd_hyp_bcr['switch_day']}) | Berg2026 eAge=100%->{acel_res['3_Standard_SOX2_cMYC_iNSC_Conversion_Berg2026']['eAge_d100_pct']}% -> BCR+Berg={acel_res['4_MitoRestorer_BCR_Plus_Berg2026_TET_SIRT1_6FCX_Synergy']['eAge_d100_pct']}%",
+    )
+
+    cr_res = simulate_creatine_umtck_shuttle_pd()
+    audit_res = PD_LANDMARK_TRIAL_AUDIT_MATRIX
+    manuscript_path = os.path.join(REPO_ROOT, "docs", "academic_manuscript_bcr.md")
+    manuscript_text = open(manuscript_path, encoding="utf-8").read() if os.path.exists(manuscript_path) else ""
+    cr_netpd = cr_res["2_Unphased_Continuous_Creatine_10g_NET_PD_LS1_Trial"]
+    cr_stage2 = cr_res["4_PD_BCR_Plus_Stage2_Gated_Creatine_uMtCK_1QK1_6FCX_Synergy"]
+    check(
+        len(audit_res) == 10
+        and cr_netpd["uMtCK_Octamer_1QK1_pct"] < 50.0
+        and cr_stage2["uMtCK_Octamer_1QK1_pct"] >= 95.0
+        and cr_stage2["TH_Motor_Rescue_pct"] >= 99.0
+        and "1QK1" in manuscript_text
+        and "5UFP" in manuscript_text
+        and "10.1111/acel.70751" in manuscript_text
+        and "FAIRPARK-II" in manuscript_text,
+        "Discovery 11 (uMtCK PDB 1QK1 Creatine), 10-Trial Audit & v3.0 Manuscript",
+        f"NET-PD LS-1 uMtCK={cr_netpd['uMtCK_Octamer_1QK1_pct']}% (TH={cr_netpd['TH_Motor_Rescue_pct']}%) vs Stage-2 Creatine uMtCK={cr_stage2['uMtCK_Octamer_1QK1_pct']}% (TH={cr_stage2['TH_Motor_Rescue_pct']}%, eAge={cr_stage2['eAge_d90_pct']}%)",
     )
 
     print("\n" + "=" * 100)

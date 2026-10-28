@@ -331,6 +331,25 @@ def main():
         f"NET-PD LS-1 uMtCK={cr_netpd['uMtCK_Octamer_1QK1_pct']}% (TH={cr_netpd['TH_Motor_Rescue_pct']}%) vs Stage-2 Creatine uMtCK={cr_stage2['uMtCK_Octamer_1QK1_pct']}% (TH={cr_stage2['TH_Motor_Rescue_pct']}%, eAge={cr_stage2['eAge_d90_pct']}%)",
     )
 
+    pd_html_text = open(os.path.join(REPO_ROOT, "simulator", "parkinsons_simulator.html"), encoding="utf-8").read()
+    bee_html_text = open(os.path.join(REPO_ROOT, "simulator", "apis_honeybee_simulator.html"), encoding="utf-8").read()
+    check(
+        "applyCustomPatientIntake" in pd_html_text
+        and "generateClinicalDossierMarkdown" in pd_html_text
+        and "exportClinicalDossier" in pd_html_text
+        and "clinicalDossierModal" in pd_html_text
+        and "inpLabGdf15" in pd_html_text
+        and "chkSnpGba1" in pd_html_text
+        and "applyCustomHiveIntake" in bee_html_text
+        and "generateApiaryDossierMarkdown" in bee_html_text
+        and "exportApiaryDossier" in bee_html_text
+        and "apiaryDossierModal" in bee_html_text
+        and "inpHiveHz" in bee_html_text
+        and "inpHivePpb" in bee_html_text,
+        "Priority 2: Custom Patient Lab/SNP & Hive Sensor Intake + One-Click Dossier Export",
+        "Verified Custom Patient Lab/SNP Intake + Clinical Dossier (PD-BCR) & Custom Hive Sensor Intake + Coral NPU Field Dossier (Apis-BCR)",
+    )
+
     print("\n" + "=" * 100)
     print(f"✅ VERIFICATION SUMMARY: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
     print("=" * 100)

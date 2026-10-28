@@ -79,8 +79,8 @@
           </p>
         </div>
 
-        <!-- Interactive 14-Day Scrubber Controls -->
-        <div class="flex items-center gap-2 bg-slate-900/95 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-mono shrink-0">
+        <!-- Interactive 14-Day Scrubber Controls + One-Click Apiary Field Dossier -->
+        <div class="flex flex-wrap items-center gap-2 bg-slate-900/95 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-mono shrink-0">
           <button id="btnPlayPause" class="px-3 py-1 rounded-lg bg-amber-400 text-slate-950 font-extrabold hover:bg-amber-300 transition">
             ▶ Play 14d
           </button>
@@ -92,6 +92,9 @@
           <span id="clockBadge" class="px-2.5 py-1 rounded bg-slate-950 text-amber-300 border border-amber-500/40 font-bold">
             Day 4.5 / 14.0d
           </span>
+          <button id="btnHeaderExportBeeDossier" class="px-2.5 py-1 rounded-lg bg-cyan-400 text-slate-950 font-extrabold hover:bg-cyan-300 transition shadow-sm" title="Export 1-Page Commercial Beekeeper Patty Sheet & 4.05 mW Coral NPU Config">
+            📄 Export Apiary Dossier
+          </button>
         </div>
       </div>
 
@@ -370,6 +373,71 @@
             <div class="text-slate-400 text-[10px]">Pre-winter mitophagy purge + Stage-2 <code>10-HDA</code> + <code>Vitellogenin</code> epigenetic consolidation extends lifespan 4×!</div>
           </button>
         </div>
+
+        <!-- NEW PRIORITY 2B: Interactive Custom Hive Sensor & Field Telemetry Intake + Printable Apiary & Coral NPU Dossier -->
+        <div class="mt-3 pt-3 border-t border-slate-800 space-y-3">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2 py-0.5 rounded bg-cyan-400 text-slate-950 font-mono font-extrabold text-[10.5px]">🐝 CUSTOM HIVE SENSOR &amp; FIELD TELEMETRY INTAKE</span>
+              <span class="text-slate-300 text-[11px]">Input live MEMS acoustic wingbeat Hz, pollen fungicide residue PPB, Nosema spore load, brood nest temp, &amp; <em>S. alvi</em> gut colonization to parameterize the 10-state ODE and export a 1-page commercial apiary sheet + <code>4.05 mW</code> Coral NPU config:</span>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <button id="btnApplyCustomHive" class="px-3 py-1.5 rounded-lg bg-amber-400 text-slate-950 font-mono font-extrabold text-[11px] hover:bg-amber-300 transition shadow">
+                ⚡ Apply Custom Hive Telemetry to ODE
+              </button>
+              <button id="btnExportApiaryDossier" class="px-3 py-1.5 rounded-lg bg-cyan-400 text-slate-950 font-mono font-extrabold text-[11px] hover:bg-cyan-300 transition shadow">
+                📄 Export Printable Apiary Dossier &amp; Coral NPU Config (.md / PDF)
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 text-[11px]">
+            <div class="p-2.5 rounded-lg bg-slate-900/95 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between font-mono text-[10px] text-cyan-300">
+                <span>1. WINGBEAT PEAK f₀ (Hz)</span>
+                <span id="lblHiveHz" class="font-bold">186 Hz</span>
+              </div>
+              <input id="inpHiveHz" type="number" min="165" max="245" step="1" value="186" class="w-full px-2 py-1 rounded bg-slate-950 border border-slate-700 text-white font-mono text-xs focus:border-cyan-400 focus:outline-none" />
+              <div class="text-[10px] text-slate-400">MEMS 16-bin FFT peak (`&lt;200 Hz` = flight ATP deficit; `≥220 Hz` = Stage-2 NPU gate).</div>
+            </div>
+
+            <div class="p-2.5 rounded-lg bg-slate-900/95 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between font-mono text-[10px] text-rose-300">
+                <span>2. FUNGICIDE + NEONIC (PPB)</span>
+                <span id="lblHivePpb" class="font-bold">185 PPB</span>
+              </div>
+              <input id="inpHivePpb" type="number" min="0" max="500" step="10" value="185" class="w-full px-2 py-1 rounded bg-slate-950 border border-slate-700 text-white font-mono text-xs focus:border-rose-400 focus:outline-none" />
+              <div class="text-[10px] text-slate-400">Azoxystrobin + imidacloprid load in bee bread; plugs Complex III Qo (`PDB: 1SQB`).</div>
+            </div>
+
+            <div class="p-2.5 rounded-lg bg-slate-900/95 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between font-mono text-[10px] text-purple-300">
+                <span>3. NOSEMA SPORES (×10⁶/bee)</span>
+                <span id="lblHiveNosema" class="font-bold">1.2 ×10⁶</span>
+              </div>
+              <input id="inpHiveNosema" type="number" min="0.0" max="5.0" step="0.2" value="1.2" class="w-full px-2 py-1 rounded bg-slate-950 border border-slate-700 text-white font-mono text-xs focus:border-purple-400 focus:outline-none" />
+              <div class="text-[10px] text-slate-400"><em>Vairimorpha ceranae</em> midgut ATP-steal load; requires Stage-2 `24-methylenecholesterol`.</div>
+            </div>
+
+            <div class="p-2.5 rounded-lg bg-slate-900/95 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between font-mono text-[10px] text-amber-300">
+                <span>4. BROOD NEST TEMP (°C)</span>
+                <span id="lblHiveTemp" class="font-bold">34.5 °C</span>
+              </div>
+              <input id="inpHiveTemp" type="number" min="28.0" max="41.0" step="0.5" value="34.5" class="w-full px-2 py-1 rounded bg-slate-950 border border-slate-700 text-white font-mono text-xs focus:border-amber-400 focus:outline-none" />
+              <div class="text-[10px] text-slate-400">Above `36.0 °C` triggers evaporative fanning (`f²` spike) &amp; auto-enables `670 nm` entrance LED.</div>
+            </div>
+
+            <div class="p-2.5 rounded-lg bg-slate-900/95 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between font-mono text-[10px] text-teal-300">
+                <span>5. S. ALVI GUT BIOFILM (%)</span>
+                <span id="lblHiveSalvi" class="font-bold">22%</span>
+              </div>
+              <input id="inpHiveSalviPct" type="number" min="5" max="95" step="5" value="22" class="w-full px-2 py-1 rounded bg-slate-950 border border-slate-700 text-white font-mono text-xs focus:border-teal-400 focus:outline-none" />
+              <div class="text-[10px] text-slate-400">Baseline hindgut <em>Snodgrassella alvi</em> colonization (`&lt;30%` after antibiotic/glyphosate drift).</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -598,6 +666,37 @@
 
   </main>
 
+  <!-- =========================================================================================== -->
+  <!-- PRIORITY 2B: PRINTABLE 1-PAGE APIARY FIELD DOSSIER & 4.05 mW CORAL NPU CONFIG MODAL         -->
+  <!-- =========================================================================================== -->
+  <div id="apiaryDossierModal" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl max-h-[90vh] rounded-2xl border-2 border-amber-400 bg-[#081020] shadow-2xl flex flex-col overflow-hidden text-xs">
+      <div class="px-4 py-3 bg-slate-950 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-mono font-extrabold">APIARY FIELD &amp; CORAL NPU DOSSIER</span>
+          <span class="font-bold text-white text-sm">Personalized `Apis-BCR v3.0` Patty Recipe &amp; `4.05 mW` Google Coral NPU (`RV32IMF_Zve32x`) Config</span>
+        </div>
+        <div class="flex items-center gap-2 font-mono">
+          <button id="btnDownloadBeeDossierMd" class="px-3 py-1 rounded-lg bg-emerald-500 text-slate-950 font-extrabold hover:bg-emerald-400 transition">
+            ⬇️ Download .MD
+          </button>
+          <button id="btnPrintBeeDossier" class="px-3 py-1 rounded-lg bg-cyan-400 text-slate-950 font-extrabold hover:bg-cyan-300 transition">
+            🖨️ Print / Save PDF
+          </button>
+          <button id="btnCopyBeeDossier" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 hover:border-amber-400 transition">
+            📋 Copy Text
+          </button>
+          <button id="btnCloseBeeDossierModal" class="px-2.5 py-1 rounded-lg bg-rose-950 text-rose-200 border border-rose-500/40 hover:bg-rose-900 transition">
+            ✕ Close
+          </button>
+        </div>
+      </div>
+      <div class="p-4 overflow-y-auto space-y-3 bg-[#050b16] font-mono text-[11px] leading-relaxed text-slate-100">
+        <pre id="apiaryDossierContent" class="whitespace-pre-wrap break-words font-mono text-[11px] text-slate-100"></pre>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ===============================================================================================
     // FULL 10-STATE SUB-HOURLY RK4/EULER HONEYBEE & CORAL NPU ODE SOLVER (281 Steps, dt = 0.05 Days)
@@ -620,6 +719,11 @@
       pattyMode: 'stage2_gated', // 'stage2_gated' | 'day0_trap'
       scenFlightScale: 1.0,
       scenViralScale: 1.0,
+      customSalvi0: 0.22,
+      customWingHz0: 186.0,
+      customFungicidePpb: 185,
+      customNosemaLoad: 1.2,
+      customHiveTempC: 34.5,
       rotYaw: -0.62,
       rotPitch: 0.36,
       isDragging: false,
@@ -679,11 +783,11 @@
       let W = 0.42;
       let D = 0.58;
       let Qo = beeState.qo0 / 100.0;
-      let Salvi = 0.22;
+      let Salvi = beeState.customSalvi0 || 0.22;
       let Vg = 0.26;
       let DWV = 1.35 * beeState.scenViralScale;
       let EP = 138.0;
-      let WingHz = 186.0;
+      let WingHz = beeState.customWingHz0 || 186.0;
       let Homing = 18.0;
 
       const arrH = [], arrW = [], arrQo = [], arrEP = [], arrSalvi = [], arrVg = [], arrHz = [], arrHoming = [], arrNpu = [];
@@ -1422,6 +1526,175 @@
           <p><strong>Live 10-State ODE &amp; Hardware Readout:</strong> At Gate Day <code>${beeState.gateDay.toFixed(1)}</code>, Stage-1 <em>p</em>-coumaric acid + <em>S. alvi</em> clears Complex III <code>PDB: 1SQB</code> fungicide block to <code>${bcr.arrQo[280].toFixed(1)}%</code> and thoracic mutant mtDNA <code>h(t)</code> to <code>${bcr.arrH[280].toFixed(1)}%</code>. Once the <code>4.05 mW</code> Google Coral NPU detects wingbeat fundamental <code>f₀ ≥ 220 Hz</code> (reaching <code>${bcr.arrHz[280].toFixed(0)} Hz</code>), Stage-2 <code>10-HDA + CoQ10 + 24-methylenecholesterol</code> expands thoracic wild-type <code>W</code> to <code>${bcr.arrW[280].toFixed(2)}×</code> and rescues forager homing survival to <strong><code>${bcr.arrHoming[280].toFixed(1)}%</code></strong>.</p>
         </div>
       `;
+    });
+
+    // ===============================================================================================
+    // PRIORITY 2B: CUSTOM HIVE SENSOR TELEMETRY INTAKE + PRINTABLE APIARY & CORAL NPU DOSSIER
+    // ===============================================================================================
+    function applyCustomHiveIntake() {
+      const hz = clip(parseFloat(document.getElementById('inpHiveHz').value) || 186.0, 165.0, 245.0);
+      const ppb = clip(parseFloat(document.getElementById('inpHivePpb').value) || 185.0, 0.0, 500.0);
+      const nosema = clip(parseFloat(document.getElementById('inpHiveNosema').value) || 1.2, 0.0, 5.0);
+      const tempC = clip(parseFloat(document.getElementById('inpHiveTemp').value) || 34.5, 28.0, 41.0);
+      const salviPct = clip(parseFloat(document.getElementById('inpHiveSalviPct').value) || 22.0, 5.0, 95.0);
+
+      document.getElementById('lblHiveHz').textContent = Math.round(hz) + ' Hz';
+      document.getElementById('lblHivePpb').textContent = Math.round(ppb) + ' PPB';
+      document.getElementById('lblHiveNosema').textContent = nosema.toFixed(1) + ' ×10⁶';
+      document.getElementById('lblHiveTemp').textContent = tempC.toFixed(1) + ' °C';
+      document.getElementById('lblHiveSalvi').textContent = Math.round(salviPct) + '%';
+
+      beeState.customWingHz0 = hz;
+      beeState.customFungicidePpb = ppb;
+      beeState.customNosemaLoad = nosema;
+      beeState.customHiveTempC = tempC;
+      beeState.customSalvi0 = salviPct / 100.0;
+
+      // Map pollen fungicide PPB & baseline wingbeat Hz to Complex III Qo-site blockade (PDB: 1SQB)
+      const computedQo0 = clip(Math.round(32.0 + (ppb / 5.5) + Math.max(0.0, (200.0 - hz) * 0.45)), 25, 88);
+      beeState.qo0 = computedQo0;
+      beeState.scenViralScale = clip(0.85 + (nosema * 0.22), 0.75, 1.85);
+      beeState.scenFlightScale = tempC >= 36.0 ? clip(1.0 + (tempC - 35.0) * 0.04, 1.0, 1.22) : 1.0;
+
+      // Auto-recommend 670nm entrance photobiomodulation if hive temp >= 36.0 C or PPB >= 240
+      if (tempC >= 36.0 || ppb >= 240) {
+        beeState.red670nm = true;
+        document.getElementById('chkBee670nm').checked = true;
+      }
+
+      // Compute personalized Coral NPU Gate Day (Days 2.5 to 7.0)
+      const computedGate = clip(Number((3.2 + (computedQo0 - 45) * 0.04 + (nosema * 0.25) - (salviPct > 50 ? 0.4 : 0.0)).toFixed(1)), 2.5, 7.0);
+      beeState.gateDay = computedGate;
+      beeState.activeRegimen = 'apis_bcr';
+      beeState.pattyMode = 'stage2_gated';
+      document.getElementById('chkBeePhytosterol').checked = true;
+
+      document.getElementById('slQo0').value = beeState.qo0;
+      document.getElementById('lblQo0').textContent = beeState.qo0 + '%';
+      document.getElementById('slGateDay').value = beeState.gateDay;
+      document.getElementById('lblGateDay').textContent = 'Day ' + beeState.gateDay.toFixed(1);
+      document.getElementById('activeBeeScenarioBadge').textContent = `Custom Hive Telemetry: ${Math.round(ppb)} PPB | ${Math.round(hz)} Hz | ${tempC.toFixed(1)}°C`;
+
+      updateDashboard();
+      const bcr = beeState.trajectories.apis_bcr;
+      document.getElementById('aiOutputBox').innerHTML = `
+        <div class="p-2.5 rounded-xl bg-amber-950/80 border border-amber-400/60 text-slate-100 space-y-1">
+          <div class="font-mono text-[10.5px] text-amber-300 font-bold">🐝 CUSTOM HIVE SENSOR TELEMETRY APPLIED TO 10-STATE ODE &amp; CORAL NPU</div>
+          <div>• <strong>Sensor Baseline:</strong> <code>Wingbeat=${Math.round(hz)} Hz</code>, <code>Fungicide=${Math.round(ppb)} PPB (1SQB Qo=${beeState.qo0}%)</code>, <code>Nosema=${nosema.toFixed(1)}×10⁶</code>, <code>Temp=${tempC.toFixed(1)}°C</code>, <code>S. alvi=${Math.round(salviPct)}%</code>.</div>
+          <div>• <strong>14-Day ODE &amp; NPU Forecast:</strong> Autonomous <code>4.05 mW</code> Coral NPU Gate = <strong>Day ${beeState.gateDay.toFixed(1)}</strong> (<code>f₀ ≥ 220 Hz</code>) | Day-14 <code>1SQB Block=${bcr.arrQo[280].toFixed(1)}%</code> | Day-14 Wingbeat = <code>${bcr.arrHz[280].toFixed(0)} Hz</code> | <strong>Forager Homing = ${bcr.arrHoming[280].toFixed(1)}%</strong>.</div>
+        </div>
+      `;
+    }
+
+    function generateApiaryDossierMarkdown() {
+      const bcr = beeState.trajectories.apis_bcr;
+      const hfcs = beeState.trajectories.hfcs_only;
+      const hz = parseFloat(document.getElementById('inpHiveHz').value) || beeState.customWingHz0 || 186;
+      const ppb = parseFloat(document.getElementById('inpHivePpb').value) || beeState.customFungicidePpb || 185;
+      const nosema = parseFloat(document.getElementById('inpHiveNosema').value) || beeState.customNosemaLoad || 1.2;
+      const tempC = parseFloat(document.getElementById('inpHiveTemp').value) || beeState.customHiveTempC || 34.5;
+      const salviPct = parseFloat(document.getElementById('inpHiveSalviPct').value) || Math.round((beeState.customSalvi0 || 0.22) * 100);
+      const nowIso = new Date().toISOString().slice(0, 10);
+      const gateStepIdx = Math.min(280, Math.round(beeState.gateDay / 0.05));
+
+      return `# MITORESTORER v3.0 — APIS-BCR COMMERCIAL APIARY FIELD SHEET & 4.05 mW CORAL NPU CONFIG
+Date Generated: ${nowIso} | Engine: 10-State Sub-Hourly RK4 Honeybee ODE (281 Steps, 14-Day Horizon)
+Target Organism: Apis mellifera Thoracic Flight Muscle (246 Hz Pacemaker, EP = eR * f^2) & Hindgut Holobiont
+
+================================================================================
+1. HIVE SENSOR TELEMETRY & FIELD STRESSOR BASELINE
+================================================================================
+- Baseline MEMS Wingbeat Peak f0:   ${Math.round(hz)} Hz  -->  Day-14 ODE Endpoint: ${bcr.arrHz[280].toFixed(0)} Hz
+- Pollen/Nectar Fungicide + Neonic: ${Math.round(ppb)} PPB (Initial Complex III PDB: 1SQB Qo-Block = ${beeState.qo0}% --> Day-14: ${bcr.arrQo[280].toFixed(1)}%)
+- Midgut Vairimorpha (Nosema) Load: ${nosema.toFixed(1)} x 10^6 spores/bee
+- Brood Nest / Ambient Temp:        ${tempC.toFixed(1)} C ${beeState.red670nm ? '(670 nm Deep-Red Entrance Photobiomodulation LED ENABLED)' : '(Normal Thermal Envelope)'}
+- Hindgut Snodgrassella alvi:       ${Math.round(salviPct)}% Baseline  -->  Day-14 Biofilm Index: ${bcr.arrSalvi[280].toFixed(2)}x
+
+================================================================================
+2. TWO-STAGE CHRONO-PHASED PATTY FORMULATION (PER 1.0 KG COLONY PATTY)
+================================================================================
+[STAGE 1 COMPARTMENT: DAYS 0.0–${beeState.gateDay.toFixed(1)}] — CYP9Q1-3 1SQB UNBLOCKING & MITOPHAGY PURGE
+  * p-Coumaric Acid + Quercetin:    1.2 g p-Coumaric Acid + 0.8 g Quercetin / kg (Berenbaum Lab PNAS: induces CYP9Q1-3 to clear PDB: 1SQB Qo block)
+  * Direct Urolithin A + Spermidine:1.5 g Urolithin A + 0.25 g Spermidine / kg (clears peroxidized thoracic mtDNA D from 58.0% -> ${bcr.arrH[280].toFixed(1)}%)
+  * Core Gut Symbiont Inoculant:    10^9 CFU Snodgrassella alvi + Gilliamella apicola (restores hindgut anoxia, citrate/GABA, & dsRNA DWV shield)
+  * Low-Glycemic Trehalose Matrix:  Inulin/pectin fiber + organic acid buffer (pH 4.2; compresses hemolymph trehalose glycemic lag 8.5h -> 2.5h)
+  * STRICT STAGE-1 LOCKOUT:         NO high-protein pollen substitute, NO CoQ10, NO 10-HDA before the 220 Hz Coral NPU Gate!
+
+[⚡ AUTONOMOUS 4.05 mW GOOGLE CORAL NPU GATE AT DAY ${beeState.gateDay.toFixed(1)}] — HARDWARE STEPPER SWITCH
+  * Silicon Target:                 Google Coral NPU (RV32IMF_Zve32x RISC-V Vector Core @ 100 Hz Duty-Cycled, 4.05 mW Total Power)
+  * Memory Footprint:               6,912 Bytes Tightly-Coupled SRAM (Zero DRAM, 93.8% Zero-Skip 16-Bin Radix-2 Acoustic FFT, 1,488 Cycles/Tick)
+  * Q16.16 Gate Trigger Condition:  (1) MEMS Acoustic Wingbeat Fundamental f0 >= 220 Hz (Day-${beeState.gateDay.toFixed(1)} f0 = ${bcr.arrHz[gateStepIdx].toFixed(0)} Hz)
+                                    (2) Complex III Qo-Block < 16% (Day-${beeState.gateDay.toFixed(1)} 1SQB Block = ${bcr.arrQo[gateStepIdx].toFixed(1)}%)
+                                    (3) Q16.16 Fixed-Point Gate Logit = ${bcr.arrNpu[gateStepIdx]} ( Threshold > 0 -> Actuate H-Bridge Stepper Valve )
+
+[STAGE 2 COMPARTMENT: DAYS ${beeState.gateDay.toFixed(1)}–14.0] — THORACIC CRISTAE BIOGENESIS & 10-HDA LONGEVITY
+  * Royal-Jelly 10-HDA:             2.5 g 10-Hydroxy-2-decenoic acid / kg (HDAC inhibitor + DNMT3 + Vitellogenin epigenetic longevity reset)
+  * Ubiquinol CoQ10 + PQQ:          1.8 g Ubiquinol + 0.15 g PQQ / kg (expands clean wild-type W thoracic cristae to ${bcr.arrW[280].toFixed(2)}x)
+  * 24-Methylenecholesterol + 24-Epi:1.2 g 24-Methylenecholesterol + 0.05 mg 24-Epibrassinolide / kg (repairs midgut/Nosema membranes)
+  * Complete Essential Amino Acids: 18% balanced lipid-protein pollen matrix (unlocked safely after 1SQB is unblocked)
+
+================================================================================
+3. MANDATORY COMMERCIAL APIARY CONTRAINDICATIONS (FIELD-TRIAL SAFEGUARDS)
+================================================================================
+1. NO Day-0 High-Protein / CoQ10 Patty During Fungicide Exposure: Activates TOR (halting ULK1 mitophagy) while PDB: 1SQB is 74% blocked, driving Complex III Qo superoxide and collapsing homing to 39.0%.
+2. NO Prophylactic Terramycin (Oxytetracycline): Wipes out Snodgrassella alvi (Moran Lab PLOS Biol), collapsing gut anoxia and spiking DWV/Nosema.
+3. NO Plain High-Fructose Corn Syrup (HFCS-55 / HMF): Lacks p-coumaric acid (leaving CYP9Q silent) and collapses homing survival to ${hfcs.arrHoming[280].toFixed(1)}%.
+
+================================================================================
+4. PREDICTED 14-DAY 10-STATE ODE ENDPOINTS (PHASED APIS-BCR + CORAL NPU)
+================================================================================
+- Complex III Qo Block (PDB: 1SQB): ${beeState.qo0}.0%  -->  ${bcr.arrQo[280].toFixed(1)}%
+- Thoracic Mutant mtDNA h(t):       58.0%  -->  ${bcr.arrH[280].toFixed(1)}% (Wild-Type W Mass = ${bcr.arrW[280].toFixed(2)}x)
+- Vitellogenin / 10-HDA Index:      0.26x  -->  ${bcr.arrVg[280].toFixed(2)}x
+- Radar-Tracked Forager Homing:     ${bcr.arrHoming[280].toFixed(1)}% Survival (vs. ${hfcs.arrHoming[280].toFixed(1)}% on Plain HFCS Syrup)
+`;
+    }
+
+    function exportApiaryDossier() {
+      const md = generateApiaryDossierMarkdown();
+      document.getElementById('apiaryDossierContent').textContent = md;
+      document.getElementById('apiaryDossierModal').classList.remove('hidden');
+    }
+
+    function downloadApiaryDossierMd() {
+      const md = generateApiaryDossierMarkdown();
+      const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Apis_BCR_Field_Dossier_CoralNPU_GateDay${beeState.gateDay.toFixed(1)}.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function printApiaryDossier() {
+      const md = generateApiaryDossierMarkdown();
+      const win = window.open('', '_blank', 'width=900,height=750');
+      if (!win) { window.print(); return; }
+      win.document.write(`<html><head><title>Apis-BCR v3.0 Field Dossier & Coral NPU Config</title><style>body{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;padding:28px;color:#0f172a;background:#ffffff;font-size:12px;line-height:1.55;}pre{white-space:pre-wrap;word-wrap:break-word;}</style></head><body><pre>${md.replace(/</g, '&lt;')}</pre><script>window.onload=function(){window.print();};<\/script></body></html>`);
+      win.document.close();
+    }
+
+    function copyApiaryDossier() {
+      const md = generateApiaryDossierMarkdown();
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(md);
+      }
+      const btn = document.getElementById('btnCopyBeeDossier');
+      btn.textContent = '✅ Copied!';
+      setTimeout(() => { btn.textContent = '📋 Copy Text'; }, 1800);
+    }
+
+    document.getElementById('btnApplyCustomHive').addEventListener('click', applyCustomHiveIntake);
+    document.getElementById('btnExportApiaryDossier').addEventListener('click', exportApiaryDossier);
+    document.getElementById('btnHeaderExportBeeDossier').addEventListener('click', exportApiaryDossier);
+    document.getElementById('btnDownloadBeeDossierMd').addEventListener('click', downloadApiaryDossierMd);
+    document.getElementById('btnPrintBeeDossier').addEventListener('click', printApiaryDossier);
+    document.getElementById('btnCopyBeeDossier').addEventListener('click', copyApiaryDossier);
+    document.getElementById('btnCloseBeeDossierModal').addEventListener('click', () => {
+      document.getElementById('apiaryDossierModal').classList.add('hidden');
     });
 
     const runApisWhatIfSweep = runBeeSweep;

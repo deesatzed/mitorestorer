@@ -1,0 +1,15 @@
+{
+  "name": "mitorestorer-bcr-showcase",
+  "version": "3.0.0",
+  "description": "MitoRestorer v3.0: Cross-Species Bioenergetic Circuit Restoration (EP = eR * f^2) — 9 Interactive Biophysics Simulators, 11-Structure 3D PDB Atlas, Google Coral NPU Edge Firmware & Live EuropePMC Science Radar",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "echo 'Static HTML5/JS/SVG/CIF bundle ready for deployment'",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}

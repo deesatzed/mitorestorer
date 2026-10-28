@@ -353,13 +353,19 @@ def main():
     nojekyll_ok = os.path.exists(os.path.join(REPO_ROOT, ".nojekyll"))
     wf_path = os.path.join(REPO_ROOT, ".github", "workflows", "deploy-pages.yml")
     wf_text = open(wf_path, encoding="utf-8").read() if os.path.exists(wf_path) else ""
+    radar_wf_path = os.path.join(REPO_ROOT, ".github", "workflows", "weekly-science-radar.yml")
+    radar_wf_text = open(radar_wf_path, encoding="utf-8").read() if os.path.exists(radar_wf_path) else ""
+    radar_feed_path = os.path.join(REPO_ROOT, "docs", "weekly_science_radar_feed.json")
     check(
         nojekyll_ok
         and "actions/deploy-pages@v4" in wf_text
         and "actions/upload-pages-artifact@v3" in wf_text
-        and "run_all_verifications.py" in wf_text,
-        "Priority 3A: Zero-Build GitHub Pages Live Showpiece CI/CD Workflow",
-        "Verified .nojekyll + .github/workflows/deploy-pages.yml (actions/deploy-pages@v4 + pre-deploy verification)",
+        and "run_all_verifications.py" in wf_text
+        and "cron:" in radar_wf_text
+        and "--weekly-digest" in radar_wf_text
+        and os.path.exists(radar_feed_path),
+        "Priority 3A: Zero-Build GitHub Pages CI/CD & Weekly Science Radar Cron Schedule",
+        "Verified .nojekyll + deploy-pages.yml + weekly-science-radar.yml (Monday 08:00 UTC cron) + weekly_science_radar_feed.json",
     )
 
     fig1_path = os.path.join(REPO_ROOT, "figures", "fig1_pd_bcr_10state_trajectories_and_trial_audit.svg")

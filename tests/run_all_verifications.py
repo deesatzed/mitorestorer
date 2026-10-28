@@ -46,9 +46,9 @@ def main():
     print("=" * 100)
 
     # -------------------------------------------------------------------------
-    # SUITE 1: 8-STRUCTURE 3D ATOMIC CIF VERIFICATION
+    # SUITE 1: 11-STRUCTURE 3D ATOMIC CIF VERIFICATION
     # -------------------------------------------------------------------------
-    print("\n--- 1. Verifying 8 Local 3D Crystal Structures (.cif) ---")
+    print("\n--- 1. Verifying 11 Local 3D Crystal Structures (.cif) ---")
     expected_cifs = [
         ("6FCX", "MTHFR + FAD + SAH (2.50 A)"),
         ("1B68", "APOE4 Arg112-Glu109 Salt Bridge (2.00 A)"),
@@ -58,6 +58,9 @@ def main():
         ("2NSX", "Lysosomal GBA1 + Chaperone IFM 506 (2.20 A)"),
         ("2Q8G", "Human PDK1 + Allosteric Inhibitor AZD7545 (1.90 A, CAR-T)"),
         ("1SQB", "Complex III Cytochrome bc1 + Azoxystrobin (2.69 A, Honeybee)"),
+        ("5UFP", "EPAS1/HIF-2a : ARNT + PT2399 (1.85 A, Brain Hyperoxia)"),
+        ("1QK1", "Human uMtCK Cuboidal Octamer + PO4 (2.70 A, Creatine Shuttle)"),
+        ("2XSN", "Human Tyrosine Hydroxylase Catalytic Metal Triad (2.10 A, FAIRPARK-II)"),
     ]
     for pdb_id, desc in expected_cifs:
         cif_path = os.path.join(REPO_ROOT, "structures", pdb_id, f"pdb_0000{pdb_id.lower()}.cif")

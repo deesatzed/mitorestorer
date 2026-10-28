@@ -1,0 +1,8 @@
+RCSB Protein Data Bank (PDB) Usage Policy Notification
+======================================================
+Please review the RCSB PDB usage and data policies at:
+https://www.rcsb.org/pages/usage-policy
+
+Recorded Timestamp: 2026-10-28T11:40:20-04:00
+Skill Used: pdb-database
+Structures Downloaded: 6FCX, 1B68, 7CK6, 6EQI, 4ZZJ, 2NSX, 2Q8G, 1SQB, 5UFP, 1QK1, 2XSN

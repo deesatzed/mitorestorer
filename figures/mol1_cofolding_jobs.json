@@ -1,0 +1,101 @@
+{
+  "schema_version": "molence/Mol-1-v1.0",
+  "repository": "https://github.com/molence/Mol-1",
+  "execution_note": "Mol-1 is an open-weights all-atom biomolecular structure prediction foundation model (Apache-2.0, requiring an NVIDIA CUDA GPU >= 14 GB VRAM + cuequivariance + mol-1-base.pt). While MitoRestorer uses 11 experimental X-ray/cryo-EM PDB structures for live browser/macOS verification, these 3 JSON job specs allow one-command co-folding (`mol pred -i ... -o ./structures/mol1_predicted/`) of uncrystallized honeybee CYP9Q3 and covalent PD adduct complexes on any CUDA node.",
+  "jobs": [
+    {
+      "name": "Apis_mellifera_CYP9Q3_Azoxystrobin_pCoumaricAcid_Heme",
+      "cohort": "Flagship #2: Apis-BCR Honeybee Smart Hive",
+      "biological_question": "How does floral p-coumaric acid allosterically stabilize the honeybee CYP9Q3 heme pocket to hydroxylate and clear strobilurin fungicides (azoxystrobin) before they plug Complex III (PDB: 1SQB)?",
+      "sequences": [
+        {
+          "protein": {
+            "id": "A",
+            "description": "Apis mellifera Cytochrome P450 9Q3 (CYP9Q3, UniProt A0A088A6B2 catalytic core)",
+            "sequence": "MEILLLGLVAAVLLLYLYWKRKRSGNYPPGPWGLPFIGNLHQLGKKPHRSFVDLAKKYGPVFTVRMGQKPVVVLSGYEAVKEALVKRGEEFAGRPDLYT"
+          }
+        }
+      ],
+      "ligands": [
+        {
+          "ccd": "HEM",
+          "description": "Catalytic Iron-Protoporphyrin IX Heme"
+        },
+        {
+          "smiles": "COC=C(C1=CC=CC=C1OC2=NC=NC(=C2)OC3=CC=CC=C3C#N)C(=O)OC",
+          "description": "Azoxystrobin (Strobilurin Qo Inhibitor)"
+        },
+        {
+          "smiles": "C1=CC(=CC=C1/C=C/C(=O)O)O",
+          "description": "p-Coumaric Acid (Berenbaum CYP9Q Inducer)"
+        }
+      ]
+    },
+    {
+      "name": "Human_uMtCK_Cys278_DopamineQuinone_CovalentAdduct",
+      "cohort": "Flagship #1: Parkinson's Disease (PD-BCR Discovery 11 / NET-PD LS-1 Audit)",
+      "biological_question": "How does covalent Michael addition of cytosolic Dopamine-o-Quinone (DA-Q) onto the catalytic Cys278 loop of human uMtCK (PDB: 1QK1) sterically clash with the Arg125/Arg127/Arg287 phosphate claw and destabilize the cuboidal uMtCK octamer into inactive dimers during Stage 1?",
+      "sequences": [
+        {
+          "protein": {
+            "id": "A",
+            "description": "Human uMtCK (CKMT1A, UniProt P12532) Catalytic Loop (Residues 120-325)",
+            "sequence": "GLSLPPACSRGERRAVENLSVEALNSLTGEFKGKYYPLKSMTEKEQQQLIDDHFLFDKPVSPLLLASGMARDWPDARGIWHNDNKTFLVWVNEEDHTRVISMEKGGNMKRVFERFCRGLKEVERLIQERGWEFMWNERLGYILTCPSNLGTGLRAGVHIKLPLLSKDSRFPKILENLRLQKRGTGGVDTAAVGSVFDVSNADRLGFSEVELVQMVVDGVKLLIEMEQRLEQGQAIDDLMPAQK"
+          }
+        }
+      ],
+      "ligands": [
+        {
+          "ccd": "ADP",
+          "description": "Mg-ADP Nucleotide Substrate"
+        },
+        {
+          "smiles": "CN(CC(=O)O)C(=N)N",
+          "description": "Creatine Zwitterion Substrate"
+        },
+        {
+          "smiles": "C1=CC(=O)C(=O)C=C1CCN",
+          "description": "Dopamine-o-Quinone (DA-Q) Covalent Adduct at Cys278"
+        }
+      ],
+      "covalent_bonds": [
+        {
+          "atom1": "A:278:SG",
+          "atom2": "LIG3:C6",
+          "description": "Thioether adduct between uMtCK Cys278(SG) and DA-o-Quinone"
+        }
+      ]
+    },
+    {
+      "name": "Human_PINK1_ClassII_Ins3_KinetinTriphosphate_Ubiquitin",
+      "cohort": "Flagship #1: Parkinson's Disease (PD-BCR Discovery 5)",
+      "biological_question": "Quantify the Ubiquitin-Ser65 docking penalty in PINK1 Class II Ins3 cradle mutants vs. Class I Ala339Thr ATP-pocket mutants when bound to Kinetin Riboside Triphosphate (KTP).",
+      "sequences": [
+        {
+          "protein": {
+            "id": "A",
+            "description": "Human PINK1 Kinase Domain (UniProt Q9BXM7, Ins3 Loop Variant)",
+            "sequence": "KMMWNISAGSSSEAILNTMSQELVPASRVALAGEYGAVTYRKSKRGPKQLAPHPNIIRVLRAFTSSVPLLPGALVDYPDVLPSRLHPEGLGHGRTLFLVMKNYPCTLRQYLCVNTPSPRLAAMMLLQLLEGVDHLVQQGIAHRDLKSDNILVELDPDGCPWLVIADFGCCLADESIGLQLPFSSWYVDRGGNGCLMAPEVSTARPGPRAVIDYSKADAWAVGAIAYEIFGLVNPFYGQGKAHLESRSYQEAQLPALPESVPPDVRQLVRALLQREASKRPSARVAANVLHLSLWGEHILALKNLKLDKMVGWLLQQSAATLLANRLTEKCCVETKMKMLFLANLECETLCQAALLLCSWRAA"
+          }
+        },
+        {
+          "protein": {
+            "id": "B",
+            "description": "Human Ubiquitin (UniProt P0CG48, Ser65 Phosphorylation Substrate)",
+            "sequence": "MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLRLRGG"
+          }
+        }
+      ],
+      "ligands": [
+        {
+          "smiles": "C1=COC(=C1)CNC2=NC=NC3=C2NC=N3",
+          "description": "Kinetin Riboside Triphosphate (KTP Neo-Substrate)"
+        },
+        {
+          "ccd": "MG",
+          "description": "Catalytic Mg2+ Ion"
+        }
+      ]
+    }
+  ]
+}

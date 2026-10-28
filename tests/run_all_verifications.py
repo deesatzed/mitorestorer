@@ -350,6 +350,35 @@ def main():
         "Verified Custom Patient Lab/SNP Intake + Clinical Dossier (PD-BCR) & Custom Hive Sensor Intake + Coral NPU Field Dossier (Apis-BCR)",
     )
 
+    nojekyll_ok = os.path.exists(os.path.join(REPO_ROOT, ".nojekyll"))
+    wf_path = os.path.join(REPO_ROOT, ".github", "workflows", "deploy-pages.yml")
+    wf_text = open(wf_path, encoding="utf-8").read() if os.path.exists(wf_path) else ""
+    check(
+        nojekyll_ok
+        and "actions/deploy-pages@v4" in wf_text
+        and "actions/upload-pages-artifact@v3" in wf_text
+        and "run_all_verifications.py" in wf_text,
+        "Priority 3A: Zero-Build GitHub Pages Live Showpiece CI/CD Workflow",
+        "Verified .nojekyll + .github/workflows/deploy-pages.yml (actions/deploy-pages@v4 + pre-deploy verification)",
+    )
+
+    fig1_path = os.path.join(REPO_ROOT, "figures", "fig1_pd_bcr_10state_trajectories_and_trial_audit.svg")
+    fig2_path = os.path.join(REPO_ROOT, "figures", "fig2_apis_bcr_coral_npu_and_apiary_audit.svg")
+    fig3_path = os.path.join(REPO_ROOT, "figures", "fig3_cross_species_energy_resistance_and_11_pdb_atlas.svg")
+    mol1_path = os.path.join(REPO_ROOT, "figures", "mol1_cofolding_jobs.json")
+    mol1_data = json.load(open(mol1_path, encoding="utf-8")) if os.path.exists(mol1_path) else {}
+    check(
+        os.path.exists(fig1_path)
+        and os.path.getsize(fig1_path) > 4000
+        and os.path.exists(fig2_path)
+        and os.path.getsize(fig2_path) > 4000
+        and os.path.exists(fig3_path)
+        and os.path.getsize(fig3_path) > 4000
+        and len(mol1_data.get("jobs", [])) == 3,
+        "Priority 3B: Publication Vector SVG Figure Package & Mol-1 Co-Folding Specs",
+        f"Verified 3 SVG publication figures ({os.path.getsize(fig1_path) + os.path.getsize(fig2_path) + os.path.getsize(fig3_path)} B) + 3 molence/Mol-1 co-folding job specs",
+    )
+
     print("\n" + "=" * 100)
     print(f"✅ VERIFICATION SUMMARY: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
     print("=" * 100)

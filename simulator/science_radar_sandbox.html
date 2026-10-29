@@ -1,24 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MitoRestorer v3.0 — Dynamic AI Science Radar &amp; Field-Specific Literature-to-ODE Simulator</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="mitorestorer_theme.css" />
   <style>
-    :root {
-      --bg: #040812;
-      --card: #0b1324;
-      --content: #101b33;
-      --border: #1e293b;
-      --fg: #f8fafc;
-      --muted: #94a3b8;
-    }
-    body {
-      background-color: var(--bg);
-      color: var(--fg);
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
     canvas { width: 100%; display: block; }
   </style>
 </head>
@@ -614,8 +602,8 @@
       const pad = { l: 36, r: 14, t: 16, b: 26 };
       const pw = w2 - pad.l - pad.r, ph = h2 - pad.t - pad.b;
 
-      ctx2.strokeStyle = 'rgba(148,163,184,0.15)';
-      ctx2.fillStyle = '#94a3b8';
+      ctx2.strokeStyle = 'rgba(15, 23, 42, 0.12)';
+      ctx2.fillStyle = '#475569';
       ctx2.font = '10px monospace';
       for (let g = 0; g <= 4; g++) {
         const yy = pad.t + (ph * g) / 4;
@@ -626,19 +614,19 @@
 
       const gate = parseInt(document.getElementById('slLvGate').value, 10);
       const gx = pad.l + (gate / r.horizon) * pw;
-      ctx2.strokeStyle = 'rgba(34,211,238,0.55)';
+      ctx2.strokeStyle = 'rgba(2, 132, 199, 0.72)';
       ctx2.setLineDash([4, 3]);
       ctx2.beginPath(); ctx2.moveTo(gx, pad.t); ctx2.lineTo(gx, pad.t + ph); ctx2.stroke();
       ctx2.setLineDash([]);
-      ctx2.fillStyle = '#22d3ee';
+      ctx2.fillStyle = '#0c4a6e';
       ctx2.textAlign = 'left';
       ctx2.fillText(`⚡Gate ${gate}`, gx + 3, pad.t + 11);
 
       const series = [
-        { data: state.simData.arm1, color: '#f43f5e', w: 2.0 },
-        { data: state.simData.arm2, color: '#f59e0b', w: 2.2 },
-        { data: state.simData.arm3, color: '#22d3ee', w: 2.2 },
-        { data: state.simData.arm4, color: '#10b981', w: 3.0 }
+        { data: state.simData.arm1, color: '#dc2626', w: 2.0 },
+        { data: state.simData.arm2, color: '#d97706', w: 2.2 },
+        { data: state.simData.arm3, color: '#0284c7', w: 2.2 },
+        { data: state.simData.arm4, color: '#047857', w: 3.0 }
       ];
       series.forEach(s => {
         ctx2.strokeStyle = s.color;
@@ -682,7 +670,7 @@
       }
 
       // Draw 3D floor grid
-      ctx3.strokeStyle = 'rgba(148,163,184,0.16)';
+      ctx3.strokeStyle = 'rgba(15, 23, 42, 0.14)';
       ctx3.lineWidth = 1;
       for (let g = -1; g <= 1; g += 0.5) {
         const p1 = proj(-1, -0.8, g), p2 = proj(1, -0.8, g);
@@ -692,10 +680,10 @@
       }
 
       const curves3D = [
-        { yArr: state.simData.arm1, hArr: state.simData.h1, color: '#f43f5e', w: 2.0 },
-        { yArr: state.simData.arm2, hArr: state.simData.h2, color: '#f59e0b', w: 2.2 },
-        { yArr: state.simData.arm3, hArr: state.simData.h3, color: '#22d3ee', w: 2.2 },
-        { yArr: state.simData.arm4, hArr: state.simData.h4, color: '#10b981', w: 3.2 }
+        { yArr: state.simData.arm1, hArr: state.simData.h1, color: '#dc2626', w: 2.0 },
+        { yArr: state.simData.arm2, hArr: state.simData.h2, color: '#d97706', w: 2.2 },
+        { yArr: state.simData.arm3, hArr: state.simData.h3, color: '#0284c7', w: 2.2 },
+        { yArr: state.simData.arm4, hArr: state.simData.h4, color: '#047857', w: 3.2 }
       ];
       curves3D.forEach(c => {
         ctx3.strokeStyle = c.color;

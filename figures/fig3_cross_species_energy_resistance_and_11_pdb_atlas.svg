@@ -1,43 +1,44 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 540" width="1120" height="540">
   <defs>
     <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#040812"/>
-      <stop offset="100%" stop-color="#0f172a"/>
+      <stop offset="0%" stop-color="#faf8f3"/>
+      <stop offset="100%" stop-color="#f2efe6"/>
     </linearGradient>
   </defs>
-  <rect width="1120" height="540" rx="18" fill="url(#bg3)" stroke="#334155" stroke-width="2"/>
+  <rect width="1120" height="540" rx="18" fill="url(#bg3)" stroke="#d5cfc2" stroke-width="2"/>
+  <rect x="0" y="0" width="1120" height="5" rx="2" fill="#0f4c81"/>
 
-  <text x="28" y="38" fill="#22d3ee" font-family="ui-monospace, monospace" font-size="12" font-weight="bold">FIGURE 3 · UNIFIED PICARD–MURUGAN LAW (EP = éR · f²) &amp; 11-STRUCTURE ATOMIC CONTACT ATLAS</text>
-  <text x="28" y="60" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">Cross-Species Stage-Gate Invariance Across Honeybees (14d), CAR-T Bioreactors (240h), &amp; Human Neurons (90d)</text>
+  <text x="28" y="38" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="12" font-weight="bold">FIGURE 3 · UNIFIED PICARD–MURUGAN LAW (EP = éR · f²) &amp; 11-STRUCTURE ATOMIC CONTACT ATLAS</text>
+  <text x="28" y="60" fill="#0f172a" font-family="Georgia, serif" font-size="18" font-weight="bold">Cross-Species Stage-Gate Invariance Across Honeybees (14d), CAR-T Bioreactors (240h), &amp; Human Neurons (90d)</text>
 
   <!-- 3 Cross-Species Cards -->
-  <rect x="28" y="82" width="340" height="145" rx="12" fill="#0b1324" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="44" y="106" fill="#fbbf24" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">1. HONEYBEE FLIGHT MUSCLE (14 DAYS)</text>
-  <text x="44" y="128" fill="#e2e8f0" font-family="ui-monospace, monospace" font-size="10">• Pacemaker f²: 246 Hz Wingbeat (f² = 6.05×)</text>
-  <text x="44" y="147" fill="#e2e8f0" font-family="ui-monospace, monospace" font-size="10">• Stage 1: p-Coumaric (1SQB) + Urolithin A + S. alvi</text>
-  <text x="44" y="166" fill="#67e8f9" font-family="ui-monospace, monospace" font-size="10">• Gate: Day 4.5 Coral NPU (4.05 mW, f₀ ≥ 220 Hz)</text>
-  <text x="44" y="185" fill="#6ee7b7" font-family="ui-monospace, monospace" font-size="10" font-weight="bold">• Stage 2: 10-HDA + CoQ10 → 96.5% Homing</text>
+  <rect x="28" y="82" width="340" height="145" rx="12" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="44" y="106" fill="#92400e" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">1. HONEYBEE FLIGHT MUSCLE (14 DAYS)</text>
+  <text x="44" y="128" fill="#1e293b" font-family="ui-monospace, monospace" font-size="10">• Pacemaker f²: 246 Hz Wingbeat (f² = 6.05×)</text>
+  <text x="44" y="147" fill="#1e293b" font-family="ui-monospace, monospace" font-size="10">• Stage 1: p-Coumaric (1SQB) + Urolithin A + S. alvi</text>
+  <text x="44" y="166" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="10">• Gate: Day 4.5 Coral NPU (4.05 mW, f₀ ≥ 220 Hz)</text>
+  <text x="44" y="185" fill="#065f46" font-family="ui-monospace, monospace" font-size="10" font-weight="bold">• Stage 2: 10-HDA + CoQ10 → 96.5% Homing</text>
 
-  <rect x="390" y="82" width="340" height="145" rx="12" fill="#0b1324" stroke="#06b6d4" stroke-width="1.5"/>
-  <text x="406" y="106" fill="#22d3ee" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">2. EX VIVO CAR-T BIOREACTOR (240 HOURS)</text>
-  <text x="406" y="128" fill="#e2e8f0" font-family="ui-monospace, monospace" font-size="10">• Pacemaker f²: CD3/CD28 Bead Burst (f² = 4.20×)</text>
-  <text x="406" y="147" fill="#e2e8f0" font-family="ui-monospace, monospace" font-size="10">• Stage 1: AZD7545 (2Q8G PDK1) + Urolithin A</text>
-  <text x="406" y="166" fill="#67e8f9" font-family="ui-monospace, monospace" font-size="10">• Gate: Hour 64.0 Coral NPU (4.09 mW, Lac/O₂)</text>
-  <text x="406" y="185" fill="#6ee7b7" font-family="ui-monospace, monospace" font-size="10" font-weight="bold">• Stage 2: NR + 4ZZJ + 6FCX → 78% T_SCM (62.9×)</text>
+  <rect x="390" y="82" width="340" height="145" rx="12" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="406" y="106" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">2. EX VIVO CAR-T BIOREACTOR (240 HOURS)</text>
+  <text x="406" y="128" fill="#1e293b" font-family="ui-monospace, monospace" font-size="10">• Pacemaker f²: CD3/CD28 Bead Burst (f² = 4.20×)</text>
+  <text x="406" y="147" fill="#1e293b" font-family="ui-monospace, monospace" font-size="10">• Stage 1: AZD7545 (2Q8G PDK1) + Urolithin A</text>
+  <text x="406" y="166" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="10">• Gate: Hour 64.0 Coral NPU (4.09 mW, Lac/O₂)</text>
+  <text x="406" y="185" fill="#065f46" font-family="ui-monospace, monospace" font-size="10" font-weight="bold">• Stage 2: NR + 4ZZJ + 6FCX → 78% T_SCM (62.9×)</text>
 
-  <rect x="752" y="82" width="340" height="145" rx="12" fill="#0b1324" stroke="#10b981" stroke-width="1.5"/>
-  <text x="768" y="106" fill="#34d399" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">3. HUMAN PARKINSON'S SNc (90 DAYS)</text>
-  <text x="768" y="128" fill="#e2e8f0" font-family="ui-monospace, monospace" font-size="10">• Pacemaker f²: CaV1.3 Autonomous 4 Hz (f² = 3.42×)</text>
-  <text x="768" y="147" fill="#e2e8f0" font-family="ui-monospace, monospace" font-size="10">• Stage 0/1: Ambroxol (2NSX) + 5UFP + Kinetin (6EQI)</text>
-  <text x="768" y="166" fill="#67e8f9" font-family="ui-monospace, monospace" font-size="10">• Gate: Day 26.5 Plasma GDF15 ≤ 550 pg/mL</text>
-  <text x="768" y="185" fill="#6ee7b7" font-family="ui-monospace, monospace" font-size="10" font-weight="bold">• Stage 2: NR + 4ZZJ + 6FCX + 1QK1 → 99.1% TH</text>
+  <rect x="752" y="82" width="340" height="145" rx="12" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="768" y="106" fill="#065f46" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">3. HUMAN PARKINSON'S SNc (90 DAYS)</text>
+  <text x="768" y="128" fill="#1e293b" font-family="ui-monospace, monospace" font-size="10">• Pacemaker f²: CaV1.3 Autonomous 4 Hz (f² = 3.42×)</text>
+  <text x="768" y="147" fill="#1e293b" font-family="ui-monospace, monospace" font-size="10">• Stage 0/1: Ambroxol (2NSX) + 5UFP + Kinetin (6EQI)</text>
+  <text x="768" y="166" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="10">• Gate: Day 26.5 Plasma GDF15 ≤ 550 pg/mL</text>
+  <text x="768" y="185" fill="#065f46" font-family="ui-monospace, monospace" font-size="10" font-weight="bold">• Stage 2: NR + 4ZZJ + 6FCX + 1QK1 → 99.1% TH</text>
 
   <!-- Bottom Table: 11 Local .cif Crystal Structures -->
-  <rect x="28" y="244" width="1064" height="270" rx="14" fill="#071020" stroke="#334155" stroke-width="1.5"/>
-  <text x="46" y="270" fill="#c084fc" font-family="ui-monospace, monospace" font-size="11.5" font-weight="bold">11 LOCAL ATOMIC CRYSTAL STRUCTURES (.CIF) VERIFIED VIA `bcr_pipeline.py inspect-cif` (1.85–3.10 Å)</text>
+  <rect x="28" y="244" width="1064" height="270" rx="14" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
+  <text x="46" y="270" fill="#4338ca" font-family="ui-monospace, monospace" font-size="11.5" font-weight="bold">11 LOCAL ATOMIC CRYSTAL STRUCTURES (.CIF) VERIFIED VIA `bcr_pipeline.py inspect-cif` (1.85–3.10 Å)</text>
 
-  <g font-family="ui-monospace, monospace" font-size="9.8" fill="#e2e8f0">
-    <text x="46" y="296" fill="#94a3b8" font-weight="bold">PDB ID   RES     TARGET PROTEIN &amp; LIGAND                        KEY ATOMIC CONTACT DISTANCES (Å)                      PROTOCOL ROLE</text>
+  <g font-family="ui-monospace, monospace" font-size="9.8" fill="#1e293b">
+    <text x="46" y="296" fill="#475569" font-weight="bold">PDB ID   RES     TARGET PROTEIN &amp; LIGAND                        KEY ATOMIC CONTACT DISTANCES (Å)                      PROTOCOL ROLE</text>
     <text x="46" y="316">1. 6FCX  2.50 Å  Human MTHFR + FAD + SAH                        Thr57(2.60Å), Arg157(2.64Å), Ala222Val Hinge          Stage-2 Methylation &amp; TET Reset</text>
     <text x="46" y="334">2. 1B68  2.00 Å  Human APOE4 + Arg112–Glu109 Salt Bridge        Arg112(NH1)–Glu109(OE1) 2.75Å, Arg61 Domain Lock      Cohort B Astrocyte Lipid Transport</text>
     <text x="46" y="352">3. 7CK6  3.00 Å  Human TOMM40 Beta-Barrel Pore + PC1            Lys107/Arg300 Channel + Phosphatidylcholine (3.21Å)    Stage-0/2 Pre-Protein Import Pore</text>
@@ -46,8 +47,8 @@
     <text x="46" y="406">6. 2NSX  2.20 Å  Lysosomal GBA1 + Chaperone IFM 506             Glu235(2.61Å), Glu340(2.67Å), Asp127(2.68Å)           Stage-0 Ambroxol Lysosomal Unjam</text>
     <text x="46" y="424">7. 2Q8G  1.90 Å  Human PDK1 + Allosteric Inhibitor AZD7545      Lipoamide Pocket Phe65/Leu57 (3.34Å)                  CAR-T Stage-1 Warburg Lactate Gate</text>
     <text x="46" y="442">8. 1SQB  2.69 Å  Complex III Cytochrome bc1 + Azoxystrobin      Qo-Pocket Glu272 / Tyr279 π-Stacking (2.78Å)          Apis-BCR Stage-1 CYP9Q1–3 Unblock</text>
-    <text x="46" y="460" fill="#fda4af">9. 5UFP  1.85 Å  Human EPAS1/HIF-2α : ARNT + PT2399 (86D)       His293(ND1) 2.58Å H-Bond, Tyr281(3.29Å), His248       PD Stage-0/1 Brain Hyperoxia Shield</text>
-    <text x="46" y="478" fill="#fcd34d">10. 1QK1 2.70 Å  Human uMtCK Cuboidal Octamer + PO4 400         Arg127(2.68Å), Arg287(2.74Å), Arg125(2.78Å), Cys278    PD Stage-2 Creatine &amp; 40% SAMe Spare</text>
-    <text x="46" y="496" fill="#6ee7b7">11. 2XSN 2.10 Å  Human Tyrosine Hydroxylase + Catalytic Fe²⁺    His366(2.12Å), Glu406(2.20Å), His361(2.24Å) Triad     FAIRPARK-II Deferiprone Iron Safeguard</text>
+    <text x="46" y="460" fill="#991b1b">9. 5UFP  1.85 Å  Human EPAS1/HIF-2α : ARNT + PT2399 (86D)       His293(ND1) 2.58Å H-Bond, Tyr281(3.29Å), His248       PD Stage-0/1 Brain Hyperoxia Shield</text>
+    <text x="46" y="478" fill="#92400e">10. 1QK1 2.70 Å  Human uMtCK Cuboidal Octamer + PO4 400         Arg127(2.68Å), Arg287(2.74Å), Arg125(2.78Å), Cys278    PD Stage-2 Creatine &amp; 40% SAMe Spare</text>
+    <text x="46" y="496" fill="#065f46">11. 2XSN 2.10 Å  Human Tyrosine Hydroxylase + Catalytic Fe²⁺    His366(2.12Å), Glu406(2.20Å), His361(2.24Å) Triad     FAIRPARK-II Deferiprone Iron Safeguard</text>
   </g>
 </svg>

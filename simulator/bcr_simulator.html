@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bioenergetic Circuit Reset (BCR) Simulation Explorer — 4D Phase-Space &amp; Decision Transparency Workstation</title>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="mitorestorer_theme.css" />
   <script src="bcr_ux_4d_engine.js"></script>
   <style>
     input[type="range"] {
@@ -1580,11 +1581,10 @@
 
     // --- THEME HELPER FOR CANVAS ---
     function getCanvasPalette() {
-      const isLight = document.documentElement.classList.contains('light');
       return {
-        grid: isLight ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)',
-        axisText: isLight ? 'rgba(0, 0, 0, 0.65)' : 'rgba(255, 255, 255, 0.65)',
-        crosshair: isLight ? 'rgba(0, 0, 0, 0.35)' : 'rgba(255, 255, 255, 0.45)'
+        grid: 'rgba(15, 23, 42, 0.10)',
+        axisText: '#334155',
+        crosshair: 'rgba(15, 23, 42, 0.45)'
       };
     }
 
@@ -2997,7 +2997,7 @@ console.log(interaction.output_text);`;
 
     function drawPanelBox(ctx, x, y, w, h, borderCol, title, subtitle) {
       ctx.save();
-      ctx.fillStyle = 'rgba(11, 18, 34, 0.94)';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
       ctx.strokeStyle = borderCol;
       ctx.lineWidth = 1.25;
       ctx.beginPath();
@@ -3010,20 +3010,20 @@ console.log(interaction.output_text);`;
       ctx.stroke();
 
       // Header strip inside panel
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+      ctx.fillStyle = '#f5f2e9';
       ctx.fillRect(x + 1, y + 1, w - 2, 34);
-      ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
+      ctx.strokeStyle = 'rgba(15, 23, 42, 0.12)';
       ctx.beginPath();
       ctx.moveTo(x, y + 35);
       ctx.lineTo(x + w, y + 35);
       ctx.stroke();
 
-      ctx.fillStyle = '#f8fafc';
+      ctx.fillStyle = '#0f172a';
       ctx.font = 'bold 11px monospace';
       ctx.textAlign = 'left';
       ctx.fillText(title, x + 10, y + 15);
 
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = '#475569';
       ctx.font = '10px monospace';
       ctx.fillText(subtitle, x + 10, y + 29);
       ctx.restore();
@@ -3133,17 +3133,18 @@ console.log(interaction.output_text);`;
 
         // Bottom PDB: 1SQB & RV32IMF Guardrail Summary Box
         const by = gy + gh + 22;
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
-        ctx.strokeStyle = 'rgba(34, 211, 238, 0.3)';
+        ctx.fillStyle = '#f5f2e9';
+        ctx.fillRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.2)';
         ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
-        ctx.fillStyle = '#fbbf24';
+        ctx.fillStyle = '#b45309';
         ctx.font = 'bold 10px monospace';
         ctx.textAlign = 'left';
         ctx.fillText(`PDB: 1SQB Complex III Qo Block: ${(pData.block * 100).toFixed(0)}%`, x1 + 16, by + 16);
-        ctx.fillStyle = '#67e8f9';
+        ctx.fillStyle = '#0369a1';
         ctx.font = '9.5px monospace';
         ctx.fillText(`RV32IMF Guard: Brood ${pData.tempC.toFixed(1)}°C | CO₂ ${pData.co2Pct.toFixed(2)}% [OK]`, x1 + 16, by + 32);
-        ctx.fillStyle = '#a7f3d0';
+        ctx.fillStyle = '#047857';
         ctx.fillText(`256-MAC Zero-Skip: 13/16 Bins Skipped (${spec.zeroSkipPct}%)`, x1 + 16, by + 47);
         ctx.restore();
 
@@ -3225,17 +3226,18 @@ console.log(interaction.output_text);`;
         ctx.fillText('240h (62.9x Harvest)', gx + gw, gy + gh + 13);
 
         const by = gy + gh + 22;
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
-        ctx.strokeStyle = 'rgba(20, 184, 166, 0.35)';
+        ctx.fillStyle = '#f5f2e9';
+        ctx.fillRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.2)';
         ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
-        ctx.fillStyle = '#2dd4bf';
+        ctx.fillStyle = '#0f766e';
         ctx.font = 'bold 10px monospace';
         ctx.textAlign = 'left';
         ctx.fillText(`PDB: 2Q8G PDK1 Ser75 Lac:Pyr = ${(pData.lacPyr || 6.8).toFixed(1)}`, x1 + 16, by + 16);
-        ctx.fillStyle = '#67e8f9';
+        ctx.fillStyle = '#0369a1';
         ctx.font = '9.5px monospace';
         ctx.fillText(`RV32IMF GMP Floor: pH ${(pData.pH || 7.22).toFixed(2)} | DO₂ ${pData.do2 || 72}% [OK]`, x1 + 16, by + 32);
-        ctx.fillStyle = '#a7f3d0';
+        ctx.fillStyle = '#047857';
         ctx.fillText(`T_SCM: ${(pData.tscmPct || 78.0).toFixed(1)}% | Expansion: ${(pData.foldX || 62.9).toFixed(1)}x`, x1 + 16, by + 47);
         ctx.restore();
 
@@ -3308,18 +3310,19 @@ console.log(interaction.output_text);`;
           ctx.fillStyle = '#22d3ee'; ctx.beginPath(); ctx.arc(cxPD, gy + gh - (jamNow / 1.45) * gh, 4.2, 0, Math.PI * 2); ctx.fill();
           ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(cxPD, gy + gh - (thNow / 1.45) * gh, 4.8, 0, Math.PI * 2); ctx.fill();
 
-          ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+          ctx.fillStyle = '#475569'; ctx.font = '9.5px monospace';
           ctx.textAlign = 'left'; ctx.fillText('d0 SNc', gx, gy + gh + 13);
           ctx.textAlign = 'center'; ctx.fillText(`d${dPD.toFixed(0)}: Jam=${jamNow.toFixed(2)}x | TH=${thNow.toFixed(2)}x`, gx + gw * 0.5, gy + gh + 13);
           ctx.textAlign = 'right'; ctx.fillText('d90 (95% Rescue)', gx + gw, gy + gh + 13);
 
-          ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(236, 72, 153, 0.35)';
+          ctx.fillStyle = '#f5f2e9'; ctx.fillRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+          ctx.strokeStyle = 'rgba(236, 72, 153, 0.35)';
           ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
-          ctx.fillStyle = '#f472b6'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+          ctx.fillStyle = '#be185d'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
           ctx.fillText(`PDB: 2NSX GBA1 Auto_Jam = ${(pData.autoJam || 0.08).toFixed(2)}x (vs 1.29x Trap)`, x1 + 16, by + 16);
-          ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+          ctx.fillStyle = '#0369a1'; ctx.font = '9.5px monospace';
           ctx.fillText(`Nigrostriatal TH Tone: ${(pData.thTone || 1.25).toFixed(2)}x | GDF15: ${pData.gdf15 || 395} pg/mL`, x1 + 16, by + 32);
-          ctx.fillStyle = '#a7f3d0';
+          ctx.fillStyle = '#047857';
           ctx.fillText(`Stage 0 Lock: Ambroxol (Glu235 2.61Å) + Spermidine`, x1 + 16, by + 47);
           ctx.restore();
 
@@ -3376,18 +3379,19 @@ console.log(interaction.output_text);`;
           ctx.fillStyle = '#22d3ee'; ctx.beginPath(); ctx.arc(cxAD, gy + gh - (hNowAD / 100.0) * gh, 4.2, 0, Math.PI * 2); ctx.fill();
           ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(cxAD, gy + gh - condNowAD * gh, 4.8, 0, Math.PI * 2); ctx.fill();
 
-          ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+          ctx.fillStyle = '#475569'; ctx.font = '9.5px monospace';
           ctx.textAlign = 'left'; ctx.fillText('d0 Cortex', gx, gy + gh + 13);
           ctx.textAlign = 'center'; ctx.fillText(`d${dAD.toFixed(0)}: h=${hNowAD.toFixed(1)}% | Pore=${(condNowAD*100).toFixed(0)}%`, gx + gw * 0.5, gy + gh + 13);
           ctx.textAlign = 'right'; ctx.fillText('d90 (h=3.3%)', gx + gw, gy + gh + 13);
 
-          ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+          ctx.fillStyle = '#f5f2e9'; ctx.fillRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
           ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
-          ctx.fillStyle = '#38bdf8'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+          ctx.fillStyle = '#0284c7'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
           ctx.fillText(`PDB: 7CK6 TOMM40 Pore Conduct: ${((pData.poreCond || 0.96) * 100).toFixed(0)}%`, x1 + 16, by + 16);
-          ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+          ctx.fillStyle = '#0369a1'; ctx.font = '9.5px monospace';
           ctx.fillText(`Cortical GDF15: ${pData.gdf15 || 571} pg/mL (vs 4,123 Periph-Only)`, x1 + 16, by + 32);
-          ctx.fillStyle = '#a7f3d0';
+          ctx.fillStyle = '#047857';
           ctx.fillText(`1B68 Arg112–Glu109 Unblocked via TUDCA + Citicoline`, x1 + 16, by + 47);
           ctx.restore();
 
@@ -3439,18 +3443,19 @@ console.log(interaction.output_text);`;
           const eiNow = 0.65 + 2.73 * Math.exp(-dEP / 20.0);
           ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(cxEP, gy + gh - (eiNow / 3.6) * gh, 4.8, 0, Math.PI * 2); ctx.fill();
 
-          ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+          ctx.fillStyle = '#475569'; ctx.font = '9.5px monospace';
           ctx.textAlign = 'left'; ctx.fillText('d0 (E/I=3.38)', gx, gy + gh + 13);
           ctx.textAlign = 'center'; ctx.fillText(`d${dEP.toFixed(0)}: E/I=${eiNow.toFixed(2)} | H₂S=${(pData.h2s || 0.11).toFixed(2)}x`, gx + gw * 0.5, gy + gh + 13);
           ctx.textAlign = 'right'; ctx.fillText('d90 (E/I=0.65)', gx + gw, gy + gh + 13);
 
-          ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(6, 182, 212, 0.35)';
+          ctx.fillStyle = '#f5f2e9'; ctx.fillRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+          ctx.strokeStyle = 'rgba(6, 182, 212, 0.35)';
           ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
-          ctx.fillStyle = '#22d3ee'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+          ctx.fillStyle = '#0284c7'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
           ctx.fillText(`Cortical E/I Ratio: ${(pData.eiRatio || 0.65).toFixed(2)} | Colonic H₂S: ${(pData.h2s || 0.11).toFixed(2)}x`, x1 + 16, by + 16);
-          ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+          ctx.fillStyle = '#0369a1'; ctx.font = '9.5px monospace';
           ctx.fillText(`PV+ 40Hz Gamma Load: f² = 3.06x (Complex IV Intact)`, x1 + 16, by + 32);
-          ctx.fillStyle = '#a7f3d0';
+          ctx.fillStyle = '#047857';
           ctx.fillText(`Sulfide Shield: Mo (150µg) + Akkermansia/Parabact/gadB`, x1 + 16, by + 47);
           ctx.restore();
 
@@ -3495,18 +3500,19 @@ console.log(interaction.output_text);`;
           const spNow = 0.45 + 0.79 / (1.0 + Math.exp(-(dMDD - 34.0) / 10.0));
           ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(cxMDD, gy + gh - (spNow / 1.35) * gh, 4.8, 0, Math.PI * 2); ctx.fill();
 
-          ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+          ctx.fillStyle = '#475569'; ctx.font = '9.5px monospace';
           ctx.textAlign = 'left'; ctx.fillText('d0 (0.45x)', gx, gy + gh + 13);
           ctx.textAlign = 'center'; ctx.fillText(`d${dMDD.toFixed(0)}: Spines=${spNow.toFixed(2)}x | QUIN=${(pData.quin || 0.20).toFixed(2)}x`, gx + gw * 0.5, gy + gh + 13);
           ctx.textAlign = 'right'; ctx.fillText('d90 (1.24x Spines)', gx + gw, gy + gh + 13);
 
-          ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(168, 85, 247, 0.35)';
+          ctx.fillStyle = '#f5f2e9'; ctx.fillRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+          ctx.strokeStyle = 'rgba(168, 85, 247, 0.35)';
           ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
-          ctx.fillStyle = '#c084fc'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+          ctx.fillStyle = '#6d28d9'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
           ctx.fillText(`Prefrontal Spines: ${(pData.spines || 1.24).toFixed(2)}x | QUIN: ${(pData.quin || 0.20).toFixed(2)}x (-87%)`, x1 + 16, by + 16);
-          ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+          ctx.fillStyle = '#0369a1'; ctx.font = '9.5px monospace';
           ctx.fillText(`Brainstem GDF15: ${pData.gdf15 || 259} pg/mL (GFRAL Unlocked)`, x1 + 16, by + 32);
-          ctx.fillStyle = '#a7f3d0';
+          ctx.fillStyle = '#047857';
           ctx.fillText(`Stage 1 Tributyrin/EPA → Stage 2 4ZZJ SIRT1 + ALCAR`, x1 + 16, by + 47);
           ctx.restore();
 
@@ -3559,18 +3565,19 @@ console.log(interaction.output_text);`;
           const bhbNow = 0.25 + 2.05 / (1.0 + Math.exp(-(curFastHr - (pData.lagH || 6.0)) * 1.25));
           ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(cxCA, gy + gh - (bhbNow / 2.6) * gh, 4.8, 0, Math.PI * 2); ctx.fill();
 
-          ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+          ctx.fillStyle = '#475569'; ctx.font = '9.5px monospace';
           ctx.textAlign = 'left'; ctx.fillText('0h Fast', gx, gy + gh + 13);
           ctx.textAlign = 'center'; ctx.fillText('12h ULK1/PINK1 Window', (lag6X + gx + gw) * 0.5, gy + gh + 13);
           ctx.textAlign = 'right'; ctx.fillText('18h Fast', gx + gw, gy + gh + 13);
 
-          ctx.fillStyle = 'rgba(15, 23, 42, 0.9)'; ctx.strokeStyle = 'rgba(34, 211, 238, 0.35)';
+          ctx.fillStyle = '#f5f2e9'; ctx.fillRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+          ctx.strokeStyle = 'rgba(34, 211, 238, 0.35)';
           ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
-          ctx.fillStyle = '#38bdf8'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+          ctx.fillStyle = '#0284c7'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
           ctx.fillText(`Plasma GDF15: ${pData.gdf15 || 360} pg/mL | β-OHB: ${(pData.bhbMmol || 1.9).toFixed(1)} mM`, x1 + 16, by + 16);
-          ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+          ctx.fillStyle = '#0369a1'; ctx.font = '9.5px monospace';
           ctx.fillText(`RV32IMF Safety: Lean Mass Δ=${(pData.massDelta || 1.8).toFixed(1)}% (> -2.5% Floor)`, x1 + 16, by + 32);
-          ctx.fillStyle = '#a7f3d0';
+          ctx.fillStyle = '#047857';
           ctx.fillText(`FUT2 Bypass: Direct UroA + 2'-FL | PDB: 6FCX B2+Cr`, x1 + 16, by + 47);
           ctx.restore();
         }
@@ -3596,15 +3603,15 @@ console.log(interaction.output_text);`;
         : state.coralTarget === 'CART_GMP_CASSETTE_VALVE' ? 'v7 2Q8G PDK1 Lock'
         : (spec.v7Label || 'v7 H₂S / QUIN Load');
 
-      const regs = [
-        { name: 'v0 Wild-Type W(t)', val: pData.W, max: 1.50, col: '#10b981', unit: 'x' },
-        { name: 'v1 Mutant mtDNA D(t)', val: pData.D, max: 1.00, col: '#f43f5e', unit: 'x' },
-        { name: 'v2 Heteroplasmy h%', val: pData.h, max: 80.0, col: '#f59e0b', unit: '%' },
-        { name: 'v3 Resistance éR(t)', val: pData.eR, max: 20.0, col: '#a855f7', unit: '' },
-        { name: 'v4 Stress EP=éR·f²', val: pData.EP, max: state.coralTarget === 'APIS_SMART_HIVE_NODE' ? 110.0 : 30.0, col: '#f97316', unit: '' },
-        { name: 'v5 NAD⁺/SIRT1 (4ZZJ)', val: pData.nad, max: 1.40, col: '#3b82f6', unit: 'x' },
-        { name: guildLabel, val: pData.guild, max: 1.30, col: '#14b8a6', unit: 'x' },
-        { name: blockLabel, val: pData.block, max: 1.00, col: '#ec4899', unit: 'x' }
+        const regs = [
+        { name: 'v0 Wild-Type W(t)', val: pData.W, max: 1.50, col: '#059669', unit: 'x' },
+        { name: 'v1 Mutant mtDNA D(t)', val: pData.D, max: 1.00, col: '#e11d48', unit: 'x' },
+        { name: 'v2 Heteroplasmy h%', val: pData.h, max: 80.0, col: '#d97706', unit: '%' },
+        { name: 'v3 Resistance éR(t)', val: pData.eR, max: 20.0, col: '#7c3aed', unit: '' },
+        { name: 'v4 Stress EP=éR·f²', val: pData.EP, max: state.coralTarget === 'APIS_SMART_HIVE_NODE' ? 110.0 : 30.0, col: '#ea580c', unit: '' },
+        { name: 'v5 NAD⁺/SIRT1 (4ZZJ)', val: pData.nad, max: 1.40, col: '#2563eb', unit: 'x' },
+        { name: guildLabel, val: pData.guild, max: 1.30, col: '#0d9488', unit: 'x' },
+        { name: blockLabel, val: pData.block, max: 1.00, col: '#db2777', unit: 'x' }
       ];
 
       const rx = x2 + 12;
@@ -3617,18 +3624,18 @@ console.log(interaction.output_text);`;
         const frac = clip(r.val / r.max, 0.02, 1.0);
         const q16Hex = '0x' + Math.max(0, Math.round((r.val / (r.unit === '%' ? 100.0 : 1.0)) * 65536)).toString(16).toUpperCase().padStart(6, '0');
 
-        ctx.fillStyle = '#e2e8f0';
+        ctx.fillStyle = '#0f172a';
         ctx.font = 'bold 9.5px monospace';
         ctx.textAlign = 'left';
         ctx.fillText(r.name, rx, ry + 10);
 
-        ctx.fillStyle = '#cbd5e1';
+        ctx.fillStyle = '#334155';
         ctx.font = '9.5px monospace';
         ctx.textAlign = 'right';
         ctx.fillText(`${r.val.toFixed(r.unit === '%' ? 1 : 2)}${r.unit} [${q16Hex}]`, rx + rw, ry + 10);
 
         // Bar background
-        ctx.fillStyle = 'rgba(30, 41, 59, 0.85)';
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.10)';
         ctx.fillRect(rx, ry + 14, rw, 9);
 
         // Bar fill
@@ -3637,12 +3644,12 @@ console.log(interaction.output_text);`;
 
         // Animated SIMD lane wavefront marker
         const pulseFrac = ((state.coralAnimTime * 0.6 + idx * 0.11) % 1.0) * frac;
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#0f172a';
         ctx.fillRect(rx + rw * pulseFrac - 1.5, ry + 14, 3, 9);
       });
 
       // Bottom Q16.16 numerical fidelity footer
-      ctx.fillStyle = '#d8b4fe';
+      ctx.fillStyle = '#6d28d9';
       ctx.font = '9.5px monospace';
       ctx.textAlign = 'left';
       ctx.fillText(`Q16.16 vs FP64 Max Trajectory Error: ≤ 0.055%`, rx, y0 + ph - 12);
@@ -3738,7 +3745,7 @@ console.log(interaction.output_text);`;
       ctx.stroke();
 
       // Axis labels
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = '#475569';
       ctx.font = '9.5px monospace';
       ctx.textAlign = 'left';
       ctx.fillText('0% h', px0, py0 + phPlot + 13);
@@ -3751,22 +3758,22 @@ console.log(interaction.output_text);`;
       const sramY = py0 + phPlot + 24;
       const sramW = pw - 24;
       const sramFrac = spec.sramBytes / 8192.0;
-      ctx.fillStyle = '#e2e8f0';
+      ctx.fillStyle = '#0f172a';
       ctx.font = 'bold 9.5px monospace';
       ctx.textAlign = 'left';
       ctx.fillText(`L1 DTCM SRAM: ${spec.sramBytes} B / 8,192 B (${(sramFrac * 100).toFixed(1)}%)`, x3 + 12, sramY + 10);
 
-      ctx.fillStyle = 'rgba(30, 41, 59, 0.9)';
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.12)';
       ctx.fillRect(x3 + 12, sramY + 15, sramW, 10);
       // Segmented SRAM bar:Weights (Cyan) + RVV State (Purple) + Stack (Emerald)
-      ctx.fillStyle = '#06b6d4';
+      ctx.fillStyle = '#0284c7';
       ctx.fillRect(x3 + 12, sramY + 15, sramW * 0.45, 10);
-      ctx.fillStyle = '#a855f7';
+      ctx.fillStyle = '#7c3aed';
       ctx.fillRect(x3 + 12 + sramW * 0.45, sramY + 15, sramW * 0.25, 10);
-      ctx.fillStyle = '#10b981';
+      ctx.fillStyle = '#059669';
       ctx.fillRect(x3 + 12 + sramW * 0.70, sramY + 15, sramW * (sramFrac - 0.70), 10);
 
-      ctx.fillStyle = '#6ee7b7';
+      ctx.fillStyle = '#047857';
       ctx.font = '9.5px monospace';
       ctx.fillText(`Power: ${spec.powerMw.toFixed(2)} mW | Latency: ${spec.latencyMs.toFixed(3)} ms`, x3 + 12, sramY + 39);
       ctx.restore();

@@ -1,24 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MitoRestorer Flagship — Parkinson's Disease (SNc) 10-State ODE &amp; Dynamic Literature-to-Sim Workstation</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="mitorestorer_theme.css" />
   <style>
-    :root {
-      --bg: #040812;
-      --card: #0b1324;
-      --content: #101b33;
-      --border: #1e293b;
-      --fg: #f8fafc;
-      --muted: #94a3b8;
-    }
-    body {
-      background-color: var(--bg);
-      color: var(--fg);
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
     canvas { width: 100%; display: block; }
   </style>
 </head>
@@ -1111,7 +1099,7 @@
       }
 
       // Draw 3D Free-Energy Floor Grid
-      ctx.strokeStyle = 'rgba(148, 163, 184, 0.15)';
+      ctx.strokeStyle = 'rgba(15, 23, 42, 0.14)';
       ctx.lineWidth = 1;
       for (let g = -1; g <= 1; g += 0.5) {
         const p1 = proj(-1, -0.8, g), p2 = proj(1, -0.8, g);
@@ -1123,17 +1111,17 @@
       // Draw Gate Plane
       const gX = (pdState.gateDay / 45.0) - 1.0;
       const gp1 = proj(gX, -0.8, -1), gp2 = proj(gX, 0.9, -1), gp3 = proj(gX, 0.9, 1), gp4 = proj(gX, -0.8, 1);
-      ctx.fillStyle = 'rgba(34, 211, 238, 0.08)';
-      ctx.strokeStyle = 'rgba(34, 211, 238, 0.45)';
+      ctx.fillStyle = 'rgba(2, 132, 199, 0.10)';
+      ctx.strokeStyle = 'rgba(2, 132, 199, 0.65)';
       ctx.beginPath();
       ctx.moveTo(gp1.x, gp1.y); ctx.lineTo(gp2.x, gp2.y); ctx.lineTo(gp3.x, gp3.y); ctx.lineTo(gp4.x, gp4.y);
       ctx.closePath(); ctx.fill(); ctx.stroke();
 
       const arms = [
-        { key: 'levodopa', color: '#f43f5e', label: 'Levodopa Alone' },
-        { key: 'no_ambroxol', color: '#f59e0b', label: 'No Ambroxol (Jam)' },
-        { key: 'hypoxia_only', color: '#c084fc', label: 'GBT601+PT2399 Alone' },
-        { key: 'pd_bcr', color: '#10b981', label: 'Phased PD-BCR v3.0' }
+        { key: 'levodopa', color: '#dc2626', label: 'Levodopa Alone' },
+        { key: 'no_ambroxol', color: '#d97706', label: 'No Ambroxol (Jam)' },
+        { key: 'hypoxia_only', color: '#7c3aed', label: 'GBT601+PT2399 Alone' },
+        { key: 'pd_bcr', color: '#047857', label: 'Phased PD-BCR v3.0' }
       ];
 
       arms.forEach(a => {
@@ -1177,8 +1165,8 @@
       const pad = { l: 34, r: 12, t: 12, b: 22 };
       const pw = w - pad.l - pad.r, ph = h - pad.t - pad.b;
 
-      ctx.strokeStyle = 'rgba(148, 163, 184, 0.14)';
-      ctx.fillStyle = '#94a3b8';
+      ctx.strokeStyle = 'rgba(15, 23, 42, 0.12)';
+      ctx.fillStyle = '#475569';
       ctx.font = '9.5px monospace';
       for (let g = 0; g <= 3; g++) {
         const yy = pad.t + (ph * g) / 3;
@@ -1190,7 +1178,7 @@
 
       // Gate vertical line
       const gx = pad.l + (pdState.gateDay / 90.0) * pw;
-      ctx.strokeStyle = 'rgba(34, 211, 238, 0.5)';
+      ctx.strokeStyle = 'rgba(2, 132, 199, 0.65)';
       ctx.setLineDash([3, 3]);
       ctx.beginPath(); ctx.moveTo(gx, pad.t); ctx.lineTo(gx, pad.t + ph); ctx.stroke();
       ctx.setLineDash([]);
@@ -1214,7 +1202,7 @@
         ctx.beginPath(); ctx.arc(cx, cy, 4.0, 0, Math.PI * 2); ctx.fill();
       });
 
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = '#475569';
       ctx.textAlign = 'left'; ctx.fillText('0d', pad.l, h - 5);
       ctx.textAlign = 'center'; ctx.fillText(`⚡d${pdState.gateDay}`, gx, h - 5);
       ctx.textAlign = 'right'; ctx.fillText('90d', pad.l + pw, h - 5);

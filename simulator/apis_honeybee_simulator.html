@@ -5,18 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Apis-BCR — Honeybee Smart Hive 10-State Live ODE &amp; 4.05 mW Google Coral NPU Workstation | MitoRestorer v3.0</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="mitorestorer_theme.css" />
   <style>
-    body {
-      background: radial-gradient(circle at 12% 8%, rgba(245, 158, 11, 0.14), transparent 38%),
-                  radial-gradient(circle at 88% 14%, rgba(16, 185, 129, 0.12), transparent 42%),
-                  #040812;
-      color: #f8fafc;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
     canvas { display: block; width: 100%; }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #060c1a; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
   </style>
 </head>
 <body class="min-h-screen antialiased selection:bg-amber-500 selection:text-slate-950">
@@ -958,7 +949,7 @@
       const W = Math.max(320, rect.width);
       const H = 310;
 
-      ctx.fillStyle = '#030710';
+      ctx.fillStyle = '#faf8f3';
       ctx.fillRect(0, 0, W, H);
 
       const cx = W * 0.50;
@@ -988,16 +979,16 @@
           const pt = project(u, v, zSurf);
           if (gy === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
         }
-        ctx.strokeStyle = 'rgba(245, 158, 11, 0.14)';
+        ctx.strokeStyle = 'rgba(180, 83, 9, 0.16)';
         ctx.lineWidth = 1;
         ctx.stroke();
       }
 
       const arms = [
-        { key: 'hfcs_only', color: '#fb7185', width: 2.0, dash: [4, 3] },
-        { key: 'unphased_patty', color: '#f59e0b', width: 2.0, dash: [2, 2] },
-        { key: 'detox_only', color: '#c084fc', width: 2.2, dash: [] },
-        { key: 'apis_bcr', color: '#10b981', width: 3.5, dash: [] }
+        { key: 'hfcs_only', color: '#dc2626', width: 2.0, dash: [4, 3] },
+        { key: 'unphased_patty', color: '#d97706', width: 2.0, dash: [2, 2] },
+        { key: 'detox_only', color: '#7c3aed', width: 2.2, dash: [] },
+        { key: 'apis_bcr', color: '#047857', width: 3.5, dash: [] }
       ];
 
       arms.forEach(arm => {
@@ -1023,13 +1014,13 @@
       const curPt = project(idx / 280.0, 1.0 - actTr.arrQo[idx] / 100.0, actTr.arrHoming[idx] / 100.0);
       ctx.beginPath();
       ctx.arc(curPt.x, curPt.y, 6.5, 0, Math.PI * 2);
-      ctx.fillStyle = '#fbbf24';
+      ctx.fillStyle = '#d97706';
       ctx.fill();
       ctx.strokeStyle = '#ffffff';
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      ctx.fillStyle = '#fde68a';
+      ctx.fillStyle = '#0f172a';
       ctx.font = 'bold 11px ui-monospace, monospace';
       ctx.fillText(`Day ${(idx * 0.05).toFixed(1)} | 1SQB=${actTr.arrQo[idx].toFixed(1)}% | Wing=${actTr.arrHz[idx].toFixed(0)}Hz | Homing=${actTr.arrHoming[idx].toFixed(1)}%`, 12, 20);
     }
@@ -1047,15 +1038,15 @@
       const padL = 34, padR = 12, padT = 12, padB = 22;
       const pw = W - padL - padR, ph = H - padT - padB;
 
-      ctx.fillStyle = '#050b16';
+      ctx.fillStyle = '#faf8f3';
       ctx.fillRect(0, 0, W, H);
 
       for (let g = 0; g <= 4; g++) {
         const y = padT + (g / 4) * ph;
-        ctx.strokeStyle = '#1e293b';
+        ctx.strokeStyle = '#ded8cc';
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
-        ctx.fillStyle = '#64748b';
+        ctx.fillStyle = '#475569';
         ctx.font = '9.5px ui-monospace, monospace';
         const val = (yMax * (1 - g / 4));
         ctx.fillText(val >= 10 ? val.toFixed(0) : val.toFixed(2), 4, y + 3);
@@ -1063,14 +1054,14 @@
 
       // Coral NPU Gate Vertical Line
       const gx = padL + (gateDay / 14.0) * pw;
-      ctx.strokeStyle = 'rgba(34, 211, 238, 0.55)';
+      ctx.strokeStyle = 'rgba(2, 132, 199, 0.75)';
       ctx.setLineDash([4, 3]);
       ctx.beginPath(); ctx.moveTo(gx, padT); ctx.lineTo(gx, H - padB); ctx.stroke();
       ctx.setLineDash([]);
 
       // Scrubber Line
       const sx = padL + (beeState.stepIdx / 280.0) * pw;
-      ctx.strokeStyle = 'rgba(251, 191, 36, 0.45)';
+      ctx.strokeStyle = 'rgba(217, 119, 6, 0.65)';
       ctx.beginPath(); ctx.moveTo(sx, padT); ctx.lineTo(sx, H - padB); ctx.stroke();
 
       seriesList.forEach(s => {

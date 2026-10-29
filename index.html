@@ -5,26 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MitoRestorer — Cross-Species Bioenergetic Circuit Reset &amp; Google DeepMind Bio-AI Platform</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      background: radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.10), transparent 35%),
-                  radial-gradient(circle at 85% 15%, rgba(6, 182, 212, 0.12), transparent 40%),
-                  #070b14;
-      color: #f1f5f9;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    .glass-card {
-      background: rgba(15, 23, 42, 0.82);
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      backdrop-filter: blur(12px);
-    }
-    .glow-cyan {
-      box-shadow: 0 0 35px -8px rgba(34, 211, 238, 0.28);
-    }
-    .glow-emerald {
-      box-shadow: 0 0 35px -8px rgba(16, 185, 129, 0.28);
-    }
-  </style>
+  <link rel="stylesheet" href="simulator/mitorestorer_theme.css" />
 </head>
 <body class="antialiased min-h-screen">
 
@@ -139,45 +120,45 @@
             <span class="text-slate-400">Purge → Gate → Build</span>
           </div>
           <!-- SVG Visual Diagram of the Universal Biphasic Law -->
-          <svg viewBox="0 0 460 220" class="w-full rounded-xl bg-[#050811] border border-slate-800/80">
+          <svg viewBox="0 0 460 220" class="w-full rounded-xl bg-[#faf8f3] border border-slate-300">
             <defs>
               <linearGradient id="gradStage1" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.22"/>
-                <stop offset="100%" stop-color="#f43f5e" stop-opacity="0.02"/>
+                <stop offset="0%" stop-color="#dc2626" stop-opacity="0.14"/>
+                <stop offset="100%" stop-color="#dc2626" stop-opacity="0.02"/>
               </linearGradient>
               <linearGradient id="gradStage2" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#10b981" stop-opacity="0.22"/>
-                <stop offset="100%" stop-color="#10b981" stop-opacity="0.02"/>
+                <stop offset="0%" stop-color="#059669" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="#059669" stop-opacity="0.02"/>
               </linearGradient>
             </defs>
             <!-- Phase Background Zones -->
             <rect x="42" y="18" width="175" height="165" fill="url(#gradStage1)" rx="6"/>
             <rect x="225" y="18" width="215" height="165" fill="url(#gradStage2)" rx="6"/>
             <!-- Biomarker Stage-Gate Line -->
-            <line x1="221" y1="14" x2="221" y2="188" stroke="#22d3ee" stroke-width="2" stroke-dasharray="5,4"/>
-            <rect x="140" y="8" width="162" height="18" rx="4" fill="#083344" stroke="#22d3ee" stroke-width="1"/>
-            <text x="221" y="20" text-anchor="middle" fill="#67e8f9" font-size="9" font-family="monospace" font-weight="bold">⚡ BIOMARKER STAGE-GATE SWITCH</text>
+            <line x1="221" y1="14" x2="221" y2="188" stroke="#0284c7" stroke-width="2" stroke-dasharray="5,4"/>
+            <rect x="140" y="8" width="162" height="18" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+            <text x="221" y="20" text-anchor="middle" fill="#0c4a6e" font-size="9" font-family="monospace" font-weight="bold">⚡ BIOMARKER STAGE-GATE SWITCH</text>
 
             <!-- Grid Lines -->
-            <line x1="42" y1="183" x2="440" y2="183" stroke="#334155" stroke-width="1"/>
-            <line x1="42" y1="128" x2="440" y2="128" stroke="#1e293b" stroke-width="1"/>
-            <line x1="42" y1="73" x2="440" y2="73" stroke="#1e293b" stroke-width="1"/>
+            <line x1="42" y1="183" x2="440" y2="183" stroke="#94a3b8" stroke-width="1"/>
+            <line x1="42" y1="128" x2="440" y2="128" stroke="#dcd6c8" stroke-width="1"/>
+            <line x1="42" y1="73" x2="440" y2="73" stroke="#dcd6c8" stroke-width="1"/>
 
             <!-- Curve 1: Unphased Trap (Red Dashed - Mutant D Cloned to 85%!) -->
-            <path d="M 42 105 Q 140 68, 240 50 T 436 38" fill="none" stroke="#fb7185" stroke-width="2.2" stroke-dasharray="4,3"/>
-            <text x="345" y="33" fill="#fda4af" font-size="9" font-family="monospace">Unphased Trap (h=85%)</text>
+            <path d="M 42 105 Q 140 68, 240 50 T 436 38" fill="none" stroke="#dc2626" stroke-width="2.2" stroke-dasharray="4,3"/>
+            <text x="345" y="33" fill="#991b1b" font-size="9" font-family="monospace" font-weight="bold">Unphased Trap (h=85%)</text>
 
             <!-- Curve 2: Phased BCR Damaged mtDNA h(t) (Amber -> Drops to <3%) -->
-            <path d="M 42 105 Q 125 148, 221 172 T 436 179" fill="none" stroke="#f59e0b" stroke-width="2.8"/>
-            <text x="115" y="162" fill="#fcd34d" font-size="9" font-family="monospace" font-weight="bold">Damaged h% ↓ (3.3%)</text>
+            <path d="M 42 105 Q 125 148, 221 172 T 436 179" fill="none" stroke="#d97706" stroke-width="2.8"/>
+            <text x="115" y="162" fill="#92400e" font-size="9" font-family="monospace" font-weight="bold">Damaged h% ↓ (3.3%)</text>
 
             <!-- Curve 3: Phased BCR Wild-Type ATP Capacity (Emerald -> Climbs to 1.74x) -->
-            <path d="M 42 152 Q 135 142, 221 122 Q 315 58, 436 42" fill="none" stroke="#10b981" stroke-width="3"/>
-            <text x="340" y="64" fill="#6ee7b7" font-size="9.5" font-family="monospace" font-weight="bold">Net ATP ↑ (1.20x–1.74x)</text>
+            <path d="M 42 152 Q 135 142, 221 122 Q 315 58, 436 42" fill="none" stroke="#047857" stroke-width="3"/>
+            <text x="335" y="64" fill="#065f46" font-size="9.5" font-family="monospace" font-weight="bold">Net ATP ↑ (1.20x–1.74x)</text>
 
             <!-- Labels -->
-            <text x="128" y="199" text-anchor="middle" fill="#fda4af" font-size="9.5" font-family="monospace" font-weight="bold">STAGE 1: PURGE &amp; DETOX</text>
-            <text x="332" y="199" text-anchor="middle" fill="#6ee7b7" font-size="9.5" font-family="monospace" font-weight="bold">STAGE 2: ANABOLIC BUILD</text>
+            <text x="128" y="199" text-anchor="middle" fill="#991b1b" font-size="9.5" font-family="monospace" font-weight="bold">STAGE 1: PURGE &amp; DETOX</text>
+            <text x="332" y="199" text-anchor="middle" fill="#065f46" font-size="9.5" font-family="monospace" font-weight="bold">STAGE 2: ANABOLIC BUILD</text>
           </svg>
 
           <!-- 3 Scale Mini-Pills -->
@@ -884,7 +865,7 @@
 
     function drawLandingPanelBox(ctx, x, y, w, h, borderCol, title, subtitle) {
       ctx.save();
-      ctx.fillStyle = 'rgba(11, 18, 34, 0.95)';
+      ctx.fillStyle = '#ffffff';
       ctx.strokeStyle = borderCol;
       ctx.lineWidth = 1.25;
       ctx.beginPath();
@@ -892,17 +873,17 @@
       ctx.fill();
       ctx.stroke();
 
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.96)';
+      ctx.fillStyle = '#f5f2e9';
       ctx.fillRect(x + 1, y + 1, w - 2, 34);
-      ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
+      ctx.strokeStyle = '#d6d0c4';
       ctx.beginPath(); ctx.moveTo(x, y + 35); ctx.lineTo(x + w, y + 35); ctx.stroke();
 
-      ctx.fillStyle = '#f8fafc';
+      ctx.fillStyle = '#0f172a';
       ctx.font = 'bold 11px monospace';
       ctx.textAlign = 'left';
       ctx.fillText(title, x + 10, y + 15);
 
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = '#475569';
       ctx.font = '10px monospace';
       ctx.fillText(subtitle, x + 10, y + 29);
       ctx.restore();
@@ -935,24 +916,24 @@
       // PANEL 1: Study-Specific Biosensor Spectrum/Curve + PDB Gate
       if (activeLandingNpu === 'APIS_SMART_HIVE_NODE') {
         drawLandingPanelBox(
-          ctx, x1, y0, pw, ph, 'rgba(245, 158, 11, 0.45)',
+          ctx, x1, y0, pw, ph, 'rgba(217, 119, 6, 0.55)',
           '1. ACOUSTIC WINGBEAT FFT & 1SQB GATE',
           `MEMS 100–260 Hz (f²=5.76x) · RV32IMF ${spec.scalarCyc} cyc`
         );
         ctx.save();
         ctx.beginPath(); ctx.rect(x1 + 6, y0 + 38, pw - 12, ph - 44); ctx.clip();
         const gx = x1 + 30, gy = y0 + 52, gw = pw - 44, gh = 160;
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.12)';
         for (let i = 0; i <= 4; i++) {
           const yy = gy + (gh * i) / 4;
           ctx.beginPath(); ctx.moveTo(gx, yy); ctx.lineTo(gx + gw, yy); ctx.stroke();
         }
         const gateX = gx + ((220 - 120) / 140) * gw;
-        ctx.strokeStyle = 'rgba(16, 185, 129, 0.8)';
+        ctx.strokeStyle = '#047857';
         ctx.setLineDash([4, 3]);
         ctx.beginPath(); ctx.moveTo(gateX, gy); ctx.lineTo(gateX, gy + gh); ctx.stroke();
         ctx.setLineDash([]);
-        ctx.fillStyle = '#34d399'; ctx.font = '9.5px monospace'; ctx.textAlign = 'center';
+        ctx.fillStyle = '#065f46'; ctx.font = 'bold 9.5px monospace'; ctx.textAlign = 'center';
         ctx.fillText('220Hz Gate', gateX, gy - 4);
 
         const fPeak = pData.f0Hz;
@@ -964,48 +945,50 @@
           const bw = Math.max(4, gw / 16 - 3);
           const bh = amp * gh;
           ctx.fillStyle = dist < 24
-            ? (fPeak >= 220 ? 'rgba(16, 185, 129, 0.78)' : 'rgba(245, 158, 11, 0.78)')
-            : 'rgba(148, 163, 184, 0.18)';
+            ? (fPeak >= 220 ? 'rgba(4, 120, 87, 0.82)' : 'rgba(217, 119, 6, 0.82)')
+            : 'rgba(148, 163, 184, 0.28)';
           ctx.fillRect(bx, gy + gh - bh, bw, bh);
         }
-        ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+        ctx.fillStyle = '#475569'; ctx.font = '9.5px monospace';
         ctx.textAlign = 'left'; ctx.fillText('120Hz', gx, gy + gh + 13);
         ctx.textAlign = 'center'; ctx.fillText(`Peak f₀=${fPeak.toFixed(1)}Hz`, gx + gw * 0.5, gy + gh + 13);
         ctx.textAlign = 'right'; ctx.fillText('260Hz', gx + gw, gy + gh + 13);
 
         const by = gy + gh + 22;
-        ctx.strokeStyle = 'rgba(34, 211, 238, 0.3)';
+        ctx.fillStyle = '#faf8f3';
+        ctx.fillRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+        ctx.strokeStyle = '#cbd5e1';
         ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
-        ctx.fillStyle = '#fbbf24'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+        ctx.fillStyle = '#92400e'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
         ctx.fillText(`PDB: 1SQB Complex III Qo Block: ${(pData.block * 100).toFixed(0)}%`, x1 + 16, by + 16);
-        ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+        ctx.fillStyle = '#0c4a6e'; ctx.font = '9.5px monospace';
         ctx.fillText(`RV32IMF Guard: Brood ${pData.tempC.toFixed(1)}°C | CO₂ ${pData.co2Pct.toFixed(2)}% [OK]`, x1 + 16, by + 31);
-        ctx.fillStyle = '#a7f3d0';
+        ctx.fillStyle = '#065f46';
         ctx.fillText(`256-MAC Zero-Skip: 13/16 Bins Skipped (${spec.skipPct})`, x1 + 16, by + 46);
         ctx.restore();
       } else if (activeLandingNpu === 'CART_GMP_CASSETTE_VALVE') {
         drawLandingPanelBox(
-          ctx, x1, y0, pw, ph, 'rgba(20, 184, 166, 0.45)',
+          ctx, x1, y0, pw, ph, 'rgba(15, 118, 110, 0.55)',
           '1. INLINE PERFUSION & 2Q8G PDK1 GATE',
           `Amperometric Lac:Pyr & T_SCM · RV32IMF ${spec.scalarCyc} cyc`
         );
         ctx.save();
         ctx.beginPath(); ctx.rect(x1 + 6, y0 + 38, pw - 12, ph - 44); ctx.clip();
         const gx = x1 + 30, gy = y0 + 52, gw = pw - 44, gh = 160;
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.12)';
         for (let i = 0; i <= 4; i++) {
           const yy = gy + (gh * i) / 4;
           ctx.beginPath(); ctx.moveTo(gx, yy); ctx.lineTo(gx + gw, yy); ctx.stroke();
         }
         const swX = gx + (64 / 240) * gw;
-        ctx.strokeStyle = 'rgba(45, 212, 191, 0.8)';
+        ctx.strokeStyle = '#0f766e';
         ctx.setLineDash([4, 3]);
         ctx.beginPath(); ctx.moveTo(swX, gy); ctx.lineTo(swX, gy + gh); ctx.stroke();
         ctx.setLineDash([]);
-        ctx.fillStyle = '#2dd4bf'; ctx.font = '9.5px monospace'; ctx.textAlign = 'center';
+        ctx.fillStyle = '#0f5e59'; ctx.font = 'bold 9.5px monospace'; ctx.textAlign = 'center';
         ctx.fillText('h64 Valve Gate (Lac:Pyr≤12)', swX + 18, gy - 4);
 
-        ctx.strokeStyle = '#f43f5e'; ctx.lineWidth = 2.2; ctx.beginPath();
+        ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 2.2; ctx.beginPath();
         for (let i = 0; i <= 40; i++) {
           const hr = (i / 40) * 240;
           const lp = 6.5 + 19.9 * Math.exp(-hr / 46.0);
@@ -1014,7 +997,7 @@
         }
         ctx.stroke();
 
-        ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2.2; ctx.beginPath();
+        ctx.strokeStyle = '#047857'; ctx.lineWidth = 2.2; ctx.beginPath();
         for (let i = 0; i <= 40; i++) {
           const hr = (i / 40) * 240;
           const tscm = 18.0 + 60.0 * (1.0 - Math.exp(-hr / 55.0));
@@ -1023,23 +1006,25 @@
         }
         ctx.stroke();
 
-        ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+        ctx.fillStyle = '#475569'; ctx.font = '9.5px monospace';
         ctx.textAlign = 'left'; ctx.fillText('0h (Apheresis)', gx, gy + gh + 13);
         ctx.textAlign = 'right'; ctx.fillText('240h (62.9x Harvest)', gx + gw, gy + gh + 13);
 
         const by = gy + gh + 22;
-        ctx.strokeStyle = 'rgba(20, 184, 166, 0.35)';
+        ctx.fillStyle = '#faf8f3';
+        ctx.fillRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+        ctx.strokeStyle = '#cbd5e1';
         ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
-        ctx.fillStyle = '#2dd4bf'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+        ctx.fillStyle = '#0f5e59'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
         ctx.fillText(`PDB: 2Q8G PDK1 Ser75 Lac:Pyr = ${pData.lacPyr.toFixed(1)}`, x1 + 16, by + 16);
-        ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+        ctx.fillStyle = '#0c4a6e'; ctx.font = '9.5px monospace';
         ctx.fillText(`RV32IMF GMP Floor: pH ${pData.pH.toFixed(2)} | DO₂ ${pData.do2}% [OK]`, x1 + 16, by + 31);
-        ctx.fillStyle = '#a7f3d0';
+        ctx.fillStyle = '#065f46';
         ctx.fillText(`T_SCM: ${pData.tscmPct.toFixed(1)}% | Expansion: ${pData.foldX.toFixed(1)}x`, x1 + 16, by + 46);
         ctx.restore();
       } else {
         drawLandingPanelBox(
-          ctx, x1, y0, pw, ph, 'rgba(34, 211, 238, 0.45)',
+          ctx, x1, y0, pw, ph, 'rgba(2, 132, 199, 0.55)',
           '1. GLYCOGEN LAG (τ_lag) & GDF15 SENSOR',
           `Human Clinical (2NSX/7CK6) · RV32IMF ${spec.scalarCyc} cyc`
         );
@@ -1047,16 +1032,16 @@
         ctx.beginPath(); ctx.rect(x1 + 6, y0 + 38, pw - 12, ph - 44); ctx.clip();
         const gx = x1 + 30, gy = y0 + 52, gw = pw - 44, gh = 160;
         const lag6X = gx + (6.0 / 18.0) * gw;
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.11)';
+        ctx.fillStyle = 'rgba(5, 150, 105, 0.10)';
         ctx.fillRect(lag6X, gy, gw - (lag6X - gx), gh);
-        ctx.strokeStyle = 'rgba(16, 185, 129, 0.8)';
+        ctx.strokeStyle = '#047857';
         ctx.setLineDash([4, 3]);
         ctx.beginPath(); ctx.moveTo(lag6X, gy); ctx.lineTo(lag6X, gy + gh); ctx.stroke();
         ctx.setLineDash([]);
-        ctx.fillStyle = '#34d399'; ctx.font = '9.5px monospace'; ctx.textAlign = 'left';
+        ctx.fillStyle = '#065f46'; ctx.font = 'bold 9.5px monospace'; ctx.textAlign = 'left';
         ctx.fillText('τ_lag=6h (Zone2+C8)', lag6X + 3, gy + 11);
 
-        ctx.strokeStyle = 'rgba(244, 63, 94, 0.75)'; ctx.lineWidth = 1.8; ctx.setLineDash([3, 3]); ctx.beginPath();
+        ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 1.8; ctx.setLineDash([3, 3]); ctx.beginPath();
         for (let i = 0; i <= 36; i++) {
           const hr = (i / 36) * 18.0;
           const bhb = 0.2 + 2.1 / (1.0 + Math.exp(-(hr - 13.5) * 1.1));
@@ -1065,7 +1050,7 @@
         }
         ctx.stroke(); ctx.setLineDash([]);
 
-        ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2.4; ctx.beginPath();
+        ctx.strokeStyle = '#047857'; ctx.lineWidth = 2.4; ctx.beginPath();
         for (let i = 0; i <= 36; i++) {
           const hr = (i / 36) * 18.0;
           const bhb = 0.25 + 2.05 / (1.0 + Math.exp(-(hr - 6.0) * 1.25));
@@ -1074,61 +1059,63 @@
         }
         ctx.stroke();
 
-        ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+        ctx.fillStyle = '#475569'; ctx.font = '9.5px monospace';
         ctx.textAlign = 'left'; ctx.fillText('0h Fast', gx, gy + gh + 13);
         ctx.textAlign = 'right'; ctx.fillText('18h (12h Mitophagy)', gx + gw, gy + gh + 13);
 
         const by = gy + gh + 22;
-        ctx.strokeStyle = 'rgba(34, 211, 238, 0.35)';
+        ctx.fillStyle = '#faf8f3';
+        ctx.fillRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
+        ctx.strokeStyle = '#cbd5e1';
         ctx.strokeRect(x1 + 10, by, pw - 20, ph - (by - y0) - 10);
-        ctx.fillStyle = '#38bdf8'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
+        ctx.fillStyle = '#0c4a6e'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
         ctx.fillText(`Plasma GDF15: ${pData.gdf15} pg/mL | β-OHB: ${pData.bhbMmol.toFixed(1)} mM`, x1 + 16, by + 16);
-        ctx.fillStyle = '#67e8f9'; ctx.font = '9.5px monospace';
+        ctx.fillStyle = '#334155'; ctx.font = '9.5px monospace';
         ctx.fillText(`RV32IMF Safety: Lean Mass Δ=${pData.massDelta.toFixed(1)}% (> -2.5% Floor)`, x1 + 16, by + 31);
-        ctx.fillStyle = '#a7f3d0';
+        ctx.fillStyle = '#065f46';
         ctx.fillText(`Stage 0 Lock: 2NSX Ambroxol + 7CK6 TUDCA Verified`, x1 + 16, by + 46);
         ctx.restore();
       }
 
       // PANEL 2: Live 8-State Q16.16 RVV Zve32x Bioenergetic Register File
       drawLandingPanelBox(
-        ctx, x2, y0, pw, ph, 'rgba(168, 85, 247, 0.45)',
+        ctx, x2, y0, pw, ph, 'rgba(109, 40, 217, 0.55)',
         '2. RVV Zve32x 8-STATE Q16.16 ODE REGISTERS',
         `EP = éR · f² = ${pData.eR.toFixed(2)} × ${pData.f2.toFixed(2)} = ${pData.EP.toFixed(2)} (${spec.vecCyc} cyc)`
       );
       ctx.save();
       ctx.beginPath(); ctx.rect(x2 + 6, y0 + 38, pw - 12, ph - 44); ctx.clip();
       const regs = [
-        { name: 'v0 Wild-Type W(t)', val: pData.W, max: 1.50, col: '#10b981', unit: 'x' },
-        { name: 'v1 Mutant mtDNA D(t)', val: pData.D, max: 1.00, col: '#f43f5e', unit: 'x' },
-        { name: 'v2 Heteroplasmy h%', val: pData.h, max: 80.0, col: '#f59e0b', unit: '%' },
-        { name: 'v3 Resistance éR(t)', val: pData.eR, max: 20.0, col: '#a855f7', unit: '' },
-        { name: 'v4 Stress EP=éR·f²', val: pData.EP, max: activeLandingNpu === 'APIS_SMART_HIVE_NODE' ? 110.0 : 30.0, col: '#f97316', unit: '' },
-        { name: 'v5 NAD⁺/SIRT1 (4ZZJ)', val: pData.nad, max: 1.40, col: '#3b82f6', unit: 'x' },
-        { name: 'v6 Symbiont / T_SCM', val: pData.guild, max: 1.10, col: '#14b8a6', unit: 'x' },
-        { name: 'v7 Target Blockade', val: pData.block, max: 1.00, col: '#ec4899', unit: 'x' }
+        { name: 'v0 Wild-Type W(t)', val: pData.W, max: 1.50, col: '#059669', unit: 'x' },
+        { name: 'v1 Mutant mtDNA D(t)', val: pData.D, max: 1.00, col: '#dc2626', unit: 'x' },
+        { name: 'v2 Heteroplasmy h%', val: pData.h, max: 80.0, col: '#d97706', unit: '%' },
+        { name: 'v3 Resistance éR(t)', val: pData.eR, max: 20.0, col: '#7c3aed', unit: '' },
+        { name: 'v4 Stress EP=éR·f²', val: pData.EP, max: activeLandingNpu === 'APIS_SMART_HIVE_NODE' ? 110.0 : 30.0, col: '#ea580c', unit: '' },
+        { name: 'v5 NAD⁺/SIRT1 (4ZZJ)', val: pData.nad, max: 1.40, col: '#2563eb', unit: 'x' },
+        { name: 'v6 Symbiont / T_SCM', val: pData.guild, max: 1.10, col: '#0d9488', unit: 'x' },
+        { name: 'v7 Target Blockade', val: pData.block, max: 1.00, col: '#db2777', unit: 'x' }
       ];
       const rx = x2 + 12, rw = pw - 24, startY = y0 + 46, rowH = 30;
       regs.forEach((r, idx) => {
         const ry = startY + idx * rowH;
         const frac = clipVal(r.val / r.max, 0.02, 1.0);
         const q16Hex = '0x' + Math.max(0, Math.round((r.val / (r.unit === '%' ? 100.0 : 1.0)) * 65536)).toString(16).toUpperCase().padStart(6, '0');
-        ctx.fillStyle = '#e2e8f0'; ctx.font = 'bold 9.5px monospace'; ctx.textAlign = 'left';
+        ctx.fillStyle = '#0f172a'; ctx.font = 'bold 9.5px monospace'; ctx.textAlign = 'left';
         ctx.fillText(r.name, rx, ry + 10);
-        ctx.fillStyle = '#cbd5e1'; ctx.font = '9.5px monospace'; ctx.textAlign = 'right';
+        ctx.fillStyle = '#475569'; ctx.font = '9.5px monospace'; ctx.textAlign = 'right';
         ctx.fillText(`${r.val.toFixed(r.unit === '%' ? 1 : 2)}${r.unit} [${q16Hex}]`, rx + rw, ry + 10);
-        ctx.fillStyle = 'rgba(30, 41, 59, 0.85)'; ctx.fillRect(rx, ry + 13, rw, 9);
+        ctx.fillStyle = '#e5e0d5'; ctx.fillRect(rx, ry + 13, rw, 9);
         ctx.fillStyle = r.col; ctx.fillRect(rx, ry + 13, rw * frac, 9);
         const pulseFrac = ((landingAnimT * 0.6 + idx * 0.11) % 1.0) * frac;
         ctx.fillStyle = '#ffffff'; ctx.fillRect(rx + rw * pulseFrac - 1.5, ry + 13, 3, 9);
       });
-      ctx.fillStyle = '#d8b4fe'; ctx.font = '9.5px monospace'; ctx.textAlign = 'left';
+      ctx.fillStyle = '#4338ca'; ctx.font = 'bold 9.5px monospace'; ctx.textAlign = 'left';
       ctx.fillText(`Q16.16 vs FP64 Max Trajectory Error: ≤ 0.055%`, rx, y0 + ph - 10);
       ctx.restore();
 
       // PANEL 3: Phase-Plane Bifurcation Gate (h% vs. éR) & L1 DTCM SRAM
       drawLandingPanelBox(
-        ctx, x3, y0, pw, ph, 'rgba(16, 185, 129, 0.45)',
+        ctx, x3, y0, pw, ph, 'rgba(5, 150, 105, 0.55)',
         '3. PHASE-PLANE GATE (h% vs. éR) & SRAM',
         `256-MAC INT8 (${spec.matCyc} cyc) · ${spec.sramBytes}B / 8192B DTCM`
       );
@@ -1138,47 +1125,47 @@
       const maxH = 80.0;
       const maxER = activeLandingNpu === 'APIS_SMART_HIVE_NODE' ? 22.0 : (activeLandingNpu === 'CART_GMP_CASSETTE_VALVE' ? 14.0 : 8.0);
       const gate8X = px0 + (8.0 / maxH) * pwPlot;
-      ctx.fillStyle = 'rgba(16, 185, 129, 0.14)'; ctx.fillRect(px0, py0, gate8X - px0, phPlot);
-      ctx.fillStyle = 'rgba(244, 63, 94, 0.07)'; ctx.fillRect(gate8X, py0, pwPlot - (gate8X - px0), phPlot);
-      ctx.strokeStyle = 'rgba(16, 185, 129, 0.85)'; ctx.setLineDash([4, 3]);
+      ctx.fillStyle = 'rgba(5, 150, 105, 0.12)'; ctx.fillRect(px0, py0, gate8X - px0, phPlot);
+      ctx.fillStyle = 'rgba(220, 38, 38, 0.06)'; ctx.fillRect(gate8X, py0, pwPlot - (gate8X - px0), phPlot);
+      ctx.strokeStyle = '#047857'; ctx.setLineDash([4, 3]);
       ctx.beginPath(); ctx.moveTo(gate8X, py0); ctx.lineTo(gate8X, py0 + phPlot); ctx.stroke();
       ctx.setLineDash([]);
-      ctx.fillStyle = '#34d399'; ctx.font = '9px monospace'; ctx.textAlign = 'left';
+      ctx.fillStyle = '#065f46'; ctx.font = 'bold 9px monospace'; ctx.textAlign = 'left';
       ctx.fillText('h≤8% Stage 2 Gate', gate8X + 3, py0 + 11);
 
       const pts = spec.phases.map(p => ({
         x: px0 + clipVal(p.h / maxH, 0, 1) * pwPlot,
         y: py0 + phPlot - clipVal(p.eR / maxER, 0, 1) * phPlot
       }));
-      ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2.6; ctx.beginPath();
+      ctx.strokeStyle = '#047857'; ctx.lineWidth = 2.6; ctx.beginPath();
       ctx.moveTo(pts[0].x, pts[0].y);
       ctx.quadraticCurveTo(pts[1].x + 16, pts[0].y * 0.4 + pts[1].y * 0.6, pts[1].x, pts[1].y);
       ctx.lineTo(pts[2].x, pts[2].y);
       ctx.stroke();
 
       pts.forEach((pt, idx) => {
-        ctx.fillStyle = idx === 0 ? '#f59e0b' : (idx === 1 ? '#22d3ee' : '#10b981');
+        ctx.fillStyle = idx === 0 ? '#d97706' : (idx === 1 ? '#0284c7' : '#047857');
         ctx.beginPath(); ctx.arc(pt.x, pt.y, 4.2, 0, Math.PI * 2); ctx.fill();
       });
 
       const curPt = pts[activeLandingPhase];
       const pulseR = 6 + Math.sin(landingAnimT * 5) * 2;
-      ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2;
+      ctx.strokeStyle = '#0284c7'; ctx.lineWidth = 2;
       ctx.beginPath(); ctx.arc(curPt.x, curPt.y, pulseR, 0, Math.PI * 2); ctx.stroke();
 
-      ctx.fillStyle = '#94a3b8'; ctx.font = '9.5px monospace';
+      ctx.fillStyle = '#475569'; ctx.font = '9.5px monospace';
       ctx.textAlign = 'left'; ctx.fillText('0% h', px0, py0 + phPlot + 13);
       ctx.textAlign = 'center'; ctx.fillText(`Active: h=${pData.h.toFixed(1)}%, éR=${pData.eR.toFixed(2)}`, px0 + pwPlot * 0.5, py0 + phPlot + 13);
       ctx.textAlign = 'right'; ctx.fillText('80% h', px0 + pwPlot, py0 + phPlot + 13);
 
       const sramY = py0 + phPlot + 22, sramW = pw - 24, sramFrac = spec.sramBytes / 8192.0;
-      ctx.fillStyle = '#e2e8f0'; ctx.font = 'bold 9.5px monospace'; ctx.textAlign = 'left';
+      ctx.fillStyle = '#0f172a'; ctx.font = 'bold 9.5px monospace'; ctx.textAlign = 'left';
       ctx.fillText(`L1 DTCM SRAM: ${spec.sramBytes} B / 8,192 B (${(sramFrac * 100).toFixed(1)}%)`, x3 + 12, sramY + 10);
-      ctx.fillStyle = 'rgba(30, 41, 59, 0.9)'; ctx.fillRect(x3 + 12, sramY + 14, sramW, 10);
-      ctx.fillStyle = '#06b6d4'; ctx.fillRect(x3 + 12, sramY + 14, sramW * 0.45, 10);
-      ctx.fillStyle = '#a855f7'; ctx.fillRect(x3 + 12 + sramW * 0.45, sramY + 14, sramW * 0.25, 10);
-      ctx.fillStyle = '#10b981'; ctx.fillRect(x3 + 12 + sramW * 0.70, sramY + 14, sramW * (sramFrac - 0.70), 10);
-      ctx.fillStyle = '#6ee7b7'; ctx.font = '9.5px monospace';
+      ctx.fillStyle = '#e5e0d5'; ctx.fillRect(x3 + 12, sramY + 14, sramW, 10);
+      ctx.fillStyle = '#0284c7'; ctx.fillRect(x3 + 12, sramY + 14, sramW * 0.45, 10);
+      ctx.fillStyle = '#7c3aed'; ctx.fillRect(x3 + 12 + sramW * 0.45, sramY + 14, sramW * 0.25, 10);
+      ctx.fillStyle = '#059669'; ctx.fillRect(x3 + 12 + sramW * 0.70, sramY + 14, sramW * (sramFrac - 0.70), 10);
+      ctx.fillStyle = '#065f46'; ctx.font = 'bold 9.5px monospace';
       ctx.fillText(`Power: ${spec.powerMw.toFixed(2)} mW | Latency: 0.012 ms`, x3 + 12, sramY + 37);
       ctx.restore();
 

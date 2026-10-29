@@ -843,10 +843,10 @@
       ctx.save();
       ctx.scale(dpr, dpr);
 
-      // Deep dark scientific slate background so 4D trajectories have maximum contrast in both Light & Dark themes
+      // Warm Architectural Drafting Surface for 4D trajectories
       const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-      bgGrad.addColorStop(0, '#050b16');
-      bgGrad.addColorStop(1, '#091326');
+      bgGrad.addColorStop(0, '#faf8f3');
+      bgGrad.addColorStop(1, '#efeae0');
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, w, h);
 
@@ -861,7 +861,7 @@
         const u = i / gridN;
         const p1 = project3D(u, 0, 0, w, h);
         const p2 = project3D(u, 1, 0, w, h);
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.16)';
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.12)';
         ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
 
         const q1 = project3D(0, u, 0, w, h);
@@ -875,7 +875,7 @@
       ].forEach(([ux, uy]) => {
         const b = project3D(ux, uy, 0, w, h);
         const t = project3D(ux, uy, 1, w, h);
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+        ctx.strokeStyle = 'rgba(15, 23, 42, 0.22)';
         ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(t.x, t.y); ctx.stroke();
       });
 
@@ -905,8 +905,8 @@
             const p01 = project3D(x0, y1, z01, w, h);
 
             const epStress = 1.0 - (y0 + y1) * 0.5;
-            ctx.fillStyle = epColor(epStress, 0.13);
-            ctx.strokeStyle = epColor(epStress, 0.26);
+            ctx.fillStyle = epColor(epStress, 0.14);
+            ctx.strokeStyle = epColor(epStress, 0.28);
             ctx.lineWidth = 0.7;
             ctx.beginPath();
             ctx.moveTo(p00.x, p00.y);
@@ -926,8 +926,8 @@
         const gp1 = project3D(gateFrac, 1, 0, w, h);
         const gp2 = project3D(gateFrac, 1, 0.96, w, h);
         const gp3 = project3D(gateFrac, 0, 0.96, w, h);
-        ctx.fillStyle = 'rgba(34, 211, 238, 0.13)';
-        ctx.strokeStyle = 'rgba(34, 211, 238, 0.75)';
+        ctx.fillStyle = 'rgba(2, 132, 199, 0.10)';
+        ctx.strokeStyle = 'rgba(2, 132, 199, 0.78)';
         ctx.lineWidth = 1.5;
         ctx.setLineDash([4, 3]);
         ctx.beginPath();
@@ -940,7 +940,7 @@
         ctx.stroke();
         ctx.setLineDash([]);
 
-        ctx.fillStyle = '#67e8f9';
+        ctx.fillStyle = '#0c4a6e';
         ctx.font = 'bold 10px monospace';
         ctx.textAlign = 'center';
         ctx.fillText(`⚡ ${spec.gateLabel}`, (gp2.x + gp3.x) * 0.5, Math.min(gp2.y, gp3.y) - 6);
@@ -986,12 +986,12 @@
 
       const regimensToDraw = view.showAllThreeRegimens
         ? [
-            { key: 'untreated', label: '1. Standard Care (Fails)', color: '#fb7185', dash: [3, 3], width: 2.0 },
-            { key: 'unphased', label: '2. All-at-Once Trap (Backfires)', color: '#fbbf24', dash: [5, 3], width: 2.2 },
-            { key: 'bcr', label: '3. Phased BCR Protocol (Rescue)', color: '#34d399', dash: [], width: 3.4 }
+            { key: 'untreated', label: '1. Standard Care (Fails)', color: '#dc2626', dash: [3, 3], width: 2.0 },
+            { key: 'unphased', label: '2. All-at-Once Trap (Backfires)', color: '#d97706', dash: [5, 3], width: 2.2 },
+            { key: 'bcr', label: '3. Phased BCR Protocol (Rescue)', color: '#047857', dash: [], width: 3.4 }
           ]
         : [
-            { key: simState.activeRegimen || 'bcr', label: 'Active Protocol Trajectory', color: '#34d399', dash: [], width: 3.4 }
+            { key: simState.activeRegimen || 'bcr', label: 'Active Protocol Trajectory', color: '#047857', dash: [], width: 3.4 }
           ];
 
       regimensToDraw.forEach(reg => {
@@ -1012,7 +1012,7 @@
             const pFloor = project3D(s, pt.purityY, 0, w, h);
             ctx.save();
             ctx.setLineDash([2, 2]);
-            ctx.strokeStyle = 'rgba(52, 211, 153, 0.32)';
+            ctx.strokeStyle = 'rgba(4, 120, 87, 0.35)';
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(p3.x, p3.y);
@@ -1034,7 +1034,7 @@
       const curFloor = project3D(tFrac, curPt.purityY, 0, w, h);
 
       // Vertical laser line from floor to 3D point
-      ctx.strokeStyle = '#22d3ee';
+      ctx.strokeStyle = '#0284c7';
       ctx.lineWidth = 1.8;
       ctx.beginPath();
       ctx.moveTo(curFloor.x, curFloor.y);
@@ -1042,7 +1042,7 @@
       ctx.stroke();
 
       // Glowing 3D Playhead Sphere
-      ctx.fillStyle = '#22d3ee';
+      ctx.fillStyle = '#0284c7';
       ctx.beginPath();
       ctx.arc(cur3D.x, cur3D.y, 6.5, 0, Math.PI * 2);
       ctx.fill();
@@ -1055,7 +1055,7 @@
       const axPurityEnd = project3D(0, 1.04, 0, w, h);
       const axAtpTop = project3D(0, 0, 1.05, w, h);
 
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = '#334155';
       ctx.font = 'bold 10px monospace';
       ctx.textAlign = 'left';
       ctx.fillText(`X: Time (0 → ${spec.horizonLabel})`, axTimeEnd.x - 95, axTimeEnd.y + 14);
@@ -1064,32 +1064,32 @@
 
       // Top-Left HUD Overlay: 4D State Coordinates at Current Scrubber Position
       const curTimeVal = (tFrac * (spec.horizonMax || 90)).toFixed(1);
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.90)';
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
+      ctx.strokeStyle = 'rgba(2, 132, 199, 0.45)';
       ctx.lineWidth = 1;
       ctx.fillRect(12, 10, 315, 62);
       ctx.strokeRect(12, 10, 315, 62);
 
-      ctx.fillStyle = '#38bdf8';
+      ctx.fillStyle = '#0c4a6e';
       ctx.font = 'bold 10.5px monospace';
       ctx.fillText(`4D PHASE-SPACE TELEMETRY @ ${spec.timeUnit} ${curTimeVal}`, 20, 26);
-      ctx.fillStyle = '#f8fafc';
+      ctx.fillStyle = '#0f172a';
       ctx.font = 'bold 11.5px monospace';
       ctx.fillText(`h(t): ${curPt.hPct.toFixed(1)}%  |  Output: ${curPt.atpVal.toFixed(2)}×  |  EP Stress: ${(curPt.epNorm * 100).toFixed(0)}%`, 20, 44);
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = '#475569';
       ctx.font = '9.5px monospace';
       ctx.fillText(`Drag 3D graph to rotate azimuth/pitch · Scrub timeline below`, 20, 61);
 
       // Top-Right Legend Box
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.90)';
-      ctx.strokeStyle = 'rgba(148, 163, 184, 0.30)';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
+      ctx.strokeStyle = 'rgba(203, 213, 225, 0.85)';
       ctx.fillRect(w - 238, 10, 226, 62);
       ctx.strokeRect(w - 238, 10, 226, 62);
 
       const legItems = [
-        { col: '#34d399', text: '✅ Phased BCR (Purge → Gate → Build)' },
-        { col: '#fbbf24', text: '⚠️ All-at-Once Trap (Clones Mutant D)' },
-        { col: '#fb7185', text: '❌ Standard Care (High éR Failure)' }
+        { col: '#047857', text: '✅ Phased BCR (Purge → Gate → Build)' },
+        { col: '#b45309', text: '⚠️ All-at-Once Trap (Clones Mutant D)' },
+        { col: '#b91c1c', text: '❌ Standard Care (High éR Failure)' }
       ];
       legItems.forEach((it, idx) => {
         ctx.fillStyle = it.col;

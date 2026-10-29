@@ -1,27 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Domain 2: CAR-T GMP Bioreactor Simulator (240-Hour Controller) — MitoRestorer</title>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="mitorestorer_theme.css" />
   <script src="bcr_ux_4d_engine.js"></script>
   <style>
-    :root {
-      --background: #050a14;
-      --foreground: #f8fafc;
-      --card: #0b1324;
-      --content: #111c33;
-      --border: #1e293b;
-      --primary: #14b8a6;
-      --primary-foreground: #042f2e;
-      --muted-foreground: #94a3b8;
-    }
-    body {
-      background-color: var(--background);
-      color: var(--foreground);
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
     canvas {
       display: block;
       width: 100%;
@@ -512,8 +498,8 @@
       const pad = { l: 38, r: 14, t: 14, b: 26 };
       const pw = w - pad.l - pad.r, ph = h - pad.t - pad.b;
 
-      ctx.strokeStyle = 'rgba(148, 163, 184, 0.15)';
-      ctx.fillStyle = '#94a3b8';
+      ctx.strokeStyle = 'rgba(15, 23, 42, 0.12)';
+      ctx.fillStyle = '#475569';
       ctx.font = '10px monospace';
       for (let i = 0; i <= 4; i++) {
         const yy = pad.t + (ph * i) / 4;
@@ -525,11 +511,11 @@
 
       // Draw Valve Switch vertical dashed line
       const swX = pad.l + (cartState.switchHour / 240.0) * pw;
-      ctx.strokeStyle = 'rgba(45, 212, 191, 0.6)';
+      ctx.strokeStyle = 'rgba(15, 118, 110, 0.75)';
       ctx.setLineDash([4, 3]);
       ctx.beginPath(); ctx.moveTo(swX, pad.t); ctx.lineTo(swX, pad.t + ph); ctx.stroke();
       ctx.setLineDash([]);
-      ctx.fillStyle = '#2dd4bf';
+      ctx.fillStyle = '#0f5e59';
       ctx.textAlign = 'left';
       ctx.fillText(`⚡${cartState.switchHour}h Gate`, swX + 3, pad.t + 10);
 
@@ -549,7 +535,7 @@
       // Live time cursor
       const curHr = Math.round(cartState.timeFrac * 240);
       const cx = pad.l + cartState.timeFrac * pw;
-      ctx.strokeStyle = '#fbbf24';
+      ctx.strokeStyle = '#d97706';
       ctx.lineWidth = 1.4;
       ctx.setLineDash([3, 2]);
       ctx.beginPath(); ctx.moveTo(cx, pad.t); ctx.lineTo(cx, pad.t + ph); ctx.stroke();
@@ -562,7 +548,7 @@
         ctx.beginPath(); ctx.arc(cx, yy, 4.2, 0, Math.PI * 2); ctx.fill();
       });
 
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = '#475569';
       ctx.textAlign = 'left'; ctx.fillText('0h', pad.l, h - 6);
       ctx.textAlign = 'center'; ctx.fillText('120h', pad.l + pw * 0.5, h - 6);
       ctx.textAlign = 'right'; ctx.fillText('240h Harvest', pad.l + pw, h - 6);

@@ -25,6 +25,8 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.cif': 'chemical/x-mmcif; charset=utf-8',
   '.md': 'text/markdown; charset=utf-8',
+  '.tex': 'text/plain; charset=utf-8',
+  '.bib': 'text/plain; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8',
   '.ico': 'image/x-icon'
 };

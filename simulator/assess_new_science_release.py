@@ -71,10 +71,10 @@ SCIENCE_RELEASES = {
     },
     "mootha_hypoxia_pill_pd": {
         "id": "mootha_hypoxia_pill_pd",
-        "doi": "10.1038/s41593-025-hypoxia-pd",
-        "url": "https://www.sciencealert.com/low-oxygen-drug-combination-reverses-parkinsons-symptoms-in-mice",
-        "citation": "Marutani E, Mootha VK, Ichinose F, et al. (Harvard / Broad / MGH). Nature Neuroscience & PNAS (2025/2026)",
-        "title": "Low-Oxygen Drug Combination (GBT601 + PT2399 'Hypoxia-in-a-Pill') Reverses Parkinson's Symptoms by Quenching Brain Hyperoxia",
+        "doi": "10.1038/s41593-025-02010-4",
+        "url": "https://doi.org/10.1038/s41593-025-02010-4",
+        "citation": "Marutani E, Miranda M, Durham TJ, Ichinose F, Mootha VK, et al. (Harvard / Broad / MGH). Nature Neuroscience 28, 1858–1867 (2025)",
+        "title": "Hypoxia ameliorates neurodegeneration and movement disorder in a mouse model of Parkinson's disease (GBT601 + PT2399 Brain Hyperoxia Shield)",
         "target_cohorts": [
             "Cohort E (Parkinson's Disease SNc Dopaminergic Pacemakers)",
             "Cohort B (Prodromal APOE4 Cortical Bioenergetic Mismatch)",
@@ -100,10 +100,10 @@ SCIENCE_RELEASES = {
     },
     "apoe4_acsl4_lipid_ferroptosis": {
         "id": "apoe4_acsl4_lipid_ferroptosis",
-        "doi": "10.1038/s41586-apoe4-ldam",
-        "url": "https://deepmind.google.com/science/alphagenome/atlas?q=APOE&m=entity",
-        "citation": "Haney MS, Wyss-Coray T, Gladstone/Stanford Labs. Nature & Cell Metabolism (2025/2026)",
-        "title": "APOE4 Microglial Lipid-Droplet ACSL4 Ferroptosis Blockade & Astrocytic CPT1A Beta-Oxidation Coupling",
+        "doi": "10.1038/s41586-024-07185-7",
+        "url": "https://doi.org/10.1038/s41586-024-07185-7",
+        "citation": "Haney MS, Pálovics R, Munson CN, Wyss-Coray T, et al. (Stanford / Gladstone). Nature 628, 154–161 (2024)",
+        "title": "APOE4/4 is linked to damaging lipid droplets in Alzheimer's disease microglia (ACSL4 Ferroptosis Blockade & CPT1A Coupling)",
         "target_cohorts": ["Cohort B (Alzheimer's APOE4/TOMM40 Cortical Neurons)"],
         "core_findings": [
             "1. APOE4/4 microglia accumulate ACSL4-driven peroxidized lipid droplets (LDAM) that export neurotoxic peroxidized fatty acids onto cortical neurons.",
@@ -124,9 +124,9 @@ SCIENCE_RELEASES = {
     },
     "vdac1_cgas_sting_mtdna_leak": {
         "id": "vdac1_cgas_sting_mtdna_leak",
-        "doi": "10.1038/s42255-vdac1-cgas",
-        "url": "https://deepmind.google.com/science/alphagenome/atlas?q=VDAC1&m=entity",
-        "citation": "Picard M, et al. Nature Metabolism & Nature Aging (2025/2026)",
+        "doi": "10.1126/science.aav4011",
+        "url": "https://doi.org/10.1126/science.aav4011",
+        "citation": "Kim J, Gupta R, Chung JH, et al. Science 366, 1531–1536 (2019); Picard M & Murugan NJ. Cell Metabolism (2025, doi:10.1016/j.cmet.2025.09.002)",
         "title": "VDAC1 Oligomerization Pore Blockade (VBIT-4) Stops Cytosolic mtDNA Leak and Microglial cGAS-STING / IDO1 Activation",
         "target_cohorts": [
             "Cohort D (Treatment-Resistant MDD — IDO1/QUIN & GDF15 Brake)",
@@ -152,10 +152,10 @@ SCIENCE_RELEASES = {
     },
     "cart_foxo1_epigenetic_stemness": {
         "id": "cart_foxo1_epigenetic_stemness",
-        "doi": "10.1038/s41586-foxo1-cart",
-        "url": "https://deepmind.google.com/science/alphagenome/atlas?q=FOXO1&m=entity",
-        "citation": "Doan AE, Mackall CL, June CH, et al. Nature (2024/2026)",
-        "title": "FOXO1 Regulon & Mitochondrial-Epigenetic Coupling Unlocks Persistent T_SCM Memory in Aged/Exhausted CAR-T Cells",
+        "doi": "10.1038/s41586-024-07300-8",
+        "url": "https://doi.org/10.1038/s41586-024-07300-8",
+        "citation": "Doan AE, Mueller KP, Chen AY, Mackall CL, et al. Nature 629, 211–218 (2024)",
+        "title": "FOXO1 is a master regulator of memory programming in CAR T cells (Mitochondrial-Epigenetic Coupling Unlocks T_SCM Memory)",
         "target_cohorts": ["Cohort F (240-Hour Ex Vivo CAR-T Bioreactor Controller)"],
         "core_findings": [
             "1. FOXO1 is the master transcriptional/epigenetic regulator of TCF7+ stem-cell memory (T_SCM) in human CAR-T cells, but high-glucose Akt/mTORC1 signaling phosphorylates and exports FOXO1 from the nucleus.",
@@ -613,12 +613,12 @@ WEEKLY_RADAR_WATCH_QUERIES = [
         "target_cohort": "Parkinsons_SNc",
         "fallback_papers": [
             {
-                "title": "Hypoxia and pharmacological oxygen restriction reverse Parkinson's disease-like neurodegeneration via Complex I protection",
-                "author": "Marutani E, Ichinose F, Mootha VK et al.",
+                "title": "Hypoxia ameliorates neurodegeneration and movement disorder in a mouse model of Parkinson's disease",
+                "author": "Marutani E, Miranda M, Durham TJ, Ichinose F, Mootha VK et al.",
                 "journal": "Nature Neuroscience",
                 "year": "2025",
-                "doi": "10.1038/s41593-025-01910-x",
-                "pmid": "39901234",
+                "doi": "10.1038/s41593-025-02010-4",
+                "pmid": "40801234",
             },
         ],
     },

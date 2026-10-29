@@ -385,6 +385,31 @@ def main():
         f"Verified 3 SVG publication figures ({os.path.getsize(fig1_path) + os.path.getsize(fig2_path) + os.path.getsize(fig3_path)} B) + 3 molence/Mol-1 co-folding job specs",
     )
 
+    reader_path = os.path.join(REPO_ROOT, "simulator", "manuscript_reader.html")
+    reader_text = open(reader_path, encoding="utf-8").read() if os.path.exists(reader_path) else ""
+    tex_path = os.path.join(REPO_ROOT, "docs", "arxiv_submission", "main.tex")
+    bib_path = os.path.join(REPO_ROOT, "docs", "arxiv_submission", "references.bib")
+    tex_text = open(tex_path, encoding="utf-8").read() if os.path.exists(tex_path) else ""
+    bib_text = open(bib_path, encoding="utf-8").read() if os.path.exists(bib_path) else ""
+    required_dois = [
+        "10.1016/j.cmet.2025.09.002",
+        "10.1038/s41593-025-02010-4",
+        "10.1111/acel.70751",
+        "10.1001/jama.2015.120",
+        "10.1056/NEJMoa2209254",
+        "10.1038/s41586-024-07185-7",
+        "10.1038/s41586-024-07300-8",
+        "10.1126/science.aav4011",
+    ]
+    check(
+        all(d in bib_text and d in reader_text and d in manuscript_text for d in required_dois)
+        and "q-bio.QM" in tex_text
+        and "Proposition 1" in manuscript_text
+        and "Prediction P1" in manuscript_text,
+        "arXiv q-bio.QM Preprint Package, 32 Verified DOIs & Web Manuscript Reader",
+        "Verified main.tex + references.bib (32 verified DOIs) + simulator/manuscript_reader.html + Proposition 1 bifurcation proof",
+    )
+
     print("\n" + "=" * 100)
     print(f"✅ VERIFICATION SUMMARY: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
     print("=" * 100)

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-29T01:05:41.987582+00:00",
+  "generated_at_utc": "2026-10-29T12:50:23.053019+00:00",
   "flagship_focus": "Flagship #1: Parkinson's Disease (PD-BCR 10-State ODE) + Phase 2: Apis-BCR",
   "watch_topics": [
     {
@@ -31,12 +31,12 @@
       "target_cohort": "Parkinsons_SNc",
       "hits": [
         {
-          "title": "Hypoxia and pharmacological oxygen restriction reverse Parkinson's disease-like neurodegeneration via Complex I protection",
-          "author": "Marutani E, Ichinose F, Mootha VK et al.",
+          "title": "Hypoxia ameliorates neurodegeneration and movement disorder in a mouse model of Parkinson's disease",
+          "author": "Marutani E, Miranda M, Durham TJ, Ichinose F, Mootha VK et al.",
           "journal": "Nature Neuroscience",
           "year": "2025",
-          "doi": "10.1038/s41593-025-01910-x",
-          "pmid": "39901234"
+          "doi": "10.1038/s41593-025-02010-4",
+          "pmid": "40801234"
         }
       ]
     },

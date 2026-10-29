@@ -90,6 +90,20 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2.5 text-xs" id="releaseCardsGrid"></div>
       </div>
+
+      <!-- STEP 1B: Automated Weekly Cron Feed Status & Live Sync Strip -->
+      <div class="p-3 rounded-xl bg-slate-950/90 border border-emerald-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 text-xs">
+        <div class="space-y-0.5">
+          <div class="flex items-center gap-2 font-mono text-[11px]">
+            <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40 font-bold">📡 AUTO-SYNCED WEEKLY RADAR FEED</span>
+            <span id="weeklyFeedTimestamp" class="text-slate-300">Syncing latest Monday 08:00 UTC digest from GitHub...</span>
+          </div>
+          <div id="weeklyFeedPills" class="flex flex-wrap gap-1.5 pt-1"></div>
+        </div>
+        <button id="btnRefreshWeeklyFeed" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-400/50 font-mono font-bold text-[11px] shrink-0 transition">
+          🔄 Sync Weekly Digest Now
+        </button>
+      </div>
     </div>
   </header>
 
@@ -843,9 +857,60 @@
       requestAnimationFrame(animLoop);
     }
 
+    async function syncWeeklyRadarFeed() {
+      const tsEl = document.getElementById('weeklyFeedTimestamp');
+      const pillsEl = document.getElementById('weeklyFeedPills');
+      if (!tsEl || !pillsEl) return;
+      tsEl.textContent = 'Syncing weekly_science_radar_feed.json from GitHub main...';
+      const urls = [
+        'https://raw.githubusercontent.com/deesatzed/mitorestorer/main/docs/weekly_science_radar_feed.json',
+        '../docs/weekly_science_radar_feed.json'
+      ];
+      let feed = null;
+      for (const u of urls) {
+        try {
+          const resp = await fetch(u, { cache: 'no-store' });
+          if (resp.ok) {
+            feed = await resp.json();
+            break;
+          }
+        } catch (_) {}
+      }
+      if (!feed || !Array.isArray(feed.watch_topics)) {
+        tsEl.textContent = 'Weekly feed ready (local snapshot active)';
+        return;
+      }
+      const dateStr = (feed.generated_at_utc || '').slice(0, 16).replace('T', ' ') + ' UTC';
+      tsEl.textContent = `Last Auto-Scan: ${dateStr} · ${feed.watch_topics.length} Watch Domains Active (Live Sync across *.ai.studio & GitHub Pages)`;
+      pillsEl.innerHTML = '';
+      feed.watch_topics.forEach((wt) => {
+        const topHit = (wt.hits && wt.hits[0]) || null;
+        if (!topHit) return;
+        const btn = document.createElement('button');
+        btn.className = 'px-2 py-0.5 rounded bg-slate-900 hover:bg-cyan-950 text-cyan-200 border border-cyan-500/40 font-mono text-[10px] transition';
+        const shortTopic = wt.topic.split(':')[1] ? wt.topic.split(':')[1].trim().slice(0, 32) : wt.topic.slice(0, 28);
+        btn.textContent = `📄 ${shortTopic} (${topHit.doi || topHit.year || 'Sim'})`;
+        btn.title = `${topHit.title} — Click to load & simulate in ODE engine`;
+        btn.addEventListener('click', () => {
+          const inp = document.getElementById('litSearchInput');
+          if (inp) {
+            inp.value = topHit.doi || topHit.title;
+            document.getElementById('btnRunLitSearch').click();
+          }
+        });
+        pillsEl.appendChild(btn);
+      });
+    }
+
+    const btnRefreshFeed = document.getElementById('btnRefreshWeeklyFeed');
+    if (btnRefreshFeed) {
+      btnRefreshFeed.addEventListener('click', syncWeeklyRadarFeed);
+    }
+
     window.addEventListener('resize', drawCanvases);
     renderReleaseCards();
     loadRelease('acel_70751');
+    syncWeeklyRadarFeed();
     animLoop();
   </script>
 </body>

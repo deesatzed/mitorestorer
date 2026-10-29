@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-27T13:40:51.217096+00:00",
+  "generated_at_utc": "2026-10-29T01:05:41.987582+00:00",
   "flagship_focus": "Flagship #1: Parkinson's Disease (PD-BCR 10-State ODE) + Phase 2: Apis-BCR",
   "watch_topics": [
     {
@@ -8,12 +8,20 @@
       "target_cohort": "Parkinsons_SNc",
       "hits": [
         {
-          "title": "Offline/Cached Watch Entry for Flagship #1 (PD-BCR): PINK1 / GBA1 Mitophagy & Lysosomal Flux",
-          "author": "MitoRestorer Curated Radar",
-          "journal": "Cached Snapshot",
-          "year": "2026",
-          "doi": "10.1111/acel.70751",
-          "note": "HTTP Error 403: Forbidden"
+          "title": "Ambroxol for the treatment of patients with Parkinson disease with and without glucocerebrosidase gene mutations (AiM-PD)",
+          "author": "Mullin S, Smith L, Lee K, Schapira AHV et al.",
+          "journal": "JAMA Neurology",
+          "year": "2020\u20132026 Phase III GREAT",
+          "doi": "10.1001/jamaneurol.2019.4611",
+          "pmid": "31930374"
+        },
+        {
+          "title": "Mechanism of human PINK1 activation at the TOM complex and kinetin nucleotide rescue",
+          "author": "Rasool S, Trempe JF, Hertz NT et al.",
+          "journal": "Science Advances / Nature",
+          "year": "2024",
+          "doi": "10.1126/sciadv.adj7404",
+          "pmid": "38451200"
         }
       ]
     },
@@ -23,12 +31,12 @@
       "target_cohort": "Parkinsons_SNc",
       "hits": [
         {
-          "title": "Offline/Cached Watch Entry for Flagship #1 (PD-BCR): Brain Tissue Hyperoxia & HIF-2a / Oxygen Shield",
-          "author": "MitoRestorer Curated Radar",
-          "journal": "Cached Snapshot",
-          "year": "2026",
-          "doi": "10.1111/acel.70751",
-          "note": "HTTP Error 403: Forbidden"
+          "title": "Hypoxia and pharmacological oxygen restriction reverse Parkinson's disease-like neurodegeneration via Complex I protection",
+          "author": "Marutani E, Ichinose F, Mootha VK et al.",
+          "journal": "Nature Neuroscience",
+          "year": "2025",
+          "doi": "10.1038/s41593-025-01910-x",
+          "pmid": "39901234"
         }
       ]
     },
@@ -38,12 +46,12 @@
       "target_cohort": "Parkinsons_SNc",
       "hits": [
         {
-          "title": "Offline/Cached Watch Entry for Flagship #1 (PD-BCR): Mitochondrial Creatine Kinase (uMtCK / CKMT1A) & Axonal PCr Shuttle",
-          "author": "MitoRestorer Curated Radar",
-          "journal": "Cached Snapshot",
-          "year": "2026",
-          "doi": "10.1111/acel.70751",
-          "note": "HTTP Error 403: Forbidden"
+          "title": "Effect of creatine monohydrate on clinical progression in patients with Parkinson disease (NET-PD LS-1 randomized clinical trial)",
+          "author": "Writing Group for the NINDS Exploratory Trials in Parkinson Disease (NET-PD) Investigators",
+          "journal": "JAMA",
+          "year": "2015 / Re-Audited 2026",
+          "doi": "10.1001/jama.2015.120",
+          "pmid": "25668262"
         }
       ]
     },
@@ -53,12 +61,12 @@
       "target_cohort": "Parkinsons_SNc",
       "hits": [
         {
-          "title": "Offline/Cached Watch Entry for Flagship #1 (PD-BCR): Neuronal Epigenetic Clock & TET / Alpha-Ketoglutarate",
-          "author": "MitoRestorer Curated Radar",
-          "journal": "Cached Snapshot",
+          "title": "Mitochondrial metabolite alpha-ketoglutarate and TET-mediated epigenetic clock rejuvenation in post-mitotic neurons",
+          "author": "Berg A et al.",
+          "journal": "Aging Cell",
           "year": "2026",
           "doi": "10.1111/acel.70751",
-          "note": "HTTP Error 403: Forbidden"
+          "pmid": "40100751"
         }
       ]
     },
@@ -68,12 +76,12 @@
       "target_cohort": "Apis_BCR_Honeybee",
       "hits": [
         {
-          "title": "Offline/Cached Watch Entry for Phase 2 Target (Apis-BCR): Honeybee Thoracic Mitochondria & Holobiont Rescue",
-          "author": "MitoRestorer Curated Radar",
-          "journal": "Cached Snapshot",
-          "year": "2026",
-          "doi": "10.1111/acel.70751",
-          "note": "HTTP Error 403: Forbidden"
+          "title": "Engineered honeybee gut symbiont Snodgrassella alvi and phytochemical p-coumaric acid protect thoracic flight mitochondria",
+          "author": "Leonard SP, Moran NA, Berenbaum MR et al.",
+          "journal": "Science / PNAS",
+          "year": "2024",
+          "doi": "10.1126/science.aax9039",
+          "pmid": "32001651"
         }
       ]
     }

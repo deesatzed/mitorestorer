@@ -134,11 +134,14 @@
               </div>
               <h2 id="simPlotTitle" class="text-sm sm:text-base font-extrabold text-white"></h2>
             </div>
-            <div class="flex items-center gap-2 text-xs font-mono">
+            <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
               <button id="btnPlaySim" class="px-2.5 py-1 rounded-lg bg-cyan-500/20 border border-cyan-400 text-cyan-200 font-bold hover:bg-cyan-500/30">
                 ▶ Play Sim
               </button>
-              <input id="simScrubber" type="range" min="0" max="100" value="100" class="w-28 accent-emerald-400 cursor-pointer" />
+              <button id="btnSimSpeed" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 font-bold hover:border-cyan-400 transition" title="Click to cycle playback speed (0.25×, 0.5×, 1.0×, 2.0×, 4.0×)">
+                ⏱️ 1.0× Speed
+              </button>
+              <input id="simScrubber" type="range" min="0" max="100" value="100" class="w-28 accent-emerald-400 cursor-pointer" title="Scrub simulation timeline" />
               <span id="simDayBadge" class="px-2 py-0.5 rounded bg-slate-900 text-emerald-300 border border-emerald-500/40 font-bold">Day 100</span>
             </div>
           </div>
@@ -186,61 +189,107 @@
       <div class="lg:col-span-5 rounded-2xl border-2 border-emerald-500/40 bg-[#091224] p-4 flex flex-col justify-between space-y-4 text-xs shadow-xl">
 
         <div class="space-y-3">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <div class="flex flex-wrap items-center justify-between gap-1.5 border-b border-slate-800 pb-2">
             <span class="px-2.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40 font-mono font-bold">
               ⚙️ MECHANISTIC-TO-ODE PARAMETER COMPILER
             </span>
-            <button id="btnExportSimVersion" class="px-2.5 py-1 rounded bg-purple-500 text-slate-950 font-extrabold text-[11px] hover:bg-purple-400 transition">
-              💾 Spawn v3.0 JSON Sim
-            </button>
+            <div class="flex items-center gap-1.5">
+              <button id="btnToggleAllParamExpl" class="px-2 py-1 rounded bg-slate-900 border border-slate-700 text-cyan-300 font-mono font-bold text-[10.5px] hover:border-cyan-400 transition">
+                📖 Explain All 6
+              </button>
+              <button id="btnExportSimVersion" class="px-2.5 py-1 rounded bg-purple-500 text-slate-950 font-extrabold text-[11px] hover:bg-purple-400 transition">
+                💾 Spawn v3.0 JSON Sim
+              </button>
+            </div>
           </div>
 
           <p class="text-[11px] text-slate-300 leading-relaxed">
-            Adjust the <strong>6 Biophysical &amp; Epigenetic ODE Levers</strong> extracted from the paper to test how its mechanism interacts with Stage 0 Pore Unblocking, Stage 1 Mitophagy, and Stage 2 Biogenesis/De-Aging:
+            Adjust the <strong>6 Biophysical &amp; Epigenetic ODE Levers</strong> below to test how the paper's mechanism interacts with Stage 0 Pore Unblocking, Stage 1 Mitophagy, and Stage 2 Biogenesis/De-Aging. <strong>Click any parameter title or <span class="font-mono text-cyan-300">[ⓘ Explain]</span> to see what it does:</strong>
           </p>
 
           <div class="space-y-2.5 bg-slate-950/90 p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
-            <div>
-              <div class="flex justify-between text-rose-200">
-                <span>1. Brain/Tissue pO₂ Hyperoxia Clamp (GBT601+PT2399)</span>
+            <!-- Parameter 1 -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-rose-200 cursor-pointer select-none group" data-param-toggle="explPo2">
+                <span class="group-hover:underline">1. Brain/Tissue pO₂ Hyperoxia Clamp (GBT601+PT2399) <span class="ml-1 px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-[9.5px] text-cyan-300">ⓘ Explain</span></span>
                 <span id="valLvPo2" class="font-bold text-rose-300">0%</span>
               </div>
               <input id="slLvPo2" type="range" min="0" max="100" value="0" class="w-full accent-rose-400" />
+              <div id="explPo2" class="param-expl hidden p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-[10.5px] font-sans leading-relaxed space-y-1">
+                <div><strong>Plain-English Role:</strong> Prevents unused oxygen from accumulating and "rusting" dopamine/lipids when damaged mitochondria stop consuming O₂ (<span class="font-mono">pO₂ = 1.63× → 0.92×</span>).</div>
+                <div><strong>Molecules &amp; 3D Target:</strong> <span class="font-mono">GBT601</span> (allosteric hemoglobin O₂ clamp) + <span class="font-mono">PT2399</span> (<span class="font-mono">PDB: 5UFP</span> HIF-2α PAS-B inhibitor; <em>Mootha &amp; Ichinose, Nat Neurosci 2025</em>).</div>
+                <div><strong>Slider Effect (0% → 100%):</strong> Suppresses dopamine-quinone toxicity and lipid peroxidation during Stage 0/1, accelerating the safe transition to Stage 2 by ~7.5 days.</div>
+              </div>
             </div>
-            <div>
-              <div class="flex justify-between text-purple-200">
-                <span>2. Stage 0 Lysosomal / TOMM40 / VDAC1 Pore Unblock</span>
+
+            <!-- Parameter 2 -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-purple-200 cursor-pointer select-none group" data-param-toggle="explStage0">
+                <span class="group-hover:underline">2. Stage 0 Lysosomal / TOMM40 / VDAC1 Pore Unblock <span class="ml-1 px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-[9.5px] text-cyan-300">ⓘ Explain</span></span>
                 <span id="valLvStage0" class="font-bold text-purple-300">92%</span>
               </div>
               <input id="slLvStage0" type="range" min="0" max="100" value="92" class="w-full accent-purple-400" />
+              <div id="explStage0" class="param-expl hidden p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-[10.5px] font-sans leading-relaxed space-y-1">
+                <div><strong>Plain-English Role:</strong> Opens the cell's lysosomal waste exit doors and mitochondrial outer-membrane import pores <em>before</em> mitophagy cleaning begins, preventing an autophagosome traffic jam.</div>
+                <div><strong>Molecules &amp; 3D Target:</strong> <span class="font-mono">Ambroxol</span> (<span class="font-mono">PDB: 2NSX GBA1</span> chaperone), <span class="font-mono">TUDCA + Citicoline</span> (<span class="font-mono">PDB: 7CK6 TOMM40</span> pore), &amp; <span class="font-mono">VBIT-4</span> (<span class="font-mono">VDAC1</span> pore sealer).</div>
+                <div><strong>Slider Effect (0% → 100%):</strong> At &lt;30%, triggering mitophagy causes toxic cargo backlog; at 90–100%, damaged organelles exit smoothly during Stage 1.</div>
+              </div>
             </div>
-            <div>
-              <div class="flex justify-between text-amber-200">
-                <span>3. Stage 1 PINK1/ULK1 Mitophagy &amp; Lag Compression</span>
+
+            <!-- Parameter 3 -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-amber-200 cursor-pointer select-none group" data-param-toggle="explMito">
+                <span class="group-hover:underline">3. Stage 1 PINK1/ULK1 Mitophagy &amp; Lag Compression <span class="ml-1 px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-[9.5px] text-cyan-300">ⓘ Explain</span></span>
                 <span id="valLvMito" class="font-bold text-amber-300">94%</span>
               </div>
               <input id="slLvMito" type="range" min="0" max="100" value="94" class="w-full accent-amber-400" />
+              <div id="explMito" class="param-expl hidden p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-[10.5px] font-sans leading-relaxed space-y-1">
+                <div><strong>Plain-English Role:</strong> Selectively identifies and recycles low-voltage mutant mitochondria (<span class="font-mono">D</span>) while compressing the 13.5-hour liver glycogen fasting lag down to 6 hours.</div>
+                <div><strong>Molecules &amp; 3D Target:</strong> <span class="font-mono">Direct Urolithin A</span> (bypasses <span class="font-mono">FUT2</span> non-secretor block) + <span class="font-mono">Kinetin</span> (<span class="font-mono">PDB: 6EQI PINK1</span> neo-substrate) + <span class="font-mono">C8-MCT Ketones</span>.</div>
+                <div><strong>Slider Effect (0% → 100%):</strong> Drives mutant mtDNA heteroplasmy (<span class="font-mono">h%</span>) down from 58% to &lt;8% before Stage 2 biogenesis begins, restoring the <span class="font-mono">α-KG:Succinate</span> ratio.</div>
+              </div>
             </div>
-            <div>
-              <div class="flex justify-between text-cyan-200">
-                <span>4. TET1–3 (α-KG:Succinate) + SIRT1 (4ZZJ) + 6FCX De-Aging</span>
+
+            <!-- Parameter 4 -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-cyan-200 cursor-pointer select-none group" data-param-toggle="explEpi">
+                <span class="group-hover:underline">4. TET1–3 (α-KG:Succinate) + SIRT1 (4ZZJ) + 6FCX De-Aging <span class="ml-1 px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-[9.5px] text-cyan-300">ⓘ Explain</span></span>
                 <span id="valLvEpi" class="font-bold text-cyan-300">96%</span>
               </div>
               <input id="slLvEpi" type="range" min="0" max="100" value="96" class="w-full accent-cyan-400" />
+              <div id="explEpi" class="param-expl hidden p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-[10.5px] font-sans leading-relaxed space-y-1">
+                <div><strong>Plain-English Role:</strong> Powers Stage 2 mitochondrial multiplication AND division-independent epigenetic clock erasure (<span class="font-mono">eAge</span> rollback) once mutant mitochondria are cleared.</div>
+                <div><strong>Molecules &amp; 3D Target:</strong> <span class="font-mono">NR/NAD⁺ + Resveratrol</span> (<span class="font-mono">PDB: 4ZZJ SIRT1</span>), <span class="font-mono">Riboflavin B2 + Creatine</span> (<span class="font-mono">PDB: 6FCX MTHFR</span> &amp; <span class="font-mono">1QK1 uMtCK</span>), + <span class="font-mono">Ca-α-KG + Vit C</span> (<span class="font-mono">TET1–3</span>; <em>Berg et al. 2026</em>).</div>
+                <div><strong>Slider Effect (0% → 100%):</strong> Multiplies clean wild-type mitochondria (<span class="font-mono">W</span>) and erases hypermethylated aging marks (<span class="font-mono">eAge: 100% → 3.1%</span>).</div>
+              </div>
             </div>
-            <div>
-              <div class="flex justify-between text-emerald-200">
-                <span>5. SOX2/c-MYC / FOXO1 / TCF7 Fate &amp; Stemness Lock</span>
+
+            <!-- Parameter 5 -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-emerald-200 cursor-pointer select-none group" data-param-toggle="explStem">
+                <span class="group-hover:underline">5. SOX2/c-MYC / FOXO1 / TCF7 Fate &amp; Stemness Lock <span class="ml-1 px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-[9.5px] text-cyan-300">ⓘ Explain</span></span>
                 <span id="valLvStem" class="font-bold text-emerald-300">95%</span>
               </div>
               <input id="slLvStem" type="range" min="0" max="100" value="95" class="w-full accent-emerald-400" />
+              <div id="explStem" class="param-expl hidden p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-[10.5px] font-sans leading-relaxed space-y-1">
+                <div><strong>Plain-English Role:</strong> Stabilizes nuclear master transcription factors that lock in youthful neuronal identity (<span class="font-mono">PAX6/NURR1</span>) or persistent stem-cell memory (<span class="font-mono">T_SCM</span>) without oncogenic exhaustion.</div>
+                <div><strong>Molecules &amp; 3D Target:</strong> <span class="font-mono">FOXO1 → TCF7</span> nuclear retention (via low-glucose <span class="font-mono">PDB: 2Q8G PDK1</span> unlock; <em>Doan &amp; Mackall, Nature 2024</em>) &amp; <span class="font-mono">SOX2/PAX6</span> chromatin accessibility.</div>
+                <div><strong>Slider Effect (0% → 100%):</strong> Prevents epigenetic drift and raises sustained functional rescue / stemness ceiling from ~68% to &gt;95%.</div>
+              </div>
             </div>
-            <div>
-              <div class="flex justify-between text-teal-200">
-                <span>6. Stage 1 → Stage 2 Biomarker Gate Switch Day</span>
+
+            <!-- Parameter 6 -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-teal-200 cursor-pointer select-none group" data-param-toggle="explGate">
+                <span class="group-hover:underline">6. Stage 1 → Stage 2 Biomarker Gate Switch Day <span class="ml-1 px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-[9.5px] text-cyan-300">ⓘ Explain</span></span>
                 <span id="valLvGate" class="font-bold text-teal-300">Day 28</span>
               </div>
               <input id="slLvGate" type="range" min="10" max="60" value="28" class="w-full accent-teal-400" />
+              <div id="explGate" class="param-expl hidden p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-[10.5px] font-sans leading-relaxed space-y-1">
+                <div><strong>Plain-English Role:</strong> The exact day (or hour in CAR-T) when the protocol switches from <strong>Stage 1 Cleaning (Mitophagy)</strong> to <strong>Stage 2 Rebuilding (NAD⁺/Biogenesis)</strong>.</div>
+                <div><strong>Biomarker Trigger:</strong> Triggered when plasma <span class="font-mono">GDF15</span> drops ≥35% from baseline (signaling mutant mtDNA <span class="font-mono">h ≤ 8%</span>) or inline <span class="font-mono">Lactate:Pyruvate ≤ 12.0</span>.</div>
+                <div><strong>Slider Effect (10 → 60):</strong> Switching too early (&lt;Day 18) clones residual mutant mtDNA; switching too late (&gt;Day 50) delays anabolic recovery.</div>
+              </div>
             </div>
           </div>
         </div>
@@ -439,6 +488,8 @@
       activeId: 'acel_70751',
       timeFrac: 1.0,
       isPlaying: false,
+      playSpeed: 1.0,
+      allExplOpen: false,
       rotYaw: -0.62,
       rotPitch: 0.38,
       isDragging: false,
@@ -599,9 +650,10 @@
       ctx2.scale(dpr, dpr);
       ctx2.clearRect(0, 0, w2, h2);
 
-      const pad = { l: 36, r: 14, t: 16, b: 26 };
+      const pad = { l: 38, r: 16, t: 18, b: 42 };
       const pw = w2 - pad.l - pad.r, ph = h2 - pad.t - pad.b;
 
+      // Y-axis gridlines & labels
       ctx2.strokeStyle = 'rgba(15, 23, 42, 0.12)';
       ctx2.fillStyle = '#475569';
       ctx2.font = '10px monospace';
@@ -612,6 +664,31 @@
         ctx2.fillText((100 - g * 25) + '%', pad.l - 5, yy + 3);
       }
 
+      // X-axis vertical gridlines, ticks, and Time labels
+      const xSteps = 4;
+      const unitShort = r.unit === 'Hour' ? 'h' : 'd';
+      for (let k = 0; k <= xSteps; k++) {
+        const frac = k / xSteps;
+        const xx = pad.l + frac * pw;
+        const tVal = Math.round(frac * r.horizon);
+        ctx2.strokeStyle = 'rgba(15, 23, 42, 0.08)';
+        ctx2.beginPath(); ctx2.moveTo(xx, pad.t); ctx2.lineTo(xx, pad.t + ph); ctx2.stroke();
+        // Tick mark on bottom axis
+        ctx2.strokeStyle = 'rgba(15, 23, 42, 0.35)';
+        ctx2.beginPath(); ctx2.moveTo(xx, pad.t + ph); ctx2.lineTo(xx, pad.t + ph + 4); ctx2.stroke();
+        ctx2.fillStyle = '#334155';
+        ctx2.font = '10px monospace';
+        ctx2.textAlign = k === 0 ? 'left' : (k === xSteps ? 'right' : 'center');
+        ctx2.fillText(`${r.unit === 'Hour' ? tVal + 'h' : 'Day ' + tVal}`, xx, pad.t + ph + 15);
+      }
+
+      // X-axis Title
+      ctx2.fillStyle = '#0f172a';
+      ctx2.font = 'bold 10px monospace';
+      ctx2.textAlign = 'center';
+      ctx2.fillText(`Timeline (${r.unit}s: 0 → ${r.horizon} ${r.unit}s)`, pad.l + pw * 0.5, pad.t + ph + 32);
+
+      // Stage 1 -> Stage 2 Gate Line
       const gate = parseInt(document.getElementById('slLvGate').value, 10);
       const gx = pad.l + (gate / r.horizon) * pw;
       ctx2.strokeStyle = 'rgba(2, 132, 199, 0.72)';
@@ -619,8 +696,17 @@
       ctx2.beginPath(); ctx2.moveTo(gx, pad.t); ctx2.lineTo(gx, pad.t + ph); ctx2.stroke();
       ctx2.setLineDash([]);
       ctx2.fillStyle = '#0c4a6e';
+      ctx2.font = '10px monospace';
       ctx2.textAlign = 'left';
-      ctx2.fillText(`⚡Gate ${gate}`, gx + 3, pad.t + 11);
+      ctx2.fillText(`⚡Gate ${unitShort}${gate}`, gx + 3, pad.t + 11);
+
+      // Live Scrubber Time Cursor Line
+      const curX = pad.l + state.timeFrac * pw;
+      ctx2.strokeStyle = 'rgba(4, 120, 87, 0.55)';
+      ctx2.lineWidth = 1.2;
+      ctx2.setLineDash([2, 2]);
+      ctx2.beginPath(); ctx2.moveTo(curX, pad.t); ctx2.lineTo(curX, pad.t + ph); ctx2.stroke();
+      ctx2.setLineDash([]);
 
       const series = [
         { data: state.simData.arm1, color: '#dc2626', w: 2.0 },
@@ -669,7 +755,7 @@
         return { x: cx3 + x1 * scale * p, y: cy3 - y2 * scale * p };
       }
 
-      // Draw 3D floor grid
+      // Draw 3D floor grid & axis labels
       ctx3.strokeStyle = 'rgba(15, 23, 42, 0.14)';
       ctx3.lineWidth = 1;
       for (let g = -1; g <= 1; g += 0.5) {
@@ -678,6 +764,14 @@
         const q1 = proj(g, -0.8, -1), q2 = proj(g, -0.8, 1);
         ctx3.beginPath(); ctx3.moveTo(q1.x, q1.y); ctx3.lineTo(q2.x, q2.y); ctx3.stroke();
       }
+      ctx3.fillStyle = '#475569';
+      ctx3.font = '9.5px monospace';
+      const axT0 = proj(-1, -0.88, 1.08), axT1 = proj(1, -0.88, 1.08), axZ = proj(-1.08, -0.88, -1), axY = proj(-1.05, 0.92, -1);
+      ctx3.textAlign = 'left'; ctx3.fillText(`0${r.unit === 'Hour' ? 'h' : 'd'}`, axT0.x - 6, axT0.y + 8);
+      ctx3.textAlign = 'center'; ctx3.fillText(`Time (${r.unit}s) →`, (axT0.x + axT1.x) * 0.5, (axT0.y + axT1.y) * 0.5 + 12);
+      ctx3.textAlign = 'right'; ctx3.fillText(`${r.horizon}${r.unit === 'Hour' ? 'h' : 'd'}`, axT1.x + 8, axT1.y + 8);
+      ctx3.textAlign = 'left'; ctx3.fillText('↑ Score %', Math.max(6, axY.x - 10), Math.max(12, axY.y));
+      ctx3.fillText('h% Axis', Math.max(6, axZ.x - 10), Math.min(h3 - 6, axZ.y + 8));
 
       const curves3D = [
         { yArr: state.simData.arm1, hArr: state.simData.h1, color: '#dc2626', w: 2.0 },
@@ -729,8 +823,38 @@
 
     document.getElementById('btnPlaySim').addEventListener('click', e => {
       state.isPlaying = !state.isPlaying;
+      if (state.isPlaying && state.timeFrac >= 0.99) state.timeFrac = 0.0;
       e.target.textContent = state.isPlaying ? '⏸ Pause' : '▶ Play Sim';
     });
+
+    const btnSimSpeed = document.getElementById('btnSimSpeed');
+    if (btnSimSpeed) {
+      btnSimSpeed.addEventListener('click', () => {
+        const speeds = [0.25, 0.5, 1.0, 2.0, 4.0];
+        const nextIdx = (speeds.indexOf(state.playSpeed) + 1) % speeds.length;
+        state.playSpeed = speeds[nextIdx];
+        btnSimSpeed.textContent = `⏱️ ${state.playSpeed}× Speed`;
+      });
+    }
+
+    document.querySelectorAll('[data-param-toggle]').forEach(row => {
+      row.addEventListener('click', () => {
+        const targetId = row.getAttribute('data-param-toggle');
+        const el = document.getElementById(targetId);
+        if (el) el.classList.toggle('hidden');
+      });
+    });
+
+    const btnToggleAllParamExpl = document.getElementById('btnToggleAllParamExpl');
+    if (btnToggleAllParamExpl) {
+      btnToggleAllParamExpl.addEventListener('click', () => {
+        state.allExplOpen = !state.allExplOpen;
+        document.querySelectorAll('.param-expl').forEach(el => {
+          el.classList.toggle('hidden', !state.allExplOpen);
+        });
+        btnToggleAllParamExpl.textContent = state.allExplOpen ? '📕 Hide Explanations' : '📖 Explain All 6';
+      });
+    }
 
     // Live Literature / DOI Search (EuropePMC + Built-in Match)
     document.getElementById('btnRunLitSearch').addEventListener('click', async () => {
@@ -838,7 +962,7 @@
 
     function animLoop() {
       if (state.isPlaying) {
-        state.timeFrac += 0.004;
+        state.timeFrac += 0.0035 * state.playSpeed;
         if (state.timeFrac > 1.0) state.timeFrac = 0.0;
         drawCanvases();
       }

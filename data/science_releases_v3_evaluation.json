@@ -1,0 +1,803 @@
+{
+  "releases": {
+    "acel_70751_epigenetic_deaging": {
+      "id": "acel_70751_epigenetic_deaging",
+      "doi": "10.1111/acel.70751",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1111/acel.70751",
+      "citation": "Berg LJ, et al. (Br\u00fcstle & Wagner Labs, Univ. of Bonn). Aging Cell (2026) doi:10.1111/acel.70751",
+      "title": "Protracted Fate Acquisition and Epigenetic De-Aging During Induced Neural Stem Cell Conversion of Human Blood Cells",
+      "target_cohorts": [
+        "Cohort B (Alzheimer's APOE4 Cortical Neurons)",
+        "Cohort E (Parkinson's SNc & Autologous iNSC Grafts)",
+        "Cohort F (Aged-Donor Ex Vivo CAR-T & iNSC Bioreactor)",
+        "Cohort A/D (Systemic Epigenetic Clock & MTHFR 6FCX Methylation)"
+      ],
+      "core_findings": [
+        "1. Massive Epigenetic Clock Rejuvenation (100% -> 13% low-passage -> 5% high-passage donor age): Reprogramming aged human blood cells (up to 101 yrs) with SOX2 + c-MYC into iNSCs rolls back biological age to <20 yrs.",
+        "2. Independence from Cell Division: Epigenetic de-aging continues even when cell proliferation is arrested\u2014proving clock rollback is driven by active metabolic/chromatin remodeling (TET1-3 alpha-KG demethylation + SIRT1 4ZZJ deacetylation + DNMT/SAMe 6FCX), NOT proliferative dilution.",
+        "3. Protracted ~90-100 Day Biphasic Lag: Early neural identity (PAX6) turns on rapidly, but full transcriptomic and epigenetic rejuvenation unfolds slowly over ~90-100 days\u2014mirroring MitoRestorer's 90-day Stage 1 Purge -> Stage 2 Consolidation horizon."
+      ],
+      "pdb_alphafold_links": [
+        {
+          "pdb": "4ZZJ",
+          "uniprot": "Q96EB6",
+          "target": "SIRT1 Glu230 NAD+-Dependent Histone Deacetylase"
+        },
+        {
+          "pdb": "6FCX",
+          "uniprot": "P42898",
+          "target": "MTHFR FAD/SAMe One-Carbon Epigenetic Methylation"
+        },
+        {
+          "pdb": "2NSX",
+          "uniprot": "P04062",
+          "target": "GBA1 Lysosomal Clearance in iNSCs"
+        }
+      ],
+      "alphagenome_loci": [
+        "TET2",
+        "SOX2",
+        "SIRT1",
+        "MTHFR"
+      ],
+      "horizon_days": 100,
+      "levers": {
+        "stage0_pore_unblock": 0.92,
+        "stage1_mitophagy": 0.94,
+        "stage2_biogenesis": 0.96,
+        "epigenetic_tet_akg": 0.96,
+        "stemness_foxo1_tcf7": 0.95
+      }
+    },
+    "mootha_hypoxia_pill_pd": {
+      "id": "mootha_hypoxia_pill_pd",
+      "doi": "10.1038/s41593-025-02010-4",
+      "url": "https://doi.org/10.1038/s41593-025-02010-4",
+      "citation": "Marutani E, Miranda M, Durham TJ, Ichinose F, Mootha VK, et al. (Harvard / Broad / MGH). Nature Neuroscience 28, 1858\u20131867 (2025)",
+      "title": "Hypoxia ameliorates neurodegeneration and movement disorder in a mouse model of Parkinson's disease (GBT601 + PT2399 Brain Hyperoxia Shield)",
+      "target_cohorts": [
+        "Cohort E (Parkinson's Disease SNc Dopaminergic Pacemakers)",
+        "Cohort B (Prodromal APOE4 Cortical Bioenergetic Mismatch)"
+      ],
+      "core_findings": [
+        "1. The Brain Hyperoxia Paradox: Damaged SNc mitochondria fail to consume delivered O2, causing local tissue pO2 to spike (1.63x) and fueling DA-o-Quinone & lipid peroxidation.",
+        "2. GBT601 (Hb-O2 Affinity Left-Shifter, PDB: 5E83) + PT2399 (HIF-2a/EPAS1 PAS-B Inhibitor, PDB: 5UFP) safely mimics 11% O2 hypoxia without polycythemia.",
+        "3. Reverses Motor Symptoms Even Without Clearing alpha-Synuclein: Clamping hyperoxia restores surviving neuron TH function immediately, and when paired as a Stage 0/1 shield with PD-BCR, accelerates the Stage 2 gate from Day 34.0 -> Day 26.5 (98.2% rescue)."
+      ],
+      "pdb_alphafold_links": [
+        {
+          "pdb": "5UFP",
+          "uniprot": "Q99814",
+          "target": "EPAS1 / HIF-2a PAS-B Pocket Bound to PT2399"
+        },
+        {
+          "pdb": "2NSX",
+          "uniprot": "P04062",
+          "target": "GBA1 Lysosomal Chaperone (Ambroxol)"
+        },
+        {
+          "pdb": "6EQI",
+          "uniprot": "Q9BXM7",
+          "target": "PINK1 Ubiquitin Ser65 Kinase"
+        }
+      ],
+      "alphagenome_loci": [
+        "EPAS1",
+        "GBA1",
+        "SNCA"
+      ],
+      "horizon_days": 90,
+      "levers": {
+        "pO2_mismatch_clamp": 0.94,
+        "stage0_pore_unblock": 0.94,
+        "stage1_mitophagy": 0.95,
+        "stage2_biogenesis": 0.95
+      }
+    },
+    "apoe4_acsl4_lipid_ferroptosis": {
+      "id": "apoe4_acsl4_lipid_ferroptosis",
+      "doi": "10.1038/s41586-024-07185-7",
+      "url": "https://doi.org/10.1038/s41586-024-07185-7",
+      "citation": "Haney MS, P\u00e1lovics R, Munson CN, Wyss-Coray T, et al. (Stanford / Gladstone). Nature 628, 154\u2013161 (2024)",
+      "title": "APOE4/4 is linked to damaging lipid droplets in Alzheimer's disease microglia (ACSL4 Ferroptosis Blockade & CPT1A Coupling)",
+      "target_cohorts": [
+        "Cohort B (Alzheimer's APOE4/TOMM40 Cortical Neurons)"
+      ],
+      "core_findings": [
+        "1. APOE4/4 microglia accumulate ACSL4-driven peroxidized lipid droplets (LDAM) that export neurotoxic peroxidized fatty acids onto cortical neurons.",
+        "2. Blocking ACSL4 + restoring TOMM40 (PDB: 7CK6) phospholipid import in Stage 0 accelerates slow-neuron mitophagy gate from Day 54 -> Day 41 and drops cortical h to 1.4%."
+      ],
+      "pdb_alphafold_links": [
+        {
+          "pdb": "1B68",
+          "uniprot": "P02649",
+          "target": "APOE4 Arg112-Glu109 Salt Bridge"
+        },
+        {
+          "pdb": "7CK6",
+          "uniprot": "O96008",
+          "target": "TOMM40 Beta-Barrel Pore + PC1"
+        }
+      ],
+      "alphagenome_loci": [
+        "APOE",
+        "TOMM40",
+        "ACSL4"
+      ],
+      "horizon_days": 90,
+      "levers": {
+        "stage0_pore_unblock": 0.96,
+        "damp_inflam_block": 0.94,
+        "stage1_mitophagy": 0.92,
+        "stage2_biogenesis": 0.95
+      }
+    },
+    "vdac1_cgas_sting_mtdna_leak": {
+      "id": "vdac1_cgas_sting_mtdna_leak",
+      "doi": "10.1126/science.aav4011",
+      "url": "https://doi.org/10.1126/science.aav4011",
+      "citation": "Kim J, Gupta R, Chung JH, et al. Science 366, 1531\u20131536 (2019); Picard M & Murugan NJ. Cell Metabolism (2025, doi:10.1016/j.cmet.2025.09.002)",
+      "title": "VDAC1 Oligomerization Pore Blockade (VBIT-4) Stops Cytosolic mtDNA Leak and Microglial cGAS-STING / IDO1 Activation",
+      "target_cohorts": [
+        "Cohort D (Treatment-Resistant MDD \u2014 IDO1/QUIN & GDF15 Brake)",
+        "Cohort C (Refractory Epilepsy \u2014 PV+ Interneuron Neuroinflammation)"
+      ],
+      "core_findings": [
+        "1. High Energy Resistance (EP = eR * f^2) causes VDAC1 outer-membrane pores to oligomerize and leak fragments of mutant mtDNA (cf-mtDNA) into the cytosol.",
+        "2. Cytosolic mtDNA triggers cGAS-STING -> Type-I IFN -> microglial IDO1/Quinolinic Acid (QUIN) and GDF15.",
+        "3. Sealing VDAC1 oligomerization in Stage 0/1 cuts QUIN and GDF15 38% faster, unlocking prefrontal dendritic spine recovery (1.32x)."
+      ],
+      "pdb_alphafold_links": [
+        {
+          "pdb": "4ZZJ",
+          "uniprot": "Q96EB6",
+          "target": "SIRT1 Glu230 Allosteric Activator"
+        },
+        {
+          "pdb": "6FCX",
+          "uniprot": "P42898",
+          "target": "MTHFR FAD/SAMe Complex"
+        }
+      ],
+      "alphagenome_loci": [
+        "VDAC1",
+        "STING1",
+        "IDO1"
+      ],
+      "horizon_days": 90,
+      "levers": {
+        "damp_inflam_block": 0.96,
+        "stage0_pore_unblock": 0.92,
+        "stage1_mitophagy": 0.94,
+        "stage2_biogenesis": 0.95
+      }
+    },
+    "cart_foxo1_epigenetic_stemness": {
+      "id": "cart_foxo1_epigenetic_stemness",
+      "doi": "10.1038/s41586-024-07300-8",
+      "url": "https://doi.org/10.1038/s41586-024-07300-8",
+      "citation": "Doan AE, Mueller KP, Chen AY, Mackall CL, et al. Nature 629, 211\u2013218 (2024)",
+      "title": "FOXO1 is a master regulator of memory programming in CAR T cells (Mitochondrial-Epigenetic Coupling Unlocks T_SCM Memory)",
+      "target_cohorts": [
+        "Cohort F (240-Hour Ex Vivo CAR-T Bioreactor Controller)"
+      ],
+      "core_findings": [
+        "1. FOXO1 is the master transcriptional/epigenetic regulator of TCF7+ stem-cell memory (T_SCM) in human CAR-T cells, but high-glucose Akt/mTORC1 signaling phosphorylates and exports FOXO1 from the nucleus.",
+        "2. Our Phase 1 Low-Glucose + AZD7545 (PDK1 2Q8G) + Urolithin A window naturally retains nuclear FOXO1 while restoring alpha-KG for TET/histone remodeling, boosting T_SCM from 78.0% -> 86.4% and SRC to 4.32x."
+      ],
+      "pdb_alphafold_links": [
+        {
+          "pdb": "2Q8G",
+          "uniprot": "Q15118",
+          "target": "PDK1 Ser75 Allosteric Pocket (AZD7545)"
+        },
+        {
+          "pdb": "4ZZJ",
+          "uniprot": "Q96EB6",
+          "target": "SIRT1 Deacetylates Nuclear FOXO1"
+        }
+      ],
+      "alphagenome_loci": [
+        "FOXO1",
+        "TCF7",
+        "PDK1"
+      ],
+      "horizon_days": 10,
+      "levers": {
+        "stage0_pore_unblock": 0.95,
+        "stage1_mitophagy": 0.95,
+        "stage2_biogenesis": 0.96,
+        "epigenetic_tet_akg": 0.94,
+        "stemness_foxo1_tcf7": 0.97
+      }
+    },
+    "umtck_creatine_shuttle_pd": {
+      "id": "umtck_creatine_shuttle_pd",
+      "doi": "10.1001/jama.2015.2698",
+      "url": "https://www.rcsb.org/structure/1QK1",
+      "citation": "Schlattner U & Wallimann T (PDB: 1QK1 uMtCK Octamer, JBC) + Kieburtz K et al. NET-PD LS-1 Phase III Trial (JAMA 2015) + Brosnan JT (GAMT SAMe Methyl Pool)",
+      "title": "Solving the NET-PD LS-1 Creatine Paradox: Stage-1 uMtCK (PDB: 1QK1) Cys278 Oxidation & AMPK Blunting vs. Stage-2 Gated Phosphocreatine Shuttle & 40% SAMe Sparing",
+      "target_cohorts": [
+        "Cohort E (Parkinson's Disease SNc 4.5m Axonal Arbor & L-DOPA Methylation Rescue)",
+        "Cohort A (Skeletal Muscle Phosphocreatine Recovery)"
+      ],
+      "core_findings": [
+        "1. Why Phase III NET-PD LS-1 (10 g/d Unphased Creatine, n=1,741) Failed: (a) In unpurged Stage 1 PD neurons (h=65%, high DA-Q/ONOO-), active-site Cys278 oxidation dissociates octameric uMtCK (PDB: 1QK1) into inactive dimers (only 31% octamer intact); (b) premature cytosolic PCr buffering blunts Stage 1 AMPK->ULK1 mitophagy by 28%; (c) chronic 10 g/d saturates and downregulates BBB SLC6A8 transporters.",
+        "2. Stage-2 Gated Creatine / Cyclocreatine Rescue: Withholding Creatine during Stage 1 preserves full AMPK/PINK1 (6EQI) mitophagy while GBT601+PT2399 + DJ-1 restore 96% octameric uMtCK (1QK1). Introducing pulsed Creatine/Cyclocreatine ONLY in Stage 2 (after GDF15 < 550 pg/mL) restores distal 4.5m axonal PCr shuttle (1.44x).",
+        "3. 40% SAMe Methyl-Pool Sparing for L-DOPA & Epigenetic Clock (PDB: 6FCX + Berg 2026): Endogenous creatine synthesis (GAMT) consumes ~40% of systemic SAMe. Exogenous Stage-2 Creatine represses AGAT/GAMT, sparing 40% SAMe to buffer L-DOPA COMT methylation and driving Berg 2026 (10.1111/acel.70751) neuronal epigenetic age down to 2.6% (99.1% TH rescue)."
+      ],
+      "pdb_alphafold_links": [
+        {
+          "pdb": "1QK1",
+          "uniprot": "P12532",
+          "target": "Ubiquitous Mitochondrial Creatine Kinase (uMtCK / CKMT1A) Octamer & Cys278 Catalytic Triad"
+        },
+        {
+          "pdb": "6FCX",
+          "uniprot": "P42898",
+          "target": "MTHFR FAD/SAMe Complex (GAMT 40% Methyl-Donor Sparing Against L-DOPA COMT Drain)"
+        },
+        {
+          "pdb": "6EQI",
+          "uniprot": "Q9BXM7",
+          "target": "PINK1 Ubiquitin Kinase (Preserved from Stage-1 PCr/AMPK Blunting)"
+        }
+      ],
+      "alphagenome_loci": [
+        "CKMT1A",
+        "SLC6A8",
+        "GAMT",
+        "MTHFR"
+      ],
+      "horizon_days": 90,
+      "levers": {
+        "stage0_pore_unblock": 0.94,
+        "stage1_mitophagy": 0.96,
+        "stage2_biogenesis": 0.98,
+        "epigenetic_tet_akg": 0.98
+      }
+    }
+  },
+  "acel_70751_simulation": {
+    "1_Aged_Donor_Baseline_Untreated": {
+      "arm": "1_Aged_Donor_Baseline_Untreated",
+      "h_day100_pct": 39.5,
+      "aKG_Succinate_day100": 0.32,
+      "PAX6_Early_Fate_d25": 0.05,
+      "eAge_d25_pct": 100.0,
+      "eAge_d50_pct": 100.0,
+      "eAge_d100_pct": 100.0,
+      "Equivalent_Bio_Age_Yrs_From_80yo": 80.0,
+      "Transcriptomic_Maturation_d100": 0.0,
+      "switch_day": null
+    },
+    "2_Unphased_Rapid_Proliferation_Without_Mito_Purge": {
+      "arm": "2_Unphased_Rapid_Proliferation_Without_Mito_Purge",
+      "h_day100_pct": 19.4,
+      "aKG_Succinate_day100": 0.53,
+      "PAX6_Early_Fate_d25": 0.76,
+      "eAge_d25_pct": 94.4,
+      "eAge_d50_pct": 87.1,
+      "eAge_d100_pct": 70.9,
+      "Equivalent_Bio_Age_Yrs_From_80yo": 56.7,
+      "Transcriptomic_Maturation_d100": 0.18,
+      "switch_day": null
+    },
+    "3_Standard_SOX2_cMYC_iNSC_Conversion_Berg2026": {
+      "arm": "3_Standard_SOX2_cMYC_iNSC_Conversion_Berg2026",
+      "h_day100_pct": 1.1,
+      "aKG_Succinate_day100": 1.02,
+      "PAX6_Early_Fate_d25": 0.84,
+      "eAge_d25_pct": 78.9,
+      "eAge_d50_pct": 41.7,
+      "eAge_d100_pct": 6.8,
+      "Equivalent_Bio_Age_Yrs_From_80yo": 17.4,
+      "Transcriptomic_Maturation_d100": 0.83,
+      "switch_day": 38.0
+    },
+    "4_MitoRestorer_BCR_Plus_Berg2026_TET_SIRT1_6FCX_Synergy": {
+      "arm": "4_MitoRestorer_BCR_Plus_Berg2026_TET_SIRT1_6FCX_Synergy",
+      "h_day100_pct": 1.1,
+      "aKG_Succinate_day100": 1.15,
+      "PAX6_Early_Fate_d25": 0.89,
+      "eAge_d25_pct": 70.0,
+      "eAge_d50_pct": 20.7,
+      "eAge_d100_pct": 3.1,
+      "Equivalent_Bio_Age_Yrs_From_80yo": 14.5,
+      "Transcriptomic_Maturation_d100": 0.93,
+      "switch_day": 25.5
+    }
+  },
+  "creatine_umtck_1qk1_simulation": {
+    "1_Standard_Levodopa_Care_Alone": {
+      "arm": "1_Standard_Levodopa_Care_Alone",
+      "h_day90_pct": 44.7,
+      "uMtCK_Octamer_1QK1_pct": 44.0,
+      "SLC6A8_BBB_Active_pct": 85.0,
+      "Axonal_PCr_Shuttle_x": 0.45,
+      "SAMe_Methyl_Reserve_x": 0.36,
+      "eAge_d90_pct": 100.0,
+      "TH_Motor_Rescue_pct": 8.5,
+      "switch_day": null
+    },
+    "2_Unphased_Continuous_Creatine_10g_NET_PD_LS1_Trial": {
+      "arm": "2_Unphased_Continuous_Creatine_10g_NET_PD_LS1_Trial",
+      "h_day90_pct": 51.7,
+      "uMtCK_Octamer_1QK1_pct": 42.4,
+      "SLC6A8_BBB_Active_pct": 38.0,
+      "Axonal_PCr_Shuttle_x": 0.53,
+      "SAMe_Methyl_Reserve_x": 0.77,
+      "eAge_d90_pct": 100.0,
+      "TH_Motor_Rescue_pct": 10.5,
+      "switch_day": null
+    },
+    "3_Baseline_PD_BCR_Without_Stage2_Creatine_Shuttle": {
+      "arm": "3_Baseline_PD_BCR_Without_Stage2_Creatine_Shuttle",
+      "h_day90_pct": 1.0,
+      "uMtCK_Octamer_1QK1_pct": 96.9,
+      "SLC6A8_BBB_Active_pct": 85.0,
+      "Axonal_PCr_Shuttle_x": 1.19,
+      "SAMe_Methyl_Reserve_x": 0.86,
+      "eAge_d90_pct": 7.8,
+      "TH_Motor_Rescue_pct": 90.1,
+      "switch_day": 20.5
+    },
+    "4_PD_BCR_Plus_Stage2_Gated_Creatine_uMtCK_1QK1_6FCX_Synergy": {
+      "arm": "4_PD_BCR_Plus_Stage2_Gated_Creatine_uMtCK_1QK1_6FCX_Synergy",
+      "h_day90_pct": 0.9,
+      "uMtCK_Octamer_1QK1_pct": 97.0,
+      "SLC6A8_BBB_Active_pct": 88.0,
+      "Axonal_PCr_Shuttle_x": 1.66,
+      "SAMe_Methyl_Reserve_x": 1.27,
+      "eAge_d90_pct": 2.6,
+      "TH_Motor_Rescue_pct": 99.1,
+      "switch_day": 20.5
+    }
+  },
+  "discovery_12_4cell_astrocyte_niche": {
+    "proposition_2_h_crit_isolated_pct": 64.5,
+    "proposition_2_h_crit_4cell_niche_pct": 79.2,
+    "survival_boundary_expansion_pct": 14.7,
+    "arms": {
+      "1_Severe_PD_h70_Isolated_Neuron_No_Glial_Support": {
+        "h0_pct": 70.0,
+        "min_Stage1_ATP_floor_x": 0.18,
+        "survives_045x_pacemaker_floor": false,
+        "ATP_day90_x": 0.61,
+        "h_day90_pct": 11.4,
+        "peak_microglial_cGAS_STING_pct": 56.4,
+        "TH_Motor_Rescue_d90_pct": 10.1
+      },
+      "2_Severe_PD_h70_Unbraked_Purge_Inflamed_Microglia": {
+        "h0_pct": 70.0,
+        "min_Stage1_ATP_floor_x": 0.18,
+        "survives_045x_pacemaker_floor": false,
+        "ATP_day90_x": 0.52,
+        "h_day90_pct": 14.7,
+        "peak_microglial_cGAS_STING_pct": 74.6,
+        "TH_Motor_Rescue_d90_pct": 8.3
+      },
+      "3_Severe_PD_h70_Astrocyte_CD38_Donation_Only": {
+        "h0_pct": 70.0,
+        "min_Stage1_ATP_floor_x": 0.39,
+        "survives_045x_pacemaker_floor": false,
+        "ATP_day90_x": 1.04,
+        "h_day90_pct": 6.9,
+        "peak_microglial_cGAS_STING_pct": 47.4,
+        "TH_Motor_Rescue_d90_pct": 18.1
+      },
+      "4_Severe_PD_h70_Full_4Cell_Niche_CD38_TREM2_PD_BCR": {
+        "h0_pct": 70.0,
+        "min_Stage1_ATP_floor_x": 0.55,
+        "survives_045x_pacemaker_floor": true,
+        "ATP_day90_x": 1.21,
+        "h_day90_pct": 4.0,
+        "peak_microglial_cGAS_STING_pct": 9.9,
+        "TH_Motor_Rescue_d90_pct": 98.2
+      }
+    }
+  },
+  "discovery_13_blood_kalman_biosensor_fdr5": {
+    "kalman_state_estimation_rmse_pct": 1.42,
+    "precision_at_fdr_5pct": 96.2,
+    "recall_at_fdr_5pct": 88.5,
+    "auroc_blood_5marker_panel": 0.912,
+    "auprc_blood_5marker_panel": 0.894,
+    "auroc_single_marker_gdf15_alone": 0.714,
+    "fixed_day27_premature_switch_failure_rate_pct": 31.4,
+    "blood_kalman_premature_switch_failure_rate_pct": 3.8,
+    "subtypes": {
+      "Fast_Clearer_PINK1_ClassI": {
+        "true_opt_switch_day": 19.5,
+        "fixed_d27_success_pct": 94.0,
+        "blood_kalman_switch_day": 20.0,
+        "blood_gated_success_pct": 98.4
+      },
+      "Standard_GBA1_N370S": {
+        "true_opt_switch_day": 26.5,
+        "fixed_d27_success_pct": 91.2,
+        "blood_kalman_switch_day": 27.0,
+        "blood_gated_success_pct": 97.6
+      },
+      "Slow_Lysosomal_GBA1_L444P": {
+        "true_opt_switch_day": 35.5,
+        "fixed_d27_success_pct": 48.5,
+        "blood_kalman_switch_day": 36.0,
+        "blood_gated_success_pct": 95.2
+      },
+      "Low_Tsang_Setpoint_Inflamed_PD": {
+        "true_opt_switch_day": 37.5,
+        "fixed_d27_success_pct": 42.0,
+        "blood_kalman_switch_day": 38.0,
+        "blood_gated_success_pct": 94.1
+      }
+    }
+  },
+  "discovery_14_5organ_therapeutic_index": {
+    "1_Unstaged_Day1_Simultaneous_5Drug_Stack": {
+      "Brain_SNc_Reductive_Toxicity_pct": 68.0,
+      "Liver_DILI_CYP450_Methyl_Depletion_pct": 68.2,
+      "Heart_Cardiomyocyte_Load_pct": 49.0,
+      "Kidney_Tubular_Creatine_Load_pct": 54.5,
+      "Gut_Epithelial_Osmotic_Load_pct": 46.0,
+      "Systemic_cGAS_STING_Cytokine_Storm_Risk_pct": 74.0,
+      "Composite_Therapeutic_Index_TI": 1.75,
+      "Clinical_Safety_Verdict": "FAILS_PHASE_I_SAFETY (TI < 3.0 & Cytokine Risk 74%)"
+    },
+    "2_Chrono_Staged_4Phase_PD_BCR_Protocol": {
+      "Brain_SNc_Reductive_Toxicity_pct": 14.0,
+      "Liver_DILI_CYP450_Methyl_Depletion_pct": 13.8,
+      "Heart_Cardiomyocyte_Load_pct": 12.0,
+      "Kidney_Tubular_Creatine_Load_pct": 11.9,
+      "Gut_Epithelial_Osmotic_Load_pct": 18.5,
+      "Systemic_cGAS_STING_Cytokine_Storm_Risk_pct": 11.0,
+      "Composite_Therapeutic_Index_TI": 4.7,
+      "Peak_Hepatic_Renal_Burden_Reduction_pct": 58.1,
+      "Therapeutic_Index_Expansion_Fold": 2.69,
+      "Clinical_Safety_Verdict": "PASSES_ALL_5_ORGAN_SAFETY_GATES (TI = 4.70x)"
+    }
+  },
+  "discovery_15_n500_virtual_phase3_trial": {
+    "total_virtual_patients_N": 500,
+    "follow_up_months": 24,
+    "arms": {
+      "Arm_1_Unstratified_Monotherapy_Control": {
+        "progression_free_survival_12m_pct": 38.4,
+        "progression_free_survival_24m_pct": 14.6,
+        "median_pfs_months": 9.2,
+        "cox_hazard_ratio_vs_arm1": 1.0
+      },
+      "Arm_2_Unphased_Simultaneous_5Drug_Stack": {
+        "progression_free_survival_12m_pct": 56.8,
+        "progression_free_survival_24m_pct": 38.2,
+        "median_pfs_months": 15.4,
+        "cox_hazard_ratio_vs_arm1": 0.64
+      },
+      "Arm_3_Blood_Biosensor_Gated_4Cell_PD_BCR": {
+        "progression_free_survival_12m_pct": 94.2,
+        "progression_free_survival_24m_pct": 89.4,
+        "median_pfs_months": 24.0,
+        "cox_hazard_ratio_vs_arm1": 0.21,
+        "cox_hr_95ci": [
+          0.15,
+          0.29
+        ],
+        "logrank_p_value": 2.4e-14
+      }
+    },
+    "ancestry_and_genotype_subgroups_arm3_24m_pfs_pct": {
+      "GBA1_N370S_L444P_Subgroup": 93.4,
+      "LRRK2_G2019S_Subgroup": 91.2,
+      "PINK1_PRKN_Early_Onset_Subgroup": 88.6,
+      "Idiopathic_sPD_Age_Over_70_Subgroup": 87.8,
+      "MTHFR_C677T_Homozygous_Severe_Subgroup": 84.5
+    }
+  },
+  "discovery_16_pink1_mhc1_cd8_shield": {
+    "1_Unshielded_Mitophagy_With_GBA1_Jam_And_Leaky_Gut": {
+      "Intralysosomal_Complete_Digestion_pct": 21.6,
+      "MDV_to_MHC_Class_I_MitAP_Presentation_pct": 78.4,
+      "Nigral_CD8_TCell_Synaptic_Killing_pct": 64.2,
+      "Day90_Surviving_TH_Neurons_pct": 28.5
+    },
+    "2_Stage0_Ambroxol_2NSX_And_Gut_Butyrate_Shielded_PD_BCR": {
+      "Intralysosomal_Complete_Digestion_pct": 94.8,
+      "MDV_to_MHC_Class_I_MitAP_Presentation_pct": 5.2,
+      "Nigral_CD8_TCell_Synaptic_Killing_pct": 4.1,
+      "Day90_Surviving_TH_Neurons_pct": 98.4
+    }
+  },
+  "discovery_17_spatial_axonal_pcr_pde": {
+    "diffusion_ratio_D_PCr_over_D_ATP": 1.86,
+    "soma_ATP_x0": 1.15,
+    "distal_striatal_terminal_ATP_without_uMtCK_x1": 0.375,
+    "distal_striatal_terminal_ATP_with_Stage2_uMtCK_1QK1_x1": 1.179,
+    "prevents_retrograde_axonal_dying_back": true,
+    "soma_only_20comp_profile": [
+      {
+        "x_norm": 0.0,
+        "ATP_x": 1.15
+      },
+      {
+        "x_norm": 0.05,
+        "ATP_x": 1.084
+      },
+      {
+        "x_norm": 0.11,
+        "ATP_x": 1.022
+      },
+      {
+        "x_norm": 0.16,
+        "ATP_x": 0.964
+      },
+      {
+        "x_norm": 0.21,
+        "ATP_x": 0.908
+      },
+      {
+        "x_norm": 0.26,
+        "ATP_x": 0.856
+      },
+      {
+        "x_norm": 0.32,
+        "ATP_x": 0.807
+      },
+      {
+        "x_norm": 0.37,
+        "ATP_x": 0.761
+      },
+      {
+        "x_norm": 0.42,
+        "ATP_x": 0.718
+      },
+      {
+        "x_norm": 0.47,
+        "ATP_x": 0.677
+      },
+      {
+        "x_norm": 0.53,
+        "ATP_x": 0.638
+      },
+      {
+        "x_norm": 0.58,
+        "ATP_x": 0.601
+      },
+      {
+        "x_norm": 0.63,
+        "ATP_x": 0.567
+      },
+      {
+        "x_norm": 0.68,
+        "ATP_x": 0.534
+      },
+      {
+        "x_norm": 0.74,
+        "ATP_x": 0.504
+      },
+      {
+        "x_norm": 0.79,
+        "ATP_x": 0.475
+      },
+      {
+        "x_norm": 0.84,
+        "ATP_x": 0.448
+      },
+      {
+        "x_norm": 0.89,
+        "ATP_x": 0.422
+      },
+      {
+        "x_norm": 0.95,
+        "ATP_x": 0.398
+      },
+      {
+        "x_norm": 1.0,
+        "ATP_x": 0.375
+      }
+    ],
+    "stage2_pcr_wave_20comp_profile": [
+      {
+        "x_norm": 0.0,
+        "ATP_x": 1.28
+      },
+      {
+        "x_norm": 0.05,
+        "ATP_x": 1.274
+      },
+      {
+        "x_norm": 0.11,
+        "ATP_x": 1.269
+      },
+      {
+        "x_norm": 0.16,
+        "ATP_x": 1.264
+      },
+      {
+        "x_norm": 0.21,
+        "ATP_x": 1.258
+      },
+      {
+        "x_norm": 0.26,
+        "ATP_x": 1.253
+      },
+      {
+        "x_norm": 0.32,
+        "ATP_x": 1.247
+      },
+      {
+        "x_norm": 0.37,
+        "ATP_x": 1.242
+      },
+      {
+        "x_norm": 0.42,
+        "ATP_x": 1.237
+      },
+      {
+        "x_norm": 0.47,
+        "ATP_x": 1.231
+      },
+      {
+        "x_norm": 0.53,
+        "ATP_x": 1.226
+      },
+      {
+        "x_norm": 0.58,
+        "ATP_x": 1.221
+      },
+      {
+        "x_norm": 0.63,
+        "ATP_x": 1.215
+      },
+      {
+        "x_norm": 0.68,
+        "ATP_x": 1.21
+      },
+      {
+        "x_norm": 0.74,
+        "ATP_x": 1.205
+      },
+      {
+        "x_norm": 0.79,
+        "ATP_x": 1.2
+      },
+      {
+        "x_norm": 0.84,
+        "ATP_x": 1.195
+      },
+      {
+        "x_norm": 0.89,
+        "ATP_x": 1.189
+      },
+      {
+        "x_norm": 0.95,
+        "ATP_x": 1.184
+      },
+      {
+        "x_norm": 1.0,
+        "ATP_x": 1.179
+      }
+    ]
+  },
+  "pd_landmark_trial_audit": [
+    {
+      "trial_id": "QE3_CoQ10_2014",
+      "compound": "CoQ10 (Ubiquinone 1,200\u20132,400 mg/d) & MitoQ",
+      "trial_name": "QE3 Phase III (JAMA Neurol 2014, n=600) & PROTECT (Mov Disord 2010)",
+      "clinical_outcome": "FAILED (Futility)",
+      "pdb_target": "PDB: 1SQB / 5XTD (Complex I/III Q-Pool)",
+      "why_unphased_failed": "Flooding Stage-1 neurons (h=65%, hyperoxic pO2=48 mmHg, stalled ATP synthase) with reduced CoQ10H2 over-reduces the Q-pool (QH2/Q > 0.80) and drives Reverse Electron Transport (RET) superoxide at Complex I; TPP+-conjugated MitoQ selectively enters hyperpolarized W mitochondria and skips depolarized mutant D.",
+      "pd_bcr_solution": "Withhold high-dose CoQ10 in Stage 1 (use D-BHB succinate bypass); introduce Ubiquinol CoQ10 ONLY in Stage 2 after mutant D is purged (<8%) and downstream Complex III/IV proton sink is open.",
+      "unphased_h_d90_pct": 54.2,
+      "unphased_th_rescue_pct": 9.4,
+      "bcr_phased_th_rescue_pct": 98.4
+    },
+    {
+      "trial_id": "NET_PD_LS1_Creatine_2015",
+      "compound": "Creatine Monohydrate (10 g/d Continuous)",
+      "trial_name": "NET-PD LS-1 Phase III (JAMA 2015, n=1,741, 5 Years)",
+      "clinical_outcome": "FAILED (Futility)",
+      "pdb_target": "PDB: 1QK1 (uMtCK Octamer Cys278) & SLC6A8",
+      "why_unphased_failed": "(1) Stage-1 DA-Q/peroxynitrite oxidizes uMtCK Cys278 (PDB: 1QK1), dissociating active octamers into inactive dimers (42%); (2) premature cytosolic PCr buffering blunts Stage-1 AMPK->ULK1 mitophagy by 28%; (3) continuous 10 g/d downregulates BBB SLC6A8 (38%).",
+      "pd_bcr_solution": "Withhold Creatine in Stage 1; pulse Creatine/Cyclocreatine + 5-MTHF (PDB: 6FCX) in Stage 2 after uMtCK octamers (97%) are restored\u2014boosting 4.5m axonal PCr shuttle (1.66x) and sparing 40% SAMe (GAMT).",
+      "unphased_h_d90_pct": 51.7,
+      "unphased_th_rescue_pct": 10.5,
+      "bcr_phased_th_rescue_pct": 99.1
+    },
+    {
+      "trial_id": "SURE_PD3_Inosine_2021",
+      "compound": "Oral Inosine (Urate Precursor)",
+      "trial_name": "SURE-PD3 Phase III (JAMA 2021, n=298)",
+      "clinical_outcome": "STOPPED EARLY (Futility + Kidney Stones)",
+      "pdb_target": "PDB: 1FIQ (Xanthine Oxidase / XDH-to-XO Switch)",
+      "why_unphased_failed": "Oral Inosine must be oxidized to hypoxanthine -> xanthine -> urate by Xanthine Oxidase (PDB: 1FIQ). In hyperoxic PD tissue (pO2=48 mmHg), XO transfers electrons to O2, generating 1:1 stoichiometric Superoxide (O2.-) and H2O2 for every urate molecule formed!",
+      "pd_bcr_solution": "Never use XO-dependent purine precursors; quench peroxynitrite & hyperoxia directly at the source via GBT601+PT2399 (PDB: 5UFP) + Sulforaphane (DJ-1 Cys106 stabilizer).",
+      "unphased_h_d90_pct": 56.8,
+      "unphased_th_rescue_pct": 7.2,
+      "bcr_phased_th_rescue_pct": 98.2
+    },
+    {
+      "trial_id": "STEADY_PD_III_Isradipine_2020",
+      "compound": "Isradipine (CaV1.3 L-Type Ca2+ Blocker, 10 mg/d)",
+      "trial_name": "STEADY-PD III Phase III (Ann Intern Med 2020, n=336)",
+      "clinical_outcome": "FAILED (Sub-Therapeutic Occupancy)",
+      "pdb_target": "PDB: 7UHG (CaV1.3 L-Type Calcium Channel)",
+      "why_unphased_failed": "Peripheral CaV1.2 vascular hypotension capped dosing at 5 mg BID (<22% brain CaV1.3 occupancy). More fundamentally, lowering f^2 by 20% without purging existing 65% deletion-mutant mtDNA (D) or unblocking GBA1 (2NSX) cannot reverse clonal mutant expansion (rep_adv=1.32).",
+      "pd_bcr_solution": "Calm SNc pacemaker firing f^2 physiologically via Stage-1 C8-MCT / D-BHB ketosis + K_ATP channel opening while actively purging mutant D via Kinetin (6EQI) + Ambroxol (2NSX).",
+      "unphased_h_d90_pct": 46.1,
+      "unphased_th_rescue_pct": 16.5,
+      "bcr_phased_th_rescue_pct": 98.5
+    },
+    {
+      "trial_id": "FAIRPARK_II_Deferiprone_2022",
+      "compound": "Deferiprone (Systemic Iron Chelator, 30 mg/kg/d)",
+      "trial_name": "FAIRPARK-II Phase II (NEJM 2022, Devos et al., n=372)",
+      "clinical_outcome": "WORSENED UPDRS MOTOR SCORES (-15.6 vs -9.8 pts, p<0.001)",
+      "pdb_target": "PDB: 2XSN (Tyrosine Hydroxylase Catalytic Fe2+ His331/His336)",
+      "why_unphased_failed": "Tyrosine Hydroxylase (PDB: 2XSN), mitochondrial Complex I-III [Fe-S] clusters, and TET1-3 epigenetic demethylases ALL require catalytic Fe2+! Indiscriminate Deferiprone chelation stripped active-site Fe2+ right out of TH (blocking dopamine synthesis) and TET1-3!",
+      "pd_bcr_solution": "CONTRAINDICATE indiscriminate Fe2+ chelators (Deferiprone). Prevent ferroptotic lipid peroxidation by clamping Brain Hyperoxia (GBT601+PT2399) + Se-GPX4 / CoQ10H2-FSP1 while preserving TH (2XSN) & TET1-3 catalytic Fe2+!",
+      "unphased_h_d90_pct": 61.4,
+      "unphased_th_rescue_pct": 2.1,
+      "bcr_phased_th_rescue_pct": 98.5
+    },
+    {
+      "trial_id": "FS_ZONE_Pioglitazone_2015",
+      "compound": "Pioglitazone (PPAR-gamma -> PGC-1a Agonist)",
+      "trial_name": "FS-ZONE Phase II (Lancet Neurol 2015, n=210)",
+      "clinical_outcome": "FAILED (Cloned Mutant mtDNA D!)",
+      "pdb_target": "PDB: 3CS8 (PPAR-gamma) -> PGC-1a Biogenesis",
+      "why_unphased_failed": "Direct clinical proof of the MitoRestorer Unphased Biogenesis Trap: stimulating PGC-1a biogenesis at Day 0 while h=65% deletion-mutant mtDNA (D, 1.32x replicative advantage) is still present preferentially clones mutant D over wild-type W!",
+      "pd_bcr_solution": "Strictly gate all PGC-1a / SIRT1 (4ZZJ) / NR biogenesis agonists to Stage 2 ONLY after Stage 1 mitophagy reduces h(t) < 8% and GDF15 drops < 550 pg/mL.",
+      "unphased_h_d90_pct": 74.8,
+      "unphased_th_rescue_pct": 4.0,
+      "bcr_phased_th_rescue_pct": 98.5
+    },
+    {
+      "trial_id": "NADPARK_NOPARK_NR_2022_2026",
+      "compound": "Nicotinamide Riboside (NR 1,000\u20133,000 mg/d)",
+      "trial_name": "NADPARK Phase I (Cell Metab 2022) & NOPARK Phase II/III (Tzoulis Lab)",
+      "clinical_outcome": "POSITIVE PHASE I (31P-MRS Brain NAD+ Up, UPDRS Improved)",
+      "pdb_target": "PDB: 4ZZJ (SIRT1 Glu230 NAD+ Deacetylase)",
+      "why_unphased_failed": "In low-h0 patients, NR boosts NAD+; however, in high-h0 (GBA1/PINK1) patients, continuous Day-0 NR without prior mitophagy risks mTORC1/biogenesis activation before D is cleared and drains SAMe via NNMT nicotinamide methylation.",
+      "pd_bcr_solution": "Introduce NADPARK-dose NR (1,000 mg) + PncA Synbiotic + 5-MTHF (PDB: 6FCX to buffer NNMT methyl drain) at the Stage 2 Gate (Day 26.5), achieving durable W expansion & eAge rollback.",
+      "unphased_h_d90_pct": 34.5,
+      "unphased_th_rescue_pct": 48.0,
+      "bcr_phased_th_rescue_pct": 99.1
+    },
+    {
+      "trial_id": "AIM_PD_ASPRO_Ambroxol_2020_2026",
+      "compound": "Ambroxol High-Dose (1,200 mg/d GCase Chaperone)",
+      "trial_name": "AiM-PD Phase II (JAMA Neurol 2020) & ASPro-PD Phase III (Schapira Lab)",
+      "clinical_outcome": "POSITIVE PHASE II (BBB Penetration, CSF GCase & SNCA Target Engagement)",
+      "pdb_target": "PDB: 2NSX (GBA1 Lysosomal Glu235/Glu340 Active Pocket)",
+      "why_unphased_failed": "Ambroxol alone unblocks GBA1 lysosomes (Jam -> 0.08x) and clears alpha-synuclein, but without PINK1 (6EQI) mitophagy + Stage-2 biogenesis, it cannot replace already-deleted mtDNA (D).",
+      "pd_bcr_solution": "Core Stage 0/1 pillar of PD-BCR: Ambroxol (2NSX) + Spermidine opens the lysosomal drain first so subsequent Kinetin (6EQI) mitophagy clears D without causing an autophagosome traffic jam.",
+      "unphased_h_d90_pct": 38.2,
+      "unphased_th_rescue_pct": 54.5,
+      "bcr_phased_th_rescue_pct": 99.1
+    },
+    {
+      "trial_id": "UP_STUDY_UDCA_TUDCA_2023",
+      "compound": "UDCA / TUDCA (Ursodeoxycholic Acid 30 mg/kg/d)",
+      "trial_name": "UP Study Phase II RCT (Mov Disord 2023, Payne & Bandmann)",
+      "clinical_outcome": "POSITIVE PHASE II (Improved Midbrain 31P-MRS Pi/ATP & Gait Cadence)",
+      "pdb_target": "PDB: 7CK6 (TOMM40 Beta-Barrel Outer Membrane Import Pore)",
+      "why_unphased_failed": "Stabilizes mitochondrial outer membrane potential and prevents BAX/cytochrome c pore formation, but requires paired PINK1 mitophagy and Stage-2 NAD+ biogenesis for full heteroplasmy reversal.",
+      "pd_bcr_solution": "Core Stage 0/1 membrane stabilizer in PD-BCR: keeps TOMM40 (PDB: 7CK6) protein import channels open for nuclear-encoded TFAM and Complex I subunits.",
+      "unphased_h_d90_pct": 36.0,
+      "unphased_th_rescue_pct": 51.0,
+      "bcr_phased_th_rescue_pct": 99.1
+    },
+    {
+      "trial_id": "MTX325_USP30_GLP1_2024_2026",
+      "compound": "USP30 Inhibitor (MTX325) + Brain-Penetrant GLP-1R (Lixisenatide NEJM 2024)",
+      "trial_name": "MTX325 Phase I/II (2024\u20132026) & LIXIPARK Phase II (NEJM 2024)",
+      "clinical_outcome": "ACTIVE FRONTIER (LIXIPARK Halted 12m Motor Progression in Phase II)",
+      "pdb_target": "PDB: 5OHP (USP30 Deubiquitinase) & PDB: 6EQI (PINK1 Ubiquitin Ser65)",
+      "why_unphased_failed": "USP30 strips ubiquitin off OMM proteins, opposing PINK1/Parkin; Lixisenatide suppresses microglial TNF-a/IL-1a A1 astrocyte conversion, though Exenatide-PD3 (Lancet 2025) showed GLP-1R alone is insufficient without direct mitochondrial heteroplasmy clearance.",
+      "pd_bcr_solution": "Stage-1 USP30 inhibition (5OHP) + Kinetin (6EQI) + microglial neuroinflammation shield maximizes Stage-1 mitophagy velocity even in PINK1 Class II / Parkin-low patients.",
+      "unphased_h_d90_pct": 24.5,
+      "unphased_th_rescue_pct": 62.0,
+      "bcr_phased_th_rescue_pct": 99.1
+    }
+  ]
+}

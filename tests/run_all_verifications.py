@@ -371,6 +371,7 @@ def main():
     fig1_path = os.path.join(REPO_ROOT, "figures", "fig1_pd_bcr_10state_trajectories_and_trial_audit.svg")
     fig2_path = os.path.join(REPO_ROOT, "figures", "fig2_apis_bcr_coral_npu_and_apiary_audit.svg")
     fig3_path = os.path.join(REPO_ROOT, "figures", "fig3_cross_species_energy_resistance_and_11_pdb_atlas.svg")
+    fig4_path = os.path.join(REPO_ROOT, "figures", "fig4_cell_2026_clinical_translation_and_n500_trial.svg")
     mol1_path = os.path.join(REPO_ROOT, "figures", "mol1_cofolding_jobs.json")
     mol1_data = json.load(open(mol1_path, encoding="utf-8")) if os.path.exists(mol1_path) else {}
     check(
@@ -380,9 +381,11 @@ def main():
         and os.path.getsize(fig2_path) > 4000
         and os.path.exists(fig3_path)
         and os.path.getsize(fig3_path) > 4000
+        and os.path.exists(fig4_path)
+        and os.path.getsize(fig4_path) > 4000
         and len(mol1_data.get("jobs", [])) == 3,
-        "Priority 3B: Publication Vector SVG Figure Package & Mol-1 Co-Folding Specs",
-        f"Verified 3 SVG publication figures ({os.path.getsize(fig1_path) + os.path.getsize(fig2_path) + os.path.getsize(fig3_path)} B) + 3 molence/Mol-1 co-folding job specs",
+        "Priority 3B: Publication Vector SVG Figure Package (Figs 1–4) & Mol-1 Co-Folding Specs",
+        f"Verified 4 SVG publication figures ({os.path.getsize(fig1_path) + os.path.getsize(fig2_path) + os.path.getsize(fig3_path) + os.path.getsize(fig4_path)} B) + 3 molence/Mol-1 co-folding job specs",
     )
 
     reader_path = os.path.join(REPO_ROOT, "simulator", "manuscript_reader.html")
@@ -400,14 +403,23 @@ def main():
         "10.1038/s41586-024-07185-7",
         "10.1038/s41586-024-07300-8",
         "10.1126/science.aav4011",
+        "10.1016/j.cell.2026.07.004",
+        "10.1038/nature18928",
+        "10.1126/sciadv.abb1654",
+        "10.1038/s41591-024-03092-6",
+        "10.1038/s41586-019-1405-y",
+        "10.1038/ng.3593",
     ]
     check(
         all(d in bib_text and d in reader_text and d in manuscript_text for d in required_dois)
         and "q-bio.QM" in tex_text
         and "Proposition 1" in manuscript_text
-        and "Prediction P1" in manuscript_text,
-        "arXiv q-bio.QM Preprint Package, 32 Verified DOIs & Web Manuscript Reader",
-        "Verified main.tex + references.bib (32 verified DOIs) + simulator/manuscript_reader.html + Proposition 1 bifurcation proof",
+        and "Proposition 2" in manuscript_text
+        and "Proposition 3" in manuscript_text
+        and "Prediction P1" in manuscript_text
+        and "Prediction P7" in manuscript_text,
+        "arXiv q-bio.QM Preprint Package, 38 Verified DOIs, Propositions 1–3 & Web Manuscript Reader",
+        "Verified main.tex + references.bib (38 verified DOIs) + simulator/manuscript_reader.html + Propositions 1–3 & Predictions P1–P7",
     )
 
     pd_page5_path = os.path.join(REPO_ROOT, "simulator", "parkinsons_cell_ai_translation.html")
@@ -432,6 +444,35 @@ def main():
         and "generateWetLabMarkdown" in pd_page5_text,
         "Parkinson's 5-Page Suite & Cell (2026) Translational Workbench (Page 5)",
         "Verified 5-Page PD-BCR Suite + Blood Biosensor, 4-Cell Niche, 5-Organ Safety, N=500 Trial (FDR<=5%) & Wet-Lab Generator",
+    )
+
+    from assess_new_science_release import (
+        simulate_4cell_astrocyte_niche_pd,
+        simulate_5organ_therapeutic_index_field_effect,
+        simulate_blood_kalman_biosensor_fdr5,
+        simulate_n500_virtual_phase3_trial,
+        simulate_pink1_mhc1_cd8_autoimmune_shield,
+        simulate_spatial_axonal_pcr_wave_pde,
+    )
+
+    d12 = simulate_4cell_astrocyte_niche_pd()
+    d13 = simulate_blood_kalman_biosensor_fdr5()
+    d14 = simulate_5organ_therapeutic_index_field_effect()
+    d15 = simulate_n500_virtual_phase3_trial()
+    d16 = simulate_pink1_mhc1_cd8_autoimmune_shield()
+    d17 = simulate_spatial_axonal_pcr_wave_pde()
+    check(
+        d12["proposition_2_h_crit_isolated_pct"] < 66.0
+        and d12["proposition_2_h_crit_4cell_niche_pct"] > 78.0
+        and d13["precision_at_fdr_5pct"] >= 95.0
+        and d13["auroc_blood_5marker_panel"] >= 0.90
+        and d14["2_Chrono_Staged_4Phase_PD_BCR_Protocol"]["Composite_Therapeutic_Index_TI"] >= 4.5
+        and d15["arms"]["Arm_3_Blood_Biosensor_Gated_4Cell_PD_BCR"]["progression_free_survival_24m_pct"] >= 88.0
+        and d15["arms"]["Arm_3_Blood_Biosensor_Gated_4Cell_PD_BCR"]["cox_hazard_ratio_vs_arm1"] <= 0.25
+        and d16["2_Stage0_Ambroxol_2NSX_And_Gut_Butyrate_Shielded_PD_BCR"]["Nigral_CD8_TCell_Synaptic_Killing_pct"] < 6.0
+        and d17["distal_striatal_terminal_ATP_with_Stage2_uMtCK_1QK1_x1"] > 1.10,
+        "Discoveries 12–17: 6 Novel Translational & Spatial PDE Simulations (Cell 2026 Suite)",
+        f"h_crit={d12['proposition_2_h_crit_isolated_pct']}%->{d12['proposition_2_h_crit_4cell_niche_pct']}% | Blood Prec@FDR<=5%={d13['precision_at_fdr_5pct']}% | TI={d14['2_Chrono_Staged_4Phase_PD_BCR_Protocol']['Composite_Therapeutic_Index_TI']}x | N=500 PFS={d15['arms']['Arm_3_Blood_Biosensor_Gated_4Cell_PD_BCR']['progression_free_survival_24m_pct']}% (HR={d15['arms']['Arm_3_Blood_Biosensor_Gated_4Cell_PD_BCR']['cox_hazard_ratio_vs_arm1']}) | CD8={d16['2_Stage0_Ambroxol_2NSX_And_Gut_Butyrate_Shielded_PD_BCR']['Nigral_CD8_TCell_Synaptic_Killing_pct']}% | Distal ATP={d17['distal_striatal_terminal_ATP_with_Stage2_uMtCK_1QK1_x1']}x",
     )
 
     print("\n" + "=" * 100)

@@ -205,7 +205,7 @@ textarea:focus {
  * 2. EDITORIAL INK TYPOGRAPHY & BORDER MAPPING
  * ============================================================================ */
 
-.text-white:not(.bg-emerald-600):not(.bg-cyan-600):not(.bg-purple-600):not(.bg-rose-600),
+.text-white:not(.bg-emerald-600):not(.bg-emerald-700):not(.bg-emerald-800):not(.bg-cyan-600):not(.bg-cyan-700):not(.bg-purple-600):not(.bg-rose-600),
 .text-slate-50,
 .text-slate-100 {
   color: #0f172a !important;
@@ -278,12 +278,18 @@ textarea:focus {
 }
 
 /* Solid Emerald CTA Buttons */
+.bg-emerald-800,
+.bg-emerald-700,
+.bg-emerald-600,
 .bg-emerald-500,
 .bg-emerald-400 {
   background-color: #0d6e52 !important;
   color: #ffffff !important;
   border-color: #065f46 !important;
 }
+.bg-emerald-800:hover,
+.bg-emerald-700:hover,
+.bg-emerald-600:hover,
 .bg-emerald-500:hover,
 .bg-emerald-400:hover {
   background-color: #065f46 !important;

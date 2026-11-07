@@ -410,6 +410,30 @@ def main():
         "Verified main.tex + references.bib (32 verified DOIs) + simulator/manuscript_reader.html + Proposition 1 bifurcation proof",
     )
 
+    pd_page5_path = os.path.join(REPO_ROOT, "simulator", "parkinsons_cell_ai_translation.html")
+    pd_page5_text = open(pd_page5_path, encoding="utf-8").read() if os.path.exists(pd_page5_path) else ""
+    cell_roadmap_path = os.path.join(REPO_ROOT, "docs", "cell_2026_15_challenges_expansion_roadmap.md")
+    cell_roadmap_text = open(cell_roadmap_path, encoding="utf-8").read() if os.path.exists(cell_roadmap_path) else ""
+    pd_suite_pages = [
+        "parkinsons_simulator.html",
+        "parkinsons_patients.html",
+        "parkinsons_trials.html",
+        "parkinsons_breakthroughs.html",
+        "parkinsons_cell_ai_translation.html",
+    ]
+    check(
+        all(os.path.exists(os.path.join(REPO_ROOT, "simulator", fn)) for fn in pd_suite_pages)
+        and "10.1016/j.cell.2026.07.004" in pd_page5_text
+        and "10.1016/j.cell.2026.07.004" in cell_roadmap_text
+        and "updateBloodBiosensor" in pd_page5_text
+        and "updateNicheSimulation" in pd_page5_text
+        and "updateSafetyMatrix" in pd_page5_text
+        and "updateVirtualTrial" in pd_page5_text
+        and "generateWetLabMarkdown" in pd_page5_text,
+        "Parkinson's 5-Page Suite & Cell (2026) Translational Workbench (Page 5)",
+        "Verified 5-Page PD-BCR Suite + Blood Biosensor, 4-Cell Niche, 5-Organ Safety, N=500 Trial (FDR<=5%) & Wet-Lab Generator",
+    )
+
     print("\n" + "=" * 100)
     print(f"✅ VERIFICATION SUMMARY: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
     print("=" * 100)

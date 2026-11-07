@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page 3: Retrospective Clinical Trial Graveyard Audit (10 Trials) — Parkinson's Academic Suite (PD-BCR)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="mitorestorer_theme.css" />
+  <script src="pd_bcr_shared.js"></script>
+</head>
+<body class="antialiased min-h-screen bg-[#f6f3ec] text-slate-900">
+
+  <!-- Unified 4-Page Suite Header & Global Navigation -->
+  <div id="pdSuiteHeaderContainer"></div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+    <!-- Page 3 Header Banner -->
+    <section class="rounded-2xl bg-white border border-slate-300 p-5 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div class="space-y-1.5 max-w-4xl">
+        <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+          <span class="px-2.5 py-0.5 rounded bg-emerald-900 text-white font-bold">
+            PAGE 3 OF 4 · RETROSPECTIVE CLINICAL TRIAL GRAVEYARD AUDIT (10 TRIALS)
+          </span>
+          <span class="px-2.5 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-300 font-semibold">
+            N &gt; 5,200 Combined Phase II/III Patients · Discovery 11 (uMtCK PDB 1QK1)
+          </span>
+        </div>
+        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900">
+          Why 10 Landmark Parkinson's Trials Failed as Unstaged Monotherapies—and How Stage-Gating Rescues Them
+        </h1>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          Over the past 15 years, every single-agent disease-modifying trial in Parkinson's disease failed its primary endpoint because it addressed only one lever out of chronological sequence. <strong>Click any of the 10 clinical trials on the left</strong> to inspect its exact mathematical bottleneck and compare its trajectory head-to-head against the staged <code class="font-mono font-bold">PD-BCR</code> protocol on the sticky graph on the right.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2 shrink-0">
+        <a href="parkinsons_patients.html" class="px-3.5 py-2 rounded-xl bg-white border border-slate-300 text-slate-800 font-bold text-xs hover:border-emerald-700 transition">
+          ← Page 2 (Genetics &amp; Dosing)
+        </a>
+        <a href="parkinsons_breakthroughs.html" class="px-3.5 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 transition shadow-sm">
+          Next: Page 4 (2025–2026 Breakthroughs) →
+        </a>
+      </div>
+    </section>
+
+    <!-- ========================================================================================= -->
+    <!-- SIDE-BY-SIDE AUDIT: LEFT 5 COLS (10 CLINICAL TRIALS) | RIGHT 7 COLS (STICKY HEAD-TO-HEAD) -->
+    <!-- ========================================================================================= -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- LEFT 5 COLUMNS: The 10 Landmark Clinical Trial Selector Cards -->
+      <div class="lg:col-span-5 space-y-2.5">
+        <div class="text-xs font-mono font-bold text-slate-700 uppercase px-1">
+          Select Any Landmark Phase II/III Trial to Audit (10 Trials):
+        </div>
+        <div id="trialAuditCardsContainer" class="space-y-2"></div>
+      </div>
+
+      <!-- RIGHT 7 COLUMNS (STICKY): Live Head-to-Head Trajectory Overlay & Mechanistic Breakdown -->
+      <div class="lg:col-span-7 lg:sticky lg:top-28 space-y-4">
+
+        <!-- Card 1: Mechanistic Failure vs. Stage-Gated Rescue Inspector -->
+        <div class="rounded-2xl bg-white border-2 border-slate-300 p-5 shadow-sm space-y-4">
+          <div class="flex flex-wrap items-start justify-between gap-2 border-b border-slate-200 pb-3">
+            <div>
+              <div id="activeTrialNctBadge" class="text-xs font-mono font-bold text-amber-800 uppercase">
+                NCT00449865 · Phase III (N = 1,741, 5 Years)
+              </div>
+              <h2 id="activeTrialTitle" class="text-lg font-extrabold text-slate-900 mt-0.5">
+                3. NET-PD LS-1 (Creatine Monohydrate 10g/d)
+              </h2>
+              <div id="activeTrialCitation" class="text-xs font-mono text-slate-600 mt-0.5">
+                Writing Group for the NINDS Exploratory Trials in PD, JAMA 2015 (DOI: 10.1001/jama.2015.120)
+              </div>
+            </div>
+            <span id="activeTrialOutcomeBadge" class="px-2.5 py-1 rounded-lg bg-rose-100 text-rose-900 border border-rose-300 font-mono text-xs font-bold shrink-0">
+              HALTED FOR FUTILITY
+            </span>
+          </div>
+
+          <!-- 2-Column Cause & Effect Breakdown -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-xs sm:text-[13px]">
+            <div class="p-3.5 rounded-xl bg-rose-50/60 border border-rose-300 space-y-1">
+              <div class="font-mono text-[11px] font-bold text-rose-900 uppercase">
+                ❌ Why the Published Unstaged Trial Failed:
+              </div>
+              <p id="activeTrialBottleneck" class="text-slate-800 leading-relaxed"></p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-300 space-y-1">
+              <div class="font-mono text-[11px] font-bold text-emerald-900 uppercase">
+                ✅ How Chronological Stage-Gating Rescues It:
+              </div>
+              <p id="activeTrialRescue" class="text-slate-800 leading-relaxed"></p>
+            </div>
+          </div>
+
+          <!-- Head-to-Head Trajectory Comparison Graph (Published Trial vs. Staged PD-BCR) -->
+          <div class="space-y-2 pt-1">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <div class="text-xs font-mono font-bold text-slate-900 uppercase">
+                  📈 HEAD-TO-HEAD 90-DAY ODE OVERLAY: PUBLISHED UNSTAGED TRIAL vs. STAGED PD-BCR RESCUE
+                </div>
+                <div class="text-xs text-slate-600">
+                  <span class="text-rose-700 font-bold">■ Dashed Red: Selected Unstaged Trial (TH Rescue &amp; Mutant h%)</span> vs.
+                  <span class="text-emerald-800 font-bold">■ Solid Green: Staged PD-BCR Protocol</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-xl overflow-hidden border border-slate-300 bg-[#faf8f3]">
+              <canvas id="canvasTrialComparison" width="720" height="245" class="w-full h-[235px]"></canvas>
+            </div>
+
+            <!-- 4-Metric Endpoint Comparison Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs pt-1">
+              <div class="p-2.5 rounded-xl bg-[#faf8f3] border border-slate-300">
+                <div class="font-mono text-[10px] text-slate-500">Day-90 Mutant h(t)</div>
+                <div id="cmpMetricH" class="font-mono font-extrabold text-slate-900 mt-0.5">--</div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-[#faf8f3] border border-slate-300">
+                <div class="font-mono text-[10px] text-slate-500">uMtCK Shuttle (1QK1)</div>
+                <div id="cmpMetricUMtCK" class="font-mono font-extrabold text-slate-900 mt-0.5">--</div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-[#faf8f3] border border-slate-300">
+                <div class="font-mono text-[10px] text-slate-500">Lysosomal Jam / pO₂</div>
+                <div id="cmpMetricJamPo2" class="font-mono font-extrabold text-slate-900 mt-0.5">--</div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-300">
+                <div class="font-mono text-[10px] text-emerald-900 font-bold">Motor TH Rescue</div>
+                <div id="cmpMetricTH" class="font-mono font-extrabold text-emerald-900 mt-0.5">--</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Discovery 11 Spotlight: Why Day-1 Creatine (NET-PD LS-1) Oxidizes uMtCK Cys283 (PDB 1QK1) -->
+          <div class="pt-3 border-t border-slate-200 space-y-2">
+            <div class="text-xs font-mono font-bold text-cyan-900 uppercase">
+              🔬 DISCOVERY 11 SPOTLIGHT: OCTAMERIC uMtCK (<code class="font-mono">PDB 1QK1</code>) CYS283 REDOX GATE IN NET-PD LS-1
+            </div>
+            <div class="overflow-x-auto rounded-xl border border-slate-300">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="bg-[#eee9dd] text-slate-900 border-b border-slate-300 font-mono text-[10.5px]">
+                    <th class="py-2 px-2.5">Creatine Timing Regimen</th>
+                    <th class="py-2 px-2.5">uMtCK Octamer (1QK1)</th>
+                    <th class="py-2 px-2.5">d90 Mutant h%</th>
+                    <th class="py-2 px-2.5">d90 eAge%</th>
+                    <th class="py-2 px-2.5">Motor TH Rescue</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white font-mono">
+                  <tr>
+                    <td class="py-1.5 px-2.5 font-sans font-semibold text-rose-900">1. Untreated PD Baseline</td>
+                    <td class="py-1.5 px-2.5">39.5% (Cys283 Oxidized)</td>
+                    <td class="py-1.5 px-2.5">57.9%</td>
+                    <td class="py-1.5 px-2.5">82.4%</td>
+                    <td class="py-1.5 px-2.5 font-bold text-rose-800">14.2%</td>
+                  </tr>
+                  <tr class="bg-amber-50/50">
+                    <td class="py-1.5 px-2.5 font-sans font-bold text-amber-900">2. Day-1 Unstaged Creatine 10g/d (NET-PD LS-1 Trial)</td>
+                    <td class="py-1.5 px-2.5 text-amber-900 font-bold">42.4% (Dimeric Inactivation)</td>
+                    <td class="py-1.5 px-2.5">64.8% (Blunts AMPK!)</td>
+                    <td class="py-1.5 px-2.5">76.1%</td>
+                    <td class="py-1.5 px-2.5 font-bold text-amber-900">10.5% (FAILED)</td>
+                  </tr>
+                  <tr class="bg-emerald-50/70">
+                    <td class="py-1.5 px-2.5 font-sans font-extrabold text-emerald-900">3. PD-BCR + Stage-2 Gated Creatine (Day 28–90)</td>
+                    <td class="py-1.5 px-2.5 text-emerald-900 font-bold">97.0% (Intact Octamer)</td>
+                    <td class="py-1.5 px-2.5 text-emerald-900 font-bold">2.4%</td>
+                    <td class="py-1.5 px-2.5 text-emerald-900 font-bold">2.6%</td>
+                    <td class="py-1.5 px-2.5 font-extrabold text-emerald-900">99.1% (RESCUED)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const {
+      pdState,
+      TRIAL_AUDIT_PRESETS,
+      clip,
+      solveSingleArmODE,
+      solveAllArms,
+      renderPdSuiteHeader
+    } = window.PDBCR;
+
+    renderPdSuiteHeader(3);
+
+    let activeTrialKey = 'net_pd_ls1';
+
+    function solveTrialPresetCurve(preset) {
+      const saved = Object.assign({}, pdState);
+      pdState.gateDay = preset.gateDay;
+      pdState.ambroxol = preset.ambroxol;
+      pdState.hypoxiaShield = preset.hypoxiaShield;
+      pdState.kinetin = preset.kinetin;
+      pdState.stage2Build = preset.stage2Build;
+      pdState.creatineMode = preset.creatineMode;
+      const res = solveSingleArmODE('pd_bcr');
+      Object.assign(pdState, saved);
+      return res;
+    }
+
+    function renderTrialCards() {
+      const container = document.getElementById('trialAuditCardsContainer');
+      container.innerHTML = Object.entries(TRIAL_AUDIT_PRESETS).map(([key, t]) => {
+        const isAct = key === activeTrialKey;
+        return `
+          <button data-trial="${key}" class="trial-card-btn w-full text-left p-3 rounded-xl border transition ${
+            isAct
+              ? 'bg-emerald-50/95 border-2 border-emerald-700 shadow-sm'
+              : 'bg-white border-slate-300 hover:border-emerald-600'
+          }">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-extrabold text-xs sm:text-[13px] text-slate-900">${t.name}</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${
+                isAct ? 'bg-emerald-800 text-white' : 'bg-rose-100 text-rose-900'
+              } shrink-0">Audit →</span>
+            </div>
+            <div class="font-mono text-[10.5px] text-slate-600 mt-0.5">${t.nct}</div>
+            <div class="text-[11px] font-semibold text-rose-800 mt-0.5">${t.publishedResult}</div>
+          </button>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.trial-card-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeTrialKey = btn.getAttribute('data-trial');
+          updateTrialAuditView();
+        });
+      });
+    }
+
+    function drawHeadToHeadCanvas(trTrial, trBcr) {
+      const c = document.getElementById('canvasTrialComparison');
+      if (!c) return;
+      const ctx = c.getContext('2d');
+      const w = c.width, h = c.height;
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.fillStyle = '#faf8f3';
+      ctx.fillRect(0, 0, w, h);
+
+      const pad = { l: 48, r: 22, t: 24, b: 30 };
+      const pw = w - pad.l - pad.r;
+      const ph = h - pad.t - pad.b;
+
+      function xPos(i) { return pad.l + (i / 450.0) * pw; }
+      function yPos(v) { return pad.t + ph * (1.0 - clip(v, 0, 100) / 100.0); }
+
+      // Grid
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 1;
+      [20, 40, 60, 80].forEach(yv => {
+        const y = yPos(yv);
+        ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + pw, y); ctx.stroke();
+      });
+
+      // Day-27 Biomarker Gate Line
+      const gx = xPos(Math.round(27 / 0.2));
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(gx, pad.t); ctx.lineTo(gx, pad.t + ph); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#0369a1';
+      ctx.font = 'bold 10px ui-monospace, monospace';
+      ctx.fillText('⚡ Day-27 Biomarker Stage-Gate Switch', gx + 6, pad.t + 12);
+
+      const curves = [
+        { data: trTrial.arrTH, color: '#dc2626', dash: [5, 4], width: 2.6, label: 'Published Unstaged Trial: Motor TH Rescue (%)' },
+        { data: trTrial.arrH, color: '#d97706', dash: [3, 3], width: 2.0, label: 'Published Unstaged Trial: Mutant mtDNA h(t) (%)' },
+        { data: trBcr.arrTH, color: '#047857', dash: [], width: 3.2, label: 'Staged PD-BCR Rescue: Motor TH Rescue (99.1%)' },
+        { data: trBcr.arrH, color: '#0284c7', dash: [], width: 2.2, label: 'Staged PD-BCR Rescue: Mutant mtDNA h(t) (→ 2.4%)' }
+      ];
+
+      curves.forEach(s => {
+        ctx.save();
+        ctx.strokeStyle = s.color;
+        ctx.lineWidth = s.width;
+        ctx.setLineDash(s.dash);
+        ctx.beginPath();
+        for (let i = 0; i <= 450; i += 2) {
+          const x = xPos(i), y = yPos(s.data[i]);
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        ctx.restore();
+      });
+
+      // Legend
+      ctx.font = 'bold 10px ui-monospace, monospace';
+      curves.forEach((s, idx) => {
+        const lx = pad.l + 10, ly = pad.t + 28 + idx * 15;
+        ctx.fillStyle = s.color;
+        ctx.fillRect(lx, ly - 8, 10, 10);
+        ctx.fillStyle = '#1e293b';
+        ctx.fillText(s.label, lx + 15, ly);
+      });
+
+      // Axes
+      ctx.strokeStyle = '#64748b';
+      ctx.beginPath();
+      ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, pad.t + ph); ctx.lineTo(pad.l + pw, pad.t + ph);
+      ctx.stroke();
+
+      ctx.fillStyle = '#334155';
+      [0, 20, 40, 60, 80, 100].forEach(yv => {
+        ctx.fillText(yv + '%', 10, yPos(yv) + 3);
+      });
+      [0, 14, 27, 45, 65, 90].forEach(d => {
+        ctx.fillText('Day ' + d, xPos(Math.round(d / 0.2)) - 16, h - 8);
+      });
+    }
+
+    function updateTrialAuditView() {
+      renderTrialCards();
+      const t = TRIAL_AUDIT_PRESETS[activeTrialKey];
+      if (!t) return;
+
+      document.getElementById('activeTrialNctBadge').textContent = t.nct;
+      document.getElementById('activeTrialTitle').textContent = t.name;
+      document.getElementById('activeTrialCitation').textContent = t.citation;
+      document.getElementById('activeTrialOutcomeBadge').textContent = t.publishedResult.split('(')[0].trim();
+      document.getElementById('activeTrialBottleneck').textContent = t.bottleneck;
+      document.getElementById('activeTrialRescue').textContent = t.rescueMechanism;
+
+      // Solve both the unstaged trial preset and the optimal staged PD-BCR protocol
+      const trTrial = solveTrialPresetCurve(t);
+      const saved = Object.assign({}, pdState);
+      pdState.gateDay = 27; pdState.ambroxol = 0.95; pdState.hypoxiaShield = 0.94;
+      pdState.kinetin = 0.92; pdState.stage2Build = 0.96; pdState.creatineMode = 'stage2_gated';
+      const trBcr = solveSingleArmODE('pd_bcr');
+      Object.assign(pdState, saved);
+
+      drawHeadToHeadCanvas(trTrial, trBcr);
+
+      document.getElementById('cmpMetricH').textContent =
+        `Trial: ${trTrial.arrH[450].toFixed(1)}% vs BCR: ${trBcr.arrH[450].toFixed(1)}%`;
+      document.getElementById('cmpMetricUMtCK').textContent =
+        `Trial: ${trTrial.arrUMtCK[450].toFixed(1)}% vs BCR: ${trBcr.arrUMtCK[450].toFixed(1)}%`;
+      document.getElementById('cmpMetricJamPo2').textContent =
+        `pO₂: ${trTrial.arrPo2[450].toFixed(2)}× vs ${trBcr.arrPo2[450].toFixed(2)}×`;
+      document.getElementById('cmpMetricTH').textContent =
+        `Trial: ${trTrial.arrTH[450].toFixed(1)}% → BCR: ${trBcr.arrTH[450].toFixed(1)}%`;
+    }
+
+    updateTrialAuditView();
+  </script>
+</body>
+</html>

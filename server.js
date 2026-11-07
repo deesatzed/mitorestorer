@@ -10,7 +10,7 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = parseInt(process.env.PORT || '8080', 10);
+const PORT = parseInt(process.env.PORT || '3000', 10);
 const ROOT_DIR = __dirname;
 const GITHUB_FEED_URL = 'https://raw.githubusercontent.com/deesatzed/mitorestorer/main/docs/weekly_science_radar_feed.json';
 

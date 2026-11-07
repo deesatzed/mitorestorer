@@ -879,7 +879,8 @@ for arm in [
     neuro_results["parkinsons"].append(r)
     print(f"  [Parkinsons] {arm:38s} | h={r['h_day90']:4.1f}% | pO2={r['pO2_SNc_day90']:.2f}x | Jam d25={r['Auto_Jam_day25']:.2f}->d90={r['Auto_Jam_day90']:.2f} | DA-Q={r['DA_Q_day90']:.2f} | SNCA={r['SNCA_agg_day90']:.2f} | TH Tone={r['TH_Dopamine_Tone_day90']:.2f}x | Rescue={r['Motor_Score_Rescue_Pct']:4.1f}% (Sw d{r['switch_day']})")
 
-with open("/Users/o2satz/.gemini/antigravity/brain/e55fbd0d-7b92-471e-b9ba-63a180b98a1f/scratch/data/bcr_neuropsychiatric_results.json", "w") as f:
+import os
+with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "bcr_neuropsychiatric_results.json"), "w") as f:
     json.dump(neuro_results, f, indent=2)
 
 
@@ -1131,7 +1132,7 @@ for arm in [
     apis_results.append(r)
     print(f"  [Apis-BCR]   {arm:52s} | h={r['h_day14_pct']:4.1f}% | Qo-Block={r['Strobilurin_Qo_Block_day14_pct']:4.1f}% | S.alvi={r['Snodgrassella_alvi_Colonization_x']:.2f}x | Flight EP={r['Peak_Flight_EP_Stress']:4.1f} | ATP={r['Thoracic_Flight_ATP_day14_x']:.2f}x | Homing={r['Forager_Homing_Survival_pct']:4.1f}% (Sw d{r['switch_day']})")
 
-with open("/Users/o2satz/.gemini/antigravity/scratch/mitorestorer/data/bcr_cross_species_cart_apis.json", "w") as f:
+with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "bcr_cross_species_cart_apis.json"), "w") as f:
     json.dump({"cart_bioreactor": cart_results, "apis_honeybee": apis_results}, f, indent=2)
 
 

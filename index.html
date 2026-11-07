@@ -26,29 +26,39 @@
         </span>
       </div>
       <nav class="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-300">
-        <a href="simulator/parkinsons_simulator.html" class="px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-extrabold hover:bg-emerald-400 transition shadow-sm">
-          🧠 Flagship #1: Parkinson's (10-State ODE + 10-Trial Audit) →
-        </a>
+        <details class="relative group">
+          <summary class="list-none cursor-pointer px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-extrabold hover:bg-emerald-400 transition shadow-sm">
+            🧠 Flagship #1: Parkinson's 5-Page Suite ▾
+          </summary>
+          <div class="absolute right-0 mt-1.5 w-80 rounded-xl bg-slate-950 border border-slate-700 shadow-2xl p-2 z-50 space-y-1 text-xs">
+            <div class="px-2 py-1 text-[10px] font-mono text-emerald-400 uppercase font-bold">Parkinson's 5-Page Academic Suite (PD-BCR)</div>
+            <a href="simulator/parkinsons_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-white font-bold">1. Pathophysiology, Selective Purge &amp; 4-Phase Protocol</a>
+            <a href="simulator/parkinsons_patients.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-slate-200">2. Patient Genetics, Dosing Sliders &amp; 10-State ODE</a>
+            <a href="simulator/parkinsons_trials.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-slate-200">3. Retrospective Audit of 10 Failed PD Trials</a>
+            <a href="simulator/parkinsons_breakthroughs.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-slate-200">4. 2025–2026 Breakthroughs, Sweeps &amp; 3D PDBs</a>
+            <a href="simulator/parkinsons_cell_ai_translation.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-emerald-300 font-bold">5. Blood Biosensor, 4-Cell Niche, 5-Organ Safety &amp; N=500 Trial</a>
+          </div>
+        </details>
         <a href="simulator/apis_honeybee_simulator.html" class="px-3 py-1.5 rounded-lg bg-amber-400 text-slate-950 font-extrabold hover:bg-amber-300 transition shadow-sm">
-          🐝 Flagship #2: Apis-BCR (10-State ODE + 4.05 mW Coral NPU) →
-        </a>
-        <a href="simulator/science_radar_sandbox.html" class="px-3 py-1.5 rounded-lg bg-cyan-400 text-slate-950 font-extrabold hover:bg-cyan-300 transition shadow-sm">
-          🛰️ AI Science Radar Lab →
+          🐝 Flagship #2: Apis-BCR &amp; Coral NPU →
         </a>
         <details class="relative group">
           <summary class="list-none cursor-pointer px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition font-mono">
-            📂 Exploratory Cohorts Archive ▾
+            🧬 Other Clinical &amp; Bioreactor Cohorts (5) ▾
           </summary>
           <div class="absolute right-0 mt-1.5 w-64 rounded-xl bg-slate-950 border border-slate-700 shadow-2xl p-2 z-50 space-y-1 text-[11px]">
-            <div class="px-2 py-1 text-[10px] font-mono text-slate-400 uppercase">Exploratory Secondary Cohorts</div>
+            <div class="px-2 py-1 text-[10px] font-mono text-slate-400 uppercase">Dedicated Single-Cohort Models</div>
             <a href="simulator/cart_bioreactor_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-cyan-300">🧫 CAR-T GMP Bioreactor (240h)</a>
             <a href="simulator/alzheimers_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-slate-200">🧬 Prodromal APOE4 Alzheimer's</a>
             <a href="simulator/epilepsy_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-slate-200">⚡ Refractory Epilepsy (PV+)</a>
             <a href="simulator/depression_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-slate-200">🔬 Treatment-Resistant MDD</a>
             <a href="simulator/sarcopenia_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-slate-200">💪 Sarcopenia &amp; Metabolic</a>
-            <a href="simulator/bcr_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-purple-300 border-t border-slate-800 mt-1 pt-1.5">🔬 Multi-Cohort Master Suite</a>
+            <a href="simulator/bcr_simulator.html" class="block px-2.5 py-1.5 rounded-lg hover:bg-slate-900 text-purple-300 border-t border-slate-800 mt-1 pt-1.5">📐 Cross-Cohort Comparative View</a>
           </div>
         </details>
+        <a href="simulator/science_radar_sandbox.html" class="px-3 py-1.5 rounded-lg bg-cyan-400 text-slate-950 font-extrabold hover:bg-cyan-300 transition shadow-sm">
+          🛰️ AI Science Radar →
+        </a>
       </nav>
     </div>
   </header>
@@ -77,10 +87,10 @@
             <strong>MitoRestorer v3.0</strong> unifies cross-species biophysical ODE simulation with the <strong>Google Science &amp; DeepMind Bio-AI Stack</strong> (<strong>11 PDB/AlphaFold 3D structures</strong>, <strong>AlphaMissense + Ensembl VEP</strong>, <strong>AlphaGenome Atlas non-coding regulatory scoring</strong>, and <strong>Gemini 3.8 Flash dynamic literature-to-ODE compilation</strong>) across our <strong>Dual-Flagship Workstations</strong>—<strong>Flagship #1: Parkinson's Disease (<code>PD-BCR</code>, 10-State Live ODE + 10-Trial Clinical Graveyard Audit + Custom Patient Lab/SNP Intake &amp; 1-Page Clinical Dossier Export)</strong> and <strong>Flagship #2: Honeybee Colony Rescue (<code>Apis-BCR</code>, 10-State Live ODE + 4.05 mW Solar Google Coral NPU + Custom Hive Sensor Intake &amp; Apiary Field Dossier Export)</strong>—plus <strong>Ex Vivo CAR-T Biomanufacturing (<code>Bioreactor-BCR</code>)</strong> and 4 exploratory human cohorts.
           </p>
 
-          <!-- Primary CTA Buttons: Dual Flagships (PD-BCR & Apis-BCR) + Dynamic Science Radar -->
+          <!-- Primary CTA Buttons: Dual Flagships (PD-BCR 5-Page Suite & Apis-BCR) + Dynamic Science Radar -->
           <div class="flex flex-wrap items-center gap-2.5 pt-1">
-            <a href="simulator/parkinsons_simulator.html" class="px-4 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-extrabold text-xs sm:text-sm hover:bg-emerald-400 transition shadow-lg">
-              🧠 Launch Flagship #1: Parkinson's 10-State Live ODE + 10-Trial Audit →
+            <a href="simulator/parkinsons_simulator.html" class="px-4 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-extrabold text-xs sm:text-sm hover:bg-emerald-400 transition shadow-lg flex items-center gap-2">
+              <span>🧠 Launch Flagship #1: Parkinson's 5-Page Academic Suite →</span>
             </a>
             <a href="simulator/apis_honeybee_simulator.html" class="px-4 py-2.5 rounded-xl bg-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm hover:bg-amber-300 transition shadow-lg">
               🐝 Launch Flagship #2: Apis-BCR Smart Hive (10-State ODE + 4.05 mW Coral NPU) →
@@ -230,24 +240,41 @@
 
       <!-- Primary Spotlight Grid: Flagship #1 (Parkinson's), Flagship #2 (Apis-BCR), and AI Science Radar Lab -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <!-- Card 1: Flagship #1 Parkinson's Disease -->
+        <!-- Card 1: Flagship #1 Parkinson's Disease (5-Page Academic Suite) -->
         <div class="p-6 rounded-2xl bg-slate-950 border-2 border-emerald-400 flex flex-col justify-between space-y-4 shadow-xl">
           <div class="space-y-2.5">
             <div class="flex items-center justify-between">
               <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-200 border border-emerald-400 text-xs font-mono font-bold">
-                ★ FLAGSHIP #1 · 10-STATE LIVE ODE
+                ★ FLAGSHIP #1 · 5-PAGE ACADEMIC SUITE
               </span>
               <span class="text-xs font-mono text-emerald-300 font-bold">99.1% TH · 2.6% eAge</span>
             </div>
             <h3 class="text-lg font-extrabold text-white">
-              🧠 Parkinson's Disease (`PD-BCR`), 10-Trial Audit &amp; 5 Genotypes
+              🧠 Parkinson's Disease (<code>PD-BCR</code>) 5-Page Academic Suite
             </h3>
             <p class="text-xs text-slate-300 leading-relaxed">
-              Integrates <code>10 coupled ODEs</code> (<code>451 steps</code>) across <code>W(t)</code>, <code>D(t)</code>, <code>GBA1 Jam (2NSX)</code>, <code>Brain pO₂ (5UFP)</code>, <code>DA-Q</code>, <code>SNCA</code>, <code>GDF15</code>, <code>α-KG:Succinate</code>, <code>Epigenetic Clock eAge(t)</code>, and <code>TH Rescue</code>. Includes <strong>4 Science Injectors</strong> (<code>Mootha GBT601</code>, <code>Berg 2026 acel.70751</code>, <code>VDAC1</code>, <code>uMtCK 1QK1 Creatine</code>), <strong>10-Trial Graveyard Audit</strong>, and <strong>5 Patient Genotypes</strong>.
+              Organized into <strong>5 dedicated, uncrowded pages</strong> with side-by-side cause-and-effect visuals:
             </p>
+            <div class="space-y-1.5 text-xs pt-1">
+              <a href="simulator/parkinsons_simulator.html" class="block p-2 rounded-lg bg-slate-900 border border-slate-700 hover:border-emerald-400 text-slate-200 font-semibold transition">
+                <strong>Page 1:</strong> Pathophysiology, Selective Purge &amp; 4-Phase Survival Proof →
+              </a>
+              <a href="simulator/parkinsons_patients.html" class="block p-2 rounded-lg bg-slate-900 border border-slate-700 hover:border-emerald-400 text-slate-200 font-semibold transition">
+                <strong>Page 2:</strong> Patient Genetics (5 Subtypes), Dosing &amp; 10-State ODE →
+              </a>
+              <a href="simulator/parkinsons_trials.html" class="block p-2 rounded-lg bg-slate-900 border border-slate-700 hover:border-emerald-400 text-slate-200 font-semibold transition">
+                <strong>Page 3:</strong> Retrospective Audit of 10 Failed Clinical Trials →
+              </a>
+              <a href="simulator/parkinsons_breakthroughs.html" class="block p-2 rounded-lg bg-slate-900 border border-slate-700 hover:border-emerald-400 text-slate-200 font-semibold transition">
+                <strong>Page 4:</strong> 2025–2026 Breakthroughs, 9-Point Sweeps &amp; 3D PDBs →
+              </a>
+              <a href="simulator/parkinsons_cell_ai_translation.html" class="block p-2 rounded-lg bg-emerald-950/70 border border-emerald-500/60 hover:border-emerald-300 text-emerald-200 font-semibold transition">
+                <strong>Page 5 (New · <em>Cell</em> 2026):</strong> Blood Biosensor, 4-Cell Niche, 5-Organ Safety &amp; N=500 Trial →
+              </a>
+            </div>
           </div>
           <a href="simulator/parkinsons_simulator.html" class="w-full py-2.5 px-4 rounded-xl bg-emerald-400 text-slate-950 font-extrabold text-xs text-center hover:bg-emerald-300 transition shadow-lg">
-            Launch Flagship #1: Parkinson's Workstation →
+            Launch Page 1: Parkinson's 5-Page Academic Suite →
           </a>
         </div>
 

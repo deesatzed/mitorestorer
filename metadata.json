@@ -1,5 +1,1 @@
-{
-  "name": "MitoRestorer v3.0 — Bioenergetic Circuit Restoration Showcase",
-  "description": "Cross-species biophysics simulation platform (EP = eR * f^2), 11-structure 3D PDB/Mol-1 atlas, Google Coral NPU acoustic edge inference, and 9-app interactive simulator suite across Human Parkinson's (SNc) and Honeybee (Apis mellifera).",
-  "requestFramePermissions": []
-}
+{"name":"mitorestorer","description":"Cross-species biophysics simulation platform (EP \u003d eR * f^2), 11-structure 3D PDB/Mol-1 atlas, Google Coral NPU acoustic edge inference, and 9-app interactive simulator suite across Human Parkinson\u0027s (SNc) and Honeybee (Apis mellifera).","requestFramePermissions":[]}

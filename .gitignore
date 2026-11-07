@@ -1,3 +1,11 @@
-
 __pycache__/
 *.pyc
+.env
+.DS_Store
+.aistudio/
+.antigravity/
+.vscode/
+public/assets/aistudio/
+bun.lock
+
+

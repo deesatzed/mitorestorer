@@ -43,3 +43,14 @@
 | **2. Mitophagy & Mucosal Non-Secretor** | *PINK1* Het (`0.60x`) + *FUT2* `rs601338` `A/A` Non-Secretor | Slow mitophagy + absence of mucosal *Akkermansia*/*Gordonibacter* Urolithin A conversion | **3.75d Purge : 3.25d Build** *(Day-90 $h = 6.8\%$, ATP = $1.04\times$)* | Must bypass missing *Gordonibacter* with **direct postbiotic Urolithin A**, rebuild mucosa with **2'-FL HMO + live *Akkermansia***, and extend Phase A Purge to 3.75 days/week. |
 | **3. Brain Energy / Neuro-Metabolic Risk** | *APOE4/TOMM40* `rs429358` `T/C` + *SOD2* `rs4880` `G/G` | High neuronal glycolytic Complex I backpressure + *TOMM40* import stress + high matrix superoxide + bile-driven *Bilophila* $\text{H}_2\text{S}$ | **3.50d Purge : 3.50d Build** *(Day-90 $h = 4.9\%$, ATP = $1.09\times$)* | **C8-MCT / $\beta$-Hydroxybutyrate** substrate switch + **GlyNAC** (to rescue *SOD2* matrix redox) + **Polyphenols & Molybdenum** (to prevent ketogenic bile from blooming $\text{H}_2\text{S}$ Complex IV inhibition). |
 | **4. Biogenesis & Methylation Bottleneck** | *PPARGC1A* `rs8192678` `T/T` (`0.58x`) + *MTHFR* `rs1801133` `A/A` | Severe PGC-1α haploinsufficiency (`0.955`) + FAD dissociation draining SAMe / Creatine synthesis | **2.25d Purge : 4.75d Build** *(Day-90 $h = 5.4\%$, ATP = $1.06\times$)* | Shorter Purge (to avoid catabolic atrophy when *PPARGC1A* is `0.58x`) + longer Build window with **Tributyrin** (HDACi to unlock the *PPARGC1A* promoter) + **Creatine Monohydrate + Riboflavin (B2)** (to rescue *MTHFR* FAD stability and spare SAMe). |
+
+---
+
+## Track 4 (v4.0 Next-Generation Expansion): The 15 Grand Challenges for Generative AI in Cell Biology (*Cell*, Sept 2026)
+
+See the full saved specification in [docs/cell_2026_15_challenges_expansion_roadmap.md](file:///Users/o2satz/antigravity/mitorestorer/docs/cell_2026_15_challenges_expansion_roadmap.md) (based on Dupire, Quake, Tsang, Califano et al., *Cell* 189, 5870–5892, Sept 2026, `DOI: 10.1016/j.cell.2026.07.004`):
+1. **Module 1 (Challenges 11 & 14):** Non-Invasive "Liquid Biopsy & Mobile Immune Biosensor" Controller (`cf-mRNA`, `L1CAM+ cf-mtDNA`, & Tsang Immune Setpoint at $\text{FDR} \le 5\%$).
+2. **Module 2 (Challenges 3 & 10):** Multicellular Neuron–Microglia–Astrocyte–T-Cell Niche & Astrocyte-to-Neuron Mitochondrial Transfer Simulator.
+3. **Module 3 (Challenges 6 & 12):** Multi-Organ Toxicity (`DILIrank` Liver, Heart, Kidney, Gut, Cytokine Storm) & Polypharmacology "Field Effect" Matrix.
+4. **Module 4 (Challenges 2, 4, 8 & 9):** Synthetic Boolean Logic Biocircuit (`AND/NOT` SynNotch) & 90-Day Epigenetic Promoter Silencing Designer.
+5. **Module 5 (Challenges 13 & 15):** Prospective "Tier-2 AI-DREAM" Virtual Clinical Trial ($N=500$ Diverse Cohort, Kaplan-Meier / Cox HR) & Wet-Lab Validation Protocol Generator (`Perturb-seq`, `CUT&RUN`, `CETSA`).

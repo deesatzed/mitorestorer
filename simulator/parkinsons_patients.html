@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page 2: Patient Genetics, Dosing Sliders &amp; 10-State ODE Telemetry — Parkinson's Academic Suite (PD-BCR)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="mitorestorer_theme.css" />
+  <script src="pd_bcr_shared.js"></script>
+</head>
+<body class="antialiased min-h-screen bg-[#f6f3ec] text-slate-900">
+
+  <!-- Unified 4-Page Suite Header & Global Navigation -->
+  <div id="pdSuiteHeaderContainer"></div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+    <!-- Page 2 Header Banner -->
+    <section class="rounded-2xl bg-white border border-slate-300 p-5 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div class="space-y-1.5 max-w-4xl">
+        <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+          <span class="px-2.5 py-0.5 rounded bg-emerald-900 text-white font-bold">
+            PAGE 2 OF 4 · PATIENT GENETICS, DOSING TITRATION &amp; 10-STATE TELEMETRY
+          </span>
+          <span class="px-2.5 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-300 font-semibold">
+            Real-Time 10-State RK4/Euler Solver · Ensembl VEP + gnomAD v4 + AlphaMissense
+          </span>
+        </div>
+        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900">
+          Patient Subtype Stratification &amp; Stage-Specific Intervention Titration
+        </h1>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          Select a genetic subtype (or enter custom patient blood labs and SNPs) and adjust the 5 stage-specific intervention levers on the left. <strong>All 4 synchronized 10-state ODE panels remain sticky on the right</strong> so you immediately see the cause-and-effect across all 10 cellular variables over 90 days.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2 shrink-0">
+        <button id="btnExportDossierPage2" class="px-3.5 py-2 rounded-xl bg-emerald-800 text-white font-bold text-xs hover:bg-emerald-700 transition shadow-sm">
+          📄 Export Clinical Dossier
+        </button>
+        <a href="parkinsons_trials.html" class="px-3.5 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 transition shadow-sm">
+          Next: Page 3 (10-Trial Audit) →
+        </a>
+      </div>
+    </section>
+
+    <!-- ========================================================================================= -->
+    <!-- SIDE-BY-SIDE WORKBENCH: LEFT 5 COLS (GENETICS & SLIDERS) | RIGHT 7 COLS (10-STATE GRAPHS) -->
+    <!-- ========================================================================================= -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- LEFT 5 COLUMNS: Patient Genotype Stratifier + Custom Lab Intake + 5 Dosing Sliders -->
+      <div class="lg:col-span-5 space-y-5">
+
+        <!-- Card A: 5 Genetic Subtypes + Custom Patient Intake -->
+        <div class="rounded-2xl bg-white border border-slate-300 p-4 sm:p-5 shadow-sm space-y-3.5">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+            <div>
+              <div class="text-xs font-mono font-bold text-emerald-800 uppercase">
+                🧬 STEP 1: PATIENT GENETIC SUBTYPE (BASELINE STATE)
+              </div>
+              <h2 class="text-sm sm:text-base font-extrabold text-slate-900">
+                Select Clinical Genotype or Enter Custom Patient Labs
+              </h2>
+            </div>
+          </div>
+
+          <div id="genotypeCardsList" class="space-y-2"></div>
+
+          <!-- Active Genotype Clinical Summary Box -->
+          <div id="activeGenotypeSummary" class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-300 text-xs text-slate-800 space-y-1 leading-relaxed">
+          </div>
+
+          <!-- Collapsible Custom Patient Lab & SNP Intake Drawer -->
+          <details class="rounded-xl bg-[#faf8f3] border border-slate-300 p-3 text-xs">
+            <summary class="cursor-pointer font-extrabold text-slate-900 flex items-center justify-between">
+              <span>🩺 Custom Patient Blood Labs &amp; Host SNP Intake</span>
+              <span class="font-mono text-[11px] text-emerald-800 font-bold">Expand ▾</span>
+            </summary>
+            <div class="pt-3 mt-2 border-t border-slate-200 space-y-3">
+              <div class="grid grid-cols-3 gap-2">
+                <div>
+                  <label class="block font-mono text-[10px] font-bold text-slate-700">Plasma GDF15 (pg/mL)</label>
+                  <input id="inpLabGdf15" type="number" value="1180" min="200" max="4500" class="w-full mt-1 px-2 py-1 rounded bg-white border border-slate-300 font-mono text-xs" />
+                </div>
+                <div>
+                  <label class="block font-mono text-[10px] font-bold text-slate-700">Exosomal h₀ (%)</label>
+                  <input id="inpLabH0" type="number" value="58" min="25" max="80" class="w-full mt-1 px-2 py-1 rounded bg-white border border-slate-300 font-mono text-xs" />
+                </div>
+                <div>
+                  <label class="block font-mono text-[10px] font-bold text-slate-700">α-KG:Succ Ratio</label>
+                  <input id="inpLabAkg" type="number" step="0.05" value="0.62" min="0.25" max="1.60" class="w-full mt-1 px-2 py-1 rounded bg-white border border-slate-300 font-mono text-xs" />
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 font-mono text-[11px]">
+                <label class="flex items-center gap-1.5"><input id="chkSnpGba1" type="checkbox" checked class="accent-emerald-700" /> GBA1 N370S (2NSX)</label>
+                <label class="flex items-center gap-1.5"><input id="chkSnpLrrk2" type="checkbox" checked class="accent-emerald-700" /> LRRK2 G2019S (7CK6)</label>
+                <label class="flex items-center gap-1.5"><input id="chkSnpPink1" type="checkbox" class="accent-emerald-700" /> PINK1 LoF (6EQI)</label>
+                <label class="flex items-center gap-1.5"><input id="chkSnpMthfr" type="checkbox" class="accent-emerald-700" /> MTHFR C677T (6FCX)</label>
+              </div>
+              <button id="btnApplyCustomLabs" class="w-full py-2 rounded-lg bg-emerald-800 text-white font-bold hover:bg-emerald-700 transition">
+                ⚡ Compile Custom Patient Labs into 10-State ODE
+              </button>
+            </div>
+          </details>
+        </div>
+
+        <!-- Card B: 5 Stage-Specific Intervention Sliders with On-Demand Equation Popovers -->
+        <div class="rounded-2xl bg-white border border-slate-300 p-4 sm:p-5 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+            <div>
+              <div class="text-xs font-mono font-bold text-emerald-800 uppercase">
+                🎛️ STEP 2: TITRATE STAGE-SPECIFIC INTERVENTIONS
+              </div>
+              <h2 class="text-sm sm:text-base font-extrabold text-slate-900">
+                Adjust Dosing Levers (Watch Right-Hand Curves Update Live)
+              </h2>
+            </div>
+            <button id="btnResetOptimalSliders" class="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-300 font-mono font-bold text-[11px] text-slate-800 hover:bg-slate-200 transition">
+              ↺ Reset Optimal
+            </button>
+          </div>
+
+          <!-- Slider 1: Stage 0 Ambroxol (GBA1 2NSX) -->
+          <div class="p-3 rounded-xl bg-[#faf8f3] border border-slate-300 space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-extrabold text-slate-900">1. Stage 0 Ambroxol (<code class="font-mono">GBA1 PDB 2NSX</code>)</span>
+              <span id="lblAmbroxol" class="font-mono font-extrabold text-emerald-800">95%</span>
+            </div>
+            <input id="slAmbroxol" type="range" min="0" max="100" value="95" class="w-full accent-emerald-700 cursor-pointer" />
+            <div class="text-[11px] text-slate-600 flex items-center justify-between">
+              <span>Unclogs lysosomal drain before Stage 1 mitophagy</span>
+              <details class="inline">
+                <summary class="cursor-pointer font-mono font-bold text-emerald-800">ⓘ ODE &amp; PDB</summary>
+                <div class="mt-1.5 p-2 rounded bg-white border border-slate-300 text-[11px] text-slate-700">
+                  <strong>Target:</strong> Acid β-glucocerebrosidase (<code class="font-mono">PDB 2NSX</code>, 2.20 Å). Lowering below 50% causes a mid-protocol autophagosome traffic jam (<code class="font-mono">Jam &gt; 1.20×</code>) when Kinetin triggers mitophagy.
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <!-- Slider 2: Stage 0/1 GBT601 + PT2399 Brain Hyperoxia Shield (PDB 5UFP) -->
+          <div class="p-3 rounded-xl bg-[#faf8f3] border border-slate-300 space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-extrabold text-slate-900">2. Stage 0/1 Hyperoxia Clamp (<code class="font-mono">GBT601+PT2399 5UFP</code>)</span>
+              <span id="lblHypoxia" class="font-mono font-extrabold text-emerald-800">94%</span>
+            </div>
+            <input id="slHypoxia" type="range" min="0" max="100" value="94" class="w-full accent-emerald-700 cursor-pointer" />
+            <div class="text-[11px] text-slate-600 flex items-center justify-between">
+              <span>Clamps tissue <code class="font-mono">pO₂ (1.63× → 0.92×)</code> &amp; stops DA-Quinone burn</span>
+              <details class="inline">
+                <summary class="cursor-pointer font-mono font-bold text-emerald-800">ⓘ ODE &amp; PDB</summary>
+                <div class="mt-1.5 p-2 rounded bg-white border border-slate-300 text-[11px] text-slate-700">
+                  <strong>Target:</strong> Hb-O₂ affinity modulator + HIF-2α (<code class="font-mono">EPAS1 PDB 5UFP</code>, <em>Mootha &amp; Ichinose 2025</em>). Quenches non-enzymatic dopamine autoxidation during the Stage 1 purge.
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <!-- Slider 3: Stage 1 Kinetin Riboside + Ketone Bridge (PINK1 PDB 6EQI) -->
+          <div class="p-3 rounded-xl bg-[#faf8f3] border border-slate-300 space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-extrabold text-slate-900">3. Stage 1 Kinetin + Ketone Bridge (<code class="font-mono">PINK1 6EQI</code>)</span>
+              <span id="lblKinetin" class="font-mono font-extrabold text-emerald-800">92%</span>
+            </div>
+            <input id="slKinetin" type="range" min="0" max="100" value="92" class="w-full accent-emerald-700 cursor-pointer" />
+            <div class="text-[11px] text-slate-600 flex items-center justify-between">
+              <span>Selectively purges depolarized <code class="font-mono">D</code> (<code class="font-mono">58% → &lt;8%</code>)</span>
+              <details class="inline">
+                <summary class="cursor-pointer font-mono font-bold text-emerald-800">ⓘ ODE &amp; PDB</summary>
+                <div class="mt-1.5 p-2 rounded bg-white border border-slate-300 text-[11px] text-slate-700">
+                  <strong>Target:</strong> PINK1 ubiquitin kinase (<code class="font-mono">PDB 6EQI</code>, 3.10 Å). Accelerates Ser65-Ub tagging of low-voltage mutant <code class="font-mono">D</code> mitochondria while C8-MCT ketones sustain <code class="font-mono">W</code> ATP.
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <!-- Slider 4: Biomarker Safety Gate Switch Day (GDF15 < 650 pg/mL) -->
+          <div class="p-3 rounded-xl bg-[#faf8f3] border border-slate-300 space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-extrabold text-slate-900">4. Biomarker Safety Gate Switch Day (<code class="font-mono">GDF15</code> Brake)</span>
+              <span id="lblGateDay" class="font-mono font-extrabold text-cyan-800">Day 27</span>
+            </div>
+            <input id="slGateDay" type="range" min="14" max="54" value="27" class="w-full accent-cyan-700 cursor-pointer" />
+            <div class="text-[11px] text-slate-600 flex items-center justify-between">
+              <span>Day to brake mitophagy (-70%) &amp; turn ON Stage 2 rebuilding</span>
+              <details class="inline">
+                <summary class="cursor-pointer font-mono font-bold text-cyan-800">ⓘ Bifurcation Math</summary>
+                <div class="mt-1.5 p-2 rounded bg-white border border-slate-300 text-[11px] text-slate-700">
+                  <strong>Proposition 1:</strong> Switching too early (Day 14, when <code class="font-mono">h &gt; 25%</code>) causes Stage 2 biogenesis to re-clone mutant <code class="font-mono">D</code>. Switching at Day 27–34 (<code class="font-mono">h &lt; 8%</code>) locks in wild-type <code class="font-mono">W</code> purity.
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <!-- Slider 5: Stage 2 Anabolic Biogenesis, Creatine & TET De-Aging -->
+          <div class="p-3 rounded-xl bg-[#faf8f3] border border-slate-300 space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-extrabold text-slate-900">5. Stage 2 Rebuild &amp; De-Aging (<code class="font-mono">4ZZJ · 1QK1 · 6FCX</code>)</span>
+              <span id="lblStage2" class="font-mono font-extrabold text-emerald-800">96%</span>
+            </div>
+            <input id="slStage2" type="range" min="0" max="100" value="96" class="w-full accent-emerald-700 cursor-pointer" />
+            <div class="text-[11px] text-slate-600 flex items-center justify-between">
+              <span>Clones <code class="font-mono">W</code> mass (1.08×), uMtCK (97%) &amp; TET eAge (2.6%)</span>
+              <details class="inline">
+                <summary class="cursor-pointer font-mono font-bold text-emerald-800">ⓘ ODE &amp; PDB</summary>
+                <div class="mt-1.5 p-2 rounded bg-white border border-slate-300 text-[11px] text-slate-700">
+                  <strong>Targets:</strong> SIRT1/PGC-1α (<code class="font-mono">PDB 4ZZJ</code>), octameric uMtCK Creatine shuttle (<code class="font-mono">PDB 1QK1</code>), and TET1–3 + MTHFR (<code class="font-mono">PDB 6FCX</code>, <em>Berg et al. 2026</em>).
+                </div>
+              </details>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT 7 COLUMNS (STICKY): 4 Synchronized 2D Trajectory Panels Plotting All 10 ODE States -->
+      <div class="lg:col-span-7 lg:sticky lg:top-28 space-y-4">
+
+        <div class="rounded-2xl bg-white border-2 border-slate-300 p-4 sm:p-5 shadow-sm space-y-4">
+          <!-- Playback & Scrubber Bar Directly Above the 4 Panels -->
+          <div class="p-3 rounded-xl bg-[#eee9dd] border border-slate-300 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <button id="btnPlayPause2" class="px-3.5 py-1.5 rounded-lg bg-emerald-800 text-white font-extrabold text-xs hover:bg-emerald-700 transition shadow-sm">
+                ▶ Play 90-Day ODE
+              </button>
+              <span id="clockBadge2" class="px-2.5 py-1 rounded-lg bg-white border border-emerald-700 font-mono font-extrabold text-xs text-emerald-900">
+                Day 27.0 / 90.0d
+              </span>
+            </div>
+            <div class="flex items-center gap-2 flex-1 min-w-[180px]">
+              <span class="text-xs font-mono font-bold text-slate-700">0d</span>
+              <input id="timeScrubber2" type="range" min="0" max="450" value="135" class="w-full accent-emerald-700 cursor-pointer" />
+              <span class="text-xs font-mono font-bold text-slate-700">90d</span>
+            </div>
+            <span id="endpointBadge2" class="px-2.5 py-1 rounded-lg bg-emerald-900 text-white font-mono text-xs font-bold">
+              d90 TH Rescue: 99.1%
+            </span>
+          </div>
+
+          <!-- 6 Compact Live Telemetry Strip -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs">
+            <div class="p-2 rounded-lg bg-[#faf8f3] border border-slate-300">
+              <div class="font-mono text-[10px] text-slate-500">Mutant h(t)</div>
+              <div id="p2KpiH" class="font-mono font-extrabold text-emerald-800">--</div>
+            </div>
+            <div class="p-2 rounded-lg bg-[#faf8f3] border border-slate-300">
+              <div class="font-mono text-[10px] text-slate-500">Healthy W / ATP</div>
+              <div id="p2KpiW" class="font-mono font-extrabold text-emerald-800">--</div>
+            </div>
+            <div class="p-2 rounded-lg bg-[#faf8f3] border border-slate-300">
+              <div class="font-mono text-[10px] text-slate-500">GBA1 Jam / SNCA</div>
+              <div id="p2KpiJam" class="font-mono font-extrabold text-slate-900">--</div>
+            </div>
+            <div class="p-2 rounded-lg bg-[#faf8f3] border border-slate-300">
+              <div class="font-mono text-[10px] text-slate-500">pO₂ / DA-Quinone</div>
+              <div id="p2KpiPo2" class="font-mono font-extrabold text-slate-900">--</div>
+            </div>
+            <div class="p-2 rounded-lg bg-[#faf8f3] border border-slate-300">
+              <div class="font-mono text-[10px] text-slate-500">eAge% / uMtCK%</div>
+              <div id="p2KpiEAge" class="font-mono font-extrabold text-slate-900">--</div>
+            </div>
+            <div class="p-2 rounded-lg bg-[#faf8f3] border border-slate-300">
+              <div class="font-mono text-[10px] text-slate-500">Motor TH Rescue</div>
+              <div id="p2KpiTH" class="font-mono font-extrabold text-emerald-800">--</div>
+            </div>
+          </div>
+
+          <!-- 4 Synchronized 2D Multi-State Trajectory Panels (2x2 Grid) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            <!-- Panel A -->
+            <div class="p-3 rounded-xl bg-[#faf8f3] border border-slate-300 space-y-1.5">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="font-bold text-slate-900">PANEL A: MITOCHONDRIAL PURITY &amp; ATP FLOOR</span>
+                <span class="text-emerald-800 font-bold">h% · W% · ATP%</span>
+              </div>
+              <div class="text-[11px] text-slate-600">
+                <span class="text-amber-700 font-bold">■ Mutant h%</span> ·
+                <span class="text-emerald-700 font-bold">■ Healthy W Mass</span> ·
+                <span class="text-cyan-700 font-bold">■ Cellular ATP</span>
+              </div>
+              <canvas id="chartPanelA" width="360" height="175" class="w-full h-[165px] rounded bg-white border border-slate-200"></canvas>
+            </div>
+
+            <!-- Panel B -->
+            <div class="p-3 rounded-xl bg-[#faf8f3] border border-slate-300 space-y-1.5">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="font-bold text-slate-900">PANEL B: LYSOSOMAL DRAIN &amp; PROTEOTOXICITY</span>
+                <span class="text-purple-800 font-bold">PDB: 2NSX (GBA1)</span>
+              </div>
+              <div class="text-[11px] text-slate-600">
+                <span class="text-purple-700 font-bold">■ Autophagosome Jam (×)</span> ·
+                <span class="text-rose-700 font-bold">■ Oligomeric α-Synuclein (×)</span>
+              </div>
+              <canvas id="chartPanelB" width="360" height="175" class="w-full h-[165px] rounded bg-white border border-slate-200"></canvas>
+            </div>
+
+            <!-- Panel C -->
+            <div class="p-3 rounded-xl bg-[#faf8f3] border border-slate-300 space-y-1.5">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="font-bold text-slate-900">PANEL C: BRAIN HYPEROXIA &amp; DA-QUINONE</span>
+                <span class="text-rose-800 font-bold">PDB: 5UFP (EPAS1)</span>
+              </div>
+              <div class="text-[11px] text-slate-600">
+                <span class="text-rose-700 font-bold">■ Midbrain pO₂ (×)</span> ·
+                <span class="text-amber-700 font-bold">■ Cytosolic DA-o-Quinone</span> ·
+                <span class="text-slate-600 font-bold">■ Gut H₂S</span>
+              </div>
+              <canvas id="chartPanelC" width="360" height="175" class="w-full h-[165px] rounded bg-white border border-slate-200"></canvas>
+            </div>
+
+            <!-- Panel D -->
+            <div class="p-3 rounded-xl bg-[#faf8f3] border border-slate-300 space-y-1.5">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="font-bold text-slate-900">PANEL D: EPIGENETIC DE-AGING &amp; MOTOR RESCUE</span>
+                <span class="text-cyan-800 font-bold">1QK1 · 4ZZJ · 6FCX</span>
+              </div>
+              <div class="text-[11px] text-slate-600">
+                <span class="text-emerald-700 font-bold">■ Motor TH%</span> ·
+                <span class="text-cyan-700 font-bold">■ uMtCK Shuttle%</span> ·
+                <span class="text-purple-700 font-bold">■ Epigenetic eAge%</span>
+              </div>
+              <canvas id="chartPanelD" width="360" height="175" class="w-full h-[165px] rounded bg-white border border-slate-200"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Printable Clinical Dossier Modal -->
+  <div id="clinicalDossierModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl max-h-[90vh] rounded-2xl border-2 border-emerald-700 bg-white shadow-2xl flex flex-col overflow-hidden text-xs">
+      <div class="px-5 py-3.5 bg-[#eee9dd] border-b border-slate-300 flex flex-wrap items-center justify-between gap-2">
+        <span class="font-extrabold text-slate-900 text-sm">📄 Personalized 90-Day PD-BCR Clinical Protocol Dossier</span>
+        <div class="flex items-center gap-2">
+          <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-emerald-800 text-white font-bold">🖨️ Print / PDF</button>
+          <button id="btnCloseDossier2" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 font-bold">✕ Close</button>
+        </div>
+      </div>
+      <div class="p-5 overflow-y-auto">
+        <pre id="dossierPreviewPre2" class="p-4 rounded-xl bg-[#faf8f3] border border-slate-300 font-mono text-xs text-slate-800 whitespace-pre-wrap leading-relaxed"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const {
+      pdState,
+      GENOTYPE_PROFILES,
+      clip,
+      solveAllArms,
+      applyGenotypeProfile,
+      renderPdSuiteHeader
+    } = window.PDBCR;
+
+    renderPdSuiteHeader(2);
+    pdState.activeRegimen = 'pd_bcr';
+
+    function renderGenotypeCards() {
+      const listEl = document.getElementById('genotypeCardsList');
+      listEl.innerHTML = Object.entries(GENOTYPE_PROFILES).map(([key, g]) => {
+        const isAct = pdState.genotype === key;
+        return `
+          <button data-geno="${key}" class="geno-card-btn w-full text-left p-2.5 rounded-xl border transition ${
+            isAct
+              ? 'bg-emerald-50/90 border-2 border-emerald-700 shadow-sm'
+              : 'bg-[#faf8f3] border-slate-300 hover:bg-white hover:border-emerald-600'
+          }">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-extrabold text-xs text-slate-900">${g.name}</span>
+              <span class="font-mono text-[10px] px-1.5 py-0.5 rounded ${isAct ? 'bg-emerald-800 text-white' : 'bg-slate-200 text-slate-700'} font-bold shrink-0">
+                Gate d${g.gateDay}
+              </span>
+            </div>
+            <div class="font-mono text-[11px] text-emerald-800 mt-0.5">${g.badge}</div>
+          </button>
+        `;
+      }).join('');
+
+      listEl.querySelectorAll('.geno-card-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          applyGenotypeProfile(btn.getAttribute('data-geno'));
+          syncSlidersFromState();
+          updatePage2();
+        });
+      });
+
+      const activeG = GENOTYPE_PROFILES[pdState.genotype] || GENOTYPE_PROFILES.gba1_lrrk2;
+      document.getElementById('activeGenotypeSummary').innerHTML = `
+        <div class="font-mono text-[11px] font-bold text-emerald-900">🧬 ${activeG.snps}</div>
+        <div>${activeG.clinicalNote}</div>
+      `;
+    }
+
+    function syncSlidersFromState() {
+      document.getElementById('slAmbroxol').value = Math.round(pdState.ambroxol * 100);
+      document.getElementById('lblAmbroxol').textContent = Math.round(pdState.ambroxol * 100) + '%';
+      document.getElementById('slHypoxia').value = Math.round(pdState.hypoxiaShield * 100);
+      document.getElementById('lblHypoxia').textContent = Math.round(pdState.hypoxiaShield * 100) + '%';
+      document.getElementById('slKinetin').value = Math.round(pdState.kinetin * 100);
+      document.getElementById('lblKinetin').textContent = Math.round(pdState.kinetin * 100) + '%';
+      document.getElementById('slGateDay').value = pdState.gateDay;
+      document.getElementById('lblGateDay').textContent = 'Day ' + pdState.gateDay;
+      document.getElementById('slStage2').value = Math.round(pdState.stage2Build * 100);
+      document.getElementById('lblStage2').textContent = Math.round(pdState.stage2Build * 100) + '%';
+    }
+
+    function drawMiniPanel(canvasId, seriesList, yMin, yMax, floorLineVal) {
+      const c = document.getElementById(canvasId);
+      if (!c) return;
+      const ctx = c.getContext('2d');
+      const w = c.width, h = c.height;
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, h);
+
+      const pad = { l: 36, r: 12, t: 14, b: 22 };
+      const pw = w - pad.l - pad.r;
+      const ph = h - pad.t - pad.b;
+
+      function xPos(i) { return pad.l + (i / 450.0) * pw; }
+      function yPos(v) { return pad.t + ph * (1.0 - (clip(v, yMin, yMax) - yMin) / (yMax - yMin)); }
+
+      // Grid lines
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 1;
+      [0.25, 0.5, 0.75].forEach(f => {
+        const y = pad.t + ph * f;
+        ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + pw, y); ctx.stroke();
+      });
+
+      // Optional floor line
+      if (typeof floorLineVal === 'number') {
+        const yf = yPos(floorLineVal);
+        ctx.strokeStyle = '#dc2626';
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath(); ctx.moveTo(pad.l, yf); ctx.lineTo(pad.l + pw, yf); ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Gate vertical line
+      const gx = xPos(Math.round(pdState.gateDay / 0.2));
+      ctx.strokeStyle = '#0284c7';
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(gx, pad.t); ctx.lineTo(gx, pad.t + ph); ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Curves
+      seriesList.forEach(s => {
+        ctx.save();
+        ctx.strokeStyle = s.color;
+        ctx.lineWidth = 2.3;
+        ctx.beginPath();
+        for (let i = 0; i <= 450; i += 2) {
+          const x = xPos(i), y = yPos(s.data[i]);
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Active cursor dot
+        const cx = xPos(pdState.stepIdx);
+        const cy = yPos(s.data[pdState.stepIdx]);
+        ctx.fillStyle = s.color;
+        ctx.beginPath(); ctx.arc(cx, cy, 4.0, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      });
+
+      // Axes labels
+      ctx.fillStyle = '#475569';
+      ctx.font = 'bold 9.5px ui-monospace, monospace';
+      ctx.fillText(yMax.toFixed(yMax > 10 ? 0 : 1), 4, pad.t + 8);
+      ctx.fillText(yMin.toFixed(yMax > 10 ? 0 : 1), 4, pad.t + ph);
+      ctx.fillText('0d', pad.l, h - 5);
+      ctx.fillText(`⚡d${pdState.gateDay}`, gx - 14, h - 5);
+      ctx.fillText('90d', pad.l + pw - 20, h - 5);
+    }
+
+    function updatePage2() {
+      solveAllArms();
+      renderGenotypeCards();
+      const tr = pdState.trajectories['pd_bcr'];
+      const idx = pdState.stepIdx;
+      const dayNow = (idx * 0.2).toFixed(1);
+
+      document.getElementById('clockBadge2').textContent = `Day ${dayNow} / 90.0d`;
+      document.getElementById('timeScrubber2').value = idx;
+      document.getElementById('endpointBadge2').textContent = `d90 TH Rescue: ${tr.arrTH[450].toFixed(1)}%`;
+
+      document.getElementById('p2KpiH').textContent = `${tr.arrH[idx].toFixed(1)}% → ${tr.arrH[450].toFixed(1)}%`;
+      document.getElementById('p2KpiW').textContent = `${tr.arrW[450].toFixed(2)}× / ${tr.arrATP[idx].toFixed(2)}×`;
+      document.getElementById('p2KpiJam').textContent = `${tr.arrJam[idx].toFixed(2)}× / ${tr.arrSNCA[450].toFixed(2)}×`;
+      document.getElementById('p2KpiPo2').textContent = `${tr.arrPo2[idx].toFixed(2)}× / ${tr.arrDAQ[450].toFixed(2)}`;
+      document.getElementById('p2KpiEAge').textContent = `${tr.arrEAge[450].toFixed(1)}% / ${tr.arrUMtCK[450].toFixed(1)}%`;
+      document.getElementById('p2KpiTH').textContent = `${tr.arrTH[idx].toFixed(1)}% → ${tr.arrTH[450].toFixed(1)}%`;
+
+      const arrWPct = Float32Array.from(tr.arrW, v => v * 100.0);
+      const arrATPPct = Float32Array.from(tr.arrATP, v => v * 100.0);
+
+      drawMiniPanel('chartPanelA', [
+        { data: tr.arrH, color: '#d97706' },
+        { data: arrWPct, color: '#047857' },
+        { data: arrATPPct, color: '#0284c7' }
+      ], 0, 140, 45);
+
+      drawMiniPanel('chartPanelB', [
+        { data: tr.arrJam, color: '#7c3aed' },
+        { data: tr.arrSNCA, color: '#e11d48' }
+      ], 0, 1.8);
+
+      drawMiniPanel('chartPanelC', [
+        { data: tr.arrPo2, color: '#e11d48' },
+        { data: tr.arrDAQ, color: '#d97706' }
+      ], 0, 1.9);
+
+      drawMiniPanel('chartPanelD', [
+        { data: tr.arrTH, color: '#047857' },
+        { data: tr.arrUMtCK, color: '#0284c7' },
+        { data: tr.arrEAge, color: '#7c3aed' }
+      ], 0, 100);
+    }
+
+    // Wire sliders
+    ['slAmbroxol', 'slHypoxia', 'slKinetin', 'slGateDay', 'slStage2'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        pdState.ambroxol = parseInt(document.getElementById('slAmbroxol').value, 10) / 100.0;
+        pdState.hypoxiaShield = parseInt(document.getElementById('slHypoxia').value, 10) / 100.0;
+        pdState.kinetin = parseInt(document.getElementById('slKinetin').value, 10) / 100.0;
+        pdState.gateDay = parseInt(document.getElementById('slGateDay').value, 10);
+        pdState.stage2Build = parseInt(document.getElementById('slStage2').value, 10) / 100.0;
+        syncSlidersFromState();
+        updatePage2();
+      });
+    });
+
+    document.getElementById('btnResetOptimalSliders').addEventListener('click', () => {
+      pdState.ambroxol = 0.95;
+      pdState.hypoxiaShield = 0.94;
+      pdState.kinetin = 0.92;
+      pdState.stage2Build = 0.96;
+      applyGenotypeProfile(pdState.genotype);
+      syncSlidersFromState();
+      updatePage2();
+    });
+
+    document.getElementById('btnApplyCustomLabs').addEventListener('click', () => {
+      const gdf15 = parseFloat(document.getElementById('inpLabGdf15').value || '1180');
+      const h0Pct = parseFloat(document.getElementById('inpLabH0').value || '58');
+      const hasGba1 = document.getElementById('chkSnpGba1').checked;
+      const hasPink1 = document.getElementById('chkSnpPink1').checked;
+      pdState.h0 = clip(h0Pct / 100.0, 0.25, 0.80);
+      pdState.genoJamScale = hasGba1 ? 1.18 : 0.88;
+      pdState.genoMitophagyScale = hasPink1 ? 0.75 : 1.0;
+      pdState.gateDay = gdf15 > 1400 ? 31 : 27;
+      syncSlidersFromState();
+      updatePage2();
+    });
+
+    document.getElementById('timeScrubber2').addEventListener('input', e => {
+      pdState.stepIdx = parseInt(e.target.value, 10);
+      updatePage2();
+    });
+
+    let animTimer2 = null;
+    document.getElementById('btnPlayPause2').addEventListener('click', () => {
+      const btn = document.getElementById('btnPlayPause2');
+      if (animTimer2) {
+        clearInterval(animTimer2);
+        animTimer2 = null;
+        btn.textContent = '▶ Play 90-Day ODE';
+      } else {
+        if (pdState.stepIdx >= 450) pdState.stepIdx = 0;
+        btn.textContent = '⏸ Pause Sim';
+        animTimer2 = setInterval(() => {
+          pdState.stepIdx = Math.min(450, pdState.stepIdx + 3);
+          updatePage2();
+          if (pdState.stepIdx >= 450) {
+            clearInterval(animTimer2);
+            animTimer2 = null;
+            btn.textContent = '▶ Play 90-Day ODE';
+          }
+        }, 45);
+      }
+    });
+
+    document.getElementById('btnExportDossierPage2').addEventListener('click', () => {
+      const tr = pdState.trajectories['pd_bcr'];
+      const g = GENOTYPE_PROFILES[pdState.genotype] || GENOTYPE_PROFILES.gba1_lrrk2;
+      document.getElementById('dossierPreviewPre2').textContent = [
+        `# MITORESTORER v3.0 — PATIENT GENETICS & 10-STATE CLINICAL DOSSIER`,
+        `- Subtype: ${g.name} (${g.snps})`,
+        `- Baseline Mutant mtDNA h(0): ${(pdState.h0 * 100).toFixed(1)}% | Gate Day: Day ${pdState.gateDay}`,
+        `- Stage 0 Ambroxol: ${Math.round(pdState.ambroxol * 100)}% | Hyperoxia Clamp: ${Math.round(pdState.hypoxiaShield * 100)}%`,
+        `- Stage 1 Kinetin: ${Math.round(pdState.kinetin * 100)}% | Stage 2 Rebuild: ${Math.round(pdState.stage2Build * 100)}%`,
+        `- Day-90 Verified Endpoint: h(90d) = ${tr.arrH[450].toFixed(1)}% | W = ${tr.arrW[450].toFixed(2)}x | eAge = ${tr.arrEAge[450].toFixed(1)}% | TH Rescue = ${tr.arrTH[450].toFixed(1)}%`
+      ].join('\n');
+      document.getElementById('clinicalDossierModal').classList.remove('hidden');
+    });
+    document.getElementById('btnCloseDossier2').addEventListener('click', () => {
+      document.getElementById('clinicalDossierModal').classList.add('hidden');
+    });
+
+    syncSlidersFromState();
+    updatePage2();
+  </script>
+</body>
+</html>

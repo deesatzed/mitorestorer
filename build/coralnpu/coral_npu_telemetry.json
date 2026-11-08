@@ -1,7 +1,7 @@
 {
   "architecture": "RV32IMF_Zve32x_CoralNPU_Matrix256",
   "reference_url": "https://github.com/google-coral/coralnpu",
-  "c99_hil_verification": "CORAL_NPU_C99_HIL_PASS: Apis_d0=1 Apis_d4_5=2 CART_h64=2 Human_Override=0 Logit=5924 SkippedBins=13/16",
+  "c99_hil_verification": "CORAL_NPU_C99_HIL_PASS: Apis_d0=1 Apis_d4_5=2 CART_h64=2 Human_Override=0 WindGust_Rej=1 Biofoul_Hold=4 MealSkew_Rej=1 Rollbacks=3/3/3 Logit=5924 SkippedBins=13/16",
   "targets": {
     "APIS_SMART_HIVE_NODE": {
       "target_id": "APIS_SMART_HIVE_NODE",

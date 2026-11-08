@@ -24,11 +24,13 @@ typedef enum {
   CORAL_TARGET_HUMAN_WEARABLE_PATCH = 2  /* Cohorts A-E: Smart Ring / Ketone Patch     */
 } mitorestorer_coral_target_t;
 
-/* Closed-Loop Stage Gate Actuator States */
+/* Closed-Loop Stage Gate Actuator States (Including Rollback & Biofouling Fallback) */
 typedef enum {
-  BCR_GATE_STAGE0_SAFETY_HOLD     = 0, /* Safety Override or Lysosomal/Brood Prime */
-  BCR_GATE_STAGE1_MITOPHAGY_PURGE = 1, /* Stage 1: Clear Mutant D / Detox Qo / PDK1 */
-  BCR_GATE_STAGE2_ANABOLIC_BUILD  = 2  /* Stage 2: Clonal Wild-Type W Expansion     */
+  BCR_GATE_STAGE0_SAFETY_HOLD                 = 0, /* Safety Override or Lysosomal/Brood Prime */
+  BCR_GATE_STAGE1_MITOPHAGY_PURGE             = 1, /* Stage 1: Clear Mutant D / Detox Qo / PDK1 */
+  BCR_GATE_STAGE2_ANABOLIC_BUILD              = 2, /* Stage 2: Clonal Wild-Type W Expansion     */
+  BCR_GATE_STAGE2_ROLLBACK_ABORT              = 3, /* Emergency Physical Rollback (Snap-Back/Flush/Safe-Hold) */
+  BCR_GATE_BIOFOUL_TIMED64H_OPTICAL_PH_HOLD   = 4  /* CAR-T Amperometric Biofouling -> 64h + Optical pH Fallback */
 } mitorestorer_gate_action_t;
 
 /* Quantized INT8 Spectral & Multi-Sensor Projection Weights in DTCM */
@@ -47,6 +49,16 @@ typedef struct {
   int32_t inhibitor_q16;    /* x[6]: Qo Blockade (1SQB) / Lac:Pyr (2Q8G) / H2S   */
   int32_t lag_timer_q16;    /* x[7]: Glycogen/Trehalose & PGC-1a Lag Integrator  */
 } mitorestorer_ode_state_q16_t;
+
+/* 64-Frame Rolling Sensor Persistence & Multimodal Cross-Coherence Buffer (160 bytes in L1 DTCM) */
+typedef struct {
+  int16_t wingbeat_hz_x10_ring[64]; /* 64-frame rolling MEMS wingbeat FFT history (128 B) */
+  uint8_t head_idx;                 /* Ring buffer cursor                                 */
+  uint8_t sustained_count;          /* Frames sustaining >= 220.0 Hz (requires >= 60/64)  */
+  int16_t prev_lac_pyr_x100;        /* Previous amperometric Lac:Pyr sample               */
+  uint8_t biofoul_erratic_count;    /* Consecutive erratic |d(Lac:Pyr)/dt| jumps          */
+  int32_t breadcrumb_ckpt_q16[8];   /* 32-byte L1 DTCM safe state checkpoint for rollback */
+} mitorestorer_rolling_guard_dtcm_t;
 
 /* ----------------------------------------------------------------------------
  * 1. SCALAR CORE (`RV32IMF`): Deterministic Safety Floor & Hardware Guardrail
@@ -135,6 +147,107 @@ static inline mitorestorer_gate_action_t coralnpu_matrix256_stage_gate(
     return BCR_GATE_STAGE2_ANABOLIC_BUILD;
   }
   return BCR_GATE_STAGE1_MITOPHAGY_PURGE;
+}
+
+/* ----------------------------------------------------------------------------
+ * 4. ROLLING-WINDOW NOISE FILTER, BIOFOULING FALLBACK & MULTIMODAL CROSS-CHECK
+ *    Mitigates "Single Tripwire in a Hurricane" (0.012 ms Instant Trigger Risk)
+ * ---------------------------------------------------------------------------- */
+static inline mitorestorer_gate_action_t coralnpu_rolling_fuzzy_sensor_gate(
+    mitorestorer_coral_target_t target,
+    mitorestorer_rolling_guard_dtcm_t* guard,
+    int16_t current_primary_x10,
+    int16_t secondary_cross_x100,
+    int16_t elapsed_hours_x10,
+    bool optical_ph_verified) {
+  if (target == CORAL_TARGET_APIS_SMART_HIVE) {
+    /* Require >= 60 of 64 rolling frames (>= 93.75% persistence) at >= 220.0 Hz (2200)
+     * so transient wind gusts or hive knocks never trigger a premature colony shift */
+    int16_t old_val = guard->wingbeat_hz_x10_ring[guard->head_idx];
+    if (old_val >= 2200 && guard->sustained_count > 0) guard->sustained_count--;
+    guard->wingbeat_hz_x10_ring[guard->head_idx] = current_primary_x10;
+    if (current_primary_x10 >= 2200 && guard->sustained_count < 64) guard->sustained_count++;
+    guard->head_idx = (uint8_t)((guard->head_idx + 1) & 63);
+    return (guard->sustained_count >= 60) ? BCR_GATE_STAGE2_ANABOLIC_BUILD
+                                          : BCR_GATE_STAGE1_MITOPHAGY_PURGE;
+  } else if (target == CORAL_TARGET_CART_GMP_BIOREACTOR) {
+    /* Detect amperometric Lactate:Pyruvate biofouling erratic jumps (|delta| > 4.50 ratio units) */
+    int16_t delta = current_primary_x10 - guard->prev_lac_pyr_x100;
+    if (delta < 0) delta = -delta;
+    guard->prev_lac_pyr_x100 = current_primary_x10;
+    if (delta > 450) guard->biofoul_erratic_count++;
+    if (guard->biofoul_erratic_count >= 3) {
+      /* Amperometric electrode biofouled! Fall back to timed 64.0h + manual/inline optical pH check */
+      if (elapsed_hours_x10 >= 640 && optical_ph_verified) {
+        return BCR_GATE_STAGE2_ANABOLIC_BUILD;
+      }
+      return BCR_GATE_BIOFOUL_TIMED64H_OPTICAL_PH_HOLD;
+    }
+    return (current_primary_x10 <= 1200) ? BCR_GATE_STAGE2_ANABOLIC_BUILD
+                                         : BCR_GATE_STAGE1_MITOPHAGY_PURGE;
+  } else {
+    /* Human Wearable Ring: Cross-reference interstitial B-OHB ketones (current_primary_x10 >= 12 -> 1.2 mM)
+     * with PPG-HRV RMSSD autonomic stability (secondary_cross_x100 >= 3800 -> 38.0 ms, no post-meal spike) */
+    if (current_primary_x10 >= 12 && secondary_cross_x100 >= 3800) {
+      return BCR_GATE_STAGE2_ANABOLIC_BUILD;
+    }
+    return BCR_GATE_STAGE1_MITOPHAGY_PURGE;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+ * 5. BIDIRECTIONAL PHYSICAL ROLLBACK & 32-BYTE DTCM BREADCRUMB CHECKPOINT
+ *    Evacuates Stage 2 -> Stage 1 / Safe-Hold if post-transition biosignals crash
+ * ---------------------------------------------------------------------------- */
+static inline void coralnpu_save_breadcrumb_ckpt(
+    mitorestorer_rolling_guard_dtcm_t* guard,
+    const mitorestorer_ode_state_q16_t* state) {
+  const int32_t* s_ptr = (const int32_t*)state;
+  for (int i = 0; i < 8; ++i) {
+    guard->breadcrumb_ckpt_q16[i] = s_ptr[i];
+  }
+}
+
+static inline mitorestorer_gate_action_t coralnpu_bidirectional_rollback_guard(
+    mitorestorer_coral_target_t target,
+    mitorestorer_gate_action_t active_gate,
+    mitorestorer_ode_state_q16_t* state,
+    const mitorestorer_rolling_guard_dtcm_t* guard,
+    int32_t post_transition_metric_a,
+    int32_t post_transition_metric_b) {
+  if (active_gate != BCR_GATE_STAGE2_ANABOLIC_BUILD) {
+    return active_gate;
+  }
+  bool trigger_rollback = false;
+  if (target == CORAL_TARGET_APIS_SMART_HIVE) {
+    /* Rollback Solenoid Baffle to Bay-A (p-coumaric detox patty) if brood temp deviates
+     * >1.2C from 34.5C ([3330, 3570]) OR distress acoustic band (300-450 Hz) >= 65 dB */
+    if (post_transition_metric_a < 3330 || post_transition_metric_a > 3570 ||
+        post_transition_metric_b >= 65) {
+      trigger_rollback = true;
+    }
+  } else if (target == CORAL_TARGET_CART_GMP_BIOREACTOR) {
+    /* Un-pinch Media-B & flush neutral perfusion media if post-Stage-2 pH < 6.95 (695) or DO2 < 45% (4500) */
+    if (post_transition_metric_a < 695 || post_transition_metric_b < 4500) {
+      trigger_rollback = true;
+    }
+  } else {
+    /* Human Cohort B (APOE4/TOMM40 Arg330 19-stranded beta-barrel pore) & Glycogen-Lag Guard:
+     * Evacuate Stage 2 if GDF15 rebounds >= 2,500 pg/mL (e.g., 4,000 pg/mL excitotoxic spike)
+     * or cellular ATP drops below 0.72x (720) */
+    if (post_transition_metric_a >= 2500 || post_transition_metric_b < 720) {
+      trigger_rollback = true;
+    }
+  }
+
+  if (trigger_rollback) {
+    int32_t* s_ptr = (int32_t*)state;
+    for (int i = 0; i < 8; ++i) {
+      s_ptr[i] = guard->breadcrumb_ckpt_q16[i];
+    }
+    return BCR_GATE_STAGE2_ROLLBACK_ABORT;
+  }
+  return BCR_GATE_STAGE2_ANABOLIC_BUILD;
 }
 
 #endif /* MITORESTORER_CORALNPU_KERNEL_H_ */

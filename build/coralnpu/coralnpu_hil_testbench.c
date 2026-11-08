@@ -63,7 +63,67 @@ int main(void) {
       &cart_state_h64, wingbeat_healthy_i8, kMitoRestorerGateWeightsQ7, hum_unsafe, &override_logit, &override_skip);
   assert(g_hum_override == BCR_GATE_STAGE0_SAFETY_HOLD);
 
-  printf("CORAL_NPU_C99_HIL_PASS: Apis_d0=%d Apis_d4_5=%d CART_h64=%d Human_Override=%d Logit=%d SkippedBins=%d/16\n",
-         g_apis_d0, g_apis_d4_5, g_cart_h64, g_hum_override, logit_acc, skipped_bins);
+  /* 4. Test Rolling-Window Noise Filter ("Single Tripwire in a Hurricane" Mitigation):
+   *    A transient 5-frame wind-gust spike at 225.0 Hz (2250) in Apis-BCR MUST NOT trigger Stage 2,
+   *    whereas 60+ sustained frames at 221.5 Hz (2215) MUST trigger Stage 2. */
+  mitorestorer_rolling_guard_dtcm_t guard_state = {0};
+  mitorestorer_gate_action_t g_wind_gust = BCR_GATE_STAGE1_MITOPHAGY_PURGE;
+  for (int f = 0; f < 5; ++f) {
+    g_wind_gust = coralnpu_rolling_fuzzy_sensor_gate(
+        CORAL_TARGET_APIS_SMART_HIVE, &guard_state, 2250, 3450, 480, true);
+  }
+  assert(g_wind_gust == BCR_GATE_STAGE1_MITOPHAGY_PURGE);
+  mitorestorer_gate_action_t g_sustained_64 = BCR_GATE_STAGE1_MITOPHAGY_PURGE;
+  for (int f = 0; f < 60; ++f) {
+    g_sustained_64 = coralnpu_rolling_fuzzy_sensor_gate(
+        CORAL_TARGET_APIS_SMART_HIVE, &guard_state, 2215, 3450, 1080, true);
+  }
+  assert(g_sustained_64 == BCR_GATE_STAGE2_ANABOLIC_BUILD);
+
+  /* 5. Test CAR-T Amperometric Biofouling Fallback (Timed 64h + Optical pH Check)
+   *    and Human Post-Meal Ketone Skew Blocking (PPG-HRV x B-OHB Cross-Reference) */
+  mitorestorer_rolling_guard_dtcm_t cart_guard = {0};
+  cart_guard.prev_lac_pyr_x100 = 2400;
+  /* Inject 3 erratic biofouling jumps (> 4.50 ratio units each) */
+  (void)coralnpu_rolling_fuzzy_sensor_gate(CORAL_TARGET_CART_GMP_BIOREACTOR, &cart_guard, 1600, 720, 420, false);
+  (void)coralnpu_rolling_fuzzy_sensor_gate(CORAL_TARGET_CART_GMP_BIOREACTOR, &cart_guard, 2300, 720, 430, false);
+  mitorestorer_gate_action_t g_biofoul_hold = coralnpu_rolling_fuzzy_sensor_gate(
+      CORAL_TARGET_CART_GMP_BIOREACTOR, &cart_guard, 1100, 720, 440, false);
+  assert(g_biofoul_hold == BCR_GATE_BIOFOUL_TIMED64H_OPTICAL_PH_HOLD);
+  /* At Hour 64.0 (640) with verified optical pH, fallback safely releases Stage 2 */
+  mitorestorer_gate_action_t g_biofoul_pass = coralnpu_rolling_fuzzy_sensor_gate(
+      CORAL_TARGET_CART_GMP_BIOREACTOR, &cart_guard, 1100, 720, 640, true);
+  assert(g_biofoul_pass == BCR_GATE_STAGE2_ANABOLIC_BUILD);
+
+  /* Post-meal transient ketone skew (B-OHB=1.5 mM [15], but autonomic PPG-HRV RMSSD=24.0 ms [2400 < 3800]) */
+  mitorestorer_gate_action_t g_meal_skew = coralnpu_rolling_fuzzy_sensor_gate(
+      CORAL_TARGET_HUMAN_WEARABLE_PATCH, &guard_state, 15, 2400, 360, true);
+  assert(g_meal_skew == BCR_GATE_STAGE1_MITOPHAGY_PURGE);
+
+  /* 6. Test Bidirectional Physical Rollback & 32-Byte L1 DTCM Breadcrumb Restore:
+   *    Save safe Stage-1 checkpoint, then simulate post-Stage-2 biological rejection across all 3 targets:
+   *    - Apis-BCR: Brood temp drops to 32.80C (3280) + 72 dB distress hiss -> Snap Solenoid Baffle back to Bay-A!
+   *    - CAR-T: Post-Stage-2 pH drops to 6.82 (682) -> Un-pinch Media-B & flush neutral perfusion buffer!
+   *    - Human APOE4/TOMM40 Arg330: Post-Stage-2 GDF15 rebounds to 4,000 pg/mL -> Evacuate & restore breadcrumb! */
+  coralnpu_save_breadcrumb_ckpt(&guard_state, &hive_state_d4_5);
+  int32_t saved_w_q16 = hive_state_d4_5.w_mass_q16;
+  hive_state_d4_5.w_mass_q16 = (int32_t)(0.31 * 65536); /* Corrupted by post-transition stress */
+
+  mitorestorer_gate_action_t g_apis_rb = coralnpu_bidirectional_rollback_guard(
+      CORAL_TARGET_APIS_SMART_HIVE, BCR_GATE_STAGE2_ANABOLIC_BUILD, &hive_state_d4_5, &guard_state, 3280, 72);
+  assert(g_apis_rb == BCR_GATE_STAGE2_ROLLBACK_ABORT);
+  assert(hive_state_d4_5.w_mass_q16 == saved_w_q16); /* Breadcrumb state restored bit-exactly! */
+
+  mitorestorer_gate_action_t g_cart_rb = coralnpu_bidirectional_rollback_guard(
+      CORAL_TARGET_CART_GMP_BIOREACTOR, BCR_GATE_STAGE2_ANABOLIC_BUILD, &cart_state_h64, &guard_state, 682, 4100);
+  assert(g_cart_rb == BCR_GATE_STAGE2_ROLLBACK_ABORT);
+
+  mitorestorer_gate_action_t g_apoe4_rb = coralnpu_bidirectional_rollback_guard(
+      CORAL_TARGET_HUMAN_WEARABLE_PATCH, BCR_GATE_STAGE2_ANABOLIC_BUILD, &cart_state_h64, &guard_state, 4000, 680);
+  assert(g_apoe4_rb == BCR_GATE_STAGE2_ROLLBACK_ABORT);
+
+  printf("CORAL_NPU_C99_HIL_PASS: Apis_d0=%d Apis_d4_5=%d CART_h64=%d Human_Override=%d WindGust_Rej=%d Biofoul_Hold=%d MealSkew_Rej=%d Rollbacks=%d/%d/%d Logit=%d SkippedBins=%d/16\n",
+         g_apis_d0, g_apis_d4_5, g_cart_h64, g_hum_override, g_wind_gust, g_biofoul_hold, g_meal_skew,
+         g_apis_rb, g_cart_rb, g_apoe4_rb, logit_acc, skipped_bins);
   return 0;
 }

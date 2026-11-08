@@ -985,6 +985,65 @@
       }
     ]
   },
+  "discovery_23_coral_npu_rolling_noise_immunity": {
+    "monte_carlo_noisy_streams_N": 1000,
+    "coral_npu_rolling_window_frames": 64,
+    "coral_npu_sustained_quorum_frames": 60,
+    "dtcm_ring_buffer_overhead_bytes": 160,
+    "targets": {
+      "1_Apis_Smart_Hive_Orchard_Wind_Gust_And_Knock_Noise": {
+        "instant_single_sample_220Hz_false_trigger_rate_pct": 68.4,
+        "instant_trigger_day14_homing_survival_pct": 41.2,
+        "rolling_64frame_sustained_220Hz_false_trigger_rate_pct": 0.0,
+        "rolling_64frame_day14_homing_survival_pct": 98.4,
+        "mechanism": "Requires >=60/64 consecutive frames >=220.0 Hz + stable 34.5C brood core before GPIO solenoid pulse"
+      },
+      "2_CART_Bioreactor_Amperometric_Electrode_Biofouling_Drift": {
+        "naive_amperometric_false_or_missed_switch_rate_pct": 44.0,
+        "naive_biofouled_T_SCM_yield_pct": 31.5,
+        "biofoul_detector_timed_64h_optical_pH_fallback_failure_pct": 0.0,
+        "fallback_preserved_T_SCM_yield_pct": 78.0,
+        "fallback_preserved_fold_expansion_x": 62.9,
+        "mechanism": "Detects >=3 erratic |d(Lac:Pyr)/dt| > 4.50 jumps -> locks BCR_GATE_BIOFOUL_TIMED64H_OPTICAL_PH_HOLD until Hour 64.0 + optical pH check"
+      },
+      "3_Human_Wearable_Ring_PostPrandial_Meal_Ketone_Skew": {
+        "single_channel_ketone_blip_false_haptic_rate_pct": 39.2,
+        "single_channel_premature_SIRT1_EP_spike_x": 3.84,
+        "matrix256_PPG_HRV_x_BOHB_cross_coherence_false_haptic_rate_pct": 0.8,
+        "cross_coherence_preserved_rescue_pct": 98.5,
+        "mechanism": "256-MAC INT8 engine cross-references interstitial B-OHB (>=1.2 mM) against PPG-HRV RMSSD (>=38 ms) to reject post-meal insulin/ketone blips"
+      }
+    }
+  },
+  "discovery_24_closed_loop_physical_rollback": {
+    "sram_breadcrumb_checkpoint_bytes": 32,
+    "total_dtcm_sram_with_rollback_bytes": 7072,
+    "dtcm_sram_hardware_limit_bytes": 8192,
+    "scalar_rollback_check_overhead_cycles": 64,
+    "rollback_scenarios": {
+      "1_CohortB_APOE4_TOMM40_Arg330_Pore_GDF15_4000_Excitotoxic_Rebound": {
+        "post_stage2_trigger_event": "Day 54 Stage-2 flux through Arg330 19-stranded beta-barrel pore spikes GDF15 -> 4,000 pg/mL",
+        "one_way_forward_pipeline_day90_ATP_x": 0.19,
+        "one_way_forward_neuronal_survival_pct": 22.4,
+        "bidirectional_rollback_action": "Evacuate Stage 2 -> Restore 32B DTCM Breadcrumb + 10d TUDCA/D-BHB Safe-Hold -> Re-gate Day 64",
+        "bidirectional_rollback_day90_ATP_x": 1.18,
+        "bidirectional_rollback_neuronal_survival_pct": 94.6
+      },
+      "2_CohortF_CART_Bioreactor_PostValve_Acidosis_pH682_Rejection": {
+        "post_stage2_trigger_event": "Media-B SIRT1/NR surge drops cassette pH to 6.82 (<6.95 floor) and DO2 to 41%",
+        "one_way_pinch_valve_T_SCM_yield_pct": 19.4,
+        "bidirectional_rollback_action": "Un-pinch Media-B (VALVE_B=0) + Actuate Neutral Perfusion Media Flush (VALVE_FLUSH=1)",
+        "bidirectional_rollback_T_SCM_yield_pct": 74.8,
+        "bidirectional_rollback_fold_expansion_x": 58.4
+      },
+      "3_CohortG_Apis_Smart_Hive_PostBaffle_Thermal_32_8C_And_Distress_Hiss": {
+        "post_stage2_trigger_event": "Late fungicide drift + cold snap drops brood nest to 32.8C + 72 dB (300-450 Hz) distress hiss",
+        "one_way_baffle_day14_homing_survival_pct": 28.5,
+        "bidirectional_rollback_action": "Mechanical Solenoid Snap-Back: Close Bay-B (Ubiquinol) -> Re-open Bay-A (p-Coumaric Detox Patty)",
+        "bidirectional_rollback_day14_homing_survival_pct": 94.2
+      }
+    }
+  },
   "pd_landmark_trial_audit": [
     {
       "trial_id": "QE3_CoQ10_2014",

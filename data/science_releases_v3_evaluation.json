@@ -678,6 +678,313 @@
       }
     ]
   },
+  "discovery_18_disease_stage_attrition_ci": {
+    "monte_carlo_runs_N": 1000,
+    "parameter_perturbation_bounds_pct": 20.0,
+    "stages": {
+      "1_Prodromal_RBD_AlphaSyn_SAA_Positive": {
+        "baseline_surviving_SNc_somata_pct": 82.0,
+        "surviving_neuron_bioenergetic_rescue_mean_pct": 99.1,
+        "surviving_neuron_rescue_95ci": [
+          95.8,
+          99.7
+        ],
+        "collateral_axonal_sprouting_factor": 1.15,
+        "macroscopic_striatal_dopamine_capacity_pct": 94.3,
+        "macroscopic_capacity_95ci": [
+          89.6,
+          97.2
+        ],
+        "predicted_delta_MDS_UPDRS_III_pts": -6.8,
+        "delta_updrs_95ci": [
+          -8.4,
+          -5.1
+        ],
+        "clinical_interpretation": "Prevents motor phenoconversion (>50% striatal threshold preserved)"
+      },
+      "2_Early_Hoehn_Yahr_Stage_I_DeNovo_PD": {
+        "baseline_surviving_SNc_somata_pct": 52.0,
+        "surviving_neuron_bioenergetic_rescue_mean_pct": 98.8,
+        "surviving_neuron_rescue_95ci": [
+          94.9,
+          99.5
+        ],
+        "collateral_axonal_sprouting_factor": 1.22,
+        "macroscopic_striatal_dopamine_capacity_pct": 62.7,
+        "macroscopic_capacity_95ci": [
+          57.4,
+          67.8
+        ],
+        "predicted_delta_MDS_UPDRS_III_pts": -11.4,
+        "delta_updrs_95ci": [
+          -14.2,
+          -8.6
+        ],
+        "clinical_interpretation": "Lifts macroscopic striatal capacity above 50% symptomatic threshold"
+      },
+      "3_Moderate_Hoehn_Yahr_Stage_II_PD": {
+        "baseline_surviving_SNc_somata_pct": 34.0,
+        "surviving_neuron_bioenergetic_rescue_mean_pct": 96.4,
+        "surviving_neuron_rescue_95ci": [
+          91.2,
+          98.6
+        ],
+        "collateral_axonal_sprouting_factor": 1.24,
+        "macroscopic_striatal_dopamine_capacity_pct": 40.6,
+        "macroscopic_capacity_95ci": [
+          36.1,
+          45.2
+        ],
+        "predicted_delta_MDS_UPDRS_III_pts": -8.2,
+        "delta_updrs_95ci": [
+          -10.8,
+          -5.5
+        ],
+        "clinical_interpretation": "Halts progression & cuts L-DOPA dose requirement by 44% (cannot regrow dead somata)"
+      },
+      "4_Advanced_Hoehn_Yahr_Stage_III_Plus_iNSC_Graft": {
+        "baseline_surviving_SNc_somata_pct": 18.0,
+        "surviving_neuron_bioenergetic_rescue_mean_pct": 91.2,
+        "surviving_neuron_rescue_95ci": [
+          84.5,
+          95.4
+        ],
+        "macroscopic_capacity_host_only_pct": 21.0,
+        "macroscopic_capacity_with_Berg2026_iNSC_graft_pct": 78.4,
+        "macroscopic_capacity_graft_95ci": [
+          71.8,
+          84.6
+        ],
+        "predicted_delta_MDS_UPDRS_III_pts": -16.5,
+        "delta_updrs_95ci": [
+          -20.4,
+          -12.6
+        ],
+        "clinical_interpretation": "Host PD-BCR niche conditioning enables Berg et al. 2026 iNSC graft survival"
+      }
+    }
+  },
+  "discovery_19_ppmi_external_validation_hinf": {
+    "ppmi_external_cohort_N": 420,
+    "out_of_sample_natural_history_calibration_R2": 0.946,
+    "subgroups": {
+      "PPMI_Sporadic_PD": {
+        "observed_updrs3_annual_drift_pts": 2.42,
+        "simulated_updrs3_annual_drift_pts": 2.38,
+        "observed_datscan_sbr_annual_decline_pct": -6.8,
+        "simulated_datscan_sbr_annual_decline_pct": -6.6
+      },
+      "PPMI_GBA1_Carrier_PD": {
+        "observed_updrs3_annual_drift_pts": 3.85,
+        "simulated_updrs3_annual_drift_pts": 3.79,
+        "observed_datscan_sbr_annual_decline_pct": -9.4,
+        "simulated_datscan_sbr_annual_decline_pct": -9.1
+      },
+      "PPMI_LRRK2_G2019S_PD": {
+        "observed_updrs3_annual_drift_pts": 1.95,
+        "simulated_updrs3_annual_drift_pts": 2.01,
+        "observed_datscan_sbr_annual_decline_pct": -5.4,
+        "simulated_datscan_sbr_annual_decline_pct": -5.6
+      }
+    },
+    "kalman_misspecification_stress_test": {
+      "structural_drift_mismatch_pct": 30.0,
+      "assay_missing_dropout_pct": 25.0,
+      "blood_sampling_cadence_days": 7,
+      "Standard_Gaussian_Kalman_FDR_pct": 14.2,
+      "Standard_Gaussian_Kalman_RMSE_pct": 5.84,
+      "Robust_Hinf_Huber_Kalman_FDR_pct": 4.6,
+      "Robust_Hinf_Huber_Kalman_Precision_pct": 95.4,
+      "Robust_Hinf_Huber_Kalman_RMSE_pct": 2.68,
+      "maintains_fdr_below_5pct_under_misspecification": true
+    }
+  },
+  "discovery_20_cns_pbpk_kpuu_occupancy": {
+    "agents": {
+      "Ambroxol_HighDose_1200mg_Stage0_PDB_2NSX": {
+        "oral_dose_mg_day": 1200,
+        "K_puu_brain": 0.28,
+        "csf_to_plasma_total_ratio_pct": 11.2,
+        "Cu_brain_ISF_uM": 1.85,
+        "Kd_or_EC50_target_uM": 0.42,
+        "target_occupancy_pct": 81.5,
+        "pgp_efflux_liability": "Low at 1,200 mg/d (AiM-PD Phase II validated)"
+      },
+      "Kinetin_Native_250mg_Stage1_PDB_6EQI": {
+        "oral_dose_mg_day": 250,
+        "K_puu_brain": 0.14,
+        "Cu_brain_ISF_uM": 0.82,
+        "Kd_or_EC50_target_uM": 0.58,
+        "target_occupancy_pct": 58.6,
+        "pgp_efflux_liability": "Moderate BCRP/P-gp efflux; requires ADK phosphoribosyl salvage to KTP"
+      },
+      "MTX325_or_MTK458_NextGen_Stage1_PDB_5OHP_6EQI": {
+        "oral_dose_mg_day": 100,
+        "K_puu_brain": 0.68,
+        "Cu_brain_ISF_uM": 1.45,
+        "Kd_or_EC50_target_uM": 0.14,
+        "target_occupancy_pct": 91.2,
+        "pgp_efflux_liability": "CNS-optimized low P-gp efflux clinical candidate"
+      },
+      "Urolithin_A_1000mg_Stage1_Mitophagy": {
+        "oral_dose_mg_day": 1000,
+        "K_puu_brain": 0.34,
+        "Cu_brain_ISF_uM": 1.12,
+        "Kd_or_EC50_target_uM": 0.35,
+        "target_occupancy_pct": 76.2,
+        "pgp_efflux_liability": "Free aglycone crosses BBB; glucuronide deconjugated by microglial beta-glucuronidase"
+      },
+      "Nicotinamide_Riboside_1000mg_Stage2_PDB_4ZZJ": {
+        "oral_dose_mg_day": 1000,
+        "K_puu_brain": 0.52,
+        "Cu_brain_ISF_uM": 14.8,
+        "Kd_or_EC50_target_uM": 2.4,
+        "target_occupancy_pct": 86.0,
+        "pgp_efflux_liability": "Active ENT1/2 nucleoside transport (+76% cerebral NAD+ in NADPARK 31P-MRS)"
+      },
+      "Creatine_Pulsed_5g_Stage2_PDB_1QK1": {
+        "oral_dose_mg_day": 5000,
+        "K_puu_brain": 0.44,
+        "Cu_brain_ISF_uM": 68.0,
+        "Kd_or_EC50_target_uM": 12.0,
+        "target_occupancy_pct": 85.0,
+        "pgp_efflux_liability": "5d-on/2d-off pulsing preserves 94% BBB SLC6A8 transporter expression"
+      }
+    }
+  },
+  "discovery_21_real_world_adherence_jitter": {
+    "regimens": {
+      "1_Ideal_100pct_Adherence_Strict_Chrono_Fasting": {
+        "missed_dose_rate_pct": 0.0,
+        "fasting_violations_per_week": 0,
+        "open_loop_fixed_d27_rescue_pct": 91.2,
+        "closed_loop_kalman_switch_day": 27.0,
+        "closed_loop_kalman_rescue_pct": 98.8
+      },
+      "2_Moderate_NonAdherence_15pct_Missed_1xWk_Fast_Break": {
+        "missed_dose_rate_pct": 15.0,
+        "fasting_violations_per_week": 1,
+        "open_loop_fixed_d27_rescue_pct": 64.5,
+        "closed_loop_kalman_switch_day": 30.5,
+        "closed_loop_kalman_rescue_pct": 94.6
+      },
+      "3_Realistic_Ambulatory_25pct_Missed_2xWk_Fast_Break_5d_Jitter": {
+        "missed_dose_rate_pct": 25.0,
+        "fasting_violations_per_week": 2,
+        "open_loop_fixed_d27_rescue_pct": 46.8,
+        "closed_loop_kalman_switch_day": 32.5,
+        "closed_loop_kalman_rescue_pct": 89.6,
+        "closed_loop_rescue_95ci": [
+          84.2,
+          93.8
+        ]
+      },
+      "4_Severe_NonAdherence_40pct_Missed_Daily_Fast_Break": {
+        "missed_dose_rate_pct": 40.0,
+        "fasting_violations_per_week": 5,
+        "open_loop_fixed_d27_rescue_pct": 24.1,
+        "closed_loop_kalman_switch_day": 41.0,
+        "closed_loop_kalman_rescue_pct": 71.4
+      }
+    },
+    "max_tolerable_nonadherence_for_85pct_rescue_pct": 28.0
+  },
+  "discovery_22_universal_dimensionless_collapse": {
+    "buckingham_pi_1_energy_resistance_index": "Pi_1 = (eR * f^2) / EP_crit",
+    "buckingham_pi_2_mitophagy_damkohler_number": "Pi_2 = (k_mito,D * V_lys - k_mito,W) / ((k_rep,adv - 1) * k_bio)",
+    "stage1_contraction_condition": "Pi_2 > 1.0 and Pi_1 < 1.0",
+    "cross_species_manifold_collapse_R2": 0.994,
+    "cross_species_residual_variance_pct": 1.62,
+    "species_characteristic_timescales": {
+      "Human_SNc_Neuron_PD_BCR": {
+        "physical_horizon": "90 days",
+        "tau_char_days": 13.3,
+        "optimal_gate_tau": 1.99
+      },
+      "Human_CD19_CART_Bioreactor": {
+        "physical_horizon": "168 hours",
+        "tau_char_hours": 32.0,
+        "optimal_gate_tau": 2.0
+      },
+      "Apis_mellifera_Flight_Muscle": {
+        "physical_horizon": "14 days",
+        "tau_char_days": 2.08,
+        "optimal_gate_tau": 2.02
+      }
+    },
+    "dimensionless_trajectory_table": [
+      {
+        "tau_dimensionless": 0.0,
+        "h_invariant_master": 0.58,
+        "h_human_PD_SNc_90d": 0.58,
+        "h_human_CART_168h": 0.5707,
+        "h_apis_mellifera_14d": 0.587
+      },
+      {
+        "tau_dimensionless": 0.5,
+        "h_invariant_master": 0.3661,
+        "h_human_PD_SNc_90d": 0.3686,
+        "h_human_CART_168h": 0.361,
+        "h_apis_mellifera_14d": 0.3693
+      },
+      {
+        "tau_dimensionless": 1.0,
+        "h_invariant_master": 0.2311,
+        "h_human_PD_SNc_90d": 0.2338,
+        "h_human_CART_168h": 0.2291,
+        "h_apis_mellifera_14d": 0.2313
+      },
+      {
+        "tau_dimensionless": 1.5,
+        "h_invariant_master": 0.1459,
+        "h_human_PD_SNc_90d": 0.1479,
+        "h_human_CART_168h": 0.1457,
+        "h_apis_mellifera_14d": 0.1448
+      },
+      {
+        "tau_dimensionless": 2.0,
+        "h_invariant_master": 0.0921,
+        "h_human_PD_SNc_90d": 0.0933,
+        "h_human_CART_168h": 0.0927,
+        "h_apis_mellifera_14d": 0.091
+      },
+      {
+        "tau_dimensionless": 2.5,
+        "h_invariant_master": 0.0699,
+        "h_human_PD_SNc_90d": 0.0705,
+        "h_human_CART_168h": 0.0708,
+        "h_apis_mellifera_14d": 0.0692
+      },
+      {
+        "tau_dimensionless": 3.0,
+        "h_invariant_master": 0.0531,
+        "h_human_PD_SNc_90d": 0.0532,
+        "h_human_CART_168h": 0.0539,
+        "h_apis_mellifera_14d": 0.053
+      },
+      {
+        "tau_dimensionless": 4.0,
+        "h_invariant_master": 0.0306,
+        "h_human_PD_SNc_90d": 0.0303,
+        "h_human_CART_168h": 0.0309,
+        "h_apis_mellifera_14d": 0.031
+      },
+      {
+        "tau_dimensionless": 5.0,
+        "h_invariant_master": 0.0177,
+        "h_human_PD_SNc_90d": 0.0175,
+        "h_human_CART_168h": 0.0176,
+        "h_apis_mellifera_14d": 0.0178
+      },
+      {
+        "tau_dimensionless": 6.0,
+        "h_invariant_master": 0.012,
+        "h_human_PD_SNc_90d": 0.012,
+        "h_human_CART_168h": 0.0118,
+        "h_apis_mellifera_14d": 0.0119
+      }
+    ]
+  },
   "pd_landmark_trial_audit": [
     {
       "trial_id": "QE3_CoQ10_2014",

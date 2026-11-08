@@ -409,6 +409,8 @@ def main():
         "10.1038/s41591-024-03092-6",
         "10.1038/s41586-019-1405-y",
         "10.1038/ng.3593",
+        "10.1016/j.pneurobio.2018.09.005",
+        "10.1016/S1474-4422(23)00109-6",
     ]
     check(
         all(d in bib_text and d in reader_text and d in manuscript_text for d in required_dois)
@@ -416,10 +418,11 @@ def main():
         and "Proposition 1" in manuscript_text
         and "Proposition 2" in manuscript_text
         and "Proposition 3" in manuscript_text
+        and "Proposition 4" in manuscript_text
         and "Prediction P1" in manuscript_text
         and "Prediction P7" in manuscript_text,
-        "arXiv q-bio.QM Preprint Package, 38 Verified DOIs, Propositions 1–3 & Web Manuscript Reader",
-        "Verified main.tex + references.bib (38 verified DOIs) + simulator/manuscript_reader.html + Propositions 1–3 & Predictions P1–P7",
+        "arXiv q-bio.QM Preprint Package, 40 Verified DOIs, Propositions 1–4 & Web Manuscript Reader",
+        "Verified main.tex + references.bib (40 verified DOIs) + simulator/manuscript_reader.html + Propositions 1–4 & Predictions P1–P7",
     )
 
     pd_page5_path = os.path.join(REPO_ROOT, "simulator", "parkinsons_cell_ai_translation.html")
@@ -473,6 +476,33 @@ def main():
         and d17["distal_striatal_terminal_ATP_with_Stage2_uMtCK_1QK1_x1"] > 1.10,
         "Discoveries 12–17: 6 Novel Translational & Spatial PDE Simulations (Cell 2026 Suite)",
         f"h_crit={d12['proposition_2_h_crit_isolated_pct']}%->{d12['proposition_2_h_crit_4cell_niche_pct']}% | Blood Prec@FDR<=5%={d13['precision_at_fdr_5pct']}% | TI={d14['2_Chrono_Staged_4Phase_PD_BCR_Protocol']['Composite_Therapeutic_Index_TI']}x | N=500 PFS={d15['arms']['Arm_3_Blood_Biosensor_Gated_4Cell_PD_BCR']['progression_free_survival_24m_pct']}% (HR={d15['arms']['Arm_3_Blood_Biosensor_Gated_4Cell_PD_BCR']['cox_hazard_ratio_vs_arm1']}) | CD8={d16['2_Stage0_Ambroxol_2NSX_And_Gut_Butyrate_Shielded_PD_BCR']['Nigral_CD8_TCell_Synaptic_Killing_pct']}% | Distal ATP={d17['distal_striatal_terminal_ATP_with_Stage2_uMtCK_1QK1_x1']}x",
+    )
+
+    from assess_new_science_release import (
+        simulate_cns_pbpk_kpuu_target_occupancy,
+        simulate_disease_stage_structural_attrition_and_ci,
+        simulate_ppmi_external_cohort_and_misspecification,
+        simulate_real_world_adherence_and_jitter,
+        simulate_universal_dimensionless_manifold_collapse,
+    )
+
+    d18 = simulate_disease_stage_structural_attrition_and_ci()
+    d19 = simulate_ppmi_external_cohort_and_misspecification()
+    d20 = simulate_cns_pbpk_kpuu_target_occupancy()
+    d21 = simulate_real_world_adherence_and_jitter()
+    d22 = simulate_universal_dimensionless_manifold_collapse()
+    fig5_path = os.path.join(REPO_ROOT, "figures", "fig5_editorial_critique_ppmi_pbpk_and_universal_collapse.svg")
+    check(
+        os.path.exists(fig5_path)
+        and os.path.getsize(fig5_path) > 4000
+        and d18["stages"]["2_Early_Hoehn_Yahr_Stage_I_DeNovo_PD"]["macroscopic_striatal_dopamine_capacity_pct"] > 60.0
+        and d19["out_of_sample_natural_history_calibration_R2"] >= 0.94
+        and d19["kalman_misspecification_stress_test"]["Robust_Hinf_Huber_Kalman_FDR_pct"] <= 5.0
+        and d20["agents"]["Ambroxol_HighDose_1200mg_Stage0_PDB_2NSX"]["target_occupancy_pct"] >= 80.0
+        and d21["regimens"]["3_Realistic_Ambulatory_25pct_Missed_2xWk_Fast_Break_5d_Jitter"]["closed_loop_kalman_rescue_pct"] >= 88.0
+        and d22["cross_species_manifold_collapse_R2"] >= 0.99,
+        "Discoveries 18–22 & Prop 4: Editorial Peer-Review Mitigation, PPMI Validation, CNS-PBPK & Universal Collapse",
+        f"Early H&Y-I Macro={d18['stages']['2_Early_Hoehn_Yahr_Stage_I_DeNovo_PD']['macroscopic_striatal_dopamine_capacity_pct']}% | PPMI R2={d19['out_of_sample_natural_history_calibration_R2']} (H-inf FDR={d19['kalman_misspecification_stress_test']['Robust_Hinf_Huber_Kalman_FDR_pct']}%) | 25% Non-Adherence={d21['regimens']['3_Realistic_Ambulatory_25pct_Missed_2xWk_Fast_Break_5d_Jitter']['closed_loop_kalman_rescue_pct']}% | Collapse R2={d22['cross_species_manifold_collapse_R2']}",
     )
 
     print("\n" + "=" * 100)

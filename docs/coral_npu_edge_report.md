@@ -25,7 +25,15 @@ In real-world physical deployments—whether inside an **off-grid commercial bee
 
 ## 3. Cross-Species Silicon & Bit-Exact Quantization Benchmark (`128 MHz` Clock, `< 10 mW` Envelope)
 
-- **Compiled C99/RVV Hardware-in-the-Loop (HIL) Binary Verification:** `CORAL_NPU_C99_HIL_PASS: Apis_d0=1 Apis_d4_5=2 CART_h64=2 Human_Override=0 WindGust_Rej=1 Biofoul_Hold=4 MealSkew_Rej=1 Rollbacks=3/3/3 Logit=5924 SkippedBins=13/16`
+- **Compiled C99/RVV Hardware-in-the-Loop (HIL) Binary Verification:** `CORAL_NPU_C99_HIL_PASS: Apis_d0=1 Apis_d4_5=2 CART_h64=2 Human_Override=0 WindGust_Rej=1 Biofoul_Hold=4 MealSkew_Rej=1 Rollbacks=3/3/3 Logit=5924 SkippedBins=13/16
+RK4_PARITY_STATE[0]: FP64=1.048706 | Q16_INT=68729 (1.048721) | TermErr=0.0015% | MaxErr=0.0028% | RMSErr=0.0015%
+RK4_PARITY_STATE[1]: FP64=0.026781 | Q16_INT=1755 (0.026779) | TermErr=0.0074% | MaxErr=0.0464% | RMSErr=0.0137%
+RK4_PARITY_STATE[2]: FP64=0.040012 | Q16_INT=2623 (0.040024) | TermErr=0.0296% | MaxErr=0.0563% | RMSErr=0.0301%
+RK4_PARITY_STATE[3]: FP64=0.630235 | Q16_INT=41303 (0.630234) | TermErr=0.0001% | MaxErr=0.0026% | RMSErr=0.0011%
+RK4_PARITY_STATE[4]: FP64=0.318642 | Q16_INT=20883 (0.318649) | TermErr=0.0022% | MaxErr=0.0047% | RMSErr=0.0020%
+RK4_PARITY_STATE[5]: FP64=1.469839 | Q16_INT=96326 (1.469818) | TermErr=0.0014% | MaxErr=0.0063% | RMSErr=0.0023%
+RK4_PARITY_STATE[6]: FP64=1.299926 | Q16_INT=85192 (1.299927) | TermErr=0.0001% | MaxErr=0.0061% | RMSErr=0.0030%
+RK4_PARITY_STATE[7]: FP64=1.736594 | Q16_INT=113816 (1.736694) | TermErr=0.0058% | MaxErr=0.0154% | RMSErr=0.0085%`
 
 | Target ID | Deployment Domain | Total Cycles | Latency (`ms`) | Active Power (`mW`) | Energy / Step (`µJ`) | L1 SRAM (`Bytes`) | Zero-Skip (`%`) | Max `Q16.16` vs `FP64` Error | Gate Discrepancy |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |

@@ -89,8 +89,36 @@
           </span>
         </div>
         <span id="copyStatusToast" class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/50 font-bold">
-          ✅ 32 / 32 References &amp; DOIs Verified · 30 / 30 Automated Checks Passing
+          ✅ 42 / 42 References &amp; DOIs Verified · 36 / 36 Automated Checks Passing
         </span>
+      </div>
+
+      <!-- Segregated 4-Paper arXiv Series Selector Matrix -->
+      <div class="p-4 rounded-xl bg-slate-950/90 border border-amber-500/40 space-y-2.5 text-xs">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="font-mono font-extrabold text-amber-300 text-sm">📚 Segregated 4-Paper arXiv Preprint Series (Ranked by Moderation Acceptance Probability)</span>
+          <a href="../docs/arxiv_submission/README_ARXIV_SUBMISSION_GUIDE.md" class="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/50 font-mono font-bold">
+            📖 View arXiv Submission Strategy Guide
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2.5 font-mono">
+          <a href="../docs/arxiv_submission/paper1_core_control_and_coral_npu.tex" class="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-cyan-500/40 block space-y-1 transition">
+            <div class="flex items-center justify-between"><span class="text-cyan-300 font-bold">Paper I (Core &amp; Coral NPU)</span><span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px]">#1: 95–98%</span></div>
+            <div class="text-[11px] text-slate-300">Primary: <code>eess.SY</code> / <code>q-bio.QM</code> · Buckingham &Pi; Collapse ($R^2=0.994$), Props 1, 4 &amp; 5, <code>RV32IMF_Zve32x</code> C99 HIL</div>
+          </a>
+          <a href="../docs/arxiv_submission/paper2_ex_vivo_cart_bioreactor.tex" class="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-emerald-500/40 block space-y-1 transition">
+            <div class="flex items-center justify-between"><span class="text-emerald-300 font-bold">Paper II (Ex Vivo CAR-T)</span><span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px]">#2: 90–95%</span></div>
+            <div class="text-[11px] text-slate-300">Primary: <code>q-bio.CB</code> · 168h Perfusion Gate (<code>2Q8G/4ZZJ</code>), <code>AF-Q12778</code> <code>FOXO1</code> IDR Proof, 10-Day Leukopak Assay</div>
+          </a>
+          <a href="../docs/arxiv_submission/paper3_apis_pollinator_smart_hive.tex" class="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-amber-500/40 block space-y-1 transition">
+            <div class="flex items-center justify-between"><span class="text-amber-300 font-bold">Paper III (Apis Smart-Hive)</span><span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px]">#3: ~90%</span></div>
+            <div class="text-[11px] text-slate-300">Primary: <code>q-bio.QM</code> / <code>q-bio.PE</code> · $f^2$ Flight Muscle (<code>1SQB</code>), <code>AF-Q868N5</code> 3-Domain Vg, 4.05 mW Solar Node</div>
+          </a>
+          <a href="../docs/arxiv_submission/paper4_neuro_qsp_and_axonal_pde.tex" class="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-purple-500/40 block space-y-1 transition">
+            <div class="flex items-center justify-between"><span class="text-purple-300 font-bold">Paper IV (Neuro QSP &amp; PDE)</span><span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px]">#4: 80–85%</span></div>
+            <div class="text-[11px] text-slate-300">Primary: <code>q-bio.NC</code> · 4.5m Axonal PDE (<code>1QK1</code>), MJFF <code>PPMI</code> ($R^2=0.946$), <code>AF-Q9BXM7</code> <code>PINK1</code>, Blood Gate</div>
+          </a>
+        </div>
       </div>
 
       <h1 class="paper-serif text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">

@@ -81,12 +81,12 @@ All kinetic constants and structural parameters are detailed in Table~\ref{tab:a
 \textbf{Symbol} & \textbf{Biological / Physical Definition} & \textbf{Nominal Value} & \textbf{Units} & \textbf{Structural / Experimental Source} \\
 \midrule
 $S_{Q_o}(0)$ & Initial Complex~III $Q_o$-site strobilurin occupancy & $0.85$ & Fraction ($85\%$) & \texttt{PDB: 1SQB} (\texttt{Glu272/Phe275}) \cite{esser2006bc1,scharlaken2019strobilurin} \\
-$k_{\mathrm{mito},D}$ & Stage-1 spermidine + fasting selective mitophagy rate & $0.480$ & $\text{day}^{-1}$ ($\tau_{\mathrm{char}}=2.08\text{ d}$) & Insect flight-muscle turnover \cite{picard2025energy} \\
+$k_{\mathrm{mito},D,\max}$ & Stimulated Stage-1 selective mitophagy rate & $0.675$ & $\text{day}^{-1}$ ($\bar{\lambda}_{\mathrm{eff}}=0.480\text{ d}^{-1}$) & Insect flight-muscle turnover \cite{picard2025energy} \\
 $k_{\mathrm{detox}}$ & \textit{p}-Coumaric acid ($500\,\mu\mathrm{M}$) \texttt{CYP9Q1--3} hydrolysis rate & $0.680$ & $\text{day}^{-1}$ & \texttt{CncC/Maf} ARE induction \cite{mao2013pcoumaric} \\
 $r_{\mathrm{alvi}}$ & \textit{Snodgrassella alvi} ileum biofilm intrinsic growth rate & $0.550$ & $\text{day}^{-1}$ & Microaerophilic $\mathrm{O}_2$ scrubber \cite{leonard2020salvi} \\
 $\alpha_{\mathrm{Tet}}$ & Oxytetracycline (\texttt{Terramycin}) symbiont ablation factor & $0.960$ & Fraction ($96\%$ kill) & collapses $S_{\mathrm{alvi}} \to 0.04\times$ \cite{leonard2020salvi} \\
 $\mathrm{IC}_{50,\mathrm{10HDA}}$ & Royal-jelly \texttt{10-HDA} class~I/II \texttt{HDAC} inhibition & $5.0$ & $\text{mM}$ ($1.5\text{ mM}$ feed) & Derepresses \texttt{Vg} (\texttt{AF-Q868N5}) \cite{spannhoff2011hda} \\
-$f_{0,\mathrm{gate}}$ & Stage $1 \to 2$ MEMS wingbeat fundamental threshold & $\ge 220.0$ & $\text{Hz}$ ($\ge 60/64$ frames) & Corresponds to $S_{Q_o} \le 0.12$, $\tau^* = 2.02$ \\
+$f_{0,\mathrm{gate}}$ & Stage $1 \to 2$ MEMS wingbeat fundamental threshold & $\ge 220.0$ & $\text{Hz}$ ($\ge 60/64$ frames, $\Delta t=15\text{ s}$) & $S_{Q_o} \le 0.12$, $\tau^*(0.4,0.08) \approx 2.02$ \\
 $T_{\mathrm{brood,opt}}$ & Optimal brood-nest thermoregulatory setpoint & $34.5 \pm 0.8$ & $^\circ\mathrm{C}$ & Abort rollback if $T_{\mathrm{brood}} \le 33.3^\circ\mathrm{C}$ \\
 \bottomrule
 \end{tabular}

@@ -78,11 +78,11 @@ All model parameters, physical units, and structural/literature references are s
 \midrule
 $\mu_{\max}$ & Maximum T-lymphoblast specific growth rate & $0.048$ & $\text{h}^{-1}$ ($T_d = 14.4\text{ h}$) & Primary human \texttt{CD19 CAR-T} \cite{fraietta2018determinants} \\
 $N_{\mathrm{cap}}$ & Perfusion cassette carrying capacity & $85.0$ & Fold expansion & Closed perfusion cassette \cite{doan2024foxo1} \\
-$k_{\mathrm{mito},D}$ & Phase-1 \texttt{Urolithin A} ($25\,\mu\mathrm{M}$) mitophagy rate & $0.03125$ & $\text{h}^{-1}$ ($\tau_{\mathrm{char}}=32\text{ h}$) & \texttt{MitoImmune} RCT \cite{denk2025mitoimmune,ryu2016urolithin} \\
+$k_{\mathrm{mito},D,\max}$ & Stimulated Phase-1 \texttt{Urolithin A} mitophagy rate & $0.048$ & $\text{h}^{-1}$ ($\bar{\lambda}_{\mathrm{eff}}=0.03125\text{ h}^{-1}$) & \texttt{MitoImmune} RCT \cite{denk2025mitoimmune,ryu2016urolithin} \\
 $k_{\mathrm{rep,adv}}$ & Fragmented depolarized mtDNA replicative advantage & $1.32$ & Dimensionless & \cite{stewart2015purifying,buck2016mitochondrial} \\
 $\mathrm{IC}_{50,\mathrm{AZD7545}}$ & Allosteric lipoyl-pocket inhibition of \texttt{PDK1} & $36.0$ & $\text{nM}$ ($u_2$ at $1.0\,\mu\mathrm{M}$) & \texttt{PDB: 2Q8G} ($1.90\text{ \AA}$, \texttt{Phe318/Leu321}) \cite{kato2007pdk1} \\
 $\mathrm{EC}_{50,\mathrm{SIRT1}}$ & Allosteric STAC + $\text{NAD}^+$ activation of \texttt{SIRT1} & $0.45$ & $\mu\text{M}$ (\texttt{SRT1720}) & \texttt{PDB: 4ZZJ} ($2.74\text{ \AA}$, \texttt{Glu230}) \cite{dai2015sirt1} \\
-$R_{\mathrm{LP,gate}}$ & Lactate:Pyruvate metabolic switching threshold & $\le 14.0$ & Molar ratio & Optimal gate $t_{\mathrm{gate}} = 64.0\text{ h}$ ($\tau^* = 2.00$) \\
+$R_{\mathrm{LP,gate}}$ & Lactate:Pyruvate metabolic switching threshold & $\le 14.0$ & Molar ratio & Gate $t_{\mathrm{gate}} = 64.0\text{ h}$ ($\tau^*(0.4,0.08) \approx 2.00$) \\
 $\delta_{\mathrm{foul}}$ & Amperometric electrode biofouling step threshold & $4.50$ & $|\Delta R_{\mathrm{LP}}|/\text{step}$ & Triggers timed $64.0\text{ h}$ + optical pH check \\
 $\mathrm{pH}_{\mathrm{abort}}$ & Post-valve lactic acidosis rollback safety floor & $6.82$ & pH units & Triggers \texttt{VALVE\_B=0} + neutral flush \\
 \bottomrule

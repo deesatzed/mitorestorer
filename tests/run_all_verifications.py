@@ -555,6 +555,13 @@ def main():
         os.path.join(REPO_ROOT, "docs", "arxiv_submission", "paper4_neuro_qsp_and_axonal_pde.tex"),
         os.path.join(REPO_ROOT, "docs", "arxiv_submission", "README_ARXIV_SUBMISSION_GUIDE.md"),
     ]
+    compiled_arxiv_pdfs = [
+        os.path.join(REPO_ROOT, "docs", "arxiv_submission", "paper1_core_control_and_coral_npu.pdf"),
+        os.path.join(REPO_ROOT, "docs", "arxiv_submission", "paper2_ex_vivo_cart_bioreactor.pdf"),
+        os.path.join(REPO_ROOT, "docs", "arxiv_submission", "paper3_apis_pollinator_smart_hive.pdf"),
+        os.path.join(REPO_ROOT, "docs", "arxiv_submission", "paper4_neuro_qsp_and_axonal_pde.pdf"),
+        os.path.join(REPO_ROOT, "docs", "arxiv_submission", "main.pdf"),
+    ]
     af_ids = ["Q9BXM7", "Q9UBK2", "Q12778", "P28907", "Q868N5"]
     af_files_ok = all(
         os.path.exists(os.path.join(REPO_ROOT, "structures", "alphafold", uid, f"AF-{uid}-F1-model_v6.cif"))
@@ -568,6 +575,7 @@ def main():
         and os.path.getsize(fig7_path) > 4000
         and all(os.path.exists(mf) and os.path.getsize(mf) > 2000 for mf in module_files)
         and all(os.path.exists(pf) and os.path.getsize(pf) > 2000 for pf in segregated_arxiv_papers)
+        and all(os.path.exists(pdf) and os.path.getsize(pdf) > 50000 for pdf in compiled_arxiv_pdfs)
         and af_files_ok
         and af_license_ok
         and len(d25["modules"]) == 4
@@ -577,8 +585,8 @@ def main():
         and d26["alphafold_v6_targets"]["Q12778_Human_FOXO1"]["rigid_global_domains"] == []
         and len(d26["alphafold_v6_targets"]["Q868N5_Apis_mellifera_Vitellogenin"]["rigid_global_domains"]) == 3
         and len(d26["alphagenome_atlas_links"]) == 7,
-        "Discoveries 25–26: Decoupled 4-Module Architecture, 4 Segregated arXiv Papers & Google Science Stack (5 AFDB v6 + 7 AlphaGenome Links)",
-        f"Modules=4 | arXiv Papers=4 (Paper I-IV) | AFDB v6=5 (Q9BXM7=77.25, Q9UBK2=52.75 IDR=61.9%, Q12778=50.97 IDR=67.9%, P28907=90.88, Q868N5=84.75) | AlphaGenome=7",
+        "Discoveries 25–26: Decoupled 4-Module Architecture, 5 Compiled arXiv PDFs & Google Science Stack (5 AFDB v6 + 7 AlphaGenome Links)",
+        f"Modules=4 | arXiv PDFs=5 (Papers I-IV + main.pdf) | AFDB v6=5 (Q9BXM7=77.25, Q9UBK2=52.75 IDR=61.9%, Q12778=50.97 IDR=67.9%, P28907=90.88, Q868N5=84.75) | AlphaGenome=7",
     )
 
     print("\n" + "=" * 100)

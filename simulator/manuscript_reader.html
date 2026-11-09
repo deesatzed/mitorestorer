@@ -96,28 +96,49 @@
       <!-- Segregated 4-Paper arXiv Series Selector Matrix -->
       <div class="p-4 rounded-xl bg-slate-950/90 border border-amber-500/40 space-y-2.5 text-xs">
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <span class="font-mono font-extrabold text-amber-300 text-sm">📚 Segregated 4-Paper arXiv Preprint Series (Ranked by Moderation Acceptance Probability)</span>
-          <a href="../docs/arxiv_submission/README_ARXIV_SUBMISSION_GUIDE.md" class="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/50 font-mono font-bold">
-            📖 View arXiv Submission Strategy Guide
-          </a>
+          <span class="font-mono font-extrabold text-amber-300 text-sm">📚 Segregated 4-Paper arXiv Preprint Series (Compiled PDFs + LaTeX Source, Ranked by Moderation Acceptance)</span>
+          <div class="flex flex-wrap items-center gap-2">
+            <a href="../docs/arxiv_submission/main.pdf" target="_blank" class="px-2.5 py-1 rounded bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200 border border-cyan-400/50 font-mono font-bold">
+              📄 Omnibus main.pdf
+            </a>
+            <a href="../docs/arxiv_submission/README_ARXIV_SUBMISSION_GUIDE.md" class="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/50 font-mono font-bold">
+              📖 View arXiv Submission Strategy Guide
+            </a>
+          </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2.5 font-mono">
-          <a href="../docs/arxiv_submission/paper1_core_control_and_coral_npu.tex" class="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-cyan-500/40 block space-y-1 transition">
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-cyan-500/40 space-y-1.5">
             <div class="flex items-center justify-between"><span class="text-cyan-300 font-bold">Paper I (Core &amp; Coral NPU)</span><span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px]">#1: 95–98%</span></div>
             <div class="text-[11px] text-slate-300">Primary: <code>eess.SY</code> / <code>q-bio.QM</code> · Buckingham &Pi; Collapse ($R^2=0.994$), Props 1, 4 &amp; 5, <code>RV32IMF_Zve32x</code> C99 HIL</div>
-          </a>
-          <a href="../docs/arxiv_submission/paper2_ex_vivo_cart_bioreactor.tex" class="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-emerald-500/40 block space-y-1 transition">
+            <div class="flex items-center gap-2 pt-1 text-[11px]">
+              <a href="../docs/arxiv_submission/paper1_core_control_and_coral_npu.pdf" target="_blank" class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-200 border border-cyan-400/40 font-bold hover:bg-cyan-500/30">📕 PDF (113 KB)</a>
+              <a href="../docs/arxiv_submission/paper1_core_control_and_coral_npu.tex" target="_blank" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700">📝 .tex</a>
+            </div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-emerald-500/40 space-y-1.5">
             <div class="flex items-center justify-between"><span class="text-emerald-300 font-bold">Paper II (Ex Vivo CAR-T)</span><span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px]">#2: 90–95%</span></div>
             <div class="text-[11px] text-slate-300">Primary: <code>q-bio.CB</code> · 168h Perfusion Gate (<code>2Q8G/4ZZJ</code>), <code>AF-Q12778</code> <code>FOXO1</code> IDR Proof, 10-Day Leukopak Assay</div>
-          </a>
-          <a href="../docs/arxiv_submission/paper3_apis_pollinator_smart_hive.tex" class="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-amber-500/40 block space-y-1 transition">
+            <div class="flex items-center gap-2 pt-1 text-[11px]">
+              <a href="../docs/arxiv_submission/paper2_ex_vivo_cart_bioreactor.pdf" target="_blank" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-200 border border-emerald-400/40 font-bold hover:bg-emerald-500/30">📗 PDF (102 KB)</a>
+              <a href="../docs/arxiv_submission/paper2_ex_vivo_cart_bioreactor.tex" target="_blank" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700">📝 .tex</a>
+            </div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-amber-500/40 space-y-1.5">
             <div class="flex items-center justify-between"><span class="text-amber-300 font-bold">Paper III (Apis Smart-Hive)</span><span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px]">#3: ~90%</span></div>
             <div class="text-[11px] text-slate-300">Primary: <code>q-bio.QM</code> / <code>q-bio.PE</code> · $f^2$ Flight Muscle (<code>1SQB</code>), <code>AF-Q868N5</code> 3-Domain Vg, 4.05 mW Solar Node</div>
-          </a>
-          <a href="../docs/arxiv_submission/paper4_neuro_qsp_and_axonal_pde.tex" class="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-purple-500/40 block space-y-1 transition">
+            <div class="flex items-center gap-2 pt-1 text-[11px]">
+              <a href="../docs/arxiv_submission/paper3_apis_pollinator_smart_hive.pdf" target="_blank" class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-200 border border-amber-400/40 font-bold hover:bg-amber-500/30">📙 PDF (111 KB)</a>
+              <a href="../docs/arxiv_submission/paper3_apis_pollinator_smart_hive.tex" target="_blank" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700">📝 .tex</a>
+            </div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-purple-500/40 space-y-1.5">
             <div class="flex items-center justify-between"><span class="text-purple-300 font-bold">Paper IV (Neuro QSP &amp; PDE)</span><span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px]">#4: 80–85%</span></div>
             <div class="text-[11px] text-slate-300">Primary: <code>q-bio.NC</code> · 4.5m Axonal PDE (<code>1QK1</code>), MJFF <code>PPMI</code> ($R^2=0.946$), <code>AF-Q9BXM7</code> <code>PINK1</code>, Blood Gate</div>
-          </a>
+            <div class="flex items-center gap-2 pt-1 text-[11px]">
+              <a href="../docs/arxiv_submission/paper4_neuro_qsp_and_axonal_pde.pdf" target="_blank" class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-200 border border-purple-400/40 font-bold hover:bg-purple-500/30">📘 PDF (114 KB)</a>
+              <a href="../docs/arxiv_submission/paper4_neuro_qsp_and_axonal_pde.tex" target="_blank" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700">📝 .tex</a>
+            </div>
+          </div>
         </div>
       </div>
 

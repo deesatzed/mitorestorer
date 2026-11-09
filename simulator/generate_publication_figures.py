@@ -745,6 +745,133 @@ def build_fig6_coral_npu_rolling_and_rollback_svg() -> str:
 """
 
 
+def build_fig7_modular_architecture_and_alphafold_svg() -> str:
+    """Figure 7: Discoveries 25 & 26 — Decoupled 4-Module Architecture (MitoRestorer-Core vs. 3 Use-Case Engines), In Vitro Testability Matrix, & AlphaFold v6 pLDDT/PAE + AlphaGenome Atlas."""
+    return """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 580" width="1120" height="580">
+  <defs>
+    <linearGradient id="bg7" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#faf8f3"/>
+      <stop offset="100%" stop-color="#f2efe6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1120" height="580" rx="18" fill="url(#bg7)" stroke="#d5cfc2" stroke-width="2"/>
+  <rect x="0" y="0" width="1120" height="5" rx="2" fill="#0284c7"/>
+
+  <!-- Header -->
+  <text x="28" y="36" fill="#0369a1" font-family="ui-monospace, monospace" font-size="11.5" font-weight="bold">FIGURE 7 · DISCOVERIES 25–26: DECOUPLED 4-MODULE ARCHITECTURE (CORE vs. 3 USE CASES), IN VITRO TRL &amp; ALPHAFOLD v6 PAE ATLAS</text>
+  <text x="28" y="58" fill="#0f172a" font-family="Georgia, serif" font-size="17.5" font-weight="bold">Separating MitoRestorer-Core from Neuro-BCR (45d), CAR-T Bioreactor-BCR (10d) &amp; Apis-BCR (14d) + 16-Structure PDB/AFDB v6</text>
+
+  <!-- Panel A (Top Left): Discovery 25 — 4-Module Decoupling & In Vitro Turnaround / TRL Matrix -->
+  <rect x="28" y="76" width="525" height="232" rx="12" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
+  <text x="44" y="100" fill="#0369a1" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">A. DISCOVERY 25: DECOUPLED CORE ENGINE vs. 3 DOMAIN USE-CASE MODULES</text>
+  <rect x="44" y="110" width="492" height="36" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1"/>
+  <text x="54" y="125" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="9.5" font-weight="bold">• Module 0 (`MitoRestorer-Core`): Buckingham Π Normal Form (τ, Π₁, Π₂; R²=0.994) + CoralNPU Compiler</text>
+  <text x="54" y="139" fill="#1e293b" font-family="ui-monospace, monospace" font-size="9.2">• Each Use-Case Module instantiates distinct mitotic kinetics, failure risks, and wet-lab assays</text>
+
+  <g font-family="ui-monospace, monospace" font-size="9.4">
+    <text x="48" y="168" fill="#047857" font-weight="bold">Mod 2: CAR-T Bioreactor-BCR (Dividing 168h, TRL 6→7)</text>
+    <rect x="360" y="157" width="45" height="12" rx="3" fill="#047857"/>
+    <text x="412" y="167" fill="#065f46" font-weight="bold">10 Days (Fastest Lab Entry)</text>
+    <text x="48" y="183" fill="#475569" font-size="8.6">Assay: Donor Leukopak G-Rex Cassette + Seahorse SRC (3.78x) + FACS TCF7+ T_SCM (78.0%)</text>
+
+    <text x="48" y="209" fill="#b45309" font-weight="bold">Mod 3: Apis-BCR Smart Hive (250Hz Flight, TRL 5→7)</text>
+    <rect x="360" y="198" width="63" height="12" rx="3" fill="#d97706"/>
+    <text x="430" y="208" fill="#92400e" font-weight="bold">14 Days (Zero IRB/IACUC)</text>
+    <text x="48" y="224" fill="#475569" font-size="8.6">Assay: 48h Flight-Muscle O2k Respirometry + 14d Hoarding Cages (N=50) + RFID Solar Hive</text>
+
+    <text x="48" y="250" fill="#4338ca" font-weight="bold">Mod 1: Human Neuro-BCR (Post-Mitotic 4.5m, TRL 4→6)</text>
+    <rect x="360" y="239" width="135" height="12" rx="3" fill="#4f46e5"/>
+    <text x="500" y="249" fill="#312e81" font-weight="bold">45d</text>
+    <text x="48" y="265" fill="#475569" font-size="8.6">Assay: 3D iPSC GBA1/PINK1 Midbrain Assembloids (+CD38 Astro) + uMtCK CETSA + 5hmC CUT&amp;RUN</text>
+
+    <text x="48" y="294" fill="#0f172a" font-weight="bold" font-size="9.0">Spec Files: docs/modules/{00_core, 01_neuro, 02_cart, 03_apis}.md · Zero Cross-Contamination</text>
+  </g>
+
+  <!-- Panel B (Top Right): Discovery 26 — AlphaFold v6 pLDDT Confidence & PAE Rigid Domain vs Disorder Audit -->
+  <rect x="568" y="76" width="524" height="232" rx="12" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
+  <text x="584" y="100" fill="#065f46" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">B. DISCOVERY 26: ALPHAFOLD v6 pLDDT &amp; PAE DOMAIN vs. DISORDER STRATIFICATION</text>
+  <rect x="584" y="110" width="492" height="36" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="594" y="125" fill="#065f46" font-family="ui-monospace, monospace" font-size="9.5" font-weight="bold">• 5 Full-Length AlphaFold v6 Structures + PAE Matrices (`structures/alphafold/`) + 11 RCSB PDBs</text>
+  <text x="594" y="139" fill="#1e293b" font-family="ui-monospace, monospace" font-size="9.2">• Distinguishes Rigid Druggable Domains from Intrinsically Disordered Tails (pLDDT &lt; 50 Warning)</text>
+
+  <g font-family="ui-monospace, monospace" font-size="9.4">
+    <text x="588" y="166" fill="#0f172a">P28907 Human CD38 (300aa, Mod 1 Astro)</text>
+    <rect x="835" y="155" width="182" height="12" rx="3" fill="#047857"/>
+    <text x="1023" y="165" fill="#065f46" font-weight="bold">90.9 pLDDT (Dom 46-297)</text>
+
+    <text x="588" y="194" fill="#0f172a">Q868N5 Apis Vitellogenin (1770aa, Mod 3)</text>
+    <rect x="835" y="183" width="170" height="12" rx="3" fill="#059669"/>
+    <text x="1010" y="193" fill="#065f46" font-weight="bold">84.8 pLDDT (3 Domains)</text>
+
+    <text x="588" y="222" fill="#0f172a">Q9BXM7 Human PINK1 (581aa, Mod 1 Full)</text>
+    <rect x="835" y="211" width="154" height="12" rx="3" fill="#0284c7"/>
+    <text x="995" y="221" fill="#0369a1" font-weight="bold">77.3 (Dom 268-544 + MTS)</text>
+
+    <text x="588" y="250" fill="#991b1b">Q9UBK2 Human PGC-1α (798aa, 61.9% &lt;50)</text>
+    <rect x="835" y="239" width="105" height="12" rx="3" fill="#dc2626"/>
+    <text x="946" y="249" fill="#991b1b" font-weight="bold">52.8 (Disordered! Target 4ZZJ)</text>
+
+    <text x="588" y="278" fill="#991b1b">Q12778 Human FOXO1 (655aa, 67.9% &lt;50)</text>
+    <rect x="835" y="267" width="102" height="12" rx="3" fill="#e11d48"/>
+    <text x="943" y="277" fill="#991b1b" font-weight="bold">51.0 (Disordered! Res 158-237)</text>
+  </g>
+
+  <!-- Panel C (Bottom Left): PAE Matrix Domain Architecture Map Across Full-Length Proteins -->
+  <rect x="28" y="324" width="525" height="232" rx="12" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
+  <text x="44" y="348" fill="#4338ca" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">C. PAE RIGID DOMAIN ARCHITECTURE vs. INTRINSIC DISORDER MAP (AFDB v6)</text>
+  <g font-family="ui-monospace, monospace" font-size="9.2">
+    <text x="48" y="374" fill="#0f172a" font-weight="bold">1. Human PINK1 (Q9BXM7, 581 AA, Mean PAE = 14.79 Å):</text>
+    <rect x="48" y="381" width="90" height="14" rx="3" fill="#f59e0b"/>
+    <text x="53" y="391" fill="#ffffff" font-size="8.2">1-115 MTS Tether</text>
+    <rect x="142" y="381" width="110" height="14" rx="3" fill="#94a3b8"/>
+    <text x="148" y="391" fill="#ffffff" font-size="8.2">116-267 N-Lobe</text>
+    <rect x="256" y="381" width="240" height="14" rx="3" fill="#047857"/>
+    <text x="264" y="391" fill="#ffffff" font-size="8.2" font-weight="bold">PAE Rigid Domain 1: 268-544 (Kinase + Ub Cradle)</text>
+
+    <text x="48" y="418" fill="#0f172a" font-weight="bold">2. Apis Vitellogenin Vg (Q868N5, 1,770 AA, Mean PAE = 16.83 Å, 3 Domains):</text>
+    <rect x="48" y="425" width="210" height="14" rx="3" fill="#059669"/>
+    <text x="54" y="435" fill="#ffffff" font-size="8.2" font-weight="bold">Dom 1: 61-953 (893 AA Lipovitellin)</text>
+    <rect x="262" y="425" width="48" height="14" rx="3" fill="#f59e0b"/>
+    <text x="266" y="435" fill="#ffffff" font-size="8.0">Poly-Ser</text>
+    <rect x="314" y="425" width="125" height="14" rx="3" fill="#0284c7"/>
+    <text x="320" y="435" fill="#ffffff" font-size="8.2" font-weight="bold">Dom 2: 1155-1631 (vWD)</text>
+    <rect x="443" y="425" width="60" height="14" rx="3" fill="#4f46e5"/>
+    <text x="447" y="435" fill="#ffffff" font-size="8.0">Dom 3: CK</text>
+
+    <text x="48" y="462" fill="#991b1b" font-weight="bold">3. Human PGC-1α (Q9UBK2, 798 AA) &amp; FOXO1 (Q12778, 655 AA) Disorder Warning:</text>
+    <rect x="48" y="469" width="455" height="14" rx="3" fill="#fecaca" stroke="#dc2626" stroke-width="1"/>
+    <rect x="145" y="469" width="68" height="14" rx="2" fill="#0284c7"/>
+    <text x="149" y="479" fill="#ffffff" font-size="8.0">DBD/RRM</text>
+    <text x="225" y="479" fill="#991b1b" font-size="8.2" font-weight="bold">62-68% Disordered Tail (Must Target SIRT1 4ZZJ Deacetylation!)</text>
+
+    <rect x="48" y="495" width="485" height="46" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="58" y="512" fill="#0f172a" font-weight="bold">Why AlphaFold PAE Stratification Is Essential for Drug Discovery:</text>
+    <text x="58" y="528" fill="#334155" font-size="8.8">Prevents false small-molecule docking on disordered PGC-1α/FOXO1 tails; directs ligands to 4ZZJ/2NSX/1QK1.</text>
+  </g>
+
+  <!-- Panel D (Bottom Right): Integrated Google Science Stack (16 3D Structures + 7 AlphaGenome Atlas Tracks) -->
+  <rect x="568" y="324" width="524" height="232" rx="12" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
+  <text x="584" y="348" fill="#0f172a" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">D. GOOGLE SCIENCE BIO-AI STACK: 16 3D STRUCTURES + 7 ALPHAGENOME TRACKS</text>
+  <g font-family="ui-monospace, monospace" font-size="9.2">
+    <rect x="584" y="360" width="492" height="58" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1"/>
+    <text x="594" y="376" fill="#166534" font-weight="bold">• 11 Experimental RCSB PDBs + 5 AlphaFold v6 Proteome Models = 16 Local `.cif` Files:</text>
+    <text x="594" y="392" fill="#1e293b" font-size="8.8">PDB: 6FCX, 1B68, 7CK6, 6EQI, 4ZZJ, 2NSX, 2Q8G, 1SQB, 5UFP, 2XSN, 1QK1</text>
+    <text x="594" y="407" fill="#065f46" font-size="8.8" font-weight="bold">AFDB v6: AF-Q9BXM7 (PINK1), AF-Q9UBK2 (PGC1α), AF-Q12778 (FOXO1), AF-P28907 (CD38), AF-Q868N5 (Vg)</text>
+
+    <rect x="584" y="426" width="492" height="68" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="594" y="442" fill="#1e40af" font-weight="bold">• 7 AlphaGenome Atlas Variant &amp; Locus Deep-Links (`avi,RNA_SEQ,DNASE,CHIP_TF`):</text>
+    <text x="594" y="458" fill="#1e293b" font-size="8.7">1. GBA1 N370S (chr1:155235843:T&gt;C)  2. LRRK2 G2019S (chr12:40340400:G&gt;A)  3. MTHFR C677T</text>
+    <text x="594" y="473" fill="#1e293b" font-size="8.7">4. PINK1 A339T (chr1:20648535:G&gt;A)  5. TOMM40/APOE Locus  6. FOXO1 Locus  7. TCF7 Stemness Locus</text>
+    <text x="594" y="487" fill="#1d4ed8" font-size="8.5"> Coupled with Mol* 3D Biomolecular Structure Viewer Sidecar &amp; EuropePMC Weekly Literature-to-ODE</text>
+
+    <rect x="584" y="502" width="492" height="40" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+    <text x="594" y="519" fill="#92400e" font-weight="bold">• 3 Open-Weights `molence/Mol-1` All-Atom Multi-Ligand Co-Folding Specs (`figures/mol1_cofolding_jobs.json`)</text>
+    <text x="594" y="534" fill="#78350f" font-size="8.6">Apis CYP9Q3 + Heme + Azoxystrobin + p-Coumaric · Human uMtCK Cys278-DA-Q Adduct · PINK1 Ins3-KTP-Ub</text>
+  </g>
+</svg>
+"""
+
+
 def main():
     os.makedirs(FIG_DIR, exist_ok=True)
     f1_path = os.path.join(FIG_DIR, "fig1_pd_bcr_10state_trajectories_and_trial_audit.svg")
@@ -753,6 +880,7 @@ def main():
     f4_path = os.path.join(FIG_DIR, "fig4_cell_2026_clinical_translation_and_n500_trial.svg")
     f5_path = os.path.join(FIG_DIR, "fig5_editorial_critique_ppmi_pbpk_and_universal_collapse.svg")
     f6_path = os.path.join(FIG_DIR, "fig6_coral_npu_rolling_gate_and_physical_rollback_hil.svg")
+    f7_path = os.path.join(FIG_DIR, "fig7_modular_architecture_and_alphafold_v6_pae_atlas.svg")
     mol1_path = os.path.join(FIG_DIR, "mol1_cofolding_jobs.json")
 
     with open(f1_path, "w", encoding="utf-8") as f:
@@ -767,11 +895,13 @@ def main():
         f.write(build_fig5_editorial_critique_mitigation_svg())
     with open(f6_path, "w", encoding="utf-8") as f:
         f.write(build_fig6_coral_npu_rolling_and_rollback_svg())
+    with open(f7_path, "w", encoding="utf-8") as f:
+        f.write(build_fig7_modular_architecture_and_alphafold_svg())
     with open(mol1_path, "w", encoding="utf-8") as f:
         json.dump(build_mol1_cofolding_jobs(), f, indent=2)
 
     print("Generated publication figures & Mol-1 job specs:")
-    for p in (f1_path, f2_path, f3_path, f4_path, f5_path, f6_path, mol1_path):
+    for p in (f1_path, f2_path, f3_path, f4_path, f5_path, f6_path, f7_path, mol1_path):
         print(f"  - {p} ({os.path.getsize(p)} bytes)")
 
 

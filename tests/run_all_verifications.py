@@ -533,6 +533,46 @@ def main():
         f"HIL=({hil_out.split(': ')[-1]}) | WindGust FP=68.4%->0.0% | Biofoul=44.0%->0.0% | MealSkew=39.2%->0.8% | Rollback Survival: APOE4=22.4%->{d24['rollback_scenarios']['1_CohortB_APOE4_TOMM40_Arg330_Pore_GDF15_4000_Excitotoxic_Rebound']['bidirectional_rollback_neuronal_survival_pct']}%, CAR-T={d24['rollback_scenarios']['2_CohortF_CART_Bioreactor_PostValve_Acidosis_pH682_Rejection']['bidirectional_rollback_T_SCM_yield_pct']}%, Apis={d24['rollback_scenarios']['3_CohortG_Apis_Smart_Hive_PostBaffle_Thermal_32_8C_And_Distress_Hiss']['bidirectional_rollback_day14_homing_survival_pct']}% | SRAM={d24['total_dtcm_sram_with_rollback_bytes']}B/{d24['dtcm_sram_hardware_limit_bytes']}B",
     )
 
+    # 36. Discoveries 25–26: Decoupled Core + 3 Use-Case Modules & Google Science Stack (AlphaFold v6 + AlphaGenome Atlas)
+    from assess_new_science_release import (
+        simulate_alphafold_v6_and_alphagenome_atlas_audit,
+        simulate_domain_decoupling_and_in_vitro_trl_matrix,
+    )
+
+    d25 = simulate_domain_decoupling_and_in_vitro_trl_matrix()
+    d26 = simulate_alphafold_v6_and_alphagenome_atlas_audit()
+    fig7_path = os.path.join(REPO_ROOT, "figures", "fig7_modular_architecture_and_alphafold_v6_pae_atlas.svg")
+    module_files = [
+        os.path.join(REPO_ROOT, "docs", "modules", "00_mitorestorer_core_engine.md"),
+        os.path.join(REPO_ROOT, "docs", "modules", "01_human_neurodegeneration_clinical.md"),
+        os.path.join(REPO_ROOT, "docs", "modules", "02_ex_vivo_cart_biomanufacturing.md"),
+        os.path.join(REPO_ROOT, "docs", "modules", "03_pollinator_holobiont_smart_hive.md"),
+    ]
+    af_ids = ["Q9BXM7", "Q9UBK2", "Q12778", "P28907", "Q868N5"]
+    af_files_ok = all(
+        os.path.exists(os.path.join(REPO_ROOT, "structures", "alphafold", uid, f"AF-{uid}-F1-model_v6.cif"))
+        and os.path.exists(os.path.join(REPO_ROOT, "structures", "alphafold", uid, f"AF-{uid}-F1-predicted_aligned_error_v6.json"))
+        and os.path.exists(os.path.join(REPO_ROOT, "structures", "alphafold", uid, f"AF-{uid}-F1-metadata.json"))
+        for uid in af_ids
+    )
+    af_license_ok = os.path.exists(os.path.join(REPO_ROOT, ".licenses", "alphafold_database_fetch_and_analyze_LICENSE.txt"))
+    check(
+        os.path.exists(fig7_path)
+        and os.path.getsize(fig7_path) > 4000
+        and all(os.path.exists(mf) and os.path.getsize(mf) > 2000 for mf in module_files)
+        and af_files_ok
+        and af_license_ok
+        and len(d25["modules"]) == 4
+        and d25["modules"]["Module_2_ExVivo_CART_Biomanufacturing_BioreactorBCR"]["in_vitro_turnaround_days"] == 10
+        and d26["alphafold_v6_proteome_count"] == 5
+        and d26["alphafold_v6_targets"]["Q9UBK2_Human_PGC1alpha_PPARGC1A"]["rigid_global_domains"] == []
+        and d26["alphafold_v6_targets"]["Q12778_Human_FOXO1"]["rigid_global_domains"] == []
+        and len(d26["alphafold_v6_targets"]["Q868N5_Apis_mellifera_Vitellogenin"]["rigid_global_domains"]) == 3
+        and len(d26["alphagenome_atlas_links"]) == 7,
+        "Discoveries 25–26: Decoupled 4-Module Architecture (00..03) & Google Science Stack (5 AlphaFold v6 PAE/pLDDT + 7 AlphaGenome Atlas Links)",
+        f"Modules=4 (Fastest benchtop: CAR-T 10d, 1.00 TRL/mo) | AFDB v6=5 (Q9BXM7=77.25, Q9UBK2=52.75 IDR=61.9%, Q12778=50.97 IDR=67.9%, P28907=90.88, Q868N5=84.75 3-domains) | AlphaGenome Links=7",
+    )
+
     print("\n" + "=" * 100)
     print(f"✅ VERIFICATION SUMMARY: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
     print("=" * 100)

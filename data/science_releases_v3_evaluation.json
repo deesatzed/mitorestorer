@@ -1044,6 +1044,178 @@
       }
     }
   },
+  "discovery_25_domain_decoupling_in_vitro_trl": {
+    "architecture_pattern": "1 Core Mathematical/Silicon Kernel + 3 Decoupled Domain Use-Case Modules",
+    "modules": {
+      "Module_0_MitoRestorer_Core": {
+        "spec_file": "docs/modules/00_mitorestorer_core_engine.md",
+        "scope": "Buckingham Pi Normal Form (tau, Pi_1, Pi_2), Propositions 1/4/5, CoralNPU RV32IMF_Zve32x Compiler",
+        "universal_collapse_R2": 0.994,
+        "coral_npu_cycles": 1552,
+        "coral_npu_sram_bytes": 7072
+      },
+      "Module_1_Human_Neurodegeneration_NeuroBCR": {
+        "spec_file": "docs/modules/01_human_neurodegeneration_clinical.md",
+        "mitotic_regime": "Strictly post-mitotic (0.0x division; 4.5m axonal arbor PDE)",
+        "characteristic_mitophagy_tau_days": 13.3,
+        "optimal_gate": "Day 26.5 (5-Marker Blood Kalman Gate @ FDR <= 5%)",
+        "primary_unique_risks": [
+          "PINK1 MHC-I MitAP -> CD8+ T-cell autoimmune synaptic killing (64.2% -> 4.1% with Stage-0 Ambroxol)",
+          "APOE4/TOMM40 Arg330 19-stranded beta-barrel excitotoxicity on GDF15 rebound (rescued to 94.6% via 32B DTCM rollback)",
+          "FAIRPARK-II Deferiprone stripping of Tyrosine Hydroxylase (2XSN) catalytic Fe2+",
+          "Human BBB P-gp/BCRP efflux (K_p,uu,brain = 0.28 Ambroxol; 0.68 MTX325/MTK458)",
+          "Irreversible baseline H&Y SNc soma attrition (requires iNSC graft pairing in H&Y Stage III)"
+        ],
+        "in_vitro_testability_assay": "3D iPSC GBA1-N370S / PINK1 Midbrain Assembloids (+ CD38+ Astrocytes) + uMtCK Cys278 CETSA + 5hmC CUT&RUN",
+        "in_vitro_turnaround_days": 45,
+        "trl_current_to_target": "TRL 4 -> TRL 6"
+      },
+      "Module_2_ExVivo_CART_Biomanufacturing_BioreactorBCR": {
+        "spec_file": "docs/modules/02_ex_vivo_cart_biomanufacturing.md",
+        "mitotic_regime": "Rapidly dividing primary T-lymphoblasts (doubling every 12-16h in perfusion cassette)",
+        "characteristic_mitophagy_tau_hours": 32.0,
+        "optimal_gate": "Hour 64.0 (Lac:Pyr <= 14.0 + Optical Phenol-Red pH Check)",
+        "primary_unique_risks": [
+          "Amperometric Lac:Pyr electrode biofouling drift (44.0% -> 0.0% via timed 64.0h + optical pH fallback)",
+          "Post-valve Media-B lactic acidosis crash pH <= 6.82 (rescued to 74.8% T_SCM via VALVE_B=0 + neutral flush)",
+          "Premature mTORC1/Akt phosphorylation exporting disordered FOXO1 (AF-Q12778-F1) from nucleus"
+        ],
+        "in_vitro_testability_assay": "10-Day Closed Benchtop Perfusion Cassette (Primary Human Donor Leukopaks, Seahorse XF SRC, FACS TCF7+ T_SCM)",
+        "in_vitro_turnaround_days": 10,
+        "trl_current_to_target": "TRL 6 -> TRL 7 (Fastest Wet-Lab Entry Point; Zero In Vivo/BBB Barrier)"
+      },
+      "Module_3_Pollinator_Holobiont_SmartHive_ApisBCR": {
+        "spec_file": "docs/modules/03_pollinator_holobiont_smart_hive.md",
+        "mitotic_regime": "Post-mitotic asynchronous indirect flight muscle oscillating at 100-250 Hz (f^2 = 5.76x quadratic surge)",
+        "characteristic_mitophagy_tau_days": 2.08,
+        "optimal_gate": "Day 4.2 (64-Frame Rolling MEMS Wingbeat >= 220.0 Hz + 34.5C Brood Guard)",
+        "primary_unique_risks": [
+          "Orchard wind gusts & hive knocks (68.4% -> 0.0% false trigger via 64-frame rolling persistence window)",
+          "Post-baffle cold snap brood chill 32.8C (rescued to 94.2% survival via Bay-B -> Bay-A solenoid snap-back)",
+          "Oxytetracycline wiping out Snodgrassella alvi ileum biofilm (0.04x) & formic acid Complex IV block"
+        ],
+        "in_vitro_testability_assay": "48h Permeabilized Flight Muscle Respirometry + 14-Day Incubator Hoarding Cages (N=50 bees/cage) + RFID Hive",
+        "in_vitro_turnaround_days": 14,
+        "trl_current_to_target": "TRL 5 -> TRL 7 (Zero Vertebrate/IRB Barrier)"
+      }
+    }
+  },
+  "discovery_26_alphafold_v6_and_alphagenome_atlas": {
+    "total_3d_structures_verified": 16,
+    "experimental_rcsb_pdb_count": 11,
+    "alphafold_v6_proteome_count": 5,
+    "alphafold_v6_targets": {
+      "Q9BXM7_Human_FullLength_PINK1": {
+        "uniprot_id": "Q9BXM7",
+        "use_case_module": "Module 1 (Neuro-BCR: PD & APOE4/TOMM40 AD)",
+        "cif_path": "structures/alphafold/Q9BXM7/AF-Q9BXM7-F1-model_v6.cif",
+        "sequence_length_aa": 581,
+        "global_plddt": 77.25,
+        "fraction_very_low_below50_pct": 19.3,
+        "fraction_very_high_above90_pct": 52.0,
+        "pae_mean_angstrom": 14.79,
+        "pae_confident_pairs_below5A_pct": 29.1,
+        "rigid_global_domains": [
+          {
+            "domain": 1,
+            "start": 268,
+            "end": 544,
+            "length_aa": 277
+          }
+        ],
+        "structural_insight": "Resolves the flexible N-terminal MTS & TOMM40/PARL transmembrane import tether (res 1-115, pLDDT < 50) absent from insect PDB 6EQI, proving why Stage-0 TOMM40 (7CK6) unblocking is required before the rigid 268-544 kinase domain can anchor."
+      },
+      "Q9UBK2_Human_PGC1alpha_PPARGC1A": {
+        "uniprot_id": "Q9UBK2",
+        "use_case_module": "Modules 1 & 2 (Stage-2 Biogenesis Coactivator)",
+        "cif_path": "structures/alphafold/Q9UBK2/AF-Q9UBK2-F1-model_v6.cif",
+        "sequence_length_aa": 798,
+        "global_plddt": 52.75,
+        "fraction_very_low_below50_pct": 61.9,
+        "fraction_very_high_above90_pct": 8.0,
+        "pae_mean_angstrom": 28.09,
+        "pae_confident_pairs_below5A_pct": 1.4,
+        "rigid_global_domains": [],
+        "explicit_disorder_warning": true,
+        "structural_insight": "61.9% intrinsically disordered (pLDDT < 50) with 0 rigid global domains >50 AAs; whole-protein pocket docking is invalid. Stage-2 biogenesis must instead target the rigid SIRT1 catalytic core (PDB: 4ZZJ, Glu230) to deacetylate PGC-1alpha's disordered lysine tail."
+      },
+      "Q12778_Human_FOXO1": {
+        "uniprot_id": "Q12778",
+        "use_case_module": "Module 2 (Bioreactor-BCR: CAR-T T_SCM Master Regulator)",
+        "cif_path": "structures/alphafold/Q12778/AF-Q12778-F1-model_v6.cif",
+        "sequence_length_aa": 655,
+        "global_plddt": 50.97,
+        "fraction_very_low_below50_pct": 67.9,
+        "fraction_very_high_above90_pct": 9.8,
+        "pae_mean_angstrom": 28.19,
+        "pae_confident_pairs_below5A_pct": 2.0,
+        "rigid_global_domains": [],
+        "explicit_disorder_warning": true,
+        "structural_insight": "67.9% intrinsically disordered outside the compact Forkhead DNA-binding motif (res 158-237); nuclear retention in CAR-T cells requires Phase-1 Akt suppression (blocking Thr24/Ser256 export) + Phase-2 SIRT1 (4ZZJ) deacetylation."
+      },
+      "P28907_Human_Astrocyte_CD38": {
+        "uniprot_id": "P28907",
+        "use_case_module": "Module 1 (Neuro-BCR: Discovery 12 Astrocyte-to-Neuron Mito Transfer)",
+        "cif_path": "structures/alphafold/P28907/AF-P28907-F1-model_v6.cif",
+        "sequence_length_aa": 300,
+        "global_plddt": 90.88,
+        "fraction_very_low_below50_pct": 2.7,
+        "fraction_very_high_above90_pct": 76.0,
+        "pae_mean_angstrom": 9.36,
+        "pae_confident_pairs_below5A_pct": 55.1,
+        "rigid_global_domains": [
+          {
+            "domain": 1,
+            "start": 46,
+            "end": 297,
+            "length_aa": 252
+          }
+        ],
+        "structural_insight": "Highly ordered catalytic ectodomain (res 46-297, pLDDT = 90.88, Glu226 active site) that converts NAD+ to cADPR to trigger astrocytic mitochondrial tunneling-nanotube transfer (expanding neuronal h_crit from 64.5% -> 79.2%)."
+      },
+      "Q868N5_Apis_mellifera_Vitellogenin": {
+        "uniprot_id": "Q868N5",
+        "use_case_module": "Module 3 (Apis-BCR: Honeybee Epigenetic Longevity & ROS Shield)",
+        "cif_path": "structures/alphafold/Q868N5/AF-Q868N5-F1-model_v6.cif",
+        "sequence_length_aa": 1770,
+        "global_plddt": 84.75,
+        "fraction_very_low_below50_pct": 5.2,
+        "fraction_very_high_above90_pct": 49.2,
+        "pae_mean_angstrom": 16.83,
+        "pae_confident_pairs_below5A_pct": 9.3,
+        "rigid_global_domains": [
+          {
+            "domain": 1,
+            "start": 61,
+            "end": 953,
+            "length_aa": 893
+          },
+          {
+            "domain": 2,
+            "start": 1155,
+            "end": 1631,
+            "length_aa": 477
+          },
+          {
+            "domain": 3,
+            "start": 1687,
+            "end": 1769,
+            "length_aa": 83
+          }
+        ],
+        "structural_insight": "Resolves 3 independently positioned rigid global domains (893 AA N-terminal Lipovitellin-I Zn2+/lipid superdomain, 477 AA vWD phospholipid-binding domain, and 83 AA C-terminal cystine-knot domain) separated by the flexible polyserine linker (res 954-1154)."
+      }
+    },
+    "alphagenome_atlas_links": {
+      "GBA1_Asn370Ser_rs76763715": "https://deepmind.google.com/science/alphagenome/atlas?q=chr1:155235843:T%3EC&m=variant&lItems=avi,section:RNA_SEQ,section:DNASE,section:CHIP_TF",
+      "LRRK2_Gly2019Ser_rs34637584": "https://deepmind.google.com/science/alphagenome/atlas?q=chr12:40340400:G%3EA&m=variant&lItems=avi,section:RNA_SEQ,section:DNASE,section:CHIP_TF",
+      "MTHFR_C677T_rs1801133": "https://deepmind.google.com/science/alphagenome/atlas?q=chr1:11796321:G%3EA&m=variant&lItems=avi,section:RNA_SEQ,section:DNASE,section:CHIP_TF",
+      "PINK1_Ala339Thr_rs45478900": "https://deepmind.google.com/science/alphagenome/atlas?q=chr1:20648535:G%3EA&m=variant&lItems=avi,section:RNA_SEQ,section:DNASE,section:CHIP_TF",
+      "TOMM40_APOE_Locus": "https://deepmind.google.com/science/alphagenome/atlas?q=chr19:44889000-44915000&m=locus&lItems=avi,section:RNA_SEQ,section:DNASE,section:CHIP_TF",
+      "FOXO1_CART_Stemness_Locus": "https://deepmind.google.com/science/alphagenome/atlas?q=chr13:40555000-40668000&m=locus&lItems=avi,section:RNA_SEQ,section:DNASE,section:CHIP_TF",
+      "TCF7_CART_Memory_Locus": "https://deepmind.google.com/science/alphagenome/atlas?q=chr5:134110000-134150000&m=locus&lItems=avi,section:RNA_SEQ,section:DNASE,section:CHIP_TF"
+    }
+  },
   "pd_landmark_trial_audit": [
     {
       "trial_id": "QE3_CoQ10_2014",

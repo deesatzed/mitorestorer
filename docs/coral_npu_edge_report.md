@@ -33,7 +33,14 @@ RK4_PARITY_STATE[3]: FP64=0.630235 | Q16_INT=41303 (0.630234) | TermErr=0.0001% 
 RK4_PARITY_STATE[4]: FP64=0.318642 | Q16_INT=20883 (0.318649) | TermErr=0.0022% | MaxErr=0.0047% | RMSErr=0.0020%
 RK4_PARITY_STATE[5]: FP64=1.469839 | Q16_INT=96326 (1.469818) | TermErr=0.0014% | MaxErr=0.0063% | RMSErr=0.0023%
 RK4_PARITY_STATE[6]: FP64=1.299926 | Q16_INT=85192 (1.299927) | TermErr=0.0001% | MaxErr=0.0061% | RMSErr=0.0030%
-RK4_PARITY_STATE[7]: FP64=1.736594 | Q16_INT=113816 (1.736694) | TermErr=0.0058% | MaxErr=0.0154% | RMSErr=0.0085%`
+RK4_PARITY_STATE[7]: FP64=1.736594 | Q16_INT=113816 (1.736694) | TermErr=0.0058% | MaxErr=0.0154% | RMSErr=0.0085%
+RVV_ZVE32X_WIDENING_PARITY: Trials=256 | Lanes=8 | MaxULPDiff=0
+FORMAT_ABLATION[N=500,dt=0.17999]: FP32_MaxErr=0.0001% | NaiveQ16_MaxErr=13.5107% | Q24NoRem_MaxErr=0.6016% | Q24Rem_MaxErr=0.0543%
+FORMAT_ABLATION[N=1000,dt=0.09000]: FP32_MaxErr=0.0002% | NaiveQ16_MaxErr=23.3105% | Q24NoRem_MaxErr=1.8271% | Q24Rem_MaxErr=0.0563%
+FORMAT_ABLATION[N=2000,dt=0.04500]: FP32_MaxErr=0.0005% | NaiveQ16_MaxErr=39.6056% | Q24NoRem_MaxErr=2.8409% | Q24Rem_MaxErr=0.0554%
+FORMAT_ABLATION[N=4000,dt=0.02251]: FP32_MaxErr=0.0010% | NaiveQ16_MaxErr=84.4063% | Q24NoRem_MaxErr=22.0179% | Q24Rem_MaxErr=0.0534%
+FORMAT_ABLATION[N=8000,dt=0.01125]: FP32_MaxErr=0.0022% | NaiveQ16_MaxErr=100.0000% | Q24NoRem_MaxErr=17.4389% | Q24Rem_MaxErr=0.0539%
+C99_HUBER_EKF_CLOSED_LOOP: Steps=1000 | SwitchStep=415 | h_RMSE=0.94% | W_term=1.0518 | h_term=0.0222 | DTCM_Workspace=3696B/8192B`
 
 | Target ID | Deployment Domain | Total Cycles | Latency (`ms`) | Active Power (`mW`) | Energy / Step (`µJ`) | L1 SRAM (`Bytes`) | Zero-Skip (`%`) | Max `Q16.16` vs `FP64` Error | Gate Discrepancy |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |

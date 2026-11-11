@@ -3,7 +3,7 @@
  * File        : mitorestorer_coralnpu_kernel.h
  * Target ISA  : Google Coral NPU (`RV32IMF_Zve32x` + 256-MAC INT8 Matrix Engine)
  * Datasheet   : Google Coral NPU (8 KB ITCM, 32 KB DTCM; 1x 8 KB Bank Active)
- * Memory Map  : ITCM @ 0x0000_0000 (<8 KB) | Active DTCM Bank 0 (7,072 / 8,192 B)
+ * Memory Map  : ITCM @ 0x0000_0000 (<8 KB) | Active DTCM Bank 0 (3,696 / 8,192 B)
  * Verification: 1,000-step 8-State Q16.16 4-Stage RK4 vs. IEEE-754 FP64 Parity
  * ============================================================================ */
 
@@ -106,35 +106,36 @@ typedef struct {
 typedef struct {
   int32_t k_cap_q16;          /* K = 1.250 (81920)                           */
   int32_t k_rep_adv_q16;      /* k_rep,adv = 1.320 (86508)                   */
-  int32_t k_bio0_q16;         /* k_bio,0 = 0.030 (1966)                      */
-  int32_t k_biomax_q16;       /* k_bio,max = 0.120 (7864)                    */
+  int32_t k_bio0_q16;         /* k_bio,0 = 0.075 (4915)                      */
+  int32_t k_biomax_q16;       /* k_bio,max = 0.140 (9175)                    */
   int32_t k_mito_w_q16;       /* k_mito,W = 0.015 (983)                      */
   int32_t k_mito_d_max_q16;   /* k_mito,D,max = 0.115 (7537)                 */
   int32_t k_dmg_q16;          /* k_dmg = 0.040 (2621)                        */
-  int32_t k_acc_q16;          /* k_acc = 0.020 (1311)                        */
+  int32_t k_acc_q16;          /* k_acc = 0.080 (5243)                        */
   int32_t k_clr_q16;          /* k_clr = 0.180 (11796)                       */
   int32_t k_b_half_q16;       /* K_B = 0.250 (16384)                         */
   int32_t k_e_relax_q16;      /* k_E = 0.250 (16384)                         */
   int32_t k_g_prod_q16;       /* k_G,prod = 0.080 (5243)                     */
   int32_t k_g_clr_q16;        /* k_G,clr = 0.160 (10486)                     */
-  int32_t k_n_syn0_q16;       /* k_N,syn0 = 0.050 (3277)                     */
-  int32_t k_n_syn2_q16;       /* k_N,syn2 = 0.110 (7209)                     */
+  int32_t k_n_syn0_q16;       /* k_N,syn0 = 0.060 (3932)                     */
+  int32_t k_n_syn2_q16;       /* k_N,syn2 = 0.080 (5243)                     */
   int32_t k_parp_q16;         /* k_PARP = 0.060 (3932)                       */
-  int32_t k_n_use_q16;        /* k_N,use = 0.080 (5243)                      */
-  int32_t k_oct0_q16;         /* k_oct0 = 0.030 (1966)                       */
-  int32_t k_oct2_q16;         /* k_oct2 = 0.120 (7864)                       */
+  int32_t k_n_use_q16;        /* k_N,use = 0.095 (6226)                      */
+  int32_t k_oct0_q16;         /* k_oct0 = 0.040 (2621)                       */
+  int32_t k_oct2_q16;         /* k_oct2 = 0.100 (6554)                       */
   int32_t k_ox_cys_q16;       /* k_ox,Cys278 = 0.050 (3277)                  */
   int32_t k_drift_q16;        /* k_drift = 0.0015 (98)                       */
-  int32_t k_tet_q16;          /* k_TET = 0.025 (1638)                        */
+  int32_t k_tet_q16;          /* k_TET = 0.012 (786)                         */
   int32_t eta_d_q16;          /* eta_D = 0.150 (9830)                        */
-  int32_t beta_b_q16;         /* beta_B = 0.600 (39322)                      */
-  int32_t beta_h_q16;         /* beta_h = 1.800 (117965)                     */
+  int32_t beta_b_q16;         /* beta_B = 0.250 (16384)                      */
+  int32_t beta_h_q16;         /* beta_h = 0.650 (42598)                      */
   int32_t gamma_c_q16;        /* gamma_C = 0.340 (22282)                     */
   int32_t theta_gsh_q16;      /* theta_GSH = 1.150 (75366)                   */
   int32_t theta_cys_q16;      /* theta_Cys = 0.850 (55706)                   */
-  int32_t c1_flux_q16;        /* c_1 = 0.200 (13107)                         */
-  int32_t c2_flux_q16;        /* c_2 = 0.350 (22938)                         */
+  int32_t c1_flux_q16;        /* c_1 = 0.220 (14418)                         */
+  int32_t c2_flux_q16;        /* c_2 = 0.040 (2621)                          */
   int32_t h_gate_q16;         /* h_gate = 0.080 (5243)                       */
+  int32_t b_gate_q16;         /* B_gate = 0.120 (7864)                       */
 } mitorestorer_core_params_q16_t;
 
 /* 64-Frame Rolling Sensor Persistence & Multimodal Cross-Coherence Buffer (168 bytes in L1 DTCM) */
@@ -270,6 +271,31 @@ static inline int32_t q24_slope_step_to_q16(int32_t dt_q16, int32_t k_q24) {
   return (int32_t)((prod + (prod >= 0 ? (1LL << 23) : -(1LL << 23))) >> 24);
 }
 
+static inline void coralnpu_q24_axpy8_q16(
+    int32_t out_q16[8],
+    const int32_t base_q16[8],
+    const int32_t k_q24[8],
+    int32_t dt_q16) {
+#if defined(__riscv_vector)
+  size_t vl = __riscv_vsetvl_e32m2(8);
+  vint32m2_t vbase = __riscv_vle32_v_i32m2(base_q16, vl);
+  vint32m2_t vk24  = __riscv_vle32_v_i32m2(k_q24, vl);
+  vint64m4_t vprod = __riscv_vwmul_vx_i64m4(vk24, dt_q16, vl);
+  /* Symmetric round-to-nearest before 24-bit right shift to Q16.16 */
+  vbool16_t vneg   = __riscv_vmslt_vx_i64m4_b16(vprod, 0, vl);
+  vint64m4_t vbias = __riscv_vmv_v_x_i64m4(1LL << 23, vl);
+  vbias            = __riscv_vrsub_vx_i64m4_m(vneg, vbias, vbias, 0, vl);
+  vprod            = __riscv_vadd_vv_i64m4(vprod, vbias, vl);
+  vint32m2_t vstep = __riscv_vnsra_wx_i32m2(vprod, 24, vl);
+  vint32m2_t vout  = __riscv_vadd_vv_i32m2(vbase, vstep, vl);
+  __riscv_vse32_v_i32m2(out_q16, vout, vl);
+#else
+  for (int i = 0; i < 8; ++i) {
+    out_q16[i] = base_q16[i] + q24_slope_step_to_q16(dt_q16, k_q24[i]);
+  }
+#endif
+}
+
 static inline void coralnpu_rk4_core8_full_step_q16(
     mitorestorer_ode_state_q16_t* state,
     const mitorestorer_core_params_q16_t* params,
@@ -288,33 +314,95 @@ static inline void coralnpu_rk4_core8_full_step_q16(
   coralnpu_eval_core8_rhs_q16(state, params, u0_q16, u1_q16, u2_q16, k1);
 
   /* Stage 2: k2 = f(x_n + 0.5 * dt * k1) */
-  for (int i = 0; i < 8; ++i) {
-    t_ptr[i] = s_ptr[i] + q24_slope_step_to_q16(half_dt_q16, k1[i]);
-  }
+  coralnpu_q24_axpy8_q16(t_ptr, s_ptr, k1, half_dt_q16);
   coralnpu_eval_core8_rhs_q16(&tmp, params, u0_q16, u1_q16, u2_q16, k2);
 
   /* Stage 3: k3 = f(x_n + 0.5 * dt * k2) */
-  for (int i = 0; i < 8; ++i) {
-    t_ptr[i] = s_ptr[i] + q24_slope_step_to_q16(half_dt_q16, k2[i]);
-  }
+  coralnpu_q24_axpy8_q16(t_ptr, s_ptr, k2, half_dt_q16);
   coralnpu_eval_core8_rhs_q16(&tmp, params, u0_q16, u1_q16, u2_q16, k3);
 
   /* Stage 4: k4 = f(x_n + dt * k3) */
-  for (int i = 0; i < 8; ++i) {
-    t_ptr[i] = s_ptr[i] + q24_slope_step_to_q16(dt_q16, k3[i]);
-  }
+  coralnpu_q24_axpy8_q16(t_ptr, s_ptr, k3, dt_q16);
   coralnpu_eval_core8_rhs_q16(&tmp, params, u0_q16, u1_q16, u2_q16, k4);
 
   /* Combine: x_{n+1} = x_n + (dt / 6) * (k1 + 2*k2 + 2*k3 + k4) with sub-LSB remainder */
   const int64_t denom = 6LL * (1LL << 24); /* 100663296 */
   for (int i = 0; i < 8; ++i) {
     int64_t weighted_sum = (int64_t)k1[i] + 2 * (int64_t)k2[i] + 2 * (int64_t)k3[i] + (int64_t)k4[i];
-    int64_t num = weighted_sum * (int64_t)dt_q16 + (rk4_sub_lsb_rem ? rk4_sub_lsb_rem[i] : 0);
-    int32_t delta = (int32_t)(num / denom);
     if (rk4_sub_lsb_rem) {
+      int64_t num = weighted_sum * (int64_t)dt_q16 + rk4_sub_lsb_rem[i];
+      int32_t delta = (int32_t)(num / denom);
       rk4_sub_lsb_rem[i] = num - (int64_t)delta * denom;
+      s_ptr[i] += delta;
+    } else {
+      /* Round-to-nearest without sub-LSB remainder propagation (fair ablation baseline) */
+      int64_t num = weighted_sum * (int64_t)dt_q16;
+      int32_t delta = (int32_t)((num + (num >= 0 ? (denom >> 1) : -(denom >> 1))) / denom);
+      s_ptr[i] += delta;
     }
-    s_ptr[i] += delta;
+  }
+}
+
+/* Baseline Naive Q16.16 4-Stage RK4 Stepper (for Fixed-Point Deadband Ablation):
+ * Quantizes slopes directly to Q16.16 (>> 8 from Q8.24) without Q8.24 slope precision
+ * or sub-LSB remainder accumulation, exposing quantization deadband stalling as dt -> 0. */
+static inline void coralnpu_rk4_core8_naive_q16_step(
+    mitorestorer_ode_state_q16_t* state,
+    const mitorestorer_core_params_q16_t* params,
+    int32_t u0_q16,
+    int32_t u1_q16,
+    int32_t u2_q16,
+    int32_t dt_q16) {
+  int32_t k1_q24[8], k2_q24[8], k3_q24[8], k4_q24[8];
+  int32_t k1_q16[8], k2_q16[8], k3_q16[8], k4_q16[8];
+  mitorestorer_ode_state_q16_t tmp;
+  int32_t* s_ptr = (int32_t*)state;
+  int32_t* t_ptr = (int32_t*)&tmp;
+  int32_t half_dt_q16 = dt_q16 >> 1;
+
+  coralnpu_eval_core8_rhs_q16(state, params, u0_q16, u1_q16, u2_q16, k1_q24);
+  for (int i = 0; i < 8; ++i) {
+    k1_q16[i] = (k1_q24[i] + (k1_q24[i] >= 0 ? 128 : -128)) >> 8;
+    t_ptr[i] = s_ptr[i] + q16_mul(half_dt_q16, k1_q16[i]);
+  }
+  coralnpu_eval_core8_rhs_q16(&tmp, params, u0_q16, u1_q16, u2_q16, k2_q24);
+  for (int i = 0; i < 8; ++i) {
+    k2_q16[i] = (k2_q24[i] + (k2_q24[i] >= 0 ? 128 : -128)) >> 8;
+    t_ptr[i] = s_ptr[i] + q16_mul(half_dt_q16, k2_q16[i]);
+  }
+  coralnpu_eval_core8_rhs_q16(&tmp, params, u0_q16, u1_q16, u2_q16, k3_q24);
+  for (int i = 0; i < 8; ++i) {
+    k3_q16[i] = (k3_q24[i] + (k3_q24[i] >= 0 ? 128 : -128)) >> 8;
+    t_ptr[i] = s_ptr[i] + q16_mul(dt_q16, k3_q16[i]);
+  }
+  coralnpu_eval_core8_rhs_q16(&tmp, params, u0_q16, u1_q16, u2_q16, k4_q24);
+  for (int i = 0; i < 8; ++i) {
+    k4_q16[i] = (k4_q24[i] + (k4_q24[i] >= 0 ? 128 : -128)) >> 8;
+    int32_t sum6 = k1_q16[i] + 2 * k2_q16[i] + 2 * k3_q16[i] + k4_q16[i];
+    int32_t weighted_q16 = (sum6 + (sum6 >= 0 ? 3 : -3)) / 6;
+    int32_t delta_q16 = q16_mul(dt_q16, weighted_q16);
+    s_ptr[i] += delta_q16;
+  }
+}
+
+/* Host-exact architectural model of RVV Zve32x 128-bit LMUL=2 (`vint32m2_t` -> `vint64m4_t`)
+ * widening multiply (`vwmul.vx`) + narrowing arithmetic shift (`vnsra.wx ..., 16`),
+ * enabling 0-ULP dual-path verification on non-RISC-V hosts. */
+static inline void coralnpu_zve32x_isa_emulated_step_q16(
+    int32_t state_vec[8],
+    const int32_t k1_vec[8],
+    const int32_t k2_vec[8],
+    int32_t dt_q16) {
+  /* Models 2x 128-bit vector registers (`LMUL=2`, `SEW=32`, `VL=8`) widened to
+   * 4x 128-bit registers (`LMUL=4`, `SEW=64`, `VL=8`) via `vwmul.vx` + `vnsra.wx`. */
+  int64_t vprod_widen_m4[8];
+  for (int lane = 0; lane < 8; ++lane) {
+    int32_t vavg = (int32_t)(((int64_t)k1_vec[lane] + (int64_t)k2_vec[lane]) >> 1);
+    vprod_widen_m4[lane] = (int64_t)vavg * (int64_t)dt_q16; /* vwmul.vx */
+  }
+  for (int lane = 0; lane < 8; ++lane) {
+    int32_t vstep = (int32_t)(vprod_widen_m4[lane] >> 16);   /* vnsra.wx ..., 16 */
+    state_vec[lane] += vstep;                                /* vadd.vv */
   }
 }
 
@@ -494,5 +582,202 @@ static inline mitorestorer_gate_action_t coralnpu_bidirectional_rollback_guard(
   }
   return BCR_GATE_STAGE2_ANABOLIC_BUILD;
 }
+
+/* ----------------------------------------------------------------------------
+ * 6. UNIFIED PAPER I DUAL-THRESHOLD GATE & FIXED-POINT 7-STATE HUBER-EKF
+ *    - `coralnpu_core8_stage_gate_q16`: Enforces BOTH h(t) <= h_gate AND B(t) <= B_gate.
+ *    - `coralnpu_huber_ekf7_step_q16`: Bare-metal, zero-malloc Q16.16 7-state
+ *      Huber-regularized Extended Kalman Filter over y = [E, ATP, G, N]^T using
+ *      exact sequential scalar measurement updates (avoiding 4x4 matrix inversion).
+ *    - `coralnpu_dtcm_bank0_workspace_t`: Complete static L1 DTCM Bank 0 layout
+ *      verified at compile/runtime (`sizeof <= 8192` bytes).
+ * ---------------------------------------------------------------------------- */
+static inline bool coralnpu_core8_stage_gate_q16(
+    const mitorestorer_ode_state_q16_t* state,
+    int32_t h_gate_q16,
+    int32_t b_gate_q16) {
+  int32_t m_q16 = state->w_mass_q16 + state->d_mass_q16;
+  int32_t h_q16 = (m_q16 > 64) ? q16_div(state->d_mass_q16, m_q16) : 0;
+  return (h_q16 <= h_gate_q16) && (state->bottleneck_b_q16 <= b_gate_q16);
+}
+
+static inline uint32_t coralnpu_isqrt64(uint64_t n) {
+  if (n == 0) return 0;
+  uint64_t x = n;
+  uint64_t y = (x + 1ULL) >> 1;
+  while (y < x) {
+    x = y;
+    y = (x + n / x) >> 1;
+  }
+  return (uint32_t)x;
+}
+
+static inline void coralnpu_obs4_and_row_q16(
+    const int32_t x7_q16[7],
+    const mitorestorer_core_params_q16_t* p,
+    int ch,
+    int32_t* y_pred_q16,
+    int32_t h_row_q16[7]) {
+  for (int i = 0; i < 7; ++i) h_row_q16[i] = 0;
+  int32_t W = x7_q16[0] > 0 ? x7_q16[0] : 0;
+  int32_t D = x7_q16[1] > 0 ? x7_q16[1] : 0;
+  int32_t C = x7_q16[6] > 0 ? x7_q16[6] : 0;
+  if (ch == 0) {
+    *y_pred_q16 = x7_q16[3];
+    h_row_q16[3] = Q16_ONE;
+  } else if (ch == 1) {
+    int32_t eff_m = W + q16_mul(p->eta_d_q16, D);
+    int32_t pcr_f = Q16_ONE + q16_mul(p->gamma_c_q16, C);
+    *y_pred_q16 = q16_mul(eff_m, pcr_f);
+    h_row_q16[0] = pcr_f;
+    h_row_q16[1] = q16_mul(p->eta_d_q16, pcr_f);
+    h_row_q16[6] = q16_mul(p->gamma_c_q16, eff_m);
+  } else if (ch == 2) {
+    *y_pred_q16 = x7_q16[4];
+    h_row_q16[4] = Q16_ONE;
+  } else {
+    *y_pred_q16 = x7_q16[5];
+    h_row_q16[5] = Q16_ONE;
+  }
+}
+
+static inline int32_t q24_mul(int32_t a_q24, int32_t b_q24) {
+  int64_t prod = (int64_t)a_q24 * (int64_t)b_q24;
+  return (int32_t)((prod + (prod >= 0 ? (1LL << 23) : -(1LL << 23))) >> 24);
+}
+
+static inline int32_t q24_mul_q16(int32_t a_q24, int32_t b_q16) {
+  /* (Q8.24 * Q16.16) >> 16 -> Q8.24 */
+  int64_t prod = (int64_t)a_q24 * (int64_t)b_q16;
+  return (int32_t)((prod + (prod >= 0 ? 32768 : -32768)) >> 16);
+}
+
+static inline int32_t q24_div_to_q16(int32_t num_q24, int32_t den_q24) {
+  /* (Q8.24 << 16) / Q8.24 -> Q16.16 Kalman gain */
+  if (den_q24 == 0) return 0;
+  int64_t scaled = ((int64_t)num_q24 << 16);
+  return (int32_t)(scaled / (int64_t)den_q24);
+}
+
+static inline void coralnpu_huber_ekf7_meas_update_q16(
+    mitorestorer_ode_state_q16_t* x_hat,
+    int32_t P_q24[7][7],
+    const mitorestorer_core_params_q16_t* p,
+    const int32_t y_meas_q16[4],
+    int32_t r_var_q24,
+    int32_t gamma_huber_q16) {
+  int32_t* x_ptr = (int32_t*)x_hat;
+  for (int ch = 0; ch < 4; ++ch) {
+    int32_t y_pred = 0;
+    int32_t h_row[7];
+    coralnpu_obs4_and_row_q16(x_ptr, p, ch, &y_pred, h_row);
+    int32_t innov_q16 = y_meas_q16[ch] - y_pred;
+
+    /* PH^T column (in Q8.24) and scalar innovation variance S = H P H^T + R (in Q8.24) */
+    int32_t ph_col_q24[7];
+    int64_t s_acc_q24 = r_var_q24;
+    for (int i = 0; i < 7; ++i) {
+      int64_t sum = 0;
+      for (int j = 0; j < 7; ++j) {
+        sum += (int64_t)P_q24[i][j] * (int64_t)h_row[j]; /* Q8.24 * Q16.16 = Q24.40 */
+      }
+      ph_col_q24[i] = (int32_t)((sum + (sum >= 0 ? 32768 : -32768)) >> 16);
+      s_acc_q24 += ((int64_t)h_row[i] * (int64_t)ph_col_q24[i] + 32768) >> 16;
+    }
+    int32_t s_var_q24 = (s_acc_q24 > 16) ? (int32_t)s_acc_q24 : 16;
+
+    /* Exact integer sqrt(S_q24 << 8) = sqrt(S * 2^32) gives std(innov) in Q16.16 */
+    int32_t std_q16 = (int32_t)coralnpu_isqrt64(((uint64_t)(uint32_t)s_var_q24) << 8);
+    int32_t clip_bound_q16 = q16_mul(gamma_huber_q16, std_q16);
+    int32_t clipped_innov_q16 = innov_q16;
+    if (clipped_innov_q16 > clip_bound_q16) clipped_innov_q16 = clip_bound_q16;
+    if (clipped_innov_q16 < -clip_bound_q16) clipped_innov_q16 = -clip_bound_q16;
+
+    int32_t abs_in = innov_q16 >= 0 ? innov_q16 : -innov_q16;
+    int32_t abs_cl = clipped_innov_q16 >= 0 ? clipped_innov_q16 : -clipped_innov_q16;
+    int32_t w_hub_q16 = (abs_in > clip_bound_q16 && abs_in > 0) ? q16_div(abs_cl, abs_in) : Q16_ONE;
+
+    int32_t k_gain_q16[7];
+    for (int i = 0; i < 7; ++i) {
+      k_gain_q16[i] = q24_div_to_q16(ph_col_q24[i], s_var_q24);
+      int32_t x_new = x_ptr[i] + q16_mul(k_gain_q16[i], clipped_innov_q16);
+      x_ptr[i] = (x_new > 66) ? x_new : 66; /* 0.001 positivity floor */
+    }
+    for (int i = 0; i < 7; ++i) {
+      int32_t kw_q16 = q16_mul(k_gain_q16[i], w_hub_q16);
+      for (int j = 0; j < 7; ++j) {
+        P_q24[i][j] -= q24_mul_q16(ph_col_q24[j], kw_q16);
+      }
+    }
+  }
+  for (int i = 0; i < 7; ++i) {
+    if (P_q24[i][i] < 16) P_q24[i][i] = 16;
+    for (int j = i + 1; j < 7; ++j) {
+      int32_t sym = (P_q24[i][j] + P_q24[j][i]) >> 1;
+      P_q24[i][j] = sym;
+      P_q24[j][i] = sym;
+    }
+  }
+}
+
+static inline void coralnpu_huber_ekf7_predict_q16(
+    mitorestorer_ode_state_q16_t* x_hat,
+    int32_t P_q24[7][7],
+    const mitorestorer_core_params_q16_t* p,
+    int32_t u0_q16,
+    int32_t u1_q16,
+    int32_t u2_q16,
+    int32_t dt_q16,
+    const int32_t q_diag_q24[7],
+    int64_t rk4_rem[8]) {
+  /* 1. First-order discrete Jacobian F = I + dt * df/dx via Q8.24 RHS differences (eps = 256 = 2^-8) */
+  int32_t f0_q24[8], fp_q24[8];
+  int32_t F_q16[7][7];
+  coralnpu_eval_core8_rhs_q16(x_hat, p, u0_q16, u1_q16, u2_q16, f0_q24);
+  for (int j = 0; j < 7; ++j) {
+    mitorestorer_ode_state_q16_t xp = *x_hat;
+    ((int32_t*)&xp)[j] += 256;
+    coralnpu_eval_core8_rhs_q16(&xp, p, u0_q16, u1_q16, u2_q16, fp_q24);
+    for (int i = 0; i < 7; ++i) {
+      int32_t df_dx_q16 = fp_q24[i] - f0_q24[i];
+      F_q16[i][j] = ((i == j) ? Q16_ONE : 0) + q16_mul(dt_q16, df_dx_q16);
+    }
+  }
+  /* 2. Propagate Q8.24 covariance P <- F P F^T + Q (F is Q16.16, P and Q are Q8.24) */
+  int32_t FP_q24[7][7];
+  for (int i = 0; i < 7; ++i) {
+    for (int j = 0; j < 7; ++j) {
+      int64_t sum = 0;
+      for (int k = 0; k < 7; ++k) sum += (int64_t)F_q16[i][k] * (int64_t)P_q24[k][j];
+      FP_q24[i][j] = (int32_t)((sum + (sum >= 0 ? 32768 : -32768)) >> 16);
+    }
+  }
+  for (int i = 0; i < 7; ++i) {
+    for (int j = 0; j < 7; ++j) {
+      int64_t sum = 0;
+      for (int k = 0; k < 7; ++k) sum += (int64_t)FP_q24[i][k] * (int64_t)F_q16[j][k];
+      P_q24[i][j] = (int32_t)((sum + (sum >= 0 ? 32768 : -32768)) >> 16) + ((i == j) ? q_diag_q24[i] : 0);
+    }
+  }
+  /* 3. Propagate 8-state trajectory with Sigma-Delta sub-LSB remainder */
+  coralnpu_rk4_core8_full_step_q16(x_hat, p, u0_q16, u1_q16, u2_q16, dt_q16, rk4_rem);
+}
+
+/* Complete Single-Bank L1 DTCM Static Workspace (Must Fit Strictly Inside 8,192-Byte Bank 0) */
+typedef struct {
+  int8_t                          int8_proj_weights[16 * 64]; /* 1,024 B: 16x64 INT8 sparse gate matrix */
+  int8_t                          int8_head_weights[64 * 3];  /*   192 B: 64x3 INT8 classifier head     */
+  int16_t                         goertzel_lut_q15[256];      /*   512 B: 16-bin Goertzel/FFT twiddles  */
+  int32_t                         ema_window_q16[64];         /*   256 B: 64-frame Q16.16 EMA buffer    */
+  int32_t                         ekf_P_cov_q24[7][7];        /*   196 B: 7x7 Q8.24 EKF covariance      */
+  int32_t                         ekf_F_jac_q16[7][7];        /*   196 B: 7x7 Q16.16 Jacobian workspace */
+  int32_t                         ekf_Q_diag_q24[7];          /*    28 B: 7-state Q8.24 process noise   */
+  int32_t                         rk4_k_scratch_q24[4][8];    /*   128 B: 4-stage Q8.24 RK4 slopes      */
+  int64_t                         rk4_sub_lsb_rem[8];         /*    64 B: 8-lane Sigma-Delta remainders */
+  mitorestorer_ode_state_q16_t    x_hat_q16;                  /*    32 B: 8-state Q16.16 estimator      */
+  mitorestorer_core_params_q16_t  params_q16;                 /*   132 B: 33 Q16.16 kinetic parameters  */
+  mitorestorer_rolling_guard_dtcm_t rolling_guard;            /*   168 B: 64-frame ring + 32B ckpt      */
+  uint8_t                         scalar_isr_stack_rsv[768];  /*   768 B: Reserved scalar/ISR C stack   */
+} coralnpu_dtcm_bank0_workspace_t;
 
 #endif /* MITORESTORER_CORALNPU_KERNEL_H_ */

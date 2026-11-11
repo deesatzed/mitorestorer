@@ -1,0 +1,1662 @@
+{
+  "metadata": {
+    "paper": "Paper II \u2014 Closed-Loop Metabolic Gating of Ex Vivo CAR-T Perfusion Bioreactors",
+    "epistemic_status": "100% In Silico Computational Simulation & Structural Bioinformatics (Zero Wet-Lab Execution Claimed)",
+    "miase_prng_seed": 20261111,
+    "horizon_hours": 168.0,
+    "runtime_seconds": 93.22,
+    "figures": [
+      "figures/paper2_fig1_structural_pharmacology_and_pae.pdf",
+      "figures/paper2_fig2_bioreactor_ode_and_pareto_optimal.pdf",
+      "figures/paper2_fig3_donor_cohort_biofouling_and_acidosis.pdf"
+    ]
+  },
+  "nominal_parameters": {
+    "K": 1.4,
+    "k_mito_w": 0.008,
+    "k_bio_0": 0.028,
+    "k_bio_max": 0.086,
+    "k_mito_d_max": 0.068,
+    "k_rep_adv": 1.22,
+    "xi_d": 1.0,
+    "k_dmg": 0.0012,
+    "theta_gsh": 1.38,
+    "R_basal": 8.0,
+    "K_LP": 22.0,
+    "eta_d": 0.22,
+    "gamma_pdh": 0.72,
+    "gamma_src": 0.22,
+    "alpha_gal": 0.74,
+    "kappa_glyc": 1.4,
+    "c_akt": 0.08,
+    "K_R_ATP": 8.0,
+    "beta_lp": 0.4,
+    "beta_h": 0.88,
+    "beta_ph": 1.9,
+    "c1": 0.24,
+    "c2": 0.06,
+    "mu_glyc": 0.062,
+    "mu_ox": 0.0185,
+    "K_ATP": 0.52,
+    "K_W_div": 0.56,
+    "N_cap": 85.0,
+    "k_warburg": 3.0,
+    "alpha_h": 0.46,
+    "k_pdh": 0.088,
+    "beta_azd": 2.8,
+    "k_perf_lp": 0.12,
+    "k_flush_lp": 0.85,
+    "R_media": 5.0,
+    "k_imp": 0.056,
+    "f_0": 0.3,
+    "alpha_akt": 0.3,
+    "phi_sirt1": 1.18,
+    "k_exp": 0.032,
+    "gamma_acid": 7.5,
+    "s_basal": 0.044,
+    "k_cristae": 0.074,
+    "beta_src": 1.32,
+    "k_src_dec": 0.048,
+    "k_exh": 0.0038,
+    "theta_exh": 1.36,
+    "k_warb_exh": 0.0032,
+    "k_acid_exh": 0.22,
+    "r_epig_0": 0.0032,
+    "k_rev_epig": 0.011,
+    "k_perf_0": 0.48,
+    "k_perf_flush": 1.8,
+    "pH_media": 7.36,
+    "k_acid": 0.007,
+    "R_buf": 12.0,
+    "N_ref": 48.0,
+    "K_SRC_mem": 0.68
+  },
+  "initial_state": {
+    "W": 0.54,
+    "D": 0.42,
+    "N_cells": 1.0,
+    "R_LP": 22.0,
+    "F_nuc": 0.28,
+    "S_SRC": 1.3,
+    "E_TOX": 0.08,
+    "pH": 7.32
+  },
+  "structural_pharmacology": {
+    "pdk1_2q8g": {
+      "resolved_residue_count": 368,
+      "resolved_span": [
+        41,
+        423
+      ],
+      "ligand_heavy_atoms": 31,
+      "contacts_le_4A": [
+        {
+          "residue": "SER75",
+          "res_num": 75,
+          "res_name": "SER",
+          "min_dist_A": 2.5,
+          "protein_atom": "OG",
+          "ligand_atom": "O25"
+        },
+        {
+          "residue": "GLN197",
+          "res_num": 197,
+          "res_name": "GLN",
+          "min_dist_A": 2.97,
+          "protein_atom": "CB",
+          "ligand_atom": "F30"
+        },
+        {
+          "residue": "LEU194",
+          "res_num": 194,
+          "res_name": "LEU",
+          "min_dist_A": 3.16,
+          "protein_atom": "O",
+          "ligand_atom": "F29"
+        },
+        {
+          "residue": "PHE62",
+          "res_num": 62,
+          "res_name": "PHE",
+          "min_dist_A": 3.24,
+          "protein_atom": "CE1",
+          "ligand_atom": "F30"
+        },
+        {
+          "residue": "PHE78",
+          "res_num": 78,
+          "res_name": "PHE",
+          "min_dist_A": 3.28,
+          "protein_atom": "CB",
+          "ligand_atom": "CL1"
+        },
+        {
+          "residue": "THR74",
+          "res_num": 74,
+          "res_name": "THR",
+          "min_dist_A": 3.42,
+          "protein_atom": "O",
+          "ligand_atom": "CL1"
+        },
+        {
+          "residue": "GLN61",
+          "res_num": 61,
+          "res_name": "GLN",
+          "min_dist_A": 3.43,
+          "protein_atom": "CG",
+          "ligand_atom": "O14"
+        },
+        {
+          "residue": "PHE65",
+          "res_num": 65,
+          "res_name": "PHE",
+          "min_dist_A": 3.43,
+          "protein_atom": "CB",
+          "ligand_atom": "C17"
+        },
+        {
+          "residue": "LEU79",
+          "res_num": 79,
+          "res_name": "LEU",
+          "min_dist_A": 3.53,
+          "protein_atom": "CD1",
+          "ligand_atom": "F29"
+        },
+        {
+          "residue": "LEU57",
+          "res_num": 57,
+          "res_name": "LEU",
+          "min_dist_A": 3.74,
+          "protein_atom": "CD1",
+          "ligand_atom": "C17"
+        },
+        {
+          "residue": "LEU201",
+          "res_num": 201,
+          "res_name": "LEU",
+          "min_dist_A": 3.92,
+          "protein_atom": "CD1",
+          "ligand_atom": "C26"
+        },
+        {
+          "residue": "ASP64",
+          "res_num": 64,
+          "res_name": "ASP",
+          "min_dist_A": 3.92,
+          "protein_atom": "CB",
+          "ligand_atom": "C3"
+        }
+      ],
+      "legacy_misattributed_distances_A": {}
+    },
+    "sirt1_4zzj_stac_4tq": {
+      "resolved_residue_count": 344,
+      "resolved_span": [
+        183,
+        660
+      ],
+      "ligand_heavy_atoms": 36,
+      "contacts_le_4A": [
+        {
+          "residue": "ASN226",
+          "res_num": 226,
+          "res_name": "ASN",
+          "min_dist_A": 2.63,
+          "protein_atom": "ND2",
+          "ligand_atom": "OAN"
+        },
+        {
+          "residue": "PRO211",
+          "res_num": 211,
+          "res_name": "PRO",
+          "min_dist_A": 3.21,
+          "protein_atom": "CA",
+          "ligand_atom": "FBH"
+        },
+        {
+          "residue": "GLU230",
+          "res_num": 230,
+          "res_name": "GLU",
+          "min_dist_A": 3.47,
+          "protein_atom": "OE1",
+          "ligand_atom": "NAB"
+        },
+        {
+          "residue": "ILE223",
+          "res_num": 223,
+          "res_name": "ILE",
+          "min_dist_A": 3.48,
+          "protein_atom": "CD1",
+          "ligand_atom": "NAW"
+        },
+        {
+          "residue": "GLN222",
+          "res_num": 222,
+          "res_name": "GLN",
+          "min_dist_A": 3.51,
+          "protein_atom": "OE1",
+          "ligand_atom": "CAS"
+        },
+        {
+          "residue": "THR209",
+          "res_num": 209,
+          "res_name": "THR",
+          "min_dist_A": 3.56,
+          "protein_atom": "CG2",
+          "ligand_atom": "FBJ"
+        },
+        {
+          "residue": "PRO212",
+          "res_num": 212,
+          "res_name": "PRO",
+          "min_dist_A": 3.59,
+          "protein_atom": "CD",
+          "ligand_atom": "CBD"
+        },
+        {
+          "residue": "LEU206",
+          "res_num": 206,
+          "res_name": "LEU",
+          "min_dist_A": 3.62,
+          "protein_atom": "CD1",
+          "ligand_atom": "FBI"
+        },
+        {
+          "residue": "ILE227",
+          "res_num": 227,
+          "res_name": "ILE",
+          "min_dist_A": 3.69,
+          "protein_atom": "CG1",
+          "ligand_atom": "OAE"
+        },
+        {
+          "residue": "THR219",
+          "res_num": 219,
+          "res_name": "THR",
+          "min_dist_A": 3.83,
+          "protein_atom": "CG2",
+          "ligand_atom": "CAS"
+        }
+      ]
+    },
+    "sirt1_4zzj_carba_nad": {
+      "resolved_residue_count": 344,
+      "resolved_span": [
+        183,
+        660
+      ],
+      "ligand_heavy_atoms": 44,
+      "contacts_le_4A": [
+        {
+          "residue": "CYS482",
+          "res_num": 482,
+          "res_name": "CYS",
+          "min_dist_A": 2.7,
+          "protein_atom": "N",
+          "ligand_atom": "N1A"
+        },
+        {
+          "residue": "GLU467",
+          "res_num": 467,
+          "res_name": "GLU",
+          "min_dist_A": 2.75,
+          "protein_atom": "OE2",
+          "ligand_atom": "O3B"
+        },
+        {
+          "residue": "SER442",
+          "res_num": 442,
+          "res_name": "SER",
+          "min_dist_A": 2.8,
+          "protein_atom": "OG",
+          "ligand_atom": "O1A"
+        },
+        {
+          "residue": "ALA262",
+          "res_num": 262,
+          "res_name": "ALA",
+          "min_dist_A": 2.82,
+          "protein_atom": "N",
+          "ligand_atom": "O1N"
+        },
+        {
+          "residue": "ARG274",
+          "res_num": 274,
+          "res_name": "ARG",
+          "min_dist_A": 2.82,
+          "protein_atom": "N",
+          "ligand_atom": "O2A"
+        },
+        {
+          "residue": "SER441",
+          "res_num": 441,
+          "res_name": "SER",
+          "min_dist_A": 2.84,
+          "protein_atom": "OG",
+          "ligand_atom": "O2N"
+        },
+        {
+          "residue": "ILE347",
+          "res_num": 347,
+          "res_name": "ILE",
+          "min_dist_A": 2.91,
+          "protein_atom": "N",
+          "ligand_atom": "O7N"
+        },
+        {
+          "residue": "ASP348",
+          "res_num": 348,
+          "res_name": "ASP",
+          "min_dist_A": 3.01,
+          "protein_atom": "OD2",
+          "ligand_atom": "N7N"
+        },
+        {
+          "residue": "ASN346",
+          "res_num": 346,
+          "res_name": "ASN",
+          "min_dist_A": 3.04,
+          "protein_atom": "CA",
+          "ligand_atom": "O7N"
+        },
+        {
+          "residue": "ARG466",
+          "res_num": 466,
+          "res_name": "ARG",
+          "min_dist_A": 3.09,
+          "protein_atom": "N",
+          "ligand_atom": "N3A"
+        },
+        {
+          "residue": "GLY440",
+          "res_num": 440,
+          "res_name": "GLY",
+          "min_dist_A": 3.16,
+          "protein_atom": "C",
+          "ligand_atom": "O4B"
+        },
+        {
+          "residue": "PHE273",
+          "res_num": 273,
+          "res_name": "PHE",
+          "min_dist_A": 3.16,
+          "protein_atom": "N",
+          "ligand_atom": "O2A"
+        },
+        {
+          "residue": "ASN465",
+          "res_num": 465,
+          "res_name": "ASN",
+          "min_dist_A": 3.18,
+          "protein_atom": "ND2",
+          "ligand_atom": "O3B"
+        },
+        {
+          "residue": "GLY261",
+          "res_num": 261,
+          "res_name": "GLY",
+          "min_dist_A": 3.2,
+          "protein_atom": "CA",
+          "ligand_atom": "O1N"
+        },
+        {
+          "residue": "PRO271",
+          "res_num": 271,
+          "res_name": "PRO",
+          "min_dist_A": 3.29,
+          "protein_atom": "O",
+          "ligand_atom": "C5N"
+        },
+        {
+          "residue": "GLY480",
+          "res_num": 480,
+          "res_name": "GLY",
+          "min_dist_A": 3.31,
+          "protein_atom": "O",
+          "ligand_atom": "C2A"
+        },
+        {
+          "residue": "ASP272",
+          "res_num": 272,
+          "res_name": "ASP",
+          "min_dist_A": 3.33,
+          "protein_atom": "OD2",
+          "ligand_atom": "C5B"
+        },
+        {
+          "residue": "ASP481",
+          "res_num": 481,
+          "res_name": "ASP",
+          "min_dist_A": 3.38,
+          "protein_atom": "CA",
+          "ligand_atom": "N1A"
+        },
+        {
+          "residue": "PHE297",
+          "res_num": 297,
+          "res_name": "PHE",
+          "min_dist_A": 3.42,
+          "protein_atom": "CE2",
+          "ligand_atom": "O2D"
+        },
+        {
+          "residue": "VAL266",
+          "res_num": 266,
+          "res_name": "VAL",
+          "min_dist_A": 3.43,
+          "protein_atom": "CG2",
+          "ligand_atom": "N6A"
+        },
+        {
+          "residue": "ILE270",
+          "res_num": 270,
+          "res_name": "ILE",
+          "min_dist_A": 3.46,
+          "protein_atom": "CG2",
+          "ligand_atom": "N7N"
+        },
+        {
+          "residue": "GLN345",
+          "res_num": 345,
+          "res_name": "GLN",
+          "min_dist_A": 3.52,
+          "protein_atom": "OE1",
+          "ligand_atom": "C5D"
+        },
+        {
+          "residue": "ILE316",
+          "res_num": 316,
+          "res_name": "ILE",
+          "min_dist_A": 3.56,
+          "protein_atom": "CD1",
+          "ligand_atom": "C7N"
+        },
+        {
+          "residue": "GLY263",
+          "res_num": 263,
+          "res_name": "GLY",
+          "min_dist_A": 3.61,
+          "protein_atom": "O",
+          "ligand_atom": "C6A"
+        },
+        {
+          "residue": "SER275",
+          "res_num": 275,
+          "res_name": "SER",
+          "min_dist_A": 3.83,
+          "protein_atom": "OG",
+          "ligand_atom": "C8A"
+        },
+        {
+          "residue": "LEU443",
+          "res_num": 443,
+          "res_name": "LEU",
+          "min_dist_A": 3.92,
+          "protein_atom": "N",
+          "ligand_atom": "O2N"
+        }
+      ]
+    },
+    "foxo1_af_q12778": {
+      "length_aa": 655,
+      "mean_plddt": 50.96,
+      "count_very_low_lt_50": 445,
+      "pct_very_low_lt_50": 67.94,
+      "count_low_50_70": 119,
+      "pct_low_50_70": 18.17,
+      "count_confident_ge_70": 91,
+      "pct_confident_ge_70": 13.89,
+      "mean_off_diag_pae_A": 28.23,
+      "pct_pairs_pae_lt_5A": 1.86,
+      "structured_domains_ge_25aa": [
+        {
+          "start_res": 157,
+          "end_res": 243,
+          "length_aa": 87,
+          "mean_plddt": 90.62,
+          "internal_mean_pae_A": 4.7
+        }
+      ],
+      "ptm_sites": [
+        {
+          "site": "THR24",
+          "expected": "THR",
+          "role": "Akt phosphorylation (14-3-3 nuclear export)",
+          "plddt": 52.28,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "SER256",
+          "expected": "SER",
+          "role": "Akt phosphorylation (gatekeeper export site)",
+          "plddt": 66.75,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "SER319",
+          "expected": "SER",
+          "role": "Akt/SGK1 phosphorylation (cytoplasmic sequestration)",
+          "plddt": 41.56,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "LYS245",
+          "expected": "LYS",
+          "role": "CBP/p300 acetylation / SIRT1 deacetylation",
+          "plddt": 57.78,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "LYS248",
+          "expected": "LYS",
+          "role": "CBP/p300 acetylation / SIRT1 deacetylation",
+          "plddt": 53.19,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "LYS262",
+          "expected": "LYS",
+          "role": "CBP/p300 acetylation / SIRT1 deacetylation",
+          "plddt": 55.19,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "LYS265",
+          "expected": "LYS",
+          "role": "CBP/p300 acetylation / SIRT1 deacetylation",
+          "plddt": 52.41,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "LYS274",
+          "expected": "LYS",
+          "role": "CBP/p300 acetylation / SIRT1 deacetylation",
+          "plddt": 45.56,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "LYS294",
+          "expected": "LYS",
+          "role": "CBP/p300 acetylation / SIRT1 deacetylation",
+          "plddt": 38.28,
+          "disordered_lt_70": true
+        }
+      ],
+      "total_lysines": 25,
+      "lysines_lt_70": 17,
+      "pct_lysines_lt_70": 68.0,
+      "mean_lysine_plddt": 59.61
+    },
+    "pgc1a_af_q9ubk2": {
+      "length_aa": 798,
+      "mean_plddt": 52.74,
+      "count_very_low_lt_50": 494,
+      "pct_very_low_lt_50": 61.9,
+      "count_low_50_70": 137,
+      "pct_low_50_70": 17.17,
+      "count_confident_ge_70": 167,
+      "pct_confident_ge_70": 20.93,
+      "mean_off_diag_pae_A": 28.12,
+      "pct_pairs_pae_lt_5A": 1.26,
+      "structured_domains_ge_25aa": [
+        {
+          "start_res": 634,
+          "end_res": 738,
+          "length_aa": 105,
+          "mean_plddt": 88.22,
+          "internal_mean_pae_A": 7.79
+        }
+      ],
+      "ptm_sites": [
+        {
+          "site": "PHE77",
+          "expected": "LYS",
+          "role": "GCN5 acetylation / SIRT1 deacetylation",
+          "plddt": 50.88,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "LEU144",
+          "expected": "LEU",
+          "role": "Nuclear receptor LXXLL coactivator box",
+          "plddt": 67.31,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "VAL183",
+          "expected": "LYS",
+          "role": "GCN5 acetylation / SIRT1 deacetylation",
+          "plddt": 42.28,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "ALA253",
+          "expected": "LYS",
+          "role": "GCN5 acetylation / SIRT1 deacetylation",
+          "plddt": 32.44,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "CYS320",
+          "expected": "LYS",
+          "role": "GCN5 acetylation / SIRT1 deacetylation",
+          "plddt": 33.12,
+          "disordered_lt_70": true
+        },
+        {
+          "site": "SER441",
+          "expected": "LYS",
+          "role": "Central regulatory acetylation site",
+          "plddt": 36.5,
+          "disordered_lt_70": true
+        }
+      ],
+      "total_lysines": 47,
+      "lysines_lt_70": 39,
+      "pct_lysines_lt_70": 82.98,
+      "mean_lysine_plddt": 53.53
+    }
+  },
+  "nominal_protocol_sweep": {
+    "warburg": {
+      "mode": "warburg",
+      "switch_time_h": null,
+      "s_accumulated_selection": null,
+      "expansion_fold": 81.77,
+      "h_end_pct": 66.76,
+      "tscm_pct": 3.67,
+      "src_fold": 0.69,
+      "tox_pct": 76.13,
+      "foxo1_nuc_pct": 30.48,
+      "ph_end": 6.92,
+      "min_ph": 6.92,
+      "r_lp_end": 30.02
+    },
+    "premature_ox_h0": {
+      "mode": "premature_ox_h0",
+      "switch_time_h": null,
+      "s_accumulated_selection": null,
+      "expansion_fold": 9.58,
+      "h_end_pct": 64.81,
+      "tscm_pct": 43.92,
+      "src_fold": 1.22,
+      "tox_pct": 27.64,
+      "foxo1_nuc_pct": 94.53,
+      "ph_end": 7.36,
+      "min_ph": 7.32,
+      "r_lp_end": 6.74
+    },
+    "urolithin_mono": {
+      "mode": "urolithin_mono",
+      "switch_time_h": null,
+      "s_accumulated_selection": null,
+      "expansion_fold": 80.6,
+      "h_end_pct": 0.04,
+      "tscm_pct": 31.1,
+      "src_fold": 2.26,
+      "tox_pct": 41.03,
+      "foxo1_nuc_pct": 68.62,
+      "ph_end": 7.35,
+      "min_ph": 7.32,
+      "r_lp_end": 12.26
+    },
+    "fixed_24": {
+      "mode": "fixed_24",
+      "switch_time_h": 24.02,
+      "s_accumulated_selection": 0.9484,
+      "expansion_fold": 33.07,
+      "h_end_pct": 36.25,
+      "tscm_pct": 66.33,
+      "src_fold": 2.71,
+      "tox_pct": 12.26,
+      "foxo1_nuc_pct": 94.53,
+      "ph_end": 7.36,
+      "min_ph": 7.32,
+      "r_lp_end": 4.52
+    },
+    "fixed_36": {
+      "mode": "fixed_36",
+      "switch_time_h": 36.12,
+      "s_accumulated_selection": 1.4696,
+      "expansion_fold": 46.11,
+      "h_end_pct": 23.51,
+      "tscm_pct": 72.02,
+      "src_fold": 3.58,
+      "tox_pct": 9.32,
+      "foxo1_nuc_pct": 94.53,
+      "ph_end": 7.36,
+      "min_ph": 7.32,
+      "r_lp_end": 3.89
+    },
+    "fixed_48": {
+      "mode": "fixed_48",
+      "switch_time_h": 48.05,
+      "s_accumulated_selection": 2.0009,
+      "expansion_fold": 54.72,
+      "h_end_pct": 14.87,
+      "tscm_pct": 73.17,
+      "src_fold": 4.23,
+      "tox_pct": 10.16,
+      "foxo1_nuc_pct": 94.52,
+      "ph_end": 7.36,
+      "min_ph": 7.32,
+      "r_lp_end": 3.54
+    },
+    "closed_loop": {
+      "mode": "closed_loop",
+      "switch_time_h": 66.02,
+      "s_accumulated_selection": 2.8248,
+      "expansion_fold": 62.8,
+      "h_end_pct": 6.73,
+      "tscm_pct": 73.2,
+      "src_fold": 4.87,
+      "tox_pct": 11.75,
+      "foxo1_nuc_pct": 94.52,
+      "ph_end": 7.36,
+      "min_ph": 7.32,
+      "r_lp_end": 3.25
+    },
+    "fixed_72": {
+      "mode": "fixed_72",
+      "switch_time_h": 72.07,
+      "s_accumulated_selection": 3.1064,
+      "expansion_fold": 64.77,
+      "h_end_pct": 5.05,
+      "tscm_pct": 72.88,
+      "src_fold": 5.0,
+      "tox_pct": 12.4,
+      "foxo1_nuc_pct": 94.52,
+      "ph_end": 7.36,
+      "min_ph": 7.32,
+      "r_lp_end": 3.19
+    },
+    "fixed_96": {
+      "mode": "fixed_96",
+      "switch_time_h": 96.1,
+      "s_accumulated_selection": 4.2392,
+      "expansion_fold": 70.77,
+      "h_end_pct": 1.54,
+      "tscm_pct": 70.26,
+      "src_fold": 5.13,
+      "tox_pct": 15.77,
+      "foxo1_nuc_pct": 94.48,
+      "ph_end": 7.36,
+      "min_ph": 7.32,
+      "r_lp_end": 3.08
+    },
+    "fixed_120": {
+      "mode": "fixed_120",
+      "switch_time_h": 120.12,
+      "s_accumulated_selection": 5.3857,
+      "expansion_fold": 75.04,
+      "h_end_pct": 0.46,
+      "tscm_pct": 65.03,
+      "src_fold": 4.78,
+      "tox_pct": 21.08,
+      "foxo1_nuc_pct": 94.13,
+      "ph_end": 7.36,
+      "min_ph": 7.32,
+      "r_lp_end": 3.05
+    },
+    "ablate_azd": {
+      "mode": "ablate_azd",
+      "switch_time_h": 66.02,
+      "s_accumulated_selection": 2.8248,
+      "expansion_fold": 37.47,
+      "h_end_pct": 10.82,
+      "tscm_pct": 30.72,
+      "src_fold": 2.66,
+      "tox_pct": 21.25,
+      "foxo1_nuc_pct": 48.96,
+      "ph_end": 7.36,
+      "min_ph": 7.32,
+      "r_lp_end": 7.13
+    },
+    "ablate_sirt1": {
+      "mode": "ablate_sirt1",
+      "switch_time_h": 66.02,
+      "s_accumulated_selection": 2.8248,
+      "expansion_fold": 52.25,
+      "h_end_pct": 36.27,
+      "tscm_pct": 17.45,
+      "src_fold": 1.62,
+      "tox_pct": 28.46,
+      "foxo1_nuc_pct": 34.65,
+      "ph_end": 7.36,
+      "min_ph": 7.32,
+      "r_lp_end": 4.48
+    },
+    "fault_no_rb": {
+      "mode": "fault_no_rb",
+      "switch_time_h": 66.02,
+      "s_accumulated_selection": 2.8248,
+      "expansion_fold": 64.45,
+      "h_end_pct": 10.59,
+      "tscm_pct": 55.39,
+      "src_fold": 4.42,
+      "tox_pct": 32.28,
+      "foxo1_nuc_pct": 94.37,
+      "ph_end": 7.36,
+      "min_ph": 6.14,
+      "r_lp_end": 3.38
+    },
+    "fault_rb": {
+      "mode": "fault_rb",
+      "switch_time_h": 66.02,
+      "s_accumulated_selection": 2.8248,
+      "expansion_fold": 70.59,
+      "h_end_pct": 8.14,
+      "tscm_pct": 69.16,
+      "src_fold": 4.67,
+      "tox_pct": 16.11,
+      "foxo1_nuc_pct": 94.45,
+      "ph_end": 7.36,
+      "min_ph": 6.91,
+      "r_lp_end": 3.3
+    }
+  },
+  "adjoint_optimal_control_and_pareto": {
+    "n_intervals": 100,
+    "n_variables": 200,
+    "max_adjoint_vs_fd_grad_err": 9.926e-11,
+    "multi_start_count": 5,
+    "multi_start_costs": [
+      -0.806314,
+      -0.813032,
+      -0.813659,
+      -0.813408,
+      -0.804549
+    ],
+    "multi_start_cost_spread_pct": 1.1196,
+    "j_pmp_balanced": -0.81366,
+    "j_closed_loop_balanced": -0.5829,
+    "pmp_balanced_metrics": {
+      "expansion_fold": 71.15,
+      "tscm_pct": 74.46,
+      "h_end_pct": 0.09,
+      "src_fold": 5.33,
+      "tox_pct": 14.08
+    },
+    "pareto_pmp_points": [
+      {
+        "alpha_stem": 0.08,
+        "expansion_fold": 79.58,
+        "tscm_pct": 54.97,
+        "h_end_pct": 0.52,
+        "tox_pct": 31.08,
+        "src_fold": 3.68
+      },
+      {
+        "alpha_stem": 0.2,
+        "expansion_fold": 79.38,
+        "tscm_pct": 55.63,
+        "h_end_pct": 0.34,
+        "tox_pct": 30.57,
+        "src_fold": 3.72
+      },
+      {
+        "alpha_stem": 0.34,
+        "expansion_fold": 78.02,
+        "tscm_pct": 62.44,
+        "h_end_pct": 0.24,
+        "tox_pct": 25.4,
+        "src_fold": 4.34
+      },
+      {
+        "alpha_stem": 0.46,
+        "expansion_fold": 77.0,
+        "tscm_pct": 65.58,
+        "h_end_pct": 0.15,
+        "tox_pct": 22.69,
+        "src_fold": 4.63
+      },
+      {
+        "alpha_stem": 0.58,
+        "expansion_fold": 74.2,
+        "tscm_pct": 71.22,
+        "h_end_pct": 0.1,
+        "tox_pct": 17.38,
+        "src_fold": 5.11
+      },
+      {
+        "alpha_stem": 0.7,
+        "expansion_fold": 72.64,
+        "tscm_pct": 73.01,
+        "h_end_pct": 0.06,
+        "tox_pct": 15.6,
+        "src_fold": 5.25
+      },
+      {
+        "alpha_stem": 0.82,
+        "expansion_fold": 63.44,
+        "tscm_pct": 78.44,
+        "h_end_pct": 0.02,
+        "tox_pct": 9.88,
+        "src_fold": 5.53
+      },
+      {
+        "alpha_stem": 0.92,
+        "expansion_fold": 50.78,
+        "tscm_pct": 80.97,
+        "h_end_pct": 0.02,
+        "tox_pct": 7.09,
+        "src_fold": 5.59
+      }
+    ],
+    "two_stage_pareto_curve": [
+      {
+        "t_switch_h": 0.0,
+        "expansion_fold": 9.58,
+        "tscm_pct": 43.92,
+        "h_end_pct": 64.81,
+        "tox_pct": 27.64,
+        "src_fold": 1.22
+      },
+      {
+        "t_switch_h": 6.0,
+        "expansion_fold": 13.38,
+        "tscm_pct": 49.84,
+        "h_end_pct": 58.43,
+        "tox_pct": 23.4,
+        "src_fold": 1.5
+      },
+      {
+        "t_switch_h": 12.0,
+        "expansion_fold": 18.82,
+        "tscm_pct": 55.89,
+        "h_end_pct": 51.24,
+        "tox_pct": 19.22,
+        "src_fold": 1.86
+      },
+      {
+        "t_switch_h": 18.0,
+        "expansion_fold": 25.73,
+        "tscm_pct": 61.54,
+        "h_end_pct": 43.64,
+        "tox_pct": 15.41,
+        "src_fold": 2.27
+      },
+      {
+        "t_switch_h": 24.0,
+        "expansion_fold": 33.07,
+        "tscm_pct": 66.33,
+        "h_end_pct": 36.25,
+        "tox_pct": 12.26,
+        "src_fold": 2.71
+      },
+      {
+        "t_switch_h": 30.0,
+        "expansion_fold": 40.23,
+        "tscm_pct": 70.38,
+        "h_end_pct": 29.03,
+        "tox_pct": 9.65,
+        "src_fold": 3.18
+      },
+      {
+        "t_switch_h": 36.0,
+        "expansion_fold": 46.11,
+        "tscm_pct": 72.02,
+        "h_end_pct": 23.51,
+        "tox_pct": 9.32,
+        "src_fold": 3.58
+      },
+      {
+        "t_switch_h": 42.0,
+        "expansion_fold": 50.79,
+        "tscm_pct": 72.73,
+        "h_end_pct": 18.91,
+        "tox_pct": 9.71,
+        "src_fold": 3.92
+      },
+      {
+        "t_switch_h": 48.0,
+        "expansion_fold": 54.72,
+        "tscm_pct": 73.17,
+        "h_end_pct": 14.87,
+        "tox_pct": 10.16,
+        "src_fold": 4.23
+      },
+      {
+        "t_switch_h": 54.0,
+        "expansion_fold": 57.93,
+        "tscm_pct": 73.37,
+        "h_end_pct": 11.52,
+        "tox_pct": 10.65,
+        "src_fold": 4.5
+      },
+      {
+        "t_switch_h": 60.0,
+        "expansion_fold": 60.59,
+        "tscm_pct": 73.36,
+        "h_end_pct": 8.81,
+        "tox_pct": 11.18,
+        "src_fold": 4.71
+      },
+      {
+        "t_switch_h": 66.0,
+        "expansion_fold": 62.8,
+        "tscm_pct": 73.2,
+        "h_end_pct": 6.73,
+        "tox_pct": 11.75,
+        "src_fold": 4.87
+      },
+      {
+        "t_switch_h": 72.0,
+        "expansion_fold": 64.77,
+        "tscm_pct": 72.88,
+        "h_end_pct": 5.05,
+        "tox_pct": 12.4,
+        "src_fold": 5.0
+      },
+      {
+        "t_switch_h": 78.0,
+        "expansion_fold": 66.51,
+        "tscm_pct": 72.42,
+        "h_end_pct": 3.77,
+        "tox_pct": 13.11,
+        "src_fold": 5.08
+      },
+      {
+        "t_switch_h": 84.0,
+        "expansion_fold": 68.04,
+        "tscm_pct": 71.85,
+        "h_end_pct": 2.82,
+        "tox_pct": 13.89,
+        "src_fold": 5.12
+      },
+      {
+        "t_switch_h": 90.0,
+        "expansion_fold": 69.46,
+        "tscm_pct": 71.13,
+        "h_end_pct": 2.09,
+        "tox_pct": 14.78,
+        "src_fold": 5.14
+      },
+      {
+        "t_switch_h": 96.0,
+        "expansion_fold": 70.77,
+        "tscm_pct": 70.26,
+        "h_end_pct": 1.54,
+        "tox_pct": 15.77,
+        "src_fold": 5.13
+      },
+      {
+        "t_switch_h": 102.0,
+        "expansion_fold": 71.97,
+        "tscm_pct": 69.24,
+        "h_end_pct": 1.14,
+        "tox_pct": 16.89,
+        "src_fold": 5.09
+      },
+      {
+        "t_switch_h": 108.0,
+        "expansion_fold": 73.05,
+        "tscm_pct": 68.07,
+        "h_end_pct": 0.85,
+        "tox_pct": 18.11,
+        "src_fold": 5.02
+      },
+      {
+        "t_switch_h": 114.0,
+        "expansion_fold": 74.08,
+        "tscm_pct": 66.68,
+        "h_end_pct": 0.62,
+        "tox_pct": 19.51,
+        "src_fold": 4.91
+      },
+      {
+        "t_switch_h": 120.0,
+        "expansion_fold": 75.04,
+        "tscm_pct": 65.03,
+        "h_end_pct": 0.46,
+        "tox_pct": 21.08,
+        "src_fold": 4.78
+      },
+      {
+        "t_switch_h": 126.0,
+        "expansion_fold": 75.91,
+        "tscm_pct": 63.15,
+        "h_end_pct": 0.34,
+        "tox_pct": 22.79,
+        "src_fold": 4.6
+      },
+      {
+        "t_switch_h": 132.0,
+        "expansion_fold": 76.73,
+        "tscm_pct": 60.86,
+        "h_end_pct": 0.25,
+        "tox_pct": 24.75,
+        "src_fold": 4.38
+      },
+      {
+        "t_switch_h": 138.0,
+        "expansion_fold": 77.5,
+        "tscm_pct": 58.09,
+        "h_end_pct": 0.18,
+        "tox_pct": 26.94,
+        "src_fold": 4.12
+      },
+      {
+        "t_switch_h": 144.0,
+        "expansion_fold": 78.21,
+        "tscm_pct": 54.72,
+        "h_end_pct": 0.13,
+        "tox_pct": 29.37,
+        "src_fold": 3.8
+      },
+      {
+        "t_switch_h": 150.0,
+        "expansion_fold": 78.86,
+        "tscm_pct": 50.69,
+        "h_end_pct": 0.1,
+        "tox_pct": 31.96,
+        "src_fold": 3.45
+      },
+      {
+        "t_switch_h": 156.0,
+        "expansion_fold": 79.49,
+        "tscm_pct": 45.53,
+        "h_end_pct": 0.07,
+        "tox_pct": 34.85,
+        "src_fold": 3.06
+      },
+      {
+        "t_switch_h": 162.0,
+        "expansion_fold": 80.07,
+        "tscm_pct": 39.04,
+        "h_end_pct": 0.05,
+        "tox_pct": 37.94,
+        "src_fold": 2.65
+      },
+      {
+        "t_switch_h": 168.0,
+        "expansion_fold": 80.6,
+        "tscm_pct": 31.1,
+        "h_end_pct": 0.04,
+        "tox_pct": 41.03,
+        "src_fold": 2.26
+      }
+    ]
+  },
+  "observability_gramian": {
+    "evaluated_states": [
+      "W",
+      "D",
+      "N_cells",
+      "R_LP",
+      "S_SRC",
+      "pH"
+    ],
+    "horizon_h": 64.0,
+    "suite_4ch_no_orr": {
+      "rank": 6,
+      "cond_gramian": 5515.82,
+      "cond_jacobian": 74.27,
+      "min_singular_value": 0.0050909
+    },
+    "suite_3ch_post_foul_no_orr": {
+      "rank": 6,
+      "cond_gramian": 1886984.49,
+      "cond_jacobian": 1373.68,
+      "min_singular_value": 1.4881e-05
+    },
+    "suite_5ch_with_orr": {
+      "rank": 6,
+      "cond_gramian": 4906.11,
+      "cond_jacobian": 70.04,
+      "min_singular_value": 0.0057237
+    },
+    "suite_4ch_post_foul_with_orr": {
+      "rank": 6,
+      "cond_gramian": 150246.19,
+      "cond_jacobian": 387.62,
+      "min_singular_value": 0.0001869
+    }
+  },
+  "heterogeneous_cohort_and_biofouling": {
+    "n_donors": 200,
+    "release_criteria": {
+      "expansion_fold_ge": 50.0,
+      "tscm_pct_ge": 68.0,
+      "tox_pct_le": 15.0,
+      "src_fold_ge": 3.5,
+      "h_end_pct_le": 10.0
+    },
+    "oracle_controllable_count": 135,
+    "oracle_controllable_pct": 67.5,
+    "infeasible_donor_profile": {
+      "count": 65,
+      "pct": 32.5,
+      "median_h0_pct": 50.61,
+      "median_mu_glyc_rel": 0.767,
+      "controllable_median_h0_pct": 36.35,
+      "controllable_median_mu_glyc_rel": 1.018
+    },
+    "arms": {
+      "warburg": {
+        "pass_count": 0,
+        "pass_rate_pct": 0.0,
+        "expansion_median": 79.74,
+        "expansion_iqr": [
+          72.85,
+          83.52
+        ],
+        "tscm_median": 4.24,
+        "tscm_iqr": [
+          2.12,
+          7.03
+        ],
+        "tox_median": 74.55,
+        "h_end_median": 62.45,
+        "src_median": 0.78
+      },
+      "premature_ox_h0": {
+        "pass_count": 0,
+        "pass_rate_pct": 0.0,
+        "expansion_median": 10.73,
+        "expansion_iqr": [
+          7.07,
+          17.96
+        ],
+        "tscm_median": 48.08,
+        "tscm_iqr": [
+          35.66,
+          59.58
+        ],
+        "tox_median": 24.6,
+        "h_end_median": 60.3,
+        "src_median": 1.42
+      },
+      "urolithin_mono": {
+        "pass_count": 0,
+        "pass_rate_pct": 0.0,
+        "expansion_median": 79.64,
+        "expansion_iqr": [
+          69.73,
+          83.4
+        ],
+        "tscm_median": 30.6,
+        "tscm_iqr": [
+          28.89,
+          32.35
+        ],
+        "tox_median": 41.6,
+        "h_end_median": 0.04,
+        "src_median": 2.29
+      },
+      "fixed_24": {
+        "pass_count": 0,
+        "pass_rate_pct": 0.0,
+        "expansion_median": 32.91,
+        "expansion_iqr": [
+          21.46,
+          46.72
+        ],
+        "tscm_median": 69.89,
+        "tscm_iqr": [
+          58.27,
+          72.64
+        ],
+        "tox_median": 10.81,
+        "h_end_median": 30.53,
+        "src_median": 3.09
+      },
+      "fixed_36": {
+        "pass_count": 9,
+        "pass_rate_pct": 4.5,
+        "expansion_median": 42.94,
+        "expansion_iqr": [
+          31.18,
+          58.03
+        ],
+        "tscm_median": 72.3,
+        "tscm_iqr": [
+          67.08,
+          74.03
+        ],
+        "tox_median": 10.36,
+        "h_end_median": 19.39,
+        "src_median": 3.89
+      },
+      "fixed_48": {
+        "pass_count": 52,
+        "pass_rate_pct": 26.0,
+        "expansion_median": 50.74,
+        "expansion_iqr": [
+          38.36,
+          65.25
+        ],
+        "tscm_median": 73.01,
+        "tscm_iqr": [
+          71.06,
+          74.34
+        ],
+        "tox_median": 10.83,
+        "h_end_median": 11.97,
+        "src_median": 4.47
+      },
+      "fixed_60": {
+        "pass_count": 89,
+        "pass_rate_pct": 44.5,
+        "expansion_median": 57.1,
+        "expansion_iqr": [
+          44.51,
+          69.53
+        ],
+        "tscm_median": 72.79,
+        "tscm_iqr": [
+          71.5,
+          73.98
+        ],
+        "tox_median": 11.76,
+        "h_end_median": 6.9,
+        "src_median": 4.87
+      },
+      "fixed_68": {
+        "pass_count": 97,
+        "pass_rate_pct": 48.5,
+        "expansion_median": 60.64,
+        "expansion_iqr": [
+          46.95,
+          72.31
+        ],
+        "tscm_median": 72.49,
+        "tscm_iqr": [
+          71.05,
+          73.54
+        ],
+        "tox_median": 12.56,
+        "h_end_median": 4.98,
+        "src_median": 5.03
+      },
+      "fixed_76": {
+        "pass_count": 96,
+        "pass_rate_pct": 48.0,
+        "expansion_median": 63.51,
+        "expansion_iqr": [
+          50.03,
+          74.35
+        ],
+        "tscm_median": 71.93,
+        "tscm_iqr": [
+          70.62,
+          72.98
+        ],
+        "tox_median": 13.44,
+        "h_end_median": 3.45,
+        "src_median": 5.12
+      },
+      "fixed_84": {
+        "pass_count": 77,
+        "pass_rate_pct": 38.5,
+        "expansion_median": 65.78,
+        "expansion_iqr": [
+          52.73,
+          75.85
+        ],
+        "tscm_median": 71.12,
+        "tscm_iqr": [
+          69.94,
+          72.21
+        ],
+        "tox_median": 14.46,
+        "h_end_median": 2.4,
+        "src_median": 5.17
+      },
+      "fixed_96": {
+        "pass_count": 31,
+        "pass_rate_pct": 15.5,
+        "expansion_median": 68.79,
+        "expansion_iqr": [
+          55.55,
+          77.79
+        ],
+        "tscm_median": 69.59,
+        "tscm_iqr": [
+          68.29,
+          70.87
+        ],
+        "tox_median": 16.36,
+        "h_end_median": 1.38,
+        "src_median": 5.15
+      },
+      "fixed_120": {
+        "pass_count": 0,
+        "pass_rate_pct": 0.0,
+        "expansion_median": 73.61,
+        "expansion_iqr": [
+          61.0,
+          80.55
+        ],
+        "tscm_median": 64.42,
+        "tscm_iqr": [
+          62.81,
+          65.88
+        ],
+        "tox_median": 21.71,
+        "h_end_median": 0.45,
+        "src_median": 4.79
+      },
+      "closed_loop_ekf_no_orr": {
+        "pass_count": 75,
+        "pass_rate_pct": 37.5,
+        "expansion_median": 66.17,
+        "expansion_iqr": [
+          55.69,
+          75.21
+        ],
+        "tscm_median": 70.54,
+        "tscm_iqr": [
+          66.23,
+          72.36
+        ],
+        "tox_median": 15.0,
+        "h_end_median": 2.35,
+        "src_median": 4.95,
+        "switched_count": 173,
+        "switch_time_min_h": 49.5,
+        "switch_time_median_h": 86.1,
+        "switch_time_iqr_h": [
+          66.9,
+          100.5
+        ],
+        "switch_time_max_h": 162.3,
+        "ekf_h_rmse_pct": 6.351,
+        "biofoul_handover_count": 0
+      },
+      "closed_loop_ekf": {
+        "pass_count": 110,
+        "pass_rate_pct": 55.0,
+        "expansion_median": 63.89,
+        "expansion_iqr": [
+          54.98,
+          71.36
+        ],
+        "tscm_median": 71.58,
+        "tscm_iqr": [
+          69.6,
+          72.66
+        ],
+        "tox_median": 13.81,
+        "h_end_median": 4.24,
+        "src_median": 5.02,
+        "switched_count": 200,
+        "switch_time_min_h": 49.2,
+        "switch_time_median_h": 84.0,
+        "switch_time_iqr_h": [
+          65.1,
+          95.17
+        ],
+        "switch_time_max_h": 126.3,
+        "ekf_h_rmse_pct": 1.834,
+        "biofoul_handover_count": 0
+      },
+      "biofoul_naive_lp_gate": {
+        "pass_count": 1,
+        "pass_rate_pct": 0.5,
+        "expansion_median": 79.5,
+        "expansion_iqr": [
+          69.73,
+          83.37
+        ],
+        "tscm_median": 30.61,
+        "tscm_iqr": [
+          28.9,
+          32.39
+        ],
+        "tox_median": 41.56,
+        "h_end_median": 0.04,
+        "src_median": 2.29,
+        "switched_count": 1,
+        "switch_time_min_h": 51.3,
+        "switch_time_median_h": 51.3,
+        "switch_time_iqr_h": [
+          51.3,
+          51.3
+        ],
+        "switch_time_max_h": 51.3,
+        "ekf_h_rmse_pct": 46.867,
+        "biofoul_handover_count": 0
+      },
+      "biofoul_no_orr_nis_handover": {
+        "pass_count": 24,
+        "pass_rate_pct": 12.0,
+        "expansion_median": 72.85,
+        "expansion_iqr": [
+          58.01,
+          79.9
+        ],
+        "tscm_median": 65.32,
+        "tscm_iqr": [
+          59.45,
+          69.33
+        ],
+        "tox_median": 21.07,
+        "h_end_median": 0.52,
+        "src_median": 4.77,
+        "switched_count": 193,
+        "switch_time_min_h": 51.3,
+        "switch_time_median_h": 114.3,
+        "switch_time_iqr_h": [
+          100.2,
+          132.6
+        ],
+        "switch_time_max_h": 166.8,
+        "ekf_h_rmse_pct": 16.688,
+        "biofoul_handover_count": 200
+      },
+      "biofoul_orr_no_nis": {
+        "pass_count": 102,
+        "pass_rate_pct": 51.0,
+        "expansion_median": 65.77,
+        "expansion_iqr": [
+          55.69,
+          72.34
+        ],
+        "tscm_median": 71.29,
+        "tscm_iqr": [
+          69.41,
+          72.63
+        ],
+        "tox_median": 14.26,
+        "h_end_median": 3.19,
+        "src_median": 5.06,
+        "switched_count": 200,
+        "switch_time_min_h": 48.3,
+        "switch_time_median_h": 84.9,
+        "switch_time_iqr_h": [
+          67.42,
+          100.2
+        ],
+        "switch_time_max_h": 164.1,
+        "ekf_h_rmse_pct": 2.386,
+        "biofoul_handover_count": 0
+      },
+      "biofoul_ekf_nis_handover": {
+        "pass_count": 108,
+        "pass_rate_pct": 54.0,
+        "expansion_median": 64.26,
+        "expansion_iqr": [
+          54.79,
+          71.68
+        ],
+        "tscm_median": 71.47,
+        "tscm_iqr": [
+          69.65,
+          72.66
+        ],
+        "tox_median": 13.83,
+        "h_end_median": 4.05,
+        "src_median": 5.05,
+        "switched_count": 200,
+        "switch_time_min_h": 48.3,
+        "switch_time_median_h": 84.0,
+        "switch_time_iqr_h": [
+          66.3,
+          95.1
+        ],
+        "switch_time_max_h": 118.2,
+        "ekf_h_rmse_pct": 1.877,
+        "biofoul_handover_count": 200
+      }
+    }
+  },
+  "c99_coralnpu_verification": {
+    "core_dtcm_workspace_bytes": 3696,
+    "cart_dtcm_workspace_bytes": 3920,
+    "dtcm_bank0_capacity_bytes": 8192,
+    "cart_dtcm_bank0_utilization_pct": 47.85,
+    "n1000_switch_time_fp64_h": 66.024,
+    "n1000_switch_time_q16_h": 66.024,
+    "n1000_expansion_fp64_fold": 62.7979,
+    "n1000_expansion_q16_fold": 62.7802,
+    "n1000_tscm_fp64_pct": 73.1989,
+    "n1000_tscm_q16_pct": 73.1881,
+    "n1000_h_fp64_pct": 6.7257,
+    "n1000_h_q16_pct": 6.7253,
+    "step_sweep": [
+      {
+        "steps": 500,
+        "err_q16_sd_pct": 0.00851,
+        "err_q16_naive_pct": 0.4351,
+        "err_fp32_pct": 7e-06
+      },
+      {
+        "steps": 1000,
+        "err_q16_sd_pct": 0.00821,
+        "err_q16_naive_pct": 0.64123,
+        "err_fp32_pct": 1.3e-05
+      },
+      {
+        "steps": 2000,
+        "err_q16_sd_pct": 0.00777,
+        "err_q16_naive_pct": 1.28889,
+        "err_fp32_pct": 2.1e-05
+      },
+      {
+        "steps": 4000,
+        "err_q16_sd_pct": 0.01137,
+        "err_q16_naive_pct": 2.66989,
+        "err_fp32_pct": 5.2e-05
+      },
+      {
+        "steps": 8000,
+        "err_q16_sd_pct": 0.01106,
+        "err_q16_naive_pct": 5.29061,
+        "err_fp32_pct": 0.000107
+      }
+    ],
+    "c99_acidosis_fault": {
+      "unmitigated_min_ph": 6.1366,
+      "unmitigated_tscm_pct": 55.3836,
+      "bypass_flush_min_ph": 6.9106,
+      "bypass_flush_tscm_pct": 69.1517
+    },
+    "clock_mhz": 500.0,
+    "total_burst_cycles": 3176,
+    "burst_latency_us": 6.352,
+    "active_burst_power_mw": 3.108,
+    "energy_per_burst_nj": 19.74,
+    "sleep_leakage_uw": 18.0
+  }
+}

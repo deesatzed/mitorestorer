@@ -1,15 +1,17 @@
 /* ============================================================================
- * Google Coral NPU (`RV32IMF_Zve32x`) Host-Emulated C99 CAR-T Cassette Testbench
+ * Host-Emulated C99 Fixed-Point CAR-T Perfusion Cassette Verification Testbench
  * File: build/coralnpu/cart_bioreactor_hil_testbench.c
  * Executes:
  *   1. Exact 1-to-1 8-state CAR-T bioreactor ODE parity: IEEE-754 FP64 vs.
- *      Scalar RV32F FP32 vs. Q16.16 + Q8.24 slopes + Sigma-Delta RK4 vs.
+ *      Scalar FP32 vs. Q16.16 + Q8.24 slopes + 64-bit Sigma-Delta RK4 vs.
  *      Naive Q16.16 RK4 across N in {500, 1000, 2000, 4000, 8000} steps.
- *   2. Amperometric Lac:Pyr biofouling innovation-residual handover to the
- *      inline optical (OUR + OD + pH) observer channel set.
+ *   2. 100% Integer FPU-Free Sequential 5-Channel (R_LP, OUR_vol, OD, pH, ORR)
+ *      Huber-EKF + NIS > 13.5 Biofouling Handover vs. IEEE-754 FP64 EKF under
+ *      donor kinetic mismatch and progressive amperometric electrode fouling.
  *   3. Post-switch cassette perfusion occlusion acidosis rescue via autonomous
  *      neutral bypass flush (u_flush = 1) with continuous plant state x(t).
- *   4. Static L1 DTCM Bank-0 memory footprint verification (< 8,192 B).
+ *   4. Zero-heap static SRAM workspace verification (< 8,192 B, no unused NPU
+ *      neural weight padding).
  * ============================================================================ */
 
 #include <stdio.h>
@@ -17,6 +19,19 @@
 #include <math.h>
 #include <assert.h>
 #include "mitorestorer_coralnpu_kernel.h"
+
+/* Q12.20 Fixed-Point Helpers for EKF Covariance Matrix P (Range [-2048, +2048), LSB = 2^-20) */
+#define Q20_FROM_FLOAT(x) ((int32_t)((x) >= 0.0 ? ((x) * 1048576.0 + 0.5) : ((x) * 1048576.0 - 0.5)))
+
+static inline uint32_t isqrt64_u32(uint64_t n) {
+  uint64_t x = n;
+  uint64_t y = (x + 1ULL) >> 1;
+  while (y < x) {
+    x = y;
+    y = (x + n / x) >> 1;
+  }
+  return (x > 0xFFFFFFFFULL) ? 0xFFFFFFFFU : (uint32_t)x;
+}
 
 /* 8-State CAR-T Perfusion Cassette Parameter Struct in Q16.16 */
 typedef struct {
@@ -80,21 +95,26 @@ typedef struct {
   int32_t K_SRC_mem_q16;
 } cart_cassette_params_q16_t;
 
-/* Complete Single-Bank L1 DTCM CAR-T Bioreactor Workspace (< 8,192 B Bank 0) */
+/* Deterministic Zero-Heap Static SRAM CAR-T Bioreactor Workspace (< 8,192 B) */
 typedef struct {
-  int8_t                          int8_proj_weights[16 * 64]; /* 1,024 B: 16x64 INT8 sensor projection */
-  int8_t                          int8_head_weights[64 * 3];  /*   192 B: 64x3 INT8 gate head          */
-  int16_t                         optical_lut_q15[256];       /*   512 B: Dual-wavelength pH/OUR LUT   */
-  int32_t                         innov_window_q16[64];       /*   256 B: 64-frame innovation buffer   */
-  int32_t                         ekf_P_cov_q24[8][8];        /*   256 B: 8x8 Q8.24 EKF covariance     */
-  int32_t                         ekf_F_jac_q16[8][8];        /*   256 B: 8x8 Q16.16 Jacobian scratch  */
-  int32_t                         ekf_Q_diag_q24[8];          /*    32 B: 8-state Q8.24 process noise  */
-  int32_t                         rk4_k_scratch_q24[4][8];    /*   128 B: 4-stage Q8.24 RK4 slopes     */
-  int64_t                         rk4_sub_lsb_rem[8];         /*    64 B: 8-lane Sigma-Delta remainder */
-  int32_t                         x_hat_q16[8];               /*    32 B: 8-state Q16.16 estimator     */
-  cart_cassette_params_q16_t      params_q16;                 /*   232 B: 58 Q16.16 cassette params    */
-  mitorestorer_rolling_guard_dtcm_t rolling_guard;            /*   168 B: 64-frame quorum + anchor     */
-  uint8_t                         scalar_isr_stack_rsv[768];  /*   768 B: Reserved scalar/ISR C stack  */
+  int16_t                         optical_lut_q15[256];       /* 512 B: Dual-wavelength pH/optode LUT  */
+  int32_t                         innov_window_q16[64];       /* 256 B: 64-frame innovation ring       */
+  int32_t                         ekf_P_cov_q20[8][8];        /* 256 B: 8x8 Q12.20 EKF covariance      */
+  int32_t                         ekf_F_jac_q16[8][8];        /* 256 B: 8x8 Q16.16 Jacobian scratch    */
+  int32_t                         ekf_Q_diag_q20[8];          /*  32 B: 8-state Q12.20 process noise   */
+  int32_t                         ekf_R_var_q20[5];           /*  20 B: 5-ch Q12.20 base sensor var    */
+  int32_t                         n_at_24h_q16;               /*   4 B: 24h OD reference fold          */
+  uint8_t                         nis_streak;                 /*   1 B: Consecutive NIS > 13.5 count   */
+  uint8_t                         ch0_disabled;               /*   1 B: Biofouled R_LP channel latch   */
+  uint8_t                         stage;                      /*   1 B: Active cassette stage (1 or 2) */
+  uint8_t                         quorum;                     /*   1 B: 4-frame persistence counter    */
+  uint32_t                        reserved_align;             /*   4 B: 8-byte alignment               */
+  int32_t                         rk4_k_scratch_q24[4][8];    /* 128 B: 4-stage Q8.24 RK4 slopes       */
+  int64_t                         rk4_sub_lsb_rem[8];         /*  64 B: 8-lane Sigma-Delta remainder   */
+  int32_t                         x_hat_q16[8];               /*  32 B: 8-state Q16.16 EKF estimator   */
+  cart_cassette_params_q16_t      params_q16;                 /* 232 B: 58 Q16.16 cassette params      */
+  mitorestorer_rolling_guard_dtcm_t rolling_guard;            /* 168 B: Persistence guard & anchor     */
+  uint8_t                         scalar_isr_stack_rsv[736];  /* 736 B: Reserved deterministic C stack */
 } coralnpu_cart_dtcm_bank0_workspace_t;
 
 static void init_cart_params_q16(cart_cassette_params_q16_t* p) {
@@ -158,22 +178,25 @@ static void init_cart_params_q16(cart_cassette_params_q16_t* p) {
   p->K_SRC_mem_q16    = Q16_FROM_FLOAT(0.68);
 }
 
-/* IEEE-754 FP64 Reference 8-State CAR-T Cassette RHS (Exact Match to Paper II Eqs.) */
-static void eval_cart8_rhs_fp64(
+/* IEEE-754 FP64 Reference 8-State CAR-T Cassette RHS (With Optional Donor Multipliers) */
+static void eval_cart8_rhs_fp64_ex(
     const double x[8],
     double u1,
     double u2,
     double u_fl,
     bool fault_occl,
+    double mu_glyc_mult,
+    double k_mito_d_mult,
+    double k_warb_mult,
     double dxdt[8]) {
   const double K = 1.40, k_mito_w = 0.008, k_bio_0 = 0.028, k_bio_max = 0.086;
-  const double k_mito_d_max = 0.068, k_rep_adv = 1.22, xi_d = 1.00;
+  const double k_mito_d_max = 0.068 * k_mito_d_mult, k_rep_adv = 1.22, xi_d = 1.00;
   const double k_dmg = 0.0012, theta_gsh = 1.38, R_basal = 8.0, K_LP = 22.0;
   const double eta_d = 0.22, gamma_pdh = 0.72, gamma_src = 0.22, alpha_gal = 0.74;
   const double kappa_glyc = 1.40, c_akt = 0.08, K_R_ATP = 8.0;
   const double beta_lp = 0.40, beta_h = 0.88, beta_ph = 1.90, c1 = 0.24, c2 = 0.06;
-  const double mu_glyc = 0.062, mu_ox = 0.0185, K_ATP = 0.52, K_W_div = 0.56, N_cap = 85.0;
-  const double k_warburg = 3.00, alpha_h = 0.46, k_pdh = 0.088, beta_azd = 2.80;
+  const double mu_glyc = 0.062 * mu_glyc_mult, mu_ox = 0.0185, K_ATP = 0.52, K_W_div = 0.56, N_cap = 85.0;
+  const double k_warburg = 3.00 * k_warb_mult, alpha_h = 0.46, k_pdh = 0.088, beta_azd = 2.80;
   const double k_perf_lp = 0.120, k_flush_lp = 0.85, R_media = 5.0;
   const double k_imp = 0.056, f_0 = 0.30, alpha_akt = 0.30, phi_sirt1 = 1.18;
   const double k_exp = 0.032, gamma_acid = 7.50;
@@ -255,28 +278,32 @@ static void eval_cart8_rhs_fp64(
   dxdt[7] = k_perf_eff * (pH_media - pH) - k_acid * acid_mult * r_buf_exc * (N / N_ref);
 }
 
-static void rk4_cart8_step_fp64(double x[8], double u1, double u2, double u_fl, bool fault, double dt) {
+static void eval_cart8_rhs_fp64(const double x[8], double u1, double u2, double u_fl, bool fault_occl, double dxdt[8]) {
+  eval_cart8_rhs_fp64_ex(x, u1, u2, u_fl, fault_occl, 1.0, 1.0, 1.0, dxdt);
+}
+
+static void rk4_cart8_step_fp64_ex(
+    double x[8], double u1, double u2, double u_fl, bool fault, double dt,
+    double mu_g_m, double k_md_m, double k_wb_m) {
   double k1[8], k2[8], k3[8], k4[8], tmp[8];
-  eval_cart8_rhs_fp64(x, u1, u2, u_fl, fault, k1);
+  eval_cart8_rhs_fp64_ex(x, u1, u2, u_fl, fault, mu_g_m, k_md_m, k_wb_m, k1);
   for (int i = 0; i < 8; ++i) tmp[i] = x[i] + 0.5 * dt * k1[i];
-  eval_cart8_rhs_fp64(tmp, u1, u2, u_fl, fault, k2);
+  eval_cart8_rhs_fp64_ex(tmp, u1, u2, u_fl, fault, mu_g_m, k_md_m, k_wb_m, k2);
   for (int i = 0; i < 8; ++i) tmp[i] = x[i] + 0.5 * dt * k2[i];
-  eval_cart8_rhs_fp64(tmp, u1, u2, u_fl, fault, k3);
+  eval_cart8_rhs_fp64_ex(tmp, u1, u2, u_fl, fault, mu_g_m, k_md_m, k_wb_m, k3);
   for (int i = 0; i < 8; ++i) tmp[i] = x[i] + dt * k3[i];
-  eval_cart8_rhs_fp64(tmp, u1, u2, u_fl, fault, k4);
+  eval_cart8_rhs_fp64_ex(tmp, u1, u2, u_fl, fault, mu_g_m, k_md_m, k_wb_m, k4);
   for (int i = 0; i < 8; ++i) {
     x[i] += (dt / 6.0) * (k1[i] + 2.0 * k2[i] + 2.0 * k3[i] + k4[i]);
   }
 }
 
-/* Scalar RV32F IEEE-754 FP32 Reference Stepper */
-static void eval_cart8_rhs_fp32(
-    const float x[8],
-    float u1,
-    float u2,
-    float u_fl,
-    bool fault_occl,
-    float dxdt[8]) {
+static void rk4_cart8_step_fp64(double x[8], double u1, double u2, double u_fl, bool fault, double dt) {
+  rk4_cart8_step_fp64_ex(x, u1, u2, u_fl, fault, dt, 1.0, 1.0, 1.0);
+}
+
+/* Scalar IEEE-754 FP32 Reference Stepper */
+static void eval_cart8_rhs_fp32(const float x[8], float u1, float u2, float u_fl, bool fault_occl, float dxdt[8]) {
   double xd[8], dxdtd[8];
   for (int i = 0; i < 8; ++i) xd[i] = (double)x[i];
   eval_cart8_rhs_fp64(xd, (double)u1, (double)u2, (double)u_fl, fault_occl, dxdtd);
@@ -297,7 +324,7 @@ static void rk4_cart8_step_fp32(float x[8], float u1, float u2, float u_fl, bool
   }
 }
 
-/* Bare-Metal Q16.16 State -> Q8.24 Slope Evaluator (100% Integer RV32IM / Zve32x) */
+/* Bare-Metal Q16.16 State -> Q8.24 Slope Evaluator (100% FPU-Free Integer Math) */
 static void eval_cart8_rhs_q16_to_q24(
     const int32_t x_q16[8],
     const cart_cassette_params_q16_t* p,
@@ -432,7 +459,7 @@ static void rk4_cart8_step_q16_sd(
   int32_t k1[8], k2[8], k3[8], k4[8], tmp[8];
   eval_cart8_rhs_q16_to_q24(x_q16, p, u1_q16, u2_q16, u_fl_q16, fault, k1);
   for (int i = 0; i < 8; ++i) {
-    int64_t dx = ((int64_t)dt_q16 * (int64_t)k1[i]) >> 25; /* 0.5 * dt * k1 -> Q16.16 */
+    int64_t dx = ((int64_t)dt_q16 * (int64_t)k1[i]) >> 25;
     tmp[i] = x_q16[i] + (int32_t)dx;
   }
   eval_cart8_rhs_q16_to_q24(tmp, p, u1_q16, u2_q16, u_fl_q16, fault, k2);
@@ -442,7 +469,7 @@ static void rk4_cart8_step_q16_sd(
   }
   eval_cart8_rhs_q16_to_q24(tmp, p, u1_q16, u2_q16, u_fl_q16, fault, k3);
   for (int i = 0; i < 8; ++i) {
-    int64_t dx = ((int64_t)dt_q16 * (int64_t)k3[i]) >> 24; /* dt * k3 -> Q16.16 */
+    int64_t dx = ((int64_t)dt_q16 * (int64_t)k3[i]) >> 24;
     tmp[i] = x_q16[i] + (int32_t)dx;
   }
   eval_cart8_rhs_q16_to_q24(tmp, p, u1_q16, u2_q16, u_fl_q16, fault, k4);
@@ -487,6 +514,380 @@ static void rk4_cart8_step_q16_naive(
     int32_t wavg = (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]) / 6;
     x_q16[i] += q16_mul(dt_q16, wavg);
   }
+}
+
+/* ============================================================================
+ * 5-Channel Cassette Sensor Observation & Sequential Huber-EKF + NIS Handover
+ * Channels:
+ *   y[0]: Amperometric [Lac]/[Pyr] ratio R_LP (subject to protein biofouling)
+ *   y[1]: Dissolved-O2 optode volumetric respiration OUR_vol = N_cells * ATP_ox
+ *   y[2]: NIR optical backscatter cell-density fold OD = alpha_OD * N_cells
+ *   y[3]: Dual-wavelength phenol-red pH
+ *   y[4]: Quartz-window autofluorescence Optical Redox Ratio ORR (cell-density invariant)
+ * ============================================================================ */
+static void cassette_obs_fp64(const double x[8], double u2, double c_orr_glyc, double alpha_od, double y[5]) {
+  double W = x[0] > 0.0 ? x[0] : 0.0;
+  double D = x[1] > 0.0 ? x[1] : 0.0;
+  double N = x[2] > 0.0 ? x[2] : 0.0;
+  double R = x[3] > 0.0 ? x[3] : 0.0;
+  double S = x[5] > 0.0 ? x[5] : 0.0;
+  double pH = x[7];
+  double s_exc = (S > 1.0) ? (S - 1.0) : 0.0;
+  double atp_ox = (W + 0.22 * D) * (1.0 + 0.72 * u2) * (1.0 + 0.22 * s_exc);
+  double our_vol = N * atp_ox;
+  double g_glc = 1.0 - 0.74 * u2;
+  double den = W + D + c_orr_glyc * g_glc;
+  if (den < 1e-6) den = 1e-6;
+  y[0] = R;
+  y[1] = our_vol;
+  y[2] = alpha_od * N;
+  y[3] = pH;
+  y[4] = W / den;
+}
+
+static void cassette_obs_q16(
+    const int32_t x_q16[8],
+    const cart_cassette_params_q16_t* p,
+    int32_t u2_q16,
+    int32_t y_q16[5]) {
+  int32_t W = q16_max0(x_q16[0]);
+  int32_t D = q16_max0(x_q16[1]);
+  int32_t N = q16_max0(x_q16[2]);
+  int32_t R = q16_max0(x_q16[3]);
+  int32_t S = q16_max0(x_q16[5]);
+  int32_t pH = x_q16[7];
+  int32_t s_exc = q16_max0(S - Q16_ONE);
+  int32_t eff_m = W + q16_mul(p->eta_d_q16, D);
+  int32_t g_p = Q16_ONE + q16_mul(p->gamma_pdh_q16, u2_q16);
+  int32_t g_s = Q16_ONE + q16_mul(p->gamma_src_q16, s_exc);
+  int32_t atp_ox = q16_mul(eff_m, q16_mul(g_p, g_s));
+  int32_t our_vol = q16_mul(N, atp_ox);
+  int32_t g_glc = Q16_ONE - q16_mul(p->alpha_gal_q16, u2_q16);
+  int32_t c_g = q16_mul(Q16_FROM_FLOAT(0.35), g_glc);
+  int32_t den = W + D + c_g;
+  if (den < 64) den = 64;
+  y_q16[0] = R;
+  y_q16[1] = our_vol;
+  y_q16[2] = N;
+  y_q16[3] = pH;
+  y_q16[4] = q16_div(W, den);
+}
+
+/* 100% Integer FPU-Free Sequential 5-Channel Huber-EKF + NIS > 13.5 Biofouling Handover */
+static void cart_ekf_step_q16(
+    coralnpu_cart_dtcm_bank0_workspace_t* ws,
+    const int32_t y_meas_q16[5],
+    int32_t u1_q16,
+    int32_t u2_q16,
+    int32_t dt_q16,
+    bool* newly_disabled_out) {
+  *newly_disabled_out = false;
+  int32_t x_prev[8];
+  for (int i = 0; i < 8; ++i) x_prev[i] = ws->x_hat_q16[i];
+
+  /* 1. Compute central-difference discrete Jacobian F = I + dt * df/dx in Q16.16 (delta_x = 32 LSB = 2^-11) */
+  for (int j = 0; j < 8; ++j) {
+    int32_t xp[8], xm[8], fp_q24[8], fm_q24[8];
+    for (int i = 0; i < 8; ++i) { xp[i] = x_prev[i]; xm[i] = x_prev[i]; }
+    xp[j] += 32;
+    xm[j] -= 32;
+    eval_cart8_rhs_q16_to_q24(xp, &ws->params_q16, u1_q16, u2_q16, 0, false, fp_q24);
+    eval_cart8_rhs_q16_to_q24(xm, &ws->params_q16, u1_q16, u2_q16, 0, false, fm_q24);
+    for (int i = 0; i < 8; ++i) {
+      /* (fp - fm) in Q8.24 over 2*delta_x = 2^-10 -> shift << 2 yields exact Q16.16 df_i/dx_j */
+      int32_t df_dx_q16 = (fp_q24[i] - fm_q24[i]) << 2;
+      ws->ekf_F_jac_q16[i][j] = q16_mul(df_dx_q16, dt_q16) + ((i == j) ? Q16_ONE : 0);
+    }
+  }
+
+  /* 2. Predict State via Q16.16 + Q8.24 + Sigma-Delta RK4 */
+  rk4_cart8_step_q16_sd(ws->x_hat_q16, &ws->params_q16, u1_q16, u2_q16, 0, false, dt_q16, ws->rk4_sub_lsb_rem);
+
+  /* 3. Predict Covariance P_pred = F * P * F^T + Q in Q12.20 */
+  int32_t FP_q20[8][8];
+  for (int i = 0; i < 8; ++i) {
+    for (int j = 0; j < 8; ++j) {
+      int64_t acc = 0;
+      for (int k = 0; k < 8; ++k) {
+        acc += (int64_t)ws->ekf_F_jac_q16[i][k] * (int64_t)ws->ekf_P_cov_q20[k][j];
+      }
+      FP_q20[i][j] = (int32_t)((acc + (acc >= 0 ? 32768LL : -32768LL)) >> 16);
+    }
+  }
+  for (int i = 0; i < 8; ++i) {
+    for (int j = 0; j < 8; ++j) {
+      int64_t acc = 0;
+      for (int k = 0; k < 8; ++k) {
+        acc += (int64_t)FP_q20[i][k] * (int64_t)ws->ekf_F_jac_q16[j][k];
+      }
+      int32_t p_ij = (int32_t)((acc + (acc >= 0 ? 32768LL : -32768LL)) >> 16);
+      if (i == j) p_ij += ws->ekf_Q_diag_q20[i];
+      ws->ekf_P_cov_q20[i][j] = p_ij;
+    }
+  }
+
+  /* 4. Sequential Scalar Huber-EKF Updates Across 5 Channels */
+  const cart_cassette_params_q16_t* p = &ws->params_q16;
+  for (int m_ch = 0; m_ch < 5; ++m_ch) {
+    int32_t y_hat_q16[5];
+    cassette_obs_q16(ws->x_hat_q16, p, u2_q16, y_hat_q16);
+    int32_t innov_q16 = y_meas_q16[m_ch] - y_hat_q16[m_ch];
+
+    int32_t H_q16[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    int32_t r_var_q20 = ws->ekf_R_var_q20[m_ch];
+    if (m_ch == 0) {
+      H_q16[3] = Q16_ONE;
+    } else if (m_ch == 1) {
+      int32_t W = q16_max0(ws->x_hat_q16[0]);
+      int32_t D = q16_max0(ws->x_hat_q16[1]);
+      int32_t N = q16_max0(ws->x_hat_q16[2]);
+      int32_t S = q16_max0(ws->x_hat_q16[5]);
+      int32_t s_ex = q16_max0(S - Q16_ONE);
+      int32_t g_p = Q16_ONE + q16_mul(p->gamma_pdh_q16, u2_q16);
+      int32_t g_s = Q16_ONE + q16_mul(p->gamma_src_q16, s_ex);
+      int32_t gp_gs = q16_mul(g_p, g_s);
+      int32_t eff_m = W + q16_mul(p->eta_d_q16, D);
+      H_q16[0] = q16_mul(N, gp_gs);
+      H_q16[1] = q16_mul(N, q16_mul(p->eta_d_q16, gp_gs));
+      H_q16[2] = q16_mul(eff_m, gp_gs);
+      if (S > Q16_ONE) {
+        H_q16[5] = q16_mul(N, q16_mul(eff_m, q16_mul(g_p, p->gamma_src_q16)));
+      }
+      /* Volumetric optode noise variance: 0.05^2 + (0.045 * N_hat)^2 in Q12.20 */
+      int32_t sig_prop_q16 = q16_mul(Q16_FROM_FLOAT(0.045), N);
+      int64_t prop_var_q20 = ((int64_t)sig_prop_q16 * (int64_t)sig_prop_q16) >> 12;
+      r_var_q20 += (int32_t)prop_var_q20;
+    } else if (m_ch == 2) {
+      H_q16[2] = Q16_ONE;
+      /* OD backscatter noise variance: 0.35^2 + (0.04 * N_hat)^2 in Q12.20 */
+      int32_t N = q16_max0(ws->x_hat_q16[2]);
+      int32_t sig_od_q16 = q16_mul(Q16_FROM_FLOAT(0.040), N);
+      int64_t od_var_q20 = ((int64_t)sig_od_q16 * (int64_t)sig_od_q16) >> 12;
+      r_var_q20 += (int32_t)od_var_q20;
+    } else if (m_ch == 3) {
+      H_q16[7] = Q16_ONE;
+    } else {
+      int32_t W = q16_max0(ws->x_hat_q16[0]);
+      int32_t D = q16_max0(ws->x_hat_q16[1]);
+      int32_t c_g = q16_mul(Q16_FROM_FLOAT(0.35), Q16_ONE - q16_mul(p->alpha_gal_q16, u2_q16));
+      int32_t den = W + D + c_g;
+      if (den < 64) den = 64;
+      int32_t den2 = q16_mul(den, den);
+      if (den2 < 16) den2 = 16;
+      H_q16[0] = q16_div(D + c_g, den2);
+      H_q16[1] = -q16_div(W, den2);
+    }
+
+    int32_t PHt_q20[8];
+    int64_t h_pht_acc = 0;
+    for (int i = 0; i < 8; ++i) {
+      int64_t acc = 0;
+      for (int j = 0; j < 8; ++j) {
+        acc += (int64_t)ws->ekf_P_cov_q20[i][j] * (int64_t)H_q16[j];
+      }
+      PHt_q20[i] = (int32_t)((acc + (acc >= 0 ? 32768LL : -32768LL)) >> 16);
+      h_pht_acc += (int64_t)H_q16[i] * (int64_t)PHt_q20[i];
+    }
+    int32_t S_inn_q20 = (int32_t)((h_pht_acc + (h_pht_acc >= 0 ? 32768LL : -32768LL)) >> 16) + r_var_q20;
+    if (S_inn_q20 < 16) S_inn_q20 = 16;
+
+    int64_t innov_sq_q32 = (int64_t)innov_q16 * (int64_t)innov_q16;
+    int64_t s_inn_q32 = (int64_t)S_inn_q20 << 12;
+
+    if (m_ch == 0) {
+      /* Exact integer NIS > 13.5 (= 27/2) biofouling residual check */
+      bool bad_nis = (2LL * innov_sq_q32 > 27LL * s_inn_q32);
+      ws->nis_streak = bad_nis ? (uint8_t)(ws->nis_streak + 1U) : 0U;
+      if (!ws->ch0_disabled && ws->nis_streak >= 3U) {
+        ws->ch0_disabled = 1U;
+        *newly_disabled_out = true;
+      }
+      if (ws->ch0_disabled) {
+        continue; /* Channel 0 permanently disabled; optical quartet handles estimation */
+      }
+    }
+
+    int32_t huber_w_q16 = Q16_ONE;
+    if (4LL * innov_sq_q32 > 25LL * s_inn_q32) { /* |innov| > 2.5 * sqrt(S_inn) */
+      uint32_t std_q16 = isqrt64_u32((uint64_t)s_inn_q32);
+      int32_t abs_inn = innov_q16 >= 0 ? innov_q16 : -innov_q16;
+      huber_w_q16 = q16_div(q16_mul(Q16_FROM_FLOAT(2.5), (int32_t)std_q16), abs_inn);
+    }
+
+    int32_t K_q16[8];
+    for (int i = 0; i < 8; ++i) {
+      int32_t k_raw_q16 = (int32_t)(((int64_t)PHt_q20[i] << 16) / (int64_t)S_inn_q20);
+      K_q16[i] = q16_mul(k_raw_q16, huber_w_q16);
+      ws->x_hat_q16[i] += q16_mul(K_q16[i], innov_q16);
+    }
+    for (int i = 0; i < 7; ++i) {
+      if (ws->x_hat_q16[i] < 0) ws->x_hat_q16[i] = 0;
+    }
+    if (ws->x_hat_q16[4] > Q16_ONE) ws->x_hat_q16[4] = Q16_ONE;
+    if (ws->x_hat_q16[6] > Q16_ONE) ws->x_hat_q16[6] = Q16_ONE;
+
+    int32_t P_old_q20[8][8];
+    for (int i = 0; i < 8; ++i) {
+      for (int j = 0; j < 8; ++j) P_old_q20[i][j] = ws->ekf_P_cov_q20[i][j];
+    }
+    for (int i = 0; i < 8; ++i) {
+      for (int j = 0; j < 8; ++j) {
+        int64_t kh_p_acc = 0;
+        for (int k = 0; k < 8; ++k) {
+          int32_t kh_ik_q16 = q16_mul(K_q16[i], H_q16[k]);
+          kh_p_acc += (int64_t)kh_ik_q16 * (int64_t)P_old_q20[k][j];
+        }
+        ws->ekf_P_cov_q20[i][j] = P_old_q20[i][j]
+            - (int32_t)((kh_p_acc + (kh_p_acc >= 0 ? 32768LL : -32768LL)) >> 16);
+      }
+    }
+  }
+}
+
+/* Reference IEEE-754 FP64 Sequential 5-Channel Huber-EKF + NIS > 13.5 Handover */
+static void cart_ekf_step_fp64(
+    double x_hat[8],
+    double P_cov[8][8],
+    const double Q_diag[8],
+    const double R_base_var[5],
+    const double y_meas[5],
+    double u1,
+    double u2,
+    double dt,
+    int* nis_streak,
+    bool* ch0_disabled,
+    bool* newly_disabled_out) {
+  *newly_disabled_out = false;
+  double F_jac[8][8];
+  const double eps = 488.28125e-6; /* 32 / 65536 = 2^-11 */
+  for (int j = 0; j < 8; ++j) {
+    double xp[8], xm[8], fp[8], fm[8];
+    for (int i = 0; i < 8; ++i) { xp[i] = x_hat[i]; xm[i] = x_hat[i]; }
+    xp[j] += eps; xm[j] -= eps;
+    eval_cart8_rhs_fp64(xp, u1, u2, 0.0, false, fp);
+    eval_cart8_rhs_fp64(xm, u1, u2, 0.0, false, fm);
+    for (int i = 0; i < 8; ++i) {
+      F_jac[i][j] = ((fp[i] - fm[i]) / (2.0 * eps)) * dt + ((i == j) ? 1.0 : 0.0);
+    }
+  }
+  rk4_cart8_step_fp64(x_hat, u1, u2, 0.0, false, dt);
+
+  double FP[8][8], P_pred[8][8];
+  for (int i = 0; i < 8; ++i) {
+    for (int j = 0; j < 8; ++j) {
+      double s = 0.0;
+      for (int k = 0; k < 8; ++k) s += F_jac[i][k] * P_cov[k][j];
+      FP[i][j] = s;
+    }
+  }
+  for (int i = 0; i < 8; ++i) {
+    for (int j = 0; j < 8; ++j) {
+      double s = 0.0;
+      for (int k = 0; k < 8; ++k) s += FP[i][k] * F_jac[j][k];
+      P_pred[i][j] = s + ((i == j) ? Q_diag[i] : 0.0);
+    }
+  }
+  for (int i = 0; i < 8; ++i) {
+    for (int j = 0; j < 8; ++j) P_cov[i][j] = P_pred[i][j];
+  }
+
+  for (int m_ch = 0; m_ch < 5; ++m_ch) {
+    double y_hat[5];
+    cassette_obs_fp64(x_hat, u2, 0.35, 1.0, y_hat);
+    double innov = y_meas[m_ch] - y_hat[m_ch];
+    double H[8] = {0};
+    double r_var = R_base_var[m_ch];
+    if (m_ch == 0) {
+      H[3] = 1.0;
+    } else if (m_ch == 1) {
+      double W = x_hat[0] > 0.0 ? x_hat[0] : 0.0;
+      double D = x_hat[1] > 0.0 ? x_hat[1] : 0.0;
+      double N = x_hat[2] > 0.0 ? x_hat[2] : 0.0;
+      double S = x_hat[5] > 0.0 ? x_hat[5] : 0.0;
+      double s_ex = S > 1.0 ? (S - 1.0) : 0.0;
+      double g_p = 1.0 + 0.72 * u2;
+      double g_s = 1.0 + 0.22 * s_ex;
+      double eff_m = W + 0.22 * D;
+      H[0] = N * g_p * g_s;
+      H[1] = N * 0.22 * g_p * g_s;
+      H[2] = eff_m * g_p * g_s;
+      if (S > 1.0) H[5] = N * eff_m * g_p * 0.22;
+      r_var += (0.045 * N) * (0.045 * N);
+    } else if (m_ch == 2) {
+      H[2] = 1.0;
+      double N = x_hat[2] > 0.0 ? x_hat[2] : 0.0;
+      r_var += (0.040 * N) * (0.040 * N);
+    } else if (m_ch == 3) {
+      H[7] = 1.0;
+    } else {
+      double W = x_hat[0] > 0.0 ? x_hat[0] : 0.0;
+      double D = x_hat[1] > 0.0 ? x_hat[1] : 0.0;
+      double c_g = 0.35 * (1.0 - 0.74 * u2);
+      double den = W + D + c_g;
+      if (den < 1e-6) den = 1e-6;
+      H[0] = (D + c_g) / (den * den);
+      H[1] = -W / (den * den);
+    }
+
+    double PHt[8], S_inn = r_var;
+    for (int i = 0; i < 8; ++i) {
+      double s = 0.0;
+      for (int j = 0; j < 8; ++j) s += P_cov[i][j] * H[j];
+      PHt[i] = s;
+      S_inn += H[i] * s;
+    }
+    if (S_inn < 1e-9) S_inn = 1e-9;
+
+    if (m_ch == 0) {
+      double nis = (innov * innov) / S_inn;
+      *nis_streak = (nis > 13.5) ? (*nis_streak + 1) : 0;
+      if (!(*ch0_disabled) && *nis_streak >= 3) {
+        *ch0_disabled = true;
+        *newly_disabled_out = true;
+      }
+      if (*ch0_disabled) continue;
+    }
+
+    double std_inn = sqrt(S_inn);
+    double hw = (fabs(innov) <= 2.5 * std_inn) ? 1.0 : (2.5 * std_inn / fabs(innov));
+    double K[8];
+    for (int i = 0; i < 8; ++i) {
+      K[i] = (PHt[i] / S_inn) * hw;
+      x_hat[i] += K[i] * innov;
+    }
+    for (int i = 0; i < 7; ++i) if (x_hat[i] < 0.0) x_hat[i] = 0.0;
+    if (x_hat[4] > 1.0) x_hat[4] = 1.0;
+    if (x_hat[6] > 1.0) x_hat[6] = 1.0;
+
+    double P_old[8][8];
+    for (int i = 0; i < 8; ++i) for (int j = 0; j < 8; ++j) P_old[i][j] = P_cov[i][j];
+    for (int i = 0; i < 8; ++i) {
+      for (int j = 0; j < 8; ++j) {
+        double s = 0.0;
+        for (int k = 0; k < 8; ++k) s += (K[i] * H[k]) * P_old[k][j];
+        P_cov[i][j] = P_old[i][j] - s;
+      }
+    }
+  }
+}
+
+/* Deterministic SplitMix64 + Box-Muller PRNG for Reproducible C99 Sensor Noise */
+static uint64_t splitmix64_next(uint64_t* state) {
+  uint64_t z = (*state += 0x9E3779B97F4A7C15ULL);
+  z = (z ^ (z >> 30)) * 0xBF58476D1CE4E5B9ULL;
+  z = (z ^ (z >> 27)) * 0x94D049BB133111EBULL;
+  return z ^ (z >> 31);
+}
+
+static double prng_uniform01(uint64_t* state) {
+  return (double)(splitmix64_next(state) >> 11) * (1.0 / 9007199254740992.0);
+}
+
+static double prng_normal01(uint64_t* state) {
+  double u1 = prng_uniform01(state);
+  double u2 = prng_uniform01(state);
+  if (u1 < 1e-12) u1 = 1e-12;
+  return sqrt(-2.0 * log(u1)) * cos(6.28318530717958647692 * u2);
 }
 
 static double compute_tscm_pct(const double x[8]) {
@@ -565,7 +966,6 @@ int main(int argc, char** argv) {
     for (int i = 0; i < 8; ++i) {
       x_sd_f[i] = Q16_TO_DOUBLE(x_sd[i]);
       x_nv_f[i] = Q16_TO_DOUBLE(x_nv[i]);
-      /* Normalize each channel by its characteristic scale so N~62 and W~1 are weighted fairly */
       double scale = (i == 2) ? 65.0 : ((i == 3) ? 25.0 : ((i == 7) ? 7.4 : 1.0));
       double dr = x64[i] / scale;
       double d_sd = (x_sd_f[i] - x64[i]) / scale;
@@ -592,6 +992,122 @@ int main(int argc, char** argv) {
     }
     assert(err_sd_pct[s] < 0.25);
   }
+
+  /* ==========================================================================
+   * Verify 100% Integer C99 Sequential 5-Channel Huber-EKF + NIS > 13.5
+   * Biofouling Handover Under Donor Kinetic Mismatch & Electrode Fouling
+   * ========================================================================== */
+  memset(&cart_ws, 0, sizeof(cart_ws));
+  init_cart_params_q16(&cart_ws.params_q16);
+
+  /* Mismatched oncology donor plant (h0 = 49.0%, 0.90x mu_glyc, 1.15x k_Warburg, 0.88x k_mito_D, +4% OD bias) */
+  double x_true[8] = {0.51, 0.49, 1.0, 24.5, 0.25, 1.20, 0.10, 7.32};
+  const double x_nom0[8] = {0.54, 0.42, 1.0, 22.0, 0.28, 1.30, 0.08, 7.32};
+  const double P0_diag[8] = {0.05, 0.05, 0.04, 4.0, 0.02, 0.08, 0.01, 0.01};
+  const double Q_diag[8]  = {2.5e-4, 2.5e-4, 6e-3, 0.12, 2e-4, 8e-4, 1e-4, 2e-4};
+  const double R_base_sig[5] = {0.55, 0.050, 0.35, 0.018, 0.012};
+  double R_base_var[5];
+  for (int m = 0; m < 5; ++m) {
+    R_base_var[m] = R_base_sig[m] * R_base_sig[m];
+    cart_ws.ekf_R_var_q20[m] = Q20_FROM_FLOAT(R_base_var[m]);
+  }
+
+  double x_hat64[8], P64[8][8];
+  memset(P64, 0, sizeof(P64));
+  for (int i = 0; i < 8; ++i) {
+    x_hat64[i] = x_nom0[i];
+    P64[i][i] = P0_diag[i];
+    cart_ws.x_hat_q16[i] = Q16_FROM_FLOAT(x_nom0[i]);
+    cart_ws.ekf_P_cov_q20[i][i] = Q20_FROM_FLOAT(P0_diag[i]);
+    cart_ws.ekf_Q_diag_q20[i] = Q20_FROM_FLOAT(Q_diag[i]);
+  }
+  cart_ws.stage = 1U;
+  int nis_streak64 = 0;
+  bool ch0_dis64 = false;
+  double handover_t_q16 = -1.0, handover_t_fp64 = -1.0;
+  double gate_t_ekf_q16 = -1.0, gate_t_ekf_fp64 = -1.0;
+  int quorum64 = 0;
+
+  uint64_t rng_st = 20261111ULL;
+  double ar_noise[5] = {0};
+  const int n_ekf_steps = 560;
+  const double dt_ekf = 168.0 / 560.0; /* 0.30 h = 18 min */
+  const int32_t dt_ekf_q16 = Q16_FROM_FLOAT(dt_ekf);
+
+  double sq_err_q16 = 0.0, sq_err_fp64 = 0.0, sq_diff_q16_vs_fp64 = 0.0;
+  for (int k = 0; k < n_ekf_steps; ++k) {
+    double t = k * dt_ekf;
+    double u1 = (cart_ws.stage == 1U) ? 1.0 : 0.0;
+    double u2 = (cart_ws.stage == 1U) ? 0.0 : 1.0;
+    int32_t u1_q16 = (cart_ws.stage == 1U) ? Q16_ONE : 0;
+    int32_t u2_q16 = (cart_ws.stage == 1U) ? 0 : Q16_ONE;
+
+    double y_clean[5], y_meas[5];
+    int32_t y_meas_q16[5];
+    cassette_obs_fp64(x_true, u2, 0.365, 1.04, y_clean);
+    for (int m = 0; m < 5; ++m) {
+      double sig_m = R_base_sig[m];
+      if (m == 1) sig_m = sqrt(0.050 * 0.050 + (0.045 * x_true[2]) * (0.045 * x_true[2]));
+      if (m == 2) sig_m = sqrt(0.35 * 0.35 + (0.040 * x_true[2]) * (0.040 * x_true[2]));
+      ar_noise[m] = 0.65 * ar_noise[m] + sqrt(1.0 - 0.65 * 0.65) * prng_normal01(&rng_st) * sig_m;
+      y_meas[m] = y_clean[m] + ar_noise[m];
+    }
+    /* Inject progressive protein biofouling on Channel 0 (R_LP) starting at t = 38.0 h */
+    if (t >= 38.0) {
+      double spike = (prng_uniform01(&rng_st) < 0.14) ? ((prng_uniform01(&rng_st) < 0.5 ? -1.0 : 1.0) * 6.8) : 0.0;
+      y_meas[0] += 0.42 * (t - 38.0) + spike;
+      if (y_meas[0] < 1.5) y_meas[0] = 1.5;
+    }
+    for (int m = 0; m < 5; ++m) {
+      y_meas_q16[m] = Q16_FROM_FLOAT(y_meas[m]);
+    }
+
+    bool newly_q16 = false, newly_fp64 = false;
+    cart_ekf_step_q16(&cart_ws, y_meas_q16, u1_q16, u2_q16, dt_ekf_q16, &newly_q16);
+    cart_ekf_step_fp64(x_hat64, P64, Q_diag, R_base_var, y_meas, u1, u2, dt_ekf, &nis_streak64, &ch0_dis64, &newly_fp64);
+    if (newly_q16 && handover_t_q16 < 0.0) handover_t_q16 = t;
+    if (newly_fp64 && handover_t_fp64 < 0.0) handover_t_fp64 = t;
+
+    double h_true = x_true[1] / (x_true[0] + x_true[1]);
+    double w_q16_d = Q16_TO_DOUBLE(cart_ws.x_hat_q16[0]);
+    double d_q16_d = Q16_TO_DOUBLE(cart_ws.x_hat_q16[1]);
+    double h_hat_q16_d = d_q16_d / ((w_q16_d + d_q16_d > 1e-6) ? (w_q16_d + d_q16_d) : 1e-6);
+    double h_hat_fp64_d = x_hat64[1] / ((x_hat64[0] + x_hat64[1] > 1e-6) ? (x_hat64[0] + x_hat64[1]) : 1e-6);
+
+    sq_err_q16 += (h_hat_q16_d - h_true) * (h_hat_q16_d - h_true);
+    sq_err_fp64 += (h_hat_fp64_d - h_true) * (h_hat_fp64_d - h_true);
+    sq_diff_q16_vs_fp64 += (h_hat_q16_d - h_hat_fp64_d) * (h_hat_q16_d - h_hat_fp64_d);
+
+    /* Closed-loop persistence gating (4 frames = 1.2 h) */
+    int32_t h_hat_q16 = q16_div(cart_ws.x_hat_q16[1], cart_ws.x_hat_q16[0] + cart_ws.x_hat_q16[1] + 64);
+    bool cond_q16 = ((h_hat_q16 <= Q16_FROM_FLOAT(0.056) && cart_ws.x_hat_q16[2] >= Q16_FROM_FLOAT(18.0)) ||
+                     (t >= 83.0 && h_hat_q16 <= Q16_FROM_FLOAT(0.072) && cart_ws.x_hat_q16[2] >= Q16_FROM_FLOAT(18.0))) &&
+                    (y_meas_q16[3] >= Q16_FROM_FLOAT(7.10));
+    cart_ws.quorum = (cart_ws.stage == 1U && cond_q16) ? (uint8_t)(cart_ws.quorum + 1U) : 0U;
+    if (cart_ws.stage == 1U && cart_ws.quorum >= 4U) {
+      cart_ws.stage = 2U;
+      gate_t_ekf_q16 = t;
+    }
+
+    bool cond_fp64 = ((h_hat_fp64_d <= 0.056 && x_hat64[2] >= 18.0) ||
+                      (t >= 83.0 && h_hat_fp64_d <= 0.072 && x_hat64[2] >= 18.0)) &&
+                     (y_meas[3] >= 7.10);
+    if (gate_t_ekf_fp64 < 0.0) {
+      quorum64 = cond_fp64 ? (quorum64 + 1) : 0;
+      if (quorum64 >= 4) gate_t_ekf_fp64 = t;
+    }
+
+    double u1_next = (cart_ws.stage == 1U) ? 1.0 : 0.0;
+    double u2_next = (cart_ws.stage == 1U) ? 0.0 : 1.0;
+    rk4_cart8_step_fp64_ex(x_true, u1_next, u2_next, 0.0, false, dt_ekf, 0.90, 0.88, 1.15);
+  }
+
+  double ekf_rmse_q16_pct  = 100.0 * sqrt(sq_err_q16 / (double)n_ekf_steps);
+  double ekf_rmse_fp64_pct = 100.0 * sqrt(sq_err_fp64 / (double)n_ekf_steps);
+  double ekf_q16_vs_fp64_rmse_pct = 100.0 * sqrt(sq_diff_q16_vs_fp64 / (double)n_ekf_steps);
+  assert(cart_ws.ch0_disabled == 1U && ch0_dis64);
+  assert(ekf_rmse_q16_pct < 3.5);
+  assert(ekf_q16_vs_fp64_rmse_pct < 0.25);
 
   /* Verify Plant-Preserving Acidosis Flush in C99 Q16.16 (Hours 72-96 Occlusion) */
   int32_t xf_no[8], xf_rb[8];
@@ -660,6 +1176,15 @@ int main(int argc, char** argv) {
              step_counts[s], err_sd_pct[s], err_naive_pct[s], err_fp32_pct[s], (s < 4) ? "," : "");
     }
     printf("  ],\n");
+    printf("  \"c99_ekf_biofoul_verification\": {\n");
+    printf("    \"ekf_h_rmse_fp64_pct\": %.4f,\n", ekf_rmse_fp64_pct);
+    printf("    \"ekf_h_rmse_q16_pct\": %.4f,\n", ekf_rmse_q16_pct);
+    printf("    \"ekf_q16_vs_fp64_rmse_pct\": %.5f,\n", ekf_q16_vs_fp64_rmse_pct);
+    printf("    \"nis_handover_time_fp64_h\": %.2f,\n", handover_t_fp64);
+    printf("    \"nis_handover_time_q16_h\": %.2f,\n", handover_t_q16);
+    printf("    \"closed_loop_gate_fp64_h\": %.2f,\n", gate_t_ekf_fp64);
+    printf("    \"closed_loop_gate_q16_h\": %.2f\n", gate_t_ekf_q16);
+    printf("  },\n");
     printf("  \"c99_acidosis_fault\": {\n");
     printf("    \"unmitigated_min_ph\": %.4f,\n", Q16_TO_DOUBLE(min_ph_no));
     printf("    \"unmitigated_tscm_pct\": %.4f,\n", tscm_fault_no);
@@ -668,10 +1193,12 @@ int main(int argc, char** argv) {
     printf("  }\n");
     printf("}\n");
   } else {
-    printf("[PASS] CAR-T Cassette DTCM Bank-0 Workspace: %zu / 8192 B (%.1f%%)\n",
+    printf("[PASS] CAR-T Cassette Zero-Heap Static SRAM Workspace: %zu / 8192 B (%.2f%%)\n",
            cart_bytes, 100.0 * (double)cart_bytes / 8192.0);
     printf("[PASS] N=1000 Parity: sw=%.2fh (Q16=%.2fh), N=%.2fx (Q16=%.2fx), T_SCM=%.2f%% (Q16=%.2f%%), L2_err=%.4f%%\n",
            sw_fp64_1000, sw_q16_1000, n_fp64_1000, n_q16_1000, tscm_fp64_1000, tscm_q16_1000, err_sd_pct[1]);
+    printf("[PASS] C99 Sequential 5-Ch Huber-EKF + NIS Handover: h_RMSE=%.3f%% (FP64=%.3f%%, diff=%.4f%%), Handover=%.1fh (FP64=%.1fh), Gate=%.1fh\n",
+           ekf_rmse_q16_pct, ekf_rmse_fp64_pct, ekf_q16_vs_fp64_rmse_pct, handover_t_q16, handover_t_fp64, gate_t_ekf_q16);
     printf("[PASS] C99 Acidosis Bypass Flush: min_pH %.2f -> %.2f, T_SCM %.2f%% -> %.2f%%\n",
            Q16_TO_DOUBLE(min_ph_no), Q16_TO_DOUBLE(min_ph_rb), tscm_fault_no, tscm_fault_rb);
   }

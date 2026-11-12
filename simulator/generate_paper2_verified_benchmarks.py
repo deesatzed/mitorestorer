@@ -38,6 +38,7 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import numpy as np
 from scipy.optimize import minimize
+from scipy.stats import binomtest
 
 ROOT = Path(__file__).resolve().parent.parent
 STRUCT_DIR = ROOT / "structures"
@@ -736,15 +737,15 @@ def solve_discrete_adjoint_pareto() -> Dict:
 
         return obj_and_grad
 
-    # 1. Verify discrete-adjoint gradient parity against central finite differences at alpha=0.55
+    # 1. Verify discrete-adjoint gradient parity against central finite differences across ALL 200 control variables
     rng = np.random.default_rng(SEED)
     test_z = rng.uniform(0.15, 0.85, size=2 * n_ocp)
-    fn_bal = make_obj_and_grad(0.58)
+    alpha_bal = 0.58
+    fn_bal = make_obj_and_grad(alpha_bal)
     _, g_adj = fn_bal(test_z)
-    fd_indices = [0, 1, 48, 49, 98, 99, 150, 199]
     max_grad_err = 0.0
     eps_fd = 1e-6
-    for idx in fd_indices:
+    for idx in range(2 * n_ocp):
         zp = test_z.copy(); zm = test_z.copy()
         zp[idx] += eps_fd; zm[idx] -= eps_fd
         jp, _ = fn_bal(zp)
@@ -834,8 +835,17 @@ def solve_discrete_adjoint_pareto() -> Dict:
     return {
         "n_intervals": n_ocp,
         "n_variables": 2 * n_ocp,
+        "alpha_balanced": alpha_bal,
+        "fd_checked_variables": 2 * n_ocp,
         "max_adjoint_vs_fd_grad_err": float(f"{max_grad_err:.3e}"),
         "multi_start_count": len(start_costs),
+        "multi_start_descriptions": [
+            "Two-stage step at 66.0 h",
+            "Uniform interior u1=u2=0.5",
+            "Early step at 36.0 h",
+            "Late step at 96.0 h",
+            "Pseudo-random interior draw U[0.1, 0.9]",
+        ],
         "multi_start_costs": [round(c, 6) for c in start_costs],
         "multi_start_cost_spread_pct": round(spread_pct, 4),
         "j_pmp_balanced": round(float(best_res.fun), 5),
@@ -855,17 +865,18 @@ def solve_discrete_adjoint_pareto() -> Dict:
 
 
 # =============================================================================
-# 4. 4-Ch vs. 5-Ch (ORR) Cassette Observability Gramian, Huber-EKF & N=200 Cohort
+# 4. Volumetric OUR vs. Cell-Density-Invariant ORR Observability & N=1,000 Cohort
 # =============================================================================
 def cassette_observation_vec(X: np.ndarray, u1: np.ndarray | float, u2: np.ndarray | float, p: Dict = NOMINAL_PARAMS) -> np.ndarray:
     """
     5 inline non-destructive cassette supernatant/optical sensor channels:
       y[0]: Amperometric [Lactate]/[Pyruvate] ratio R_LP (subject to protein biofouling)
-      y[1]: Optical dissolved-O2 specific respiration rate OUR_spec
-      y[2]: NIR optical backscatter / capacitance cell-density fold N_cells
+      y[1]: Dissolved-O2 optode VOLUMETRIC oxygen uptake rate OUR_vol = N_cells * ATP_ox
+            (physically scales with total suspension biomass N_cells)
+      y[2]: NIR optical backscatter / capacitance cell-density fold OD = alpha_OD * N_cells
       y[3]: Dual-wavelength optical phenol-red pH
       y[4]: Quartz-window label-free autofluorescence Optical Redox Ratio ORR = FAD/(NAD(P)H+FAD)
-            (Walsh & Skala, Nat. Biomed. Eng. 2021; immune to supernatant electrode fouling)
+            (Walsh et al., Nat. Biomed. Eng. 2021; ratiometric -> N_cells cancels identically!)
     """
     W = np.maximum(0.0, X[0])
     D = np.maximum(0.0, X[1])
@@ -873,28 +884,30 @@ def cassette_observation_vec(X: np.ndarray, u1: np.ndarray | float, u2: np.ndarr
     R = np.maximum(0.0, X[3])
     S = np.maximum(0.0, X[5])
     pH = X[7]
-    our_spec = (W + p["eta_d"] * D) * (1.0 + p["gamma_pdh"] * u2) * (1.0 + p["gamma_src"] * np.maximum(0.0, S - 1.0))
+    atp_ox = (W + p["eta_d"] * D) * (1.0 + p["gamma_pdh"] * u2) * (1.0 + p["gamma_src"] * np.maximum(0.0, S - 1.0))
+    our_vol = N * atp_ox
+    alpha_od = p.get("alpha_od", 1.0)
+    od_cells = alpha_od * N
     c_glyc = p.get("c_orr_glyc", 0.35)
     g_glc = 1.0 - p["alpha_gal"] * u2
     orr = W / np.maximum(1e-6, W + D + c_glyc * g_glc)
-    return np.stack([R, our_spec, N, pH, orr], axis=0)
+    return np.stack([R, our_vol, od_cells, pH, orr], axis=0)
 
 
 def compute_cassette_observability_gramian() -> Dict:
     """
     Compute empirical local Observability Gramians along Stage 1 (0..64h) comparing:
-      (a) 4-ch supernatant/respiration suite WITHOUT ORR: [R_LP, OUR_spec, N_cells, pH]
-      (b) 3-ch post-fouling suite WITHOUT ORR:            [OUR_spec, N_cells, pH] (ill-conditioned!)
-      (c) 5-ch optical-metabolic suite WITH inline ORR:   [R_LP, OUR_spec, N_cells, pH, ORR]
-      (d) 4-ch post-fouling optical suite WITH ORR:       [OUR_spec, N_cells, pH, ORR]
+      (a) 4-ch supernatant/volumetric-OUR suite WITHOUT ORR: [R_LP, OUR_vol, OD, pH]
+      (b) 3-ch post-fouling suite WITHOUT ORR:               [OUR_vol, OD, pH] (ill-conditioned!)
+      (c) 5-ch optical-metabolic suite WITH inline ORR:      [R_LP, OUR_vol, OD, pH, ORR]
+      (d) 4-ch post-fouling optical suite WITH ORR:          [OUR_vol, OD, pH, ORR]
     """
     dt = 0.5
     n_steps = int(64.0 / dt)
     eps = 1e-5
-    # Core 6 bioenergetic/cassette states actively estimated for Phase 1->2 gating: [W, D, N, R_LP, S_SRC, pH]
     active_idx = [0, 1, 2, 3, 5, 7]
     scales = np.array([1.0, 1.0, 25.0, 20.0, 2.5, 0.5])
-    y_scales = np.array([15.0, 0.8, 25.0, 0.3, 0.25])
+    y_scales = np.array([15.0, 12.0, 25.0, 0.3, 0.25])
 
     def sim_outputs(x0_pert: np.ndarray) -> np.ndarray:
         X = x0_pert[:, None].copy()
@@ -910,7 +923,7 @@ def compute_cassette_observability_gramian() -> Dict:
         xp = X0_NOMINAL.copy(); xm = X0_NOMINAL.copy()
         step_p = eps * scales[ii]
         xp[s_idx] += step_p; xm[s_idx] -= step_p
-        dy = (sim_outputs(xp) - sim_outputs(xm)) / (2.0 * eps)  # dimensionless sensitivity
+        dy = (sim_outputs(xp) - sim_outputs(xm)) / (2.0 * eps)
         jac_cols.append(dy)
 
     def gram_stats(ch_indices: List[int]) -> Dict:
@@ -939,23 +952,51 @@ def compute_cassette_observability_gramian() -> Dict:
     }
 
 
+def compute_paired_mcnemar_stats(ok_a: np.ndarray, ok_b: np.ndarray) -> Dict:
+    """Exact two-sided binomial McNemar test + paired risk-difference 95% CI between boolean outcomes A and B."""
+    n = len(ok_a)
+    both_pass = int((ok_a & ok_b).sum())
+    a_only = int((ok_a & (~ok_b)).sum())
+    b_only = int(((~ok_a) & ok_b).sum())
+    both_fail = int(((~ok_a) & (~ok_b)).sum())
+    disc = a_only + b_only
+    p_val = float(binomtest(a_only, disc, 0.5, alternative="two-sided").pvalue) if disc > 0 else 1.0
+    diff = (a_only - b_only) / n
+    # Paired standard error of risk difference: sqrt((b + c) - (b - c)^2 / n) / n
+    se_diff = math.sqrt(max(0.0, disc - ((a_only - b_only) ** 2) / n)) / n
+    ci_lo = 100.0 * (diff - 1.959964 * se_diff)
+    ci_hi = 100.0 * (diff + 1.959964 * se_diff)
+    return {
+        "n_donors": n,
+        "both_pass": both_pass,
+        "a_pass_b_fail": a_only,
+        "a_fail_b_pass": b_only,
+        "both_fail": both_fail,
+        "paired_diff_pct": round(100.0 * diff, 2),
+        "paired_diff_95ci_pct": [round(ci_lo, 2), round(ci_hi, 2)],
+        "mcnemar_exact_p": float(f"{p_val:.4e}"),
+    }
+
+
 def run_cohort_and_biofouling_benchmarks() -> Dict:
     """
-    Evaluate N=200 heterogeneous oncology patient apheresis donors across:
+    Evaluate N=1,000 heterogeneous oncology patient apheresis donors across:
       - Unphased Warburg, Premature Ox (h=0), Continuous Urolithin A Monotherapy
       - 9 Open-Loop Fixed Timers (24, 36, 48, 60, 68, 76, 84, 96, 120 h)
-      - Closed-Loop 4-Channel (No-ORR) State EKF (ablation showing Warburg-confounding failure)
-      - Closed-Loop 5-Channel Inline ORR-Augmented Huber-EKF (with model mismatch & AR(1) noise)
-      - Full-Information Donor-Specific Oracle (best possible 2-stage switch time per patient)
-      - Amperometric Lac:Pyr Biofouling: Naive Lac:Pyr Gate vs. No-ORR EKF vs. ORR-NIS Optical Handover
+      - Closed-Loop 4-Channel (No-ORR, Volumetric OUR_vol + OD bias) Huber-EKF
+      - Closed-Loop 5-Channel Inline ORR Huber-EKF (with & without 83 h exhaustion guard)
+      - Amperometric Lac:Pyr Biofouling: Naive Gate vs. No-ORR Handover vs. ORR+NIS Handover
+      - Adaptive Extended-Horizon (168-240 h) OD-Guided Harvest Testing Refractory-Donor Rescue
+      - Exact Paired McNemar Tests & 95% CIs
     """
     rng = np.random.default_rng(SEED)
-    B = 200
-    n_steps = 560  # dt = 0.30 h (18 min inline bioreactor frame)
+    B = 1000
+    n_steps = 560  # dt = 0.30 h (18 min inline bioreactor frame over 168 h)
     dt = T_HORIZON_H / n_steps
 
     h0 = rng.uniform(0.20, 0.62, B)
     m0 = rng.uniform(0.85, 1.12, B)
+    e_tox0 = rng.uniform(0.05, 0.14, B)
     X0 = np.stack([
         m0 * (1.0 - h0),
         m0 * h0,
@@ -963,7 +1004,7 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
         rng.uniform(18.0, 28.0, B),
         rng.uniform(0.22, 0.36, B),
         rng.uniform(1.05, 1.50, B),
-        rng.uniform(0.05, 0.14, B),
+        e_tox0,
         np.full(B, 7.32),
     ], axis=0)
 
@@ -976,6 +1017,8 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
     P_true["k_warburg"] = NOMINAL_PARAMS["k_warburg"] * rng.uniform(0.82, 1.22, B)
     P_true["k_warb_exh"] = NOMINAL_PARAMS["k_warb_exh"] * rng.uniform(0.82, 1.22, B)
     P_true["c_orr_glyc"] = 0.35 * rng.uniform(0.92, 1.08, B)
+    # Unmodeled +/-6% donor lymphoblast size / optical backscatter OD calibration bias
+    P_true["alpha_od"] = rng.uniform(0.94, 1.06, B)
 
     def check_release_pass(Xf: np.ndarray) -> Tuple[np.ndarray, Dict]:
         W, D, N, R, F, S, E_tox, pH = Xf
@@ -1001,13 +1044,12 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
         }
         return ok, summary
 
-    # 1. Fixed & baseline open-loop arms
+    # 1. Fixed & baseline open-loop arms (168 h)
     cohort_results: Dict[str, Dict] = {}
     fixed_timers = [24, 36, 48, 60, 68, 76, 84, 96, 120]
     all_open_arms = ["warburg", "premature_ox_h0", "urolithin_mono"] + [f"fixed_{t}" for t in fixed_timers]
 
-    # Also build dense oracle grid across 28 candidate switch times t_sw in [24..132h]
-    oracle_pass = np.zeros(B, dtype=bool)
+    oracle_pass_168 = np.zeros(B, dtype=bool)
     oracle_best_score = np.full(B, -1e9)
     oracle_sw_t = np.full(B, 68.0)
 
@@ -1029,47 +1071,47 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
         _, summ = check_release_pass(X)
         cohort_results[arm] = summ
 
-    for ts in np.linspace(24.0, 132.0, 28):
+    # Evaluate 168 h AND 240 h full-information donor-specific 2-stage oracle ceilings
+    oracle_pass_240 = np.zeros(B, dtype=bool)
+    n_steps_240 = int(round(240.0 / dt))  # 800 steps
+    for ts in np.linspace(24.0, 144.0, 31):
         X = X0.copy()
-        for k in range(n_steps):
+        for k in range(n_steps_240):
             t = k * dt
             u1 = np.full(B, 1.0 if t < ts else 0.0)
             u2 = np.full(B, 0.0 if t < ts else 1.0)
             X = rk4_step_vec(X, np.stack([u1, u2, np.zeros(B)], axis=0), P_true, dt)
-        ok_ts, summ_ts = check_release_pass(X)
-        oracle_pass |= ok_ts
-        score = summ_ts["_tscm"] + 0.35 * np.minimum(summ_ts["_N"], 65.0) - 200.0 * (~ok_ts).astype(float)
-        better = score > oracle_best_score
-        oracle_best_score = np.where(better, score, oracle_best_score)
-        oracle_sw_t = np.where(better, ts, oracle_sw_t)
+            if k + 1 == n_steps:
+                ok_168, summ_ts = check_release_pass(X)
+                oracle_pass_168 |= ok_168
+                score = summ_ts["_tscm"] + 0.35 * np.minimum(summ_ts["_N"], 65.0) - 200.0 * (~ok_168).astype(float)
+                better = score > oracle_best_score
+                oracle_best_score = np.where(better, score, oracle_best_score)
+                oracle_sw_t = np.where(better, ts, oracle_sw_t)
+            # Between 168 h and 240 h (every 6 h check), allow variable harvest time t_harv in [168, 240]
+            if (k + 1) >= n_steps and ((k + 1 - n_steps) % 20 == 0):
+                ok_ext, _ = check_release_pass(X)
+                oracle_pass_240 |= ok_ext
 
-    # Characterize the infeasible (severely exhausted/hypoproliferative) donor subset (~32.5%)
-    infeas = ~oracle_pass
-    infeasible_profile = {
-        "count": int(infeas.sum()),
-        "pct": round(float(100.0 * infeas.mean()), 2),
-        "median_h0_pct": round(float(100.0 * np.median(h0[infeas])), 2),
-        "median_mu_glyc_rel": round(float(np.median(mu_glyc_scale[infeas])), 3),
-        "controllable_median_h0_pct": round(float(100.0 * np.median(h0[oracle_pass])), 2),
-        "controllable_median_mu_glyc_rel": round(float(np.median(mu_glyc_scale[oracle_pass])), 3),
-    }
-
-    # 2. Vectorized Cassette Huber-EKF Closed-Loop (4-Ch No-ORR vs 5-Ch Inline ORR, Clean vs Biofouled)
+    # 2. Vectorized Cassette Huber-EKF Closed-Loop (Volumetric OUR_vol, OD bias, ORR, Biofouling, & Adaptive 168-240h)
     def run_ekf_cohort(
         use_orr: bool,
         biofoul: bool,
         enable_nis_handover: bool,
         naive_lac_pyr_only: bool = False,
+        enable_exh_guard: bool = True,
+        adaptive_horizon_max_h: float = 168.0,
     ) -> Dict:
         rng_loc = np.random.default_rng(SEED + (101 if biofoul else 7))
         X = X0.copy()
-        # EKF state initialization (controller does NOT know patient's private h0 or kinetics!)
         X_hat = np.broadcast_to(X0_NOMINAL[:, None], (8, B)).copy()
         P_cov = np.broadcast_to(np.diag([0.05, 0.05, 0.04, 4.0, 0.02, 0.08, 0.01, 0.01])[:, :, None], (8, 8, B)).copy()
         Q_diag = np.array([2.5e-4, 2.5e-4, 6e-3, 0.12, 2e-4, 8e-4, 1e-4, 2e-4])
-        # [R_LP, OUR_spec, N_cells, pH, ORR] measurement stds
-        R_sig = np.array([0.55, 0.035, 0.45, 0.018, 0.012])
-        R_var = R_sig ** 2
+        # Base additive noise stds: [R_LP, OUR_vol_base, OD_base, pH, ORR]
+        R_base_sig = np.array([0.55, 0.050, 0.35, 0.018, 0.012])
+
+        total_steps = int(round(adaptive_horizon_max_h / dt))
+        is_extended = adaptive_horizon_max_h > 168.5
 
         stage = np.ones(B, dtype=int)
         sw_t = np.full(B, np.nan)
@@ -1078,26 +1120,33 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
         nis_streak = np.zeros(B, dtype=int)
         ch0_disabled = np.zeros(B, dtype=bool)
         handover_t = np.full(B, np.nan)
-        ar_noise = np.zeros((5, B))
+        ar_unit = np.zeros((5, B))
         h_rmse_accum = []
         n_at_24h = np.ones(B)
 
-        # Store representative donor #12 trajectory for Figure 3C
+        harvested = np.zeros(B, dtype=bool)
+        harvest_t = np.full(B, adaptive_horizon_max_h)
+        X_harvest = np.zeros_like(X)
+
         rep_idx = 12
         rep_trace = {"t": [], "r_true": [], "r_meas": [], "h_true": [], "h_hat": [], "nis_r": [], "disabled": []}
 
         eps_j = 1e-4
         m_channels = [0, 1, 2, 3, 4] if use_orr else [0, 1, 2, 3]
-        for k in range(n_steps):
+        for k in range(total_steps):
             t = k * dt
             u1 = np.where(stage == 1, 1.0, 0.0)
             u2 = np.where(stage == 1, 0.0, 1.0)
             U = np.stack([u1, u2, np.zeros(B)], axis=0)
 
-            # Generate correlated AR(1) measurement noise + biofouling on Channel 0 (R_LP)
-            ar_noise = 0.65 * ar_noise + math.sqrt(1.0 - 0.65 ** 2) * rng_loc.normal(0.0, 1.0, (5, B)) * R_sig[:, None]
+            # Heteroscedastic physical sensor noise (volumetric OUR_vol & NIR OD scale with N_cells)
+            ar_unit = 0.65 * ar_unit + math.sqrt(1.0 - 0.65 ** 2) * rng_loc.normal(0.0, 1.0, (5, B))
+            sig_mat = np.broadcast_to(R_base_sig[:, None], (5, B)).copy()
+            sig_mat[1] = np.sqrt(0.050 ** 2 + (0.045 * X[2]) ** 2)
+            sig_mat[2] = np.sqrt(0.35 ** 2 + (0.040 * X[2]) ** 2)
+
             Y_clean = cassette_observation_vec(X, u1, u2, P_true)
-            Y_meas = Y_clean + ar_noise
+            Y_meas = Y_clean + ar_unit * sig_mat
 
             if biofoul:
                 active_foul = t >= foul_onset
@@ -1106,7 +1155,7 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
                 foul_bias = np.where(active_foul, 0.42 * dt_f + spikes, 0.0)
                 Y_meas[0] = np.maximum(1.5, Y_meas[0] + foul_bias)
 
-            # EKF Predict using NOMINAL_PARAMS (mismatched from patient's true kinetics!)
+            # EKF Predict using NOMINAL_PARAMS (alpha_od = 1.0, c_orr_glyc = 0.35)
             X_pred = rk4_step_vec(X_hat, U, NOMINAL_PARAMS, dt)
             f0 = eval_cart8_rhs_vec(X_hat, U, NOMINAL_PARAMS)
             F_jac = np.zeros((8, 8, B))
@@ -1131,21 +1180,31 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
                 innov = Y_meas[m_ch] - y_hat_all[m_ch]
 
                 H_m = np.zeros((8, B))
+                r_var_m = np.full(B, R_base_sig[m_ch] ** 2)
                 if m_ch == 0:
                     H_m[3] = 1.0
                 elif m_ch == 1:
+                    # Channel 1: Volumetric OUR_vol = N_cells * (W + eta_d * D) * g_p * g_s
+                    w_u = np.maximum(0.0, X_upd[0])
+                    d_u = np.maximum(0.0, X_upd[1])
+                    n_u = np.maximum(0.0, X_upd[2])
                     s_ex = np.maximum(0.0, X_upd[5] - 1.0)
                     g_p = 1.0 + NOMINAL_PARAMS["gamma_pdh"] * u2
                     g_s = 1.0 + NOMINAL_PARAMS["gamma_src"] * s_ex
-                    H_m[0] = g_p * g_s
-                    H_m[1] = NOMINAL_PARAMS["eta_d"] * g_p * g_s
-                    H_m[5] = (X_upd[0] + NOMINAL_PARAMS["eta_d"] * X_upd[1]) * g_p * NOMINAL_PARAMS["gamma_src"] * (X_upd[5] > 1.0).astype(float)
+                    eff_m = w_u + NOMINAL_PARAMS["eta_d"] * d_u
+                    H_m[0] = n_u * g_p * g_s
+                    H_m[1] = n_u * NOMINAL_PARAMS["eta_d"] * g_p * g_s
+                    H_m[2] = eff_m * g_p * g_s
+                    H_m[5] = n_u * eff_m * g_p * NOMINAL_PARAMS["gamma_src"] * (X_upd[5] > 1.0).astype(float)
+                    r_var_m = 0.050 ** 2 + (0.045 * n_u) ** 2
                 elif m_ch == 2:
                     H_m[2] = 1.0
+                    n_u = np.maximum(0.0, X_upd[2])
+                    r_var_m = 0.35 ** 2 + (0.040 * n_u) ** 2
                 elif m_ch == 3:
                     H_m[7] = 1.0
                 else:
-                    # Channel 4: ORR = W / (W + D + c_glyc * g_glc)
+                    # Channel 4: ORR = W / (W + D + c_glyc * g_glc) -> cell-density N_cells cancels!
                     c_g = 0.35 * (1.0 - NOMINAL_PARAMS["alpha_gal"] * u2)
                     w_u = np.maximum(0.0, X_upd[0])
                     d_u = np.maximum(0.0, X_upd[1])
@@ -1154,12 +1213,12 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
                     H_m[1] = -w_u / (den * den)
 
                 PHt = np.einsum("ijb,jb->ib", P_upd, H_m)
-                S_inn = np.einsum("ib,ib->b", H_m, PHt) + R_var[m_ch]
+                S_inn = np.einsum("ib,ib->b", H_m, PHt) + r_var_m
 
                 if m_ch == 0:
                     nis0 = (innov ** 2) / np.maximum(1e-9, S_inn)
                     if enable_nis_handover:
-                        bad = nis0 > 13.5  # >3.67 sigma innovation residual
+                        bad = nis0 > 13.5
                         nis_streak = np.where(bad, nis_streak + 1, 0)
                         newly_disabled = (~ch0_disabled) & (nis_streak >= 3)
                         handover_t = np.where(newly_disabled, t, handover_t)
@@ -1188,9 +1247,10 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
 
             h_true = X[1] / (X[0] + X[1])
             h_hat = X_hat[1] / np.maximum(1e-6, X_hat[0] + X_hat[1])
-            h_rmse_accum.append(float(np.sqrt(np.mean((h_hat - h_true) ** 2))))
+            if k < n_steps:
+                h_rmse_accum.append(float(np.sqrt(np.mean((h_hat - h_true) ** 2))))
 
-            if k % 2 == 0:
+            if k < n_steps and k % 2 == 0:
                 rep_trace["t"].append(round(t, 2))
                 rep_trace["r_true"].append(round(float(X[3, rep_idx]), 3))
                 rep_trace["r_meas"].append(round(float(Y_meas[0, rep_idx]), 3))
@@ -1199,25 +1259,26 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
                 rep_trace["nis_r"].append(round(float(nis0[rep_idx]), 2))
                 rep_trace["disabled"].append(bool(ch0_disabled[rep_idx]))
 
-            # Switching logic (4-frame persistence quorum = 1.2 h):
-            # Combines heteroplasmy clearance (h_hat <= 0.056 -> h_end <= 9.5%), online Stage-2
-            # dose-floor reachability from OD growth rate, and exhaustion safety horizon (t >= 84h & h_hat <= 0.072).
+            # Explicit Stage 1 -> Stage 2 Persistence Switching Law (4 frames = 1.2 h):
             if naive_lac_pyr_only:
                 cond = (Y_meas[0] <= 14.0) & (Y_meas[2] >= 14.0) & (Y_meas[3] >= 7.10)
             else:
-                rem_h = np.maximum(0.0, T_HORIZON_H - t)
-                # Predict Stage-2 expansion factor on [1, N_cap=110] logistic scale using nominal Stage-2 rate 0.0115/h
-                # scaled modestly by empirical proliferation speed observed via OD after t >= 28h
+                plan_horizon = adaptive_horizon_max_h if is_extended else T_HORIZON_H
+                rem_h = np.maximum(0.0, plan_horizon - t)
                 if t >= 28.0:
                     mu_emp_ratio = np.clip(np.log(np.maximum(1.1, X_hat[2]) / n_at_24h) / (0.044 * max(4.0, t - 24.0)), 0.78, 1.22)
                 else:
                     mu_emp_ratio = np.ones(B)
-                # Minimum pre-switch fold N_req(t) needed for Stage-2 oxidative division to cross 50.5x by 168h
                 s2_mult = np.exp(0.0122 * np.sqrt(mu_emp_ratio) * rem_h)
-                n_req = np.clip(51.5 / np.maximum(1.05, 0.58 * s2_mult + 0.42 * np.minimum(s2_mult, 3.6)), 14.0, 42.0)
+                # Under +/-6% OD calibration uncertainty, target 53.5x estimated fold to clear true 50.0x floor
+                target_n = 53.5 if is_extended else 52.5
+                n_req = np.clip(target_n / np.maximum(1.05, 0.58 * s2_mult + 0.42 * np.minimum(s2_mult, 3.6)), 14.0, 42.0)
                 met_clean = (h_hat <= 0.056) & (X_hat[2] >= n_req)
-                exh_guard = (t >= 83.0) & (h_hat <= 0.072) & (X_hat[2] >= 18.0)
-                cond = (met_clean | exh_guard) & (Y_meas[3] >= 7.10)
+                if enable_exh_guard:
+                    exh_guard = (t >= 83.0) & (h_hat <= 0.072) & (X_hat[2] >= (14.0 if is_extended else 18.0))
+                    cond = (met_clean | exh_guard) & (Y_meas[3] >= 7.10)
+                else:
+                    cond = met_clean & (Y_meas[3] >= 7.10)
 
             quorum = np.where((stage == 1) & cond, quorum + 1, 0)
             trig = (stage == 1) & (quorum >= 4)
@@ -1228,7 +1289,19 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
             U_next = np.stack([np.where(stage == 1, 1.0, 0.0), np.where(stage == 1, 0.0, 1.0), np.zeros(B)], axis=0)
             X = rk4_step_vec(X, U_next, P_true, dt)
 
-        _, summ = check_release_pass(X)
+            # Variable OD-triggered harvest check for adaptive extended-horizon arm (t in [168 h, 240 h])
+            if is_extended and (k + 1) >= n_steps:
+                t_after = (k + 1) * dt
+                # Harvest once Stage-2 consolidation has run >= 36 h and estimated N_hat >= 53.5x (or at 240 h cap)
+                s2_dur = np.where(np.isnan(sw_t), 0.0, t_after - sw_t)
+                ready_harv = (~harvested) & (((stage == 2) & (s2_dur >= 36.0) & (X_hat[2] >= 53.5)) | (k + 1 == total_steps))
+                if ready_harv.any():
+                    X_harvest[:, ready_harv] = X[:, ready_harv]
+                    harvest_t = np.where(ready_harv, t_after, harvest_t)
+                    harvested |= ready_harv
+
+        X_eval = X_harvest if is_extended else X
+        _, summ = check_release_pass(X_eval)
         valid_sw = sw_t[~np.isnan(sw_t)]
         summ["switched_count"] = int((~np.isnan(sw_t)).sum())
         summ["switch_time_min_h"] = round(float(valid_sw.min()), 2) if len(valid_sw) else None
@@ -1240,23 +1313,75 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
         summ["switch_time_max_h"] = round(float(valid_sw.max()), 2) if len(valid_sw) else None
         summ["ekf_h_rmse_pct"] = round(100.0 * float(np.mean(h_rmse_accum)), 3)
         summ["biofoul_handover_count"] = int(ch0_disabled.sum())
+        if is_extended:
+            summ["harvest_time_median_h"] = round(float(np.median(harvest_t)), 2)
+            summ["harvest_time_iqr_h"] = [
+                round(float(np.percentile(harvest_t, 25)), 2),
+                round(float(np.percentile(harvest_t, 75)), 2),
+            ]
+            summ["extended_beyond_168h_pct"] = round(float(100.0 * (harvest_t > 168.5).mean()), 2)
         summ["_sw_t"] = sw_t
+        summ["_harvest_t"] = harvest_t
         summ["_rep_trace"] = rep_trace
         return summ
 
-    ekf_no_orr = run_ekf_cohort(use_orr=False, biofoul=False, enable_nis_handover=True, naive_lac_pyr_only=False)
-    ekf_orr_clean = run_ekf_cohort(use_orr=True, biofoul=False, enable_nis_handover=True, naive_lac_pyr_only=False)
+    ekf_no_orr = run_ekf_cohort(use_orr=False, biofoul=False, enable_nis_handover=True)
+    ekf_orr_no_guard = run_ekf_cohort(use_orr=True, biofoul=False, enable_nis_handover=True, enable_exh_guard=False)
+    ekf_orr_clean = run_ekf_cohort(use_orr=True, biofoul=False, enable_nis_handover=True, enable_exh_guard=True)
     biofoul_naive_lp = run_ekf_cohort(use_orr=False, biofoul=True, enable_nis_handover=False, naive_lac_pyr_only=True)
-    biofoul_no_orr_nis = run_ekf_cohort(use_orr=False, biofoul=True, enable_nis_handover=True, naive_lac_pyr_only=False)
-    biofoul_orr_no_nis = run_ekf_cohort(use_orr=True, biofoul=True, enable_nis_handover=False, naive_lac_pyr_only=False)
-    biofoul_orr_nis = run_ekf_cohort(use_orr=True, biofoul=True, enable_nis_handover=True, naive_lac_pyr_only=False)
+    biofoul_no_orr_nis = run_ekf_cohort(use_orr=False, biofoul=True, enable_nis_handover=True)
+    biofoul_orr_no_nis = run_ekf_cohort(use_orr=True, biofoul=True, enable_nis_handover=False)
+    biofoul_orr_nis = run_ekf_cohort(use_orr=True, biofoul=True, enable_nis_handover=True)
+    ekf_orr_adaptive_240h = run_ekf_cohort(
+        use_orr=True, biofoul=False, enable_nis_handover=True, enable_exh_guard=True, adaptive_horizon_max_h=240.0
+    )
 
     cohort_results["closed_loop_ekf_no_orr"] = ekf_no_orr
+    cohort_results["closed_loop_ekf_no_exh_guard"] = ekf_orr_no_guard
     cohort_results["closed_loop_ekf"] = ekf_orr_clean
     cohort_results["biofoul_naive_lp_gate"] = biofoul_naive_lp
     cohort_results["biofoul_no_orr_nis_handover"] = biofoul_no_orr_nis
     cohort_results["biofoul_orr_no_nis"] = biofoul_orr_no_nis
     cohort_results["biofoul_ekf_nis_handover"] = biofoul_orr_nis
+    cohort_results["adaptive_horizon_240h_ekf"] = ekf_orr_adaptive_240h
+
+    # Characterize 168 h vs 240 h Refractory Subsets (Testing Section 5.2 Hypothesis Directly)
+    infeas_168 = ~oracle_pass_168
+    rescued_by_240_oracle = infeas_168 & oracle_pass_240
+    refractory_240_oracle = ~oracle_pass_240
+
+    ok_168_ekf = ekf_orr_clean["_ok"]
+    ok_240_ekf = ekf_orr_adaptive_240h["_ok"]
+    rescued_by_240_ekf = (~ok_168_ekf) & ok_240_ekf
+
+    infeasible_profile = {
+        "infeasible_168h_count": int(infeas_168.sum()),
+        "infeasible_168h_pct": round(float(100.0 * infeas_168.mean()), 2),
+        "infeasible_168h_median_h0_pct": round(float(100.0 * np.median(h0[infeas_168])), 2),
+        "infeasible_168h_median_mu_glyc_rel": round(float(np.median(mu_glyc_scale[infeas_168])), 3),
+        "controllable_168h_median_h0_pct": round(float(100.0 * np.median(h0[oracle_pass_168])), 2),
+        "controllable_168h_median_mu_glyc_rel": round(float(np.median(mu_glyc_scale[oracle_pass_168])), 3),
+        "oracle_240h_controllable_count": int(oracle_pass_240.sum()),
+        "oracle_240h_controllable_pct": round(float(100.0 * oracle_pass_240.mean()), 2),
+        "oracle_rescued_168_to_240_count": int(rescued_by_240_oracle.sum()),
+        "oracle_rescued_of_168_infeasible_pct": round(float(100.0 * rescued_by_240_oracle.sum() / max(1, infeas_168.sum())), 2),
+        "ekf_rescued_168_to_240_count": int(rescued_by_240_ekf.sum()),
+        "intrinsically_refractory_240h_count": int(refractory_240_oracle.sum()),
+        "intrinsically_refractory_240h_pct": round(float(100.0 * refractory_240_oracle.mean()), 2),
+        "refractory_240h_median_h0_pct": round(float(100.0 * np.median(h0[refractory_240_oracle])), 2) if refractory_240_oracle.any() else None,
+        "refractory_240h_median_mu_glyc_rel": round(float(np.median(mu_glyc_scale[refractory_240_oracle])), 3) if refractory_240_oracle.any() else None,
+        "refractory_240h_median_tox0_pct": round(float(100.0 * np.median(e_tox0[refractory_240_oracle])), 2) if refractory_240_oracle.any() else None,
+    }
+
+    # Exact Paired McNemar Tests Across N=1,000 Donors
+    paired_stats = {
+        "orr_ekf_168h_vs_best_fixed_68h": compute_paired_mcnemar_stats(ok_168_ekf, cohort_results["fixed_68"]["_ok"]),
+        "orr_ekf_168h_vs_no_orr_ekf_168h": compute_paired_mcnemar_stats(ok_168_ekf, ekf_no_orr["_ok"]),
+        "orr_ekf_168h_vs_no_exh_guard": compute_paired_mcnemar_stats(ok_168_ekf, ekf_orr_no_guard["_ok"]),
+        "biofoul_orr_nis_vs_best_fixed_68h": compute_paired_mcnemar_stats(biofoul_orr_nis["_ok"], cohort_results["fixed_68"]["_ok"]),
+        "biofoul_orr_nis_vs_no_orr_nis": compute_paired_mcnemar_stats(biofoul_orr_nis["_ok"], biofoul_no_orr_nis["_ok"]),
+        "adaptive_240h_ekf_vs_fixed_168h_ekf": compute_paired_mcnemar_stats(ok_240_ekf, ok_168_ekf),
+    }
 
     return {
         "n_donors": B,
@@ -1267,18 +1392,23 @@ def run_cohort_and_biofouling_benchmarks() -> Dict:
             "src_fold_ge": 3.5,
             "h_end_pct_le": 10.0,
         },
-        "oracle_controllable_count": int(oracle_pass.sum()),
-        "oracle_controllable_pct": round(float(100.0 * oracle_pass.mean()), 2),
+        "oracle_controllable_count": int(oracle_pass_168.sum()),
+        "oracle_controllable_pct": round(float(100.0 * oracle_pass_168.mean()), 2),
+        "oracle_240h_controllable_count": int(oracle_pass_240.sum()),
+        "oracle_240h_controllable_pct": round(float(100.0 * oracle_pass_240.mean()), 2),
         "infeasible_donor_profile": infeasible_profile,
+        "paired_mcnemar_tests": paired_stats,
         "arms": cohort_results,
         "_h0": h0,
-        "_oracle_pass": oracle_pass,
+        "_mu_glyc_scale": mu_glyc_scale,
+        "_oracle_pass_168": oracle_pass_168,
+        "_oracle_pass_240": oracle_pass_240,
         "_oracle_sw_t": oracle_sw_t,
     }
 
 
 # =============================================================================
-# 5. Host-Emulated C99 Fixed-Point Cassette Verification
+# 5. Host-Emulated C99 Fixed-Point Cassette Verification (100% Emitted JSON)
 # =============================================================================
 def run_c99_cassette_verification() -> Dict:
     c_src = CORAL_DIR / "cart_bioreactor_hil_testbench.c"
@@ -1296,19 +1426,6 @@ def run_c99_cassette_verification() -> Dict:
     finally:
         if bin_path.exists():
             bin_path.unlink()
-
-    # Compute cycle-weighted Coral NPU active burst power using Paper I's exact 500 MHz 22nm ULP phase model
-    c_ekf_rk4 = 2010   # 8-state Q16/Q24 RK4 + 4-channel sequential Huber-EKF + NIS check
-    c_opt_lut = 640    # Dual-wavelength optical pH/OUR LUT & persistence ring update
-    c_sup_fsm = 526    # Supervisory pinch-valve & bypass-flush state machine
-    c_tot = c_ekf_rk4 + c_opt_lut + c_sup_fsm
-    p_active_mw = (c_ekf_rk4 * 3.45 + c_opt_lut * 2.60 + c_sup_fsm * 2.42) / c_tot
-    c99_data["clock_mhz"] = 500.0
-    c99_data["total_burst_cycles"] = c_tot
-    c99_data["burst_latency_us"] = round(c_tot / 500.0, 3)
-    c99_data["active_burst_power_mw"] = round(p_active_mw, 3)
-    c99_data["energy_per_burst_nj"] = round(p_active_mw * (c_tot / 500.0), 2)
-    c99_data["sleep_leakage_uw"] = 18.0
     return c99_data
 
 
@@ -1540,56 +1657,69 @@ def render_fig2_ode_and_pareto(arms_nom: Dict[str, Dict], pmp_data: Dict) -> Pat
 
 
 def render_fig3_cohort_biofouling_and_acidosis(cohort_data: Dict, arms_nom: Dict[str, Dict], c99_data: Dict) -> Path:
-    fig, axes = plt.subplots(2, 2, figsize=(11.8, 7.8))
-    plt.subplots_adjust(wspace=0.30, hspace=0.36)
+    fig, axes = plt.subplots(2, 2, figsize=(11.8, 7.9))
+    plt.subplots_adjust(wspace=0.30, hspace=0.37)
     arms = cohort_data["arms"]
+    n_donors = cohort_data["n_donors"]
 
-    # Panel A: N=200 Heterogeneous Oncology Cohort Pass Rate: Fixed Timers vs No-ORR EKF vs ORR-EKF vs Oracle
+    # Panel A: N=1,000 Oncology Cohort Pass Rate: Fixed Timers vs 4-Ch No-ORR vs 5-Ch ORR (168h & Adaptive 240h)
     ax_a = axes[0, 0]
     bar_keys = [
         ("warburg", "Warburg\n(No Sw.)", "#D55E00"),
         ("urolithin_mono", "Urolithin\nMono", "#E69F00"),
         ("fixed_48", "Fixed\n48 h", "#999999"),
-        ("fixed_60", "Fixed\n60 h", "#7F7F7F"),
         ("fixed_68", "Best Fix\n68 h", "#56B4E9"),
-        ("fixed_84", "Fixed\n84 h", "#7F7F7F"),
         ("fixed_96", "Fixed\n96 h", "#999999"),
-        ("closed_loop_ekf_no_orr", "No-ORR\nEKF", "#CC79A7"),
-        ("closed_loop_ekf", "ORR\nEKF", "#0072B2"),
+        ("closed_loop_ekf_no_orr", "4-Ch\nNo-ORR", "#CC79A7"),
+        ("closed_loop_ekf", "5-Ch ORR\n(168 h)", "#0072B2"),
+        ("adaptive_horizon_240h_ekf", "Adaptive\n168–240 h", "#009E73"),
     ]
     x_pos = np.arange(len(bar_keys))
     rates = [arms[k]["pass_rate_pct"] for k, _, _ in bar_keys]
     cols = [c for _, _, c in bar_keys]
     bars = ax_a.bar(x_pos, rates, color=cols, width=0.64, edgecolor="#222222", linewidth=0.6)
-    oracle_pct = cohort_data["oracle_controllable_pct"]
-    ax_a.axhline(oracle_pct, color="#009E73", linestyle="--", linewidth=1.3,
-                 label=f"Full-Info Donor Oracle Ceiling ({oracle_pct:.1f}%)")
+    oracle_168 = cohort_data["oracle_controllable_pct"]
+    oracle_240 = cohort_data["oracle_240h_controllable_pct"]
+    ax_a.axhline(oracle_168, color="#0072B2", linestyle="--", linewidth=1.1,
+                 label=f"168 h Full-Info Oracle ({oracle_168:.1f}%)")
+    ax_a.axhline(oracle_240, color="#009E73", linestyle=":", linewidth=1.3,
+                 label=f"240 h Extended Oracle ({oracle_240:.1f}%)")
     for b, r in zip(bars, rates):
-        ax_a.text(b.get_x() + b.get_width() / 2, r + 1.3, f"{r:.1f}%", ha="center", va="bottom", fontsize=6.7, fontweight="bold")
+        ax_a.text(b.get_x() + b.get_width() / 2, r + 1.3, f"{r:.1f}%", ha="center", va="bottom", fontsize=6.5, fontweight="bold")
+    p_vs_fix = cohort_data["paired_mcnemar_tests"]["orr_ekf_168h_vs_best_fixed_68h"]["mcnemar_exact_p"]
+    p_vs_noorr = cohort_data["paired_mcnemar_tests"]["orr_ekf_168h_vs_no_orr_ekf_168h"]["mcnemar_exact_p"]
+    ax_a.text(0.03, 0.61,
+              f"Paired McNemar (N={n_donors:,}):\n5-Ch vs 68h: p={p_vs_fix:.1e}\n5-Ch vs 4-Ch: p={p_vs_noorr:.1e}",
+              transform=ax_a.transAxes, fontsize=6.3,
+              bbox=dict(boxstyle="round,pad=0.22", facecolor="#F5F7FA", edgecolor="#CCCCCC"))
     ax_a.set_xticks(x_pos)
-    ax_a.set_xticklabels([lbl for _, lbl, _ in bar_keys], fontsize=6.4)
-    ax_a.set_ylim(0, 82)
+    ax_a.set_xticklabels([lbl for _, lbl, _ in bar_keys], fontsize=6.2)
+    ax_a.set_ylim(0, 106)
     ax_a.set_ylabel("Simultaneous 5-Criteria Pass Rate (%)")
-    ax_a.set_title("A. N=200 Cohort: Fixed Timers vs. No-ORR & ORR-EKF", fontweight="bold", loc="left")
-    ax_a.legend(loc="upper left", fontsize=6.8, frameon=True)
+    ax_a.set_title(f"A. N={n_donors:,} Cohort: Fixed vs. 4-Ch/5-Ch & Adaptive 240h", fontweight="bold", loc="left")
+    ax_a.legend(loc="upper left", fontsize=6.5, frameon=True, framealpha=0.92)
     ax_a.grid(axis="y", alpha=0.25)
 
-    # Panel B: Donor Initial Depolarization Burden h0 vs Adaptive Closed-Loop Gate Time
+    # Panel B: 2D Oncology Donor Controllability & Extended-Horizon Rescue Phase Diagram
     ax_b = axes[0, 1]
     h0_pct = 100.0 * cohort_data["_h0"]
-    sw_ekf = arms["closed_loop_ekf"]["_sw_t"]
-    ok_ekf = arms["closed_loop_ekf"]["_ok"]
-    valid = ~np.isnan(sw_ekf)
-    ax_b.scatter(h0_pct[valid & ok_ekf], sw_ekf[valid & ok_ekf], color="#0072B2", s=26, alpha=0.82,
-                 edgecolors="black", linewidths=0.35, label=f"Passed 5-criteria spec (n={int((valid & ok_ekf).sum())})")
-    ax_b.scatter(h0_pct[valid & (~ok_ekf)], sw_ekf[valid & (~ok_ekf)], color="#D55E00", marker="x", s=28, alpha=0.85,
-                 label=f"Infeasible / Exhausted donor (n={int((~ok_ekf).sum())})")
-    ax_b.axhline(68.0, color="#56B4E9", linestyle="--", linewidth=1.2, label="Best fixed open-loop timer (68.0 h)")
-    ax_b.set_xlim(18, 64); ax_b.set_ylim(35, 152)
+    mu_rel = cohort_data["_mu_glyc_scale"]
+    ok_168 = arms["closed_loop_ekf"]["_ok"]
+    ok_240 = arms["adaptive_horizon_240h_ekf"]["_ok"]
+    rescued = (~ok_168) & ok_240
+    unrescued = (~ok_168) & (~ok_240)
+
+    ax_b.scatter(h0_pct[ok_168], mu_rel[ok_168], color="#0072B2", s=13, alpha=0.52,
+                 edgecolors="none", label=f"Passed at 168 h (n={int(ok_168.sum())})")
+    ax_b.scatter(h0_pct[rescued], mu_rel[rescued], color="#009E73", marker="^", s=24, alpha=0.88,
+                 edgecolors="black", linewidths=0.3, label=f"Rescued by 168–240 h Harvest (n={int(rescued.sum())})")
+    ax_b.scatter(h0_pct[unrescued], mu_rel[unrescued], color="#D55E00", marker="x", s=20, alpha=0.82,
+                 linewidths=0.9, label=f"Failed Both 168 h & 240 h (n={int(unrescued.sum())})")
+    ax_b.set_xlim(18, 64); ax_b.set_ylim(0.62, 1.56)
     ax_b.set_xlabel("Simulated Donor Initial Depolarized Fraction h(0) (%)")
-    ax_b.set_ylabel("Adaptive Closed-Loop Gate Time t_gate (h)")
-    ax_b.set_title("B. Patient-Adaptive Gating Across Apheresis Burden", fontweight="bold", loc="left")
-    ax_b.legend(loc="upper left", fontsize=6.8, frameon=True)
+    ax_b.set_ylabel("Relative Proliferative Fitness mu_glyc / mu_nom")
+    ax_b.set_title("B. Donor Controllability & 240 h Rescue Phase Space", fontweight="bold", loc="left")
+    ax_b.legend(loc="upper right", fontsize=6.5, frameon=True, framealpha=0.94)
     ax_b.grid(alpha=0.25)
 
     # Panel C: Amperometric Lac:Pyr Biofouling & NIS Optical Handover
@@ -1599,7 +1729,7 @@ def render_fig3_cohort_biofouling_and_acidosis(cohort_data: Dict, arms_nom: Dict
     ax_c.plot(t_r, rep["r_meas"], color="#D55E00", alpha=0.65, linewidth=1.0, label="Biofouled Amperometric Lac:Pyr (y1)")
     ax_c.plot(t_r, rep["r_true"], color="#333333", linestyle="--", linewidth=1.3, label="True Supernatant Lac:Pyr")
     ax_c.plot(t_r, rep["h_true"], color="#009E73", linewidth=1.8, label="True Depolarization h(t) (%)")
-    ax_c.plot(t_r, rep["h_hat"], color="#0072B2", linestyle="-.", linewidth=1.7, label="ORR+NIS Handover EKF h_hat(t) (%)")
+    ax_c.plot(t_r, rep["h_hat"], color="#0072B2", linestyle="-.", linewidth=1.7, label="5-Ch ORR+NIS EKF h_hat(t) (%)")
     dis_arr = np.array(rep["disabled"])
     if dis_arr.any():
         t_dis = float(t_r[np.argmax(dis_arr)])
@@ -1607,17 +1737,18 @@ def render_fig3_cohort_biofouling_and_acidosis(cohort_data: Dict, arms_nom: Dict
     p_naive = arms["biofoul_naive_lp_gate"]["pass_rate_pct"]
     p_no_orr = arms["biofoul_no_orr_nis_handover"]["pass_rate_pct"]
     p_nis = arms["biofoul_ekf_nis_handover"]["pass_rate_pct"]
-    ax_c.text(78.0, 17.5,
-              f"Biofouled Cohort Pass Rate:\nNaive Lac:Pyr: {p_naive:.1f}%\nNo-ORR Handover: {p_no_orr:.1f}%\nORR+NIS Handover: {p_nis:.1f}%",
-              fontsize=6.5, bbox=dict(boxstyle="round,pad=0.25", facecolor="#F5F7FA", edgecolor="#CCCCCC"))
+    p_bf_mc = cohort_data["paired_mcnemar_tests"]["biofoul_orr_nis_vs_no_orr_nis"]["mcnemar_exact_p"]
+    ax_c.text(75.0, 15.5,
+              f"Biofouled Pass Rate (N={n_donors:,}):\nNaive Lac:Pyr: {p_naive:.1f}%\n4-Ch Handover: {p_no_orr:.1f}%\n5-Ch ORR+NIS: {p_nis:.1f}%\n(McNemar p={p_bf_mc:.1e})",
+              fontsize=6.3, bbox=dict(boxstyle="round,pad=0.25", facecolor="#F5F7FA", edgecolor="#CCCCCC"))
     ax_c.set_xlim(0, 168); ax_c.set_ylim(0, 62)
     ax_c.set_xlabel("Simulated Perfusion Time t (hours)")
     ax_c.set_ylabel("Molar Ratio R_LP  or  Heteroplasmy h (%)")
-    ax_c.set_title("C. Biofouling & Inline ORR+OUR+OD+pH Handover", fontweight="bold", loc="left")
-    ax_c.legend(loc="upper left", fontsize=6.4, frameon=True, framealpha=0.92)
+    ax_c.set_title("C. Biofouling & Volumetric OUR + OD + ORR Handover", fontweight="bold", loc="left")
+    ax_c.legend(loc="upper left", fontsize=6.3, frameon=True, framealpha=0.92)
     ax_c.grid(alpha=0.25)
 
-    # Panel D: Cassette Perfusion Occlusion Acidosis Rescue + C99 Q16.16 Parity
+    # Panel D: Cassette Perfusion Occlusion Acidosis Rescue + C99 Q16.16 RK4 & 5-Ch EKF Parity
     ax_d = axes[1, 1]
     t_grid = np.linspace(0.0, T_HORIZON_H, 1001)
     tr_no = arms_nom["fault_no_rb"]["_traj"]
@@ -1629,18 +1760,17 @@ def render_fig3_cohort_biofouling_and_acidosis(cohort_data: Dict, arms_nom: Dict
               label=f"Bypass Flush u_fl=1 (min pH={arms_nom['fault_rb']['min_ph']:.2f}, T_SCM={arms_nom['fault_rb']['tscm_pct']:.1f}%)")
     ax_d.axhline(6.85, color="#CC79A7", linestyle=":", linewidth=1.1, label="Optical pH Flush Trigger (6.85)")
     err_1000 = c99_data["step_sweep"][1]["err_q16_sd_pct"]
-    err_8000 = c99_data["step_sweep"][4]["err_q16_sd_pct"]
-    err_nv8000 = c99_data["step_sweep"][4]["err_q16_naive_pct"]
-    ax_d.text(3.5, 6.53,
+    ekf_diff = c99_data["c99_ekf_biofoul_verification"]["ekf_q16_vs_fp64_rmse_pct"]
+    ax_d.text(3.5, 6.51,
               f"Continuous Plant State x(t) (Zero State Reset)\n"
-              f"C99 Q16.16+SigmaDelta Err: {err_1000:.4f}% (1k) / {err_8000:.4f}% (8k vs {err_nv8000:.2f}% naive)\n"
-              f"L1 DTCM Bank 0: {c99_data['cart_dtcm_workspace_bytes']:,} / 8,192 B ({c99_data['cart_dtcm_bank0_utilization_pct']:.1f}%)",
-              fontsize=6.3, bbox=dict(boxstyle="round,pad=0.25", facecolor="#F5F7FA", edgecolor="#CCCCCC"))
+              f"C99 Q16.16 RK4 Err: {err_1000:.4f}% | C99 5-Ch EKF vs FP64: {ekf_diff:.4f}%\n"
+              f"Zero-Heap Static SRAM: {c99_data['cart_dtcm_workspace_bytes']:,} / 8,192 B ({c99_data['cart_dtcm_bank0_utilization_pct']:.1f}%)",
+              fontsize=6.2, bbox=dict(boxstyle="round,pad=0.25", facecolor="#F5F7FA", edgecolor="#CCCCCC"))
     ax_d.set_xlim(0, 168); ax_d.set_ylim(6.02, 7.46)
     ax_d.set_xlabel("Simulated Perfusion Time t (hours)")
     ax_d.set_ylabel("Simulated Cassette Perfusate pH(t)")
-    ax_d.set_title("D. Plant-Preserving Acidosis Flush & C99 Q16.16 Parity", fontweight="bold", loc="left")
-    ax_d.legend(loc="lower left", fontsize=6.2, frameon=True, framealpha=0.92)
+    ax_d.set_title("D. Plant-Preserving Acidosis Flush & C99 EKF/RK4 Parity", fontweight="bold", loc="left")
+    ax_d.legend(loc="lower left", fontsize=6.1, frameon=True, framealpha=0.92)
     ax_d.grid(alpha=0.25)
 
     out_path = FIG_DIR / "paper2_fig3_donor_cohort_biofouling_and_acidosis.pdf"
@@ -1687,14 +1817,14 @@ def main() -> None:
     ]
     arms_nom = {m: simulate_nominal_arm(m) for m in nominal_modes}
 
-    print("[3/6] Solving 200-variable discrete-adjoint optimal control (5-start L-BFGS-B) & Pareto frontier...")
+    print("[3/6] Solving 200-variable discrete-adjoint optimal control (5-start L-BFGS-B + all-200 FD check) & Pareto frontier...")
     pmp_data = solve_discrete_adjoint_pareto()
 
-    print("[4/6] Computing 4-channel vs 3-channel optical Observability Gramian & N=200 patient cohort...")
+    print("[4/6] Computing volumetric OUR + OD + ORR Observability Gramian & N=1,000 patient cohort...")
     gramian_data = compute_cassette_observability_gramian()
     cohort_data = run_cohort_and_biofouling_benchmarks()
 
-    print("[5/6] Compiling & executing bare-metal C99 Q16.16/Q8.24 Sigma-Delta cassette testbench...")
+    print("[5/6] Compiling & executing bare-metal C99 Q16.16 RK4 + 5-channel Huber-EKF testbench...")
     c99_data = run_c99_cassette_verification()
 
     print("[6/6] Rendering 3 vector PDF publication figures...")
@@ -1729,10 +1859,10 @@ def main() -> None:
     print(f"  - PDK1 (2Q8G) top contact: {struct_data['pdk1_2q8g']['contacts_le_4A'][0]}")
     print(f"  - SIRT1 (4ZZJ) STAC contacts: {[c['residue']+':'+str(c['min_dist_A']) for c in struct_data['sirt1_4zzj_stac_4tq']['contacts_le_4A']]}")
     print(f"  - Closed-Loop Nominal: sw={arms_nom['closed_loop']['switch_time_h']}h, N={arms_nom['closed_loop']['expansion_fold']}x, T_SCM={arms_nom['closed_loop']['tscm_pct']}%, h={arms_nom['closed_loop']['h_end_pct']}%")
-    print(f"  - Adjoint PMP grad err={pmp_data['max_adjoint_vs_fd_grad_err']:.2e}, 5-start spread={pmp_data['multi_start_cost_spread_pct']}%")
-    print(f"  - Cohort Pass Rates (N=200): Best Fixed(68h)={cohort_data['arms']['fixed_68']['pass_rate_pct']}% | Closed-Loop EKF={cohort_data['arms']['closed_loop_ekf']['pass_rate_pct']}% | Oracle={cohort_data['oracle_controllable_pct']}%")
-    print(f"  - Biofouling Pass Rates: Naive Lac:Pyr={cohort_data['arms']['biofoul_naive_lp_gate']['pass_rate_pct']}% | NIS Optical Handover={cohort_data['arms']['biofoul_ekf_nis_handover']['pass_rate_pct']}%")
-    print(f"  - C99 Q16.16+SigmaDelta Err (N=1000): {c99_data['step_sweep'][1]['err_q16_sd_pct']}% | DTCM={c99_data['cart_dtcm_workspace_bytes']} B")
+    print(f"  - Adjoint PMP (all 200 vars FD) grad err={pmp_data['max_adjoint_vs_fd_grad_err']:.2e}, 5-start spread={pmp_data['multi_start_cost_spread_pct']}%")
+    print(f"  - Cohort Pass Rates (N=1,000): Best Fixed(68h)={cohort_data['arms']['fixed_68']['pass_rate_pct']}% | 4-Ch No-ORR={cohort_data['arms']['closed_loop_ekf_no_orr']['pass_rate_pct']}% | 5-Ch ORR(168h)={cohort_data['arms']['closed_loop_ekf']['pass_rate_pct']}% | Adaptive(168-240h)={cohort_data['arms']['adaptive_horizon_240h_ekf']['pass_rate_pct']}% | Oracle168={cohort_data['oracle_controllable_pct']}% | Oracle240={cohort_data['oracle_240h_controllable_pct']}%")
+    print(f"  - Biofouling Pass Rates: Naive Lac:Pyr={cohort_data['arms']['biofoul_naive_lp_gate']['pass_rate_pct']}% | 4-Ch Handover={cohort_data['arms']['biofoul_no_orr_nis_handover']['pass_rate_pct']}% | 5-Ch ORR+NIS={cohort_data['arms']['biofoul_ekf_nis_handover']['pass_rate_pct']}%")
+    print(f"  - C99 Q16.16 RK4 Err (N=1000): {c99_data['step_sweep'][1]['err_q16_sd_pct']}% | C99 5-Ch EKF vs FP64: {c99_data['c99_ekf_biofoul_verification']['ekf_q16_vs_fp64_rmse_pct']}% | SRAM={c99_data['cart_dtcm_workspace_bytes']} B")
 
 
 if __name__ == "__main__":

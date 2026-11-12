@@ -17,10 +17,10 @@
 \title{\textbf{Multi-Scale Quantitative Systems Pharmacology and Spatial Axonal Reaction-Diffusion Modeling of Staged Mitophagy in Post-Mitotic Dopaminergic and Cortical Neurons}}
 
 \author{
-  \textbf{MitoRestorer Systems Biology \& Bioenergetic Control Consortium}\\
-  \texttt{https://github.com/deesatzed/mitorestorer}\\
-  \small \textbf{arXiv Primary:} \texttt{q-bio.NC} (Neurons and Cognition) \quad \textbf{Cross-Lists:} \texttt{q-bio.QM}, \texttt{q-bio.MN}\\
-  \small \textbf{MSC 2020:} 92C42, 35K57, 93C95, 62P10 \quad \textbf{ACM:} J.3, I.6.5
+  \textbf{Wayne A.~Satz, MD}$^{1}$\\
+  \small $^{1}$Department of Emergency Medicine, Lewis Katz School of Medicine at Temple University, Philadelphia, PA 19140, USA\\
+  \small Code \& Reproducibility Repository: \url{https://github.com/deesatzed/mitorestorer}\\
+  \small \textbf{arXiv Primary:} \texttt{q-bio.NC} (Neurons and Cognition) \quad \textbf{Cross-Lists:} \texttt{q-bio.QM}, \texttt{q-bio.MN}
 }
 
 \date{November 2026 (MitoRestorer Segregated Series --- Paper IV of IV)}
@@ -142,8 +142,14 @@ To model non-invasive observability of intracellular $h_{\mathrm{SNc}}(t)$, we s
 Because all results above are \textbf{\textit{in silico} mathematical simulations}, we delineate two safe, non-harmful empirical pathways to test Predictions \textbf{P1, P2, P5, and P7} without premature invasive human pharmacology:
 \begin{enumerate}
   \item \textbf{Pathway A --- 45-Day Benchtop 3D Human \texttt{iPSC} Midbrain Assembloid \textit{In Vitro} Assay:} Co-culture $60\%\ \mathrm{TH}^+$ \texttt{GBA1-N370S} or \texttt{PINK1-I368N} dopamine neurons, $25\%\ \mathrm{CD38}^+$ astrocytes, and $10\%\ \mathrm{TREM2}^+$ microglia in 96-well ultra-low-attachment plates to test: (i) \textbf{P1 (\texttt{uMtCK} \texttt{1QK1} Octamer Preservation)}: Native-PAGE and LC-MS/MS of \texttt{Cys278} sulfonylation when Creatine ($500\,\mu\mathrm{M}$) is gated at Day~20 vs.\ Day~0; (ii) \textbf{P2 (Division-Independent \texttt{5hmC} Epigenetic Rejuvenation)}: \texttt{5hmC CUT\&RUN} in post-mitotic ($\mathrm{EdU}^-$) $\mathrm{TH}^+$ neurons \cite{berg2026epigenetic}; (iii) \textbf{P5 (Astrocytic \texttt{CD38} Knockdown)}: \texttt{CRISPRi} knockdown of astrocytic \texttt{CD38} (\texttt{AF-P28907-F1}) in severe ($h_0 \ge 68\%$) assembloids \cite{hayakawa2016transfer}; and (iv) \textbf{P7 (\texttt{MitAP} $\mathrm{CD8}^+$ Shield)}: autologous $\mathrm{CD8}^+$ T-cell co-culture with Stage-0 Ambroxol ($10\,\mu\mathrm{M}$) + sodium butyrate ($1\text{ mM}$) \cite{matheoud2019intestinal}.
-  \item \textbf{Pathway B --- Low-Risk, Non-Harmful Dietary \& GRAS Supplement Approximation:} In non-invasive nutritional wellness studies, the two-stage temporal separation law can be safely approximated using exclusively Generally Recognized As Safe (\texttt{GRAS}) dietary and supplement inputs: **Stage~0/1 (Clearance Window)**: circadian `18:6` time-restricted feeding + caprylic triglycerides (\texttt{C8-MCT} oil) + Zone-2 aerobic exercise + dietary spermidine (wheat germ) + pomegranate postbiotic \texttt{Urolithin A} ($500\text{--}1,000\text{ mg/d}$ \cite{ryu2016urolithin,denk2025mitoimmune}) + bile-acid chaperone \texttt{TUDCA} + dietary soluble fiber (butyrate precursor); followed after biomarker stabilization by **Stage~2 (Rebuild Window)**: pulsed \texttt{Creatine Monohydrate} ($5\text{ g/d}$, 5d-on/2d-off \cite{eder2000umtck}) + \texttt{Ubiquinol CoQ10} + \texttt{Nicotinamide Riboside} (\texttt{NR} \cite{brakedal2022nadpark}) + \texttt{Riboflavin} (Vitamin $\mathrm{B}_2$, \texttt{PDB: 6FCX} \cite{froese2018mthfr}).
+  \item \textbf{Pathway B --- Low-Risk, Non-Harmful Dietary \& GRAS Supplement Approximation:} In non-invasive nutritional wellness studies, the two-stage temporal separation law can be safely approximated using exclusively Generally Recognized As Safe (\texttt{GRAS}) dietary and supplement inputs: \textbf{Stage~0/1 (Clearance Window)}: circadian \texttt{18:6} time-restricted feeding + caprylic triglycerides (\texttt{C8-MCT} oil) + Zone-2 aerobic exercise + dietary spermidine (wheat germ) + pomegranate postbiotic \texttt{Urolithin A} ($500\text{--}1,000\text{ mg/d}$ \cite{ryu2016urolithin,denk2025mitoimmune}) + bile-acid chaperone \texttt{TUDCA} + dietary soluble fiber (butyrate precursor); followed after biomarker stabilization by \textbf{Stage~2 (Rebuild Window)}: pulsed \texttt{Creatine Monohydrate} ($5\text{ g/d}$, 5d-on/2d-off \cite{eder2000umtck}) + \texttt{Ubiquinol CoQ10} + \texttt{Nicotinamide Riboside} (\texttt{NR} \cite{brakedal2022nadpark}) + \texttt{Riboflavin} (Vitamin $\mathrm{B}_2$, \texttt{PDB: 6FCX} \cite{froese2018mthfr}).
 \end{enumerate}
+
+\section*{Acknowledgments and Disclosures}
+\footnotesize
+\noindent\textbf{Acknowledgments \& Program Support:} This research was supported by Google LLC through the \textbf{Google AI for Science Researcher Access Program}, providing access to Google DeepMind's \textbf{Antigravity} agentic research environment, Gemini frontier reasoning models, and the AlphaFold Database.\\
+\noindent\textbf{Author Contributions \& AI Collaboration Disclosure:} This study was conceived, directed, and conducted solely by Wayne A.~Satz, MD in direct collaboration with Google DeepMind's Antigravity AI research agent; no other human investigators participated. Wayne A.~Satz, MD verified and takes full scholarly responsibility for all models, code, numerical benchmarks, and scientific conclusions.\\
+\noindent\textbf{Competing Interests:} The author declares no competing financial or commercial interests.
 
 \bibliographystyle{unsrt}
 \bibliography{references}

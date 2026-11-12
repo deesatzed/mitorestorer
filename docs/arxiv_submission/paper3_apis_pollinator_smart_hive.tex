@@ -17,10 +17,10 @@
 \title{\textbf{Acoustic- and Thermal-Gated Bioenergetic Recovery of Asynchronous Flight Muscle in \textit{Apis mellifera} Under Complex III (\texttt{PDB: 1SQB}) Fungicide Stress}}
 
 \author{
-  \textbf{MitoRestorer Systems Biology \& Bioenergetic Control Consortium}\\
-  \texttt{https://github.com/deesatzed/mitorestorer}\\
-  \small \textbf{arXiv Primary:} \texttt{q-bio.QM} (Quantitative Methods) \quad \textbf{Cross-Lists:} \texttt{q-bio.PE}, \texttt{eess.SY}\\
-  \small \textbf{MSC 2020:} 92D40, 92C42, 93C95, 34C60 \quad \textbf{ACM:} J.3, C.3
+  \textbf{Wayne A.~Satz, MD}$^{1}$\\
+  \small $^{1}$Department of Emergency Medicine, Lewis Katz School of Medicine at Temple University, Philadelphia, PA 19140, USA\\
+  \small Code \& Reproducibility Repository: \url{https://github.com/deesatzed/mitorestorer}\\
+  \small \textbf{arXiv Primary:} \texttt{q-bio.QM} (Quantitative Methods) \quad \textbf{Cross-Lists:} \texttt{q-bio.PE}, \texttt{eess.SY}
 }
 
 \date{November 2026 (MitoRestorer Segregated Series --- Paper III of IV)}
@@ -29,7 +29,7 @@
 \maketitle
 
 \begin{abstract}
-Commercial pollination colonies (\textit{Apis mellifera}) experience acute foraging collapse when exposed to agricultural quinone-outside ($Q_o$) inhibitor strobilurin fungicides (azoxystrobin, pyraclostrobin, trifloxystrobin), which bind the cytochrome $bc_1$ Complex~III $Q_o$ pocket (\texttt{PDB: 1SQB}, $2.69\text{ \AA}$ \cite{esser2006bc1}) and arrest the Rieske Iron-Sulfur Protein (\texttt{ISP}) conformational electron shuttle \cite{scharlaken2019strobilurin}. Because honeybee indirect flight muscle (\texttt{IFM}) oscillates asynchronously at $f_0 \in [100, 250]\text{ Hz}$, foraging launch imposes a $5.76\times$ quadratic metabolic flux surge ($f^2$ in Picard and Murugan's Energy Resistance Principle $\mathrm{EP} = \dot{e}_R \cdot f^2$ \cite{picard2025energy}). Applying the nondimensional two-stage control law of Paper~I \cite{buckingham1914physically} ($\tau_{\mathrm{char}} = 2.08\text{ d}$), we construct a 10-state holobiont ODE model (\textbf{Apis-BCR}) coupling thoracic flight-muscle mitochondria ($W, D$), Complex~III $Q_o$-site fungicide occupancy ($S_{Q_o}$), \texttt{CYP9Q1--3} cytochrome P450 detoxification \cite{mao2013pcoumaric}, the microaerophilic ileum symbiont \textit{Snodgrassella alvi} \cite{leonard2020salvi}, and Vitellogenin ($V_g$) longevity shielding \cite{seehuus2006bee,spannhoff2011hda}. We prove why eight standard commercial apiary interventions fail: feeding plain high-fructose corn syrup (\texttt{HFCS}), prophylactic oxytetracycline (\texttt{Terramycin}), or unphased Day-0 pollen patties while Complex~III is blocked triggers lethal reverse electron transport (\texttt{RET}) superoxide bursts, collapsing Day-14 RFID homing survival to $12.4\text{--}31.2\%$. Enforcing a closed-loop two-stage reset---Stage~1 (Days $0\text{--}4.2$): \texttt{Bay-A} phytochemical patty containing \textit{p}-coumaric acid ($500\,\mu\mathrm{M}$) + \textit{S.\ alvi} probiotic + spermidine, gated at acoustic wingbeat fundamental $f_0 \ge 220.0\text{ Hz}$ into Stage~2 (Days $4.2\text{--}14$): \texttt{Bay-B} \texttt{Ubiquinol CoQ10} ($200\,\mu\mathrm{M}$) + royal-jelly \texttt{10-HDA} ($1.5\text{ mM}$)---restores thoracic $\mathrm{ATP}$ to $1.74\times$ and Day-14 RFID homing survival to $96.5\%$. Full-length AlphaFold Database v6 \cite{jumper2021alphafold,varadi2024afdb} \texttt{PAE/pLDDT} analysis of honeybee Vitellogenin (\texttt{AF-Q868N5-F1-v6}, $1,770\text{ AA}$, $\mathrm{pLDDT}=84.75$) resolves three rigid structural domains (`61--953`, `1155--1631`, `1687--1769`) flanking a disordered polyserine radical sink (`954--1154`) \cite{manfredi2018p94}. Finally, a $4.05\text{ mW}$ solar top-bar \texttt{CoralNPU} controller implementing a 64-frame MEMS wingbeat persistence filter and $32.8^\circ\mathrm{C}$ brood-chill solenoid snap-back eliminates orchard wind-gust false triggers ($68.4\% \to 0.0\%$) and rescues cold-snap survival ($28.5\% \to 94.2\%$).
+Commercial pollination colonies (\textit{Apis mellifera}) experience acute foraging collapse when exposed to agricultural quinone-outside ($Q_o$) inhibitor strobilurin fungicides (azoxystrobin, pyraclostrobin, trifloxystrobin), which bind the cytochrome $bc_1$ Complex~III $Q_o$ pocket (\texttt{PDB: 1SQB}, $2.69\text{ \AA}$ \cite{esser2006bc1}) and arrest the Rieske Iron-Sulfur Protein (\texttt{ISP}) conformational electron shuttle \cite{scharlaken2019strobilurin}. Because honeybee indirect flight muscle (\texttt{IFM}) oscillates asynchronously at $f_0 \in [100, 250]\text{ Hz}$, foraging launch imposes a $5.76\times$ quadratic metabolic flux surge ($f^2$ in Picard and Murugan's Energy Resistance Principle $\mathrm{EP} = \dot{e}_R \cdot f^2$ \cite{picard2025energy}). Applying the nondimensional two-stage control law of Paper~I \cite{buckingham1914physically} ($\tau_{\mathrm{char}} = 2.08\text{ d}$), we construct a 10-state holobiont ODE model (\textbf{Apis-BCR}) coupling thoracic flight-muscle mitochondria ($W, D$), Complex~III $Q_o$-site fungicide occupancy ($S_{Q_o}$), \texttt{CYP9Q1--3} cytochrome P450 detoxification \cite{mao2013pcoumaric}, the microaerophilic ileum symbiont \textit{Snodgrassella alvi} \cite{leonard2020salvi}, and Vitellogenin ($V_g$) longevity shielding \cite{seehuus2006bee,spannhoff2011hda}. We prove why eight standard commercial apiary interventions fail: feeding plain high-fructose corn syrup (\texttt{HFCS}), prophylactic oxytetracycline (\texttt{Terramycin}), or unphased Day-0 pollen patties while Complex~III is blocked triggers lethal reverse electron transport (\texttt{RET}) superoxide bursts, collapsing Day-14 RFID homing survival to $12.4\text{--}31.2\%$. Enforcing a closed-loop two-stage reset---Stage~1 (Days $0\text{--}4.2$): \texttt{Bay-A} phytochemical patty containing \textit{p}-coumaric acid ($500\,\mu\mathrm{M}$) + \textit{S.\ alvi} probiotic + spermidine, gated at acoustic wingbeat fundamental $f_0 \ge 220.0\text{ Hz}$ into Stage~2 (Days $4.2\text{--}14$): \texttt{Bay-B} \texttt{Ubiquinol CoQ10} ($200\,\mu\mathrm{M}$) + royal-jelly \texttt{10-HDA} ($1.5\text{ mM}$)---restores thoracic $\mathrm{ATP}$ to $1.74\times$ and Day-14 RFID homing survival to $96.5\%$. Full-length AlphaFold Database v6 \cite{jumper2021alphafold,varadi2024afdb} \texttt{PAE/pLDDT} analysis of honeybee Vitellogenin (\texttt{AF-Q868N5-F1-v6}, $1{,}770\text{ AA}$, $\mathrm{pLDDT}=84.75$) resolves three rigid structural domains (\texttt{61--953}, \texttt{1155--1631}, \texttt{1687--1769}) flanking a disordered polyserine radical sink (\texttt{954--1154}) \cite{manfredi2018p94}. Finally, a $4.05\text{ mW}$ solar top-bar \texttt{CoralNPU} controller implementing a 64-frame MEMS wingbeat persistence filter and $32.8^\circ\mathrm{C}$ brood-chill solenoid snap-back eliminates orchard wind-gust false triggers ($68.4\% \to 0.0\%$) and rescues cold-snap survival ($28.5\% \to 94.2\%$).
 \end{abstract}
 
 \section{Introduction \& Ecological Biophysics}
@@ -103,9 +103,9 @@ In Stage~2 ($t \ge 4.2\text{ d}$), royal-jelly \textit{trans}-10-hydroxy-2-decen
 
 \begin{table}[t]
 \centering
-\caption{AlphaFold Database v6 \texttt{PAE/pLDDT} Structural Domain Decomposition of \textit{Apis mellifera} Vitellogenin (\texttt{AF-Q868N5-F1-v6}, $1,770\text{ AA}$, Mean $\mathrm{pLDDT}=84.75$).}
+\caption{AlphaFold Database v6 \texttt{PAE/pLDDT} Structural Domain Decomposition of \textit{Apis mellifera} Vitellogenin (\texttt{AF-Q868N5-F1-v6}, $1{,}770\text{ AA}$, Mean $\mathrm{pLDDT}=84.75$).}
 \label{tab:vg_domains}
-\footnotesize
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{@{}llcc@{}}
 \toprule
 \textbf{Structural Region} & \textbf{Residue Span} & \textbf{Length} & \textbf{Biophysical Function} \\
@@ -117,7 +117,8 @@ Signal \& N-Peptide & \texttt{1--60} & $60\text{ AA}$ & Secretory cleavage leade
 Inter-Domain Hinge & \texttt{1632--1686} & $55\text{ AA}$ & Flexible C-terminal tether \\
 \textbf{PAE Rigid Domain 3} & \texttt{1687--1769} & $\mathbf{83\text{ AA}}$ & \texttt{CTCK} disulfide dimerization knot \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \section{\textit{In Silico} Simulation Audit of 8 Apiary Practices \& Edge Silicon Stress Tests}
@@ -125,7 +126,7 @@ Inter-Domain Hinge & \texttt{1632--1686} & $55\text{ AA}$ & Flexible C-terminal 
 \begin{enumerate}
   \item \textbf{Simulated Failure of Unphased Feeding \& Antibiotics (Rows 1--5):} Plain \texttt{HFCS} lacks \textit{p}-coumaric acid, leaving simulated \texttt{CYP9Q1--3} uninduced ($S_{Q_o} = 0.72$, simulated homing $= 18.0\%$). Prophylactic \texttt{oxytetracycline} wipes out simulated \textit{S.\ alvi} ($0.04\times$), elevating gut lumenal $\mathrm{O}_2$ and dropping simulated survival to $12.4\%$. Unphased Day-0 pollen substitute or Day-0 \texttt{CoQ10} pushes metabolic flux through $85\%$-blocked Complex~III (\texttt{1SQB}), predicting only $31.2\text{--}38.4\%$ survival. Formic acid flash fumigation adds Complex~IV cytochrome~$c$ oxidase inhibition on top of Complex~III blockade ($21.5\%$ simulated survival).
   \item \textbf{Simulated Orchard Wind-Gust Noise Immunity (Row 9):} Under simulated $45\text{ km/h}$ orchard wind gusts and hive knocks ($180\text{--}260\text{ Hz}$ acoustic broadband transients), a single-sample $220\text{ Hz}$ tripwire triggers premature Stage-2 \texttt{Bay-B} actuation in $68.4\%$ of simulated runs. Our 64-frame rolling persistence buffer (\texttt{128 B} DTCM, requiring $\ge 60/64$ frames at $\ge 220.0\text{ Hz}$ plus $|T_{\mathrm{brood}} - 34.5^\circ\mathrm{C}| \le 0.8^\circ\mathrm{C}$) achieves $0.0\%$ false triggers (\texttt{WindGust\_Rej=1}, $98.4\%$ simulated homing survival).
-  \item \textbf{Simulated Post-Baffle Cold-Snap Rollback (Row 10):} When a simulated overnight orchard frost drops brood-nest temperature to $32.8^\circ\mathrm{C}$ and induces a $300\text{ Hz}$ worker distress hiss after \texttt{Bay-B} actuation, a one-way feeder model predicts $28.5\%$ survival. Executing \texttt{BCR\_GATE\_STAGE2\_ROLLBACK\_ABORT} (`3`) snaps the simulated bistable solenoid back to the \texttt{Bay-A} \textit{p}-coumaric detox patty (\texttt{GPIO\_BAFFLE = 1}) and restores the $32\text{-byte}$ DTCM breadcrumb, predicting $94.2\%$ Day-14 survival.
+  \item \textbf{Simulated Post-Baffle Cold-Snap Rollback (Row 10):} When a simulated overnight orchard frost drops brood-nest temperature to $32.8^\circ\mathrm{C}$ and induces a $300\text{ Hz}$ worker distress hiss after \texttt{Bay-B} actuation, a one-way feeder model predicts $28.5\%$ survival. Executing \texttt{BCR\_GATE\_STAGE2\_ROLLBACK\_ABORT} (\texttt{3}) snaps the simulated bistable solenoid back to the \texttt{Bay-A} \textit{p}-coumaric detox patty (\texttt{GPIO\_BAFFLE = 1}) and restores the $32\text{-byte}$ DTCM breadcrumb, predicting $94.2\%$ Day-14 survival.
 \end{enumerate}
 
 \begin{table*}[t]
@@ -152,11 +153,17 @@ Inter-Domain Hinge & \texttt{1632--1686} & $55\text{ AA}$ & Flexible C-terminal 
 \end{table*}
 
 \section{Prospective \textit{In Vitro} Respirometry \& Safe Dietary Phytochemical Protocol (Prediction P4)}
-Because \textit{Apis mellifera} requires zero vertebrate animal (IACUC) or human IRB approval ($\mathrm{TRL\ 5 \to 7}$ in $14\text{ days}$), and utilizes exclusively **safe, non-harmful natural floral phytochemicals and dietary supplements** (\textit{p}-coumaric acid monomer from natural pollen coats, spermidine, \texttt{Ubiquinol CoQ10}, and royal-jelly \texttt{10-HDA}), we specify a two-tier prospective validation protocol to test our \textit{in silico} simulations:
+Because \textit{Apis mellifera} requires zero vertebrate animal (IACUC) or human IRB approval ($\mathrm{TRL\ 5 \to 7}$ in $14\text{ days}$), and utilizes exclusively \textbf{safe, non-harmful natural floral phytochemicals and dietary supplements} (\textit{p}-coumaric acid monomer from natural pollen coats, spermidine, \texttt{Ubiquinol CoQ10}, and royal-jelly \texttt{10-HDA}), we specify a two-tier prospective validation protocol to test our \textit{in silico} simulations:
 \begin{enumerate}
   \item \textbf{Tier 1 --- 48-Hour \textit{In Vitro} Permeabilized Flight-Muscle Respirometry:} Dissect dorsal longitudinal flight muscle from newly emerged worker bees, permeabilize fibers with $50\,\mu\mathrm{g/mL}$ saponin in MiR05 buffer, and measure high-resolution respirometry in an \texttt{Oroboros Oxygraph-2k} at $35^\circ\mathrm{C}$ with simultaneous fluorometric Amplex Red $\mathrm{H}_2\mathrm{O}_2$ detection. Challenge fibers with $2.0\,\mu\mathrm{M}$ azoxystrobin (\texttt{PDB: 1SQB}) and compare State-3 $\mathrm{O}_2$ flux and $\mathrm{H}_2\mathrm{O}_2/\mathrm{O}_2$ flux ratios between fibers from bees pre-fed $500\,\mu\mathrm{M}$ \textit{p}-coumaric acid for $48\text{ h}$ vs.\ acute unphased \texttt{Ubiquinol} addition.
   \item \textbf{Tier 2 --- 14-Day Incubator Hoarding-Cage \& RFID Hive Assay ($N=50$ Bees/Cage $\times 4$ Arms, $34.5^\circ\mathrm{C}$, $65\%$ RH):} Expose bees orally to $5\text{ ppm}$ azoxystrobin in $50\%$ sucrose. Compare Arm~1 (Plain Sucrose/\texttt{HFCS}), Arm~2 (Day-0 Pollen Patty + \texttt{Ubiquinol}), Arm~3 (\textit{p}-Coumaric Acid $500\,\mu\mathrm{M}$ + \textit{S.\ alvi} $10^7\text{ CFU/mL}$ continuous), and Arm~4 (Closed-Loop \textbf{Apis-BCR} gated by the top-bar MEMS microphone at $f_0 \ge 220.0\text{ Hz}$ on Day~$4.2$ into $200\,\mu\mathrm{M}$ \texttt{Ubiquinol} + $1.5\text{ mM}$ \texttt{10-HDA}). The hypothesis is falsified unless Arm~4 achieves $\ge 2.0\times$ higher Day-14 survival and $1\text{ km}$ RFID homing return rate than Arms~1 and 2 ($p < 0.0001$, log-rank test).
 \end{enumerate}
+
+\section*{Acknowledgments and Disclosures}
+\footnotesize
+\noindent\textbf{Acknowledgments \& Program Support:} This research was supported by Google LLC through the \textbf{Google AI for Science Researcher Access Program}, providing access to Google DeepMind's \textbf{Antigravity} agentic research environment, Gemini frontier reasoning models, and the AlphaFold Database.\\
+\noindent\textbf{Author Contributions \& AI Collaboration Disclosure:} This study was conceived, directed, and conducted solely by Wayne A.~Satz, MD in direct collaboration with Google DeepMind's Antigravity AI research agent; no other human investigators participated. Wayne A.~Satz, MD verified and takes full scholarly responsibility for all models, code, numerical benchmarks, and scientific conclusions.\\
+\noindent\textbf{Competing Interests:} The author declares no competing financial or commercial interests.
 
 \bibliographystyle{unsrt}
 \bibliography{references}

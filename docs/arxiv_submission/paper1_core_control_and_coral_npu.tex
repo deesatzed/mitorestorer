@@ -32,9 +32,9 @@
 \title{\textbf{Nondimensional Staged Feedback Control of Mitochondrial Heteroplasmy Dynamics with Host-Emulated Verification on an Ultra-Low-Power RV32IMF\_Zve32x Neural Processing Unit}}
 
 \author{
-  \textbf{O.~Satz}$^{1,*}$ \\
-  \small $^{1}$Department of Bioengineering and Embedded Control Systems, MitoRestorer Research Group \\
-  \small $^{*}$Corresponding author: \texttt{osatz@mitorestorer.org} \quad | \quad Repository: \url{https://github.com/deesatzed/mitorestorer}
+  \textbf{Wayne A.~Satz, MD}$^{1}$ \\
+  \small $^{1}$Department of Emergency Medicine, Lewis Katz School of Medicine at Temple University, Philadelphia, PA 19140, USA \\
+  \small Code \& Reproducibility Repository: \url{https://github.com/deesatzed/mitorestorer}
 }
 \date{\small November 2026 \quad (Revised Verification Release; MIASE Seed: \texttt{20261109})}
 
@@ -558,12 +558,12 @@ Following Minimum Information About a Simulation Experiment (MIASE) guidelines \
   \item \textbf{Bare-Metal C99 \texttt{Q16.16} \texttt{RK4}, Sequential Huber-EKF \& Deadband Ablation Testbench:} Compile and run \texttt{cc -std=c99 -O2 -Wall -Wextra -Werror build/coralnpu/coralnpu\_hil\_testbench.c -lm -o build/coralnpu/coralnpu\_hil\_testbench \&\& ./build/coralnpu/coralnpu\_hil\_testbench}, verifying 1,000-step \texttt{Q16.16} parity (\texttt{MaxErr = 0.0563\%}), 256-trial 8-lane \texttt{Zve32x} widening parity (\texttt{MaxULPDiff = 0}), closed-loop C99 Huber-EKF (\texttt{h\_RMSE = 0.94\%}, \texttt{sizeof = 3696B/8192B}), and the 5-step-size quantization deadband ablation.
 \end{enumerate}
 
-\section*{Declarations and Disclosures}
+\section*{Acknowledgments and Disclosures}
 \footnotesize
-\noindent\textbf{Author Contributions:} O.~Satz conceived the study, formulated the mathematical model and control proofs, implemented the simulation and C99 fixed-point firmware suite, verified all numerical benchmarks, and wrote the manuscript.\\
+\noindent\textbf{Acknowledgments \& Program Support:} This research was supported by Google LLC through the \textbf{Google AI for Science Researcher Access Program}, providing access to Google DeepMind's \textbf{Antigravity} agentic research environment, Gemini frontier reasoning models, and integrated structural biology tools.\\
+\noindent\textbf{Author Contributions \& AI Collaboration Disclosure:} This study was conceived, directed, and conducted solely by Wayne A.~Satz, MD in direct collaboration with Google DeepMind's Antigravity AI research agent; no other human investigators participated. Antigravity assisted with mathematical derivation checks, Python optimal-control and EKF simulation implementation, bare-metal C99 fixed-point firmware engineering, and \LaTeX{} manuscript preparation. Wayne A.~Satz, MD audited, verified, and takes full scholarly responsibility for the integrity of all equations, code artifacts, numerical benchmarks, and scientific conclusions.\\
 \noindent\textbf{Competing Interests:} The author declares no competing financial or commercial interests.\\
-\noindent\textbf{Ethics Statement:} This study consists exclusively of mathematical analysis, numerical ODE simulation, and host-emulated embedded systems verification; no human participants, clinical trial cohorts, or live vertebrate animals were involved.\\
-\noindent\textbf{AI Assistance Disclosure:} Large language model coding and editorial tools were used under direct human supervision to assist with C99 fixed-point refactoring, Python simulation scripting, and LaTeX typesetting; all mathematical proofs, differential equations, code execution, and numerical outputs were independently verified by the author.
+\noindent\textbf{Ethics Statement:} This study consists exclusively of mathematical analysis, numerical ODE simulation, and host-emulated embedded systems verification; no human participants, clinical trial cohorts, or live vertebrate animals were involved.
 
 \let\oldthebibliography\thebibliography
 \renewcommand{\thebibliography}[1]{\oldthebibliography{#1}\setlength{\itemsep}{1.5pt}\setlength{\parskip}{0pt}}

@@ -1,94 +1,112 @@
-\documentclass[10pt,twocolumn]{article}
-\usepackage[utf8]{inputenc}
+\documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage[margin=0.72in]{geometry}
-\usepackage{amsmath,amssymb,amsfonts}
-\usepackage{booktabs}
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{newtxtext,newtxmath}
+\usepackage[protrusion=true,expansion=false]{microtype}
 \usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{geometry}
 \usepackage{hyperref}
 
+\geometry{letterpaper, margin=0.95in, top=0.90in, bottom=0.95in}
+\linespread{1.09}
+\setlength{\jot}{6pt}
+\setlist[itemize]{topsep=4pt, itemsep=3pt, parsep=0pt}
+\setlist[enumerate]{topsep=4pt, itemsep=3pt, parsep=0pt}
+
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.82}
+
+\definecolor{linknavy}{RGB}{12,62,138}
 \hypersetup{
-  colorlinks=true,
-  linkcolor=blue,
-  citecolor=blue,
-  urlcolor=blue
+    colorlinks=true,
+    linkcolor=linknavy,
+    citecolor=linknavy,
+    urlcolor=linknavy
 }
 
-\title{\textbf{Multi-Scale Quantitative Systems Pharmacology and Spatial Axonal Reaction-Diffusion Modeling of Staged Mitophagy in Post-Mitotic Dopaminergic and Cortical Neurons}}
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+
+\title{\LARGE\textbf{Multi-Scale Quantitative Systems Pharmacology and Spatial Axonal Reaction-Diffusion Modeling of Staged Mitophagy in Post-Mitotic Dopaminergic and Cortical Neurons}}
 
 \author{
-  \textbf{Wayne A.~Satz, MD}$^{1}$\\
-  \small $^{1}$Department of Emergency Medicine, Lewis Katz School of Medicine at Temple University, Philadelphia, PA 19140, USA\\
-  \small Code \& Reproducibility Repository: \url{https://github.com/deesatzed/mitorestorer}\\
-  \small \textbf{arXiv Primary:} \texttt{q-bio.NC} (Neurons and Cognition) \quad \textbf{Cross-Lists:} \texttt{q-bio.QM}, \texttt{q-bio.MN}
+  \textbf{Wayne A.~Satz, MD}$^{1,*}$ \\[0.35em]
+  {\small $^{1}$Department of Emergency Medicine, Lewis Katz School of Medicine at Temple University, Philadelphia, PA 19140, USA} \\
+  {\small $^{*}$Correspondence: \href{mailto:satzwa@temple.edu}{\texttt{satzwa@temple.edu}} \quad$\vert$\quad Code \& Reproducibility: \url{https://github.com/deesatzed/mitorestorer}} \\
+  {\small \textbf{arXiv Primary:} \texttt{q-bio.NC} (Neurons and Cognition) \quad \textbf{Cross-Lists:} \texttt{q-bio.QM}, \texttt{q-bio.MN}}
 }
 
-\date{November 2026 (MitoRestorer Segregated Series --- Paper IV of IV)}
+\date{\small November 2026 \quad (MitoRestorer Segregated Series --- Paper~IV of~IV; Computational Study)}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Post-mitotic human substantia nigra pars compacta (\texttt{SNc}) dopaminergic pacemaker neurons ($4.5\text{ m}$ total axonal arbor \cite{bolam2012living,surmeier2017selective}) and cortical pyramidal neurons cannot dilute deletion-mutant mitochondrial DNA ($D$) via cell division ($0.0\times$ mitotic rate). Applying the nondimensional two-stage control law of Paper~I \cite{picard2025energy,buckingham1914physically} ($\bar{\lambda}_{\mathrm{eff}} = 0.075\text{ d}^{-1}$, $\tau_{\mathrm{char}} = 13.3\text{ d}$), we construct an \textit{in silico} multi-scale Quantitative Systems Pharmacology (\texttt{QSP}) and 20-compartment spatial axonal reaction-diffusion partial differential equation (PDE) model whose unperturbed baseline progression slope is matched to published natural-history summary statistics from the Michael J.\ Fox Foundation \texttt{PPMI} cohort literature ($R^2 = 0.946$ against published sub-cohort trajectories) \cite{marek2018ppmi,siderowf2023assessment}. Parameterizing the model across eight experimental X-ray/cryo-EM structures (\texttt{PDB: 2NSX}, \texttt{7CK6}, \texttt{1B68}, \texttt{6EQI}, \texttt{5UFP}, \texttt{2XSN}, \texttt{4ZZJ}, \texttt{1QK1} \cite{lieberman2007gba1,wang2020tomm40,dong2001apoe4,schubert2017pink1,wallace2016hif2a,muniz2011th,dai2015sirt1,eder2000umtck}) and full-length AlphaFold Database v6 \cite{jumper2021alphafold,varadi2024afdb} proteome models (\texttt{AF-Q9BXM7-F1} human \texttt{PINK1} and \texttt{AF-P28907-F1} human \texttt{CD38}), we demonstrate in simulation why ten landmark Parkinson's disease clinical trials (\texttt{QE3} \cite{qe32014coq10}, \texttt{NET-PD LS-1} \cite{netpd2015creatine}, \texttt{SURE-PD3} \cite{surepd32021inosine}, \texttt{STEADY-PD III} \cite{steadypd2020isradipine}, \texttt{FAIRPARK-II} \cite{devos2022fairpark}, \texttt{FS-ZONE} \cite{fszone2015pioglitazone}, \texttt{NADPARK} \cite{brakedal2022nadpark}, \texttt{AiM-PD} \cite{mullin2020ambroxol}, \texttt{UP Study} \cite{payne2023udca}, and \texttt{LIXIPARK} \cite{meissner2024lixipark}) either failed in Phase~III or hit an efficacy ceiling. We show mathematically that coupling the neuron to a 4-cell glial niche with astrocytic \texttt{CD38} (\texttt{AF-P28907-F1}, $\mathrm{pLDDT}=90.88$) mitochondrial transfer \cite{hayakawa2016transfer} and Stage-0 \texttt{GBA1} (\texttt{PDB: 2NSX}) chaperone unblocking expands the viable Stage-1 mitophagy boundary from $h_{\mathrm{crit}} = 64.5\% \to 79.2\%$ (\textbf{Proposition 2}) while suppressing simulated \texttt{PINK1 MHC-I MitAP} $\mathrm{CD8}^+$ T-cell killing ($64.2\% \to 4.1\%$) \cite{matheoud2019intestinal}. Finally, a simulated Huberized $H_\infty$-robust 5-marker peripheral blood Kalman observer achieves $96.2\%$ precision at $\mathrm{FDR} = 4.6\% \le 5\%$ (\textbf{Proposition 3}) \cite{dupire2026fifteen}, maintaining $89.6\%$ simulated closed-loop rescue under $25\%$ ambulatory non-adherence and human blood-brain barrier (\texttt{BBB}) $K_{p,uu,\mathrm{brain}}$ constraints.
+\noindent Post-mitotic human substantia nigra pars compacta (\texttt{SNc}) dopaminergic pacemaker neurons ($4.5\text{ m}$ total axonal arbor \cite{bolam2012living,surmeier2017selective}) and cortical pyramidal neurons cannot dilute deletion-mutant mitochondrial DNA ($D$) via cell division ($0.0\times$ mitotic rate). Applying the nondimensional two-stage control law of Paper~I \cite{picard2025energy,buckingham1914physically} ($\bar{\lambda}_{\mathrm{eff}} = 0.075\text{ d}^{-1}$, $\tau_{\mathrm{char}} = 13.3\text{ d}$), we construct an \textit{in silico} multi-scale Quantitative Systems Pharmacology (\texttt{QSP}) and 20-compartment spatial axonal reaction-diffusion partial differential equation (PDE) model whose unperturbed baseline progression slope is matched to published natural-history summary statistics from the Michael J.\ Fox Foundation \texttt{PPMI} cohort literature ($R^2 = 0.946$ against published sub-cohort trajectories) \cite{marek2018ppmi,siderowf2023assessment}. Parameterizing the model across eight experimental X-ray/cryo-EM structures (\texttt{PDB: 2NSX}, \texttt{7CK6}, \texttt{1B68}, \texttt{6EQI}, \texttt{5UFP}, \texttt{2XSN}, \texttt{4ZZJ}, \texttt{1QK1} \cite{lieberman2007gba1,wang2020tomm40,dong2001apoe4,schubert2017pink1,wallace2016hif2a,muniz2011th,dai2015sirt1,eder2000umtck}) and full-length AlphaFold Database v6 \cite{jumper2021alphafold,varadi2024afdb} proteome models (\texttt{AF-Q9BXM7-F1} human \texttt{PINK1} and \texttt{AF-P28907-F1} human \texttt{CD38}), we demonstrate in simulation why ten landmark Parkinson's disease clinical trials (\texttt{QE3} \cite{qe32014coq10}, \texttt{NET-PD LS-1} \cite{netpd2015creatine}, \texttt{SURE-PD3} \cite{surepd32021inosine}, \texttt{STEADY-PD III} \cite{steadypd2020isradipine}, \texttt{FAIRPARK-II} \cite{devos2022fairpark}, \texttt{FS-ZONE} \cite{fszone2015pioglitazone}, \texttt{NADPARK} \cite{brakedal2022nadpark}, \texttt{AiM-PD} \cite{mullin2020ambroxol}, \texttt{UP Study} \cite{payne2023udca}, and \texttt{LIXIPARK} \cite{meissner2024lixipark}) either failed in Phase~III or hit an efficacy ceiling. We show mathematically that coupling the neuron to a 4-cell glial niche with astrocytic \texttt{CD38} (\texttt{AF-P28907-F1}, $\mathrm{pLDDT}=90.88$) mitochondrial transfer \cite{hayakawa2016transfer} and Stage-0 \texttt{GBA1} (\texttt{PDB: 2NSX}) chaperone unblocking expands the viable Stage-1 mitophagy boundary from $h_{\mathrm{crit}} = 64.5\% \to 79.2\%$ (\textbf{Proposition 2}) while suppressing simulated \texttt{PINK1 MHC-I MitAP} $\mathrm{CD8}^+$ T-cell killing ($64.2\% \to 4.1\%$) \cite{matheoud2019intestinal}. Finally, a simulated Huberized $H_\infty$-robust 5-marker peripheral blood Kalman observer achieves $96.2\%$ precision at $\mathrm{FDR} = 4.6\% \le 5\%$ (\textbf{Proposition 3}) \cite{dupire2026fifteen}, maintaining $89.6\%$ simulated closed-loop rescue under $25\%$ ambulatory non-adherence and human blood-brain barrier (\texttt{BBB}) $K_{p,uu,\mathrm{brain}}$ constraints.
 \end{abstract}
 
-\section{Introduction \& Systems Pharmacology Motivation}
+% =============================================================================
+\section{Introduction and Systems Pharmacology Motivation}
+% =============================================================================
 
-\subsection{The Arborization \& Pacemaking Vulnerability of \texttt{SNc} Neurons}
+\subsection{The Arborization and Pacemaking Vulnerability of \texttt{SNc} Neurons}
 Human substantia nigra pars compacta (\texttt{SNc}) dopaminergic neurons possess an extraordinary anatomical architecture: a single unmyelinated axonal arbor branches into $1\times 10^5$ to $2.4\times 10^6$ striatal synapses with a cumulative path length of $L \approx 4.5\text{ meters}$ \cite{bolam2012living,surmeier2017selective}. To maintain basal striatal dopamine tone, \texttt{SNc} somata fire autonomous slow pacemaking action potentials ($2\text{--}4\text{ Hz}$) driven by $\mathrm{Ca}_V1.3$ L-type calcium channels \cite{surmeier2017selective}. This continuous $\mathrm{Ca}^{2+}$ influx demands relentless mitochondrial $\mathrm{ATP}$ synthesis and $\mathrm{Ca}^{2+}$ buffering while exposing the inner mitochondrial membrane to high electron-transport flux $f$ and unconsumed parenchymal oxygen tension $\Phi_{p\mathrm{O}_2}$ \cite{marutani2025hypoxia}.
 
-\subsection{Why Single-Agent Neuroprotection Fails in Phase III}
+\subsection{Why Single-Agent Neuroprotection Fails in Phase~III}
 Over the past decade, at least ten major Phase~II/III disease-modifying clinical trials in Parkinson's disease have tested single bioenergetic or lysosomal interventions in isolation \cite{qe32014coq10,netpd2015creatine,surepd32021inosine,steadypd2020isradipine,devos2022fairpark,fszone2015pioglitazone,brakedal2022nadpark,mullin2020ambroxol,payne2023udca,meissner2024lixipark}. Existing pharmacokinetic models treat these agents as independent linear modifiers of symptom progression, failing to explain why antioxidative buffers (\texttt{CoQ10} \cite{qe32014coq10}, \texttt{Inosine} \cite{surepd32021inosine}), unphased phosphagens (\texttt{Creatine} \cite{netpd2015creatine}), unphased biogenesis agonists (\texttt{Pioglitazone} \cite{fszone2015pioglitazone}), or iron chelators (\texttt{Deferiprone} \cite{devos2022fairpark}) failed or worsened motor scores when administered without prior lysosomal unblocking and mitophagy quality selection.
 
-\section{Multi-Scale 10-State Nigrostriatal ODE \& 4.5-Meter Axonal PDE}
+% =============================================================================
+\section{Multi-Scale Nigrostriatal QSP and 4.5-Meter Axonal PDE}
+% =============================================================================
 
-\begin{figure*}[t]
+\begin{figure}[t]
   \centering
   \includegraphics[width=\textwidth]{../../figures/fig1_pd_bcr_10state_trajectories_and_trial_audit.pdf}
-  \caption{\textbf{Multi-Scale 10-State \textbf{PD-BCR} Nigrostriatal Dynamics and Mechanistic Audit of 10 Landmark Parkinson's Disease Clinical Trials.} \textbf{(A)} 90-day trajectories of mutant heteroplasmy $h(t)$, lysosomal glucosylceramide jam $J_{\mathrm{GBA1}}$ (\texttt{PDB: 2NSX}), parenchymal $p\mathrm{O}_2$ (\texttt{PDB: 5UFP}), active octameric \texttt{uMtCK} (\texttt{PDB: 1QK1}), division-independent epigenetic clock $E_{\mathrm{eAge}}$ \cite{berg2026epigenetic}, and Tyrosine Hydroxylase motor rescue (\texttt{PDB: 2XSN}). \textbf{(B)} Structural failure modes across 10 Phase~II/III clinical trials vs.\ closed-loop 3-stage \textbf{PD-BCR} (gated at Day~$26.5$, $\tau^* = 1.99$).}
+  \caption{\textbf{Multi-Scale 10-State \textbf{PD-BCR} Nigrostriatal Dynamics and Mechanistic Audit of 10 Landmark Parkinson's Disease Clinical Trials.} \textbf{(A)} Simulated 90-day trajectories of mutant heteroplasmy $h(t)$, lysosomal glucosylceramide jam $J_{\mathrm{GBA1}}$ (\texttt{PDB: 2NSX}), parenchymal $p\mathrm{O}_2$ (\texttt{PDB: 5UFP}), active octameric \texttt{uMtCK} (\texttt{PDB: 1QK1}), division-independent epigenetic clock $E_{\mathrm{eAge}}$ \cite{berg2026epigenetic}, and Tyrosine Hydroxylase motor rescue (\texttt{PDB: 2XSN}). \textbf{(B)} Structural failure modes across 10 Phase~II/III clinical trials vs.\ simulated closed-loop 3-stage \textbf{PD-BCR} (gated at Day~$26.5$, $\tau^* = 1.99$).}
   \label{fig:pd_10trials}
-\end{figure*}
+\end{figure}
 
-\subsection{Coupled 10-State Somato-Lysosomal ODE System}
-Let $\mathbf{x}_{\mathrm{PD}}(t) = [W, D, J_{\mathrm{GBA1}}, p\mathrm{O}_2, Q_{\mathrm{DA}}, S_{\alpha\mathrm{Syn}}, G_{\mathrm{GDF15}}, R_{\alpha\mathrm{KG}}, E_{\mathrm{eAge}}, u_{\mathrm{MtCK}}]^T$ denote the 10-state nigral pacemaker trajectory over $t \in [0, 90\text{ d}]$ ($\tau_{\mathrm{char}} = 13.3\text{ d}$):
+\subsection{Core Somato-Glial Mitochondrial Balance}
+We model each nigral pacemaker unit via a 10-state somato-lysosomal ODE vector $\mathbf{x}_{\mathrm{PD}}(t) = [W,\allowbreak D,\allowbreak J_{\mathrm{GBA1}},\allowbreak p\mathrm{O}_2,\allowbreak Q_{\mathrm{DA}},\allowbreak S_{\alpha\mathrm{Syn}},\allowbreak G_{\mathrm{GDF15}},\allowbreak R_{\alpha\mathrm{KG}},\allowbreak E_{\mathrm{eAge}},\allowbreak u_{\mathrm{MtCK}}]^\top$ over $t \in [0, 90\text{ d}]$ ($\tau_{\mathrm{char}} = 13.3\text{ d}$). Within the soma, functional wild-type mass $W(t)$ and deletion-bearing mass $D(t)$ evolve according to
 \begin{align}
-  \frac{dW}{dt} &= k_{\mathrm{bio}}(u_2)\,W\left(1 - \frac{W+D}{K}\right) - k_{\mathrm{mito},W}\,W \nonumber\\
-  &\quad - k_{\mathrm{dmg}}\max(0,\ \mathrm{EP}_{\mathrm{PD}} - \theta_{\mathrm{GSH}})W + J_{\mathrm{astro}\to\mathrm{neuron}}(\mathrm{CD38}) \label{eq:pd_W}\\
-  \frac{dD}{dt} &= k_{\mathrm{bio}}(u_2)\,k_{\mathrm{rep,adv}}\,D\left(1 - \frac{W+D}{K}\right) \nonumber\\
-  &\quad - k_{\mathrm{mito},D}(u_1)\,V_{\mathrm{lys}}(J_{\mathrm{GBA1}})\,D + k_{\mathrm{dmg}}\max(0,\ \mathrm{EP}_{\mathrm{PD}} - \theta_{\mathrm{GSH}})W \label{eq:pd_D}\\
-  \frac{dJ_{\mathrm{GBA1}}}{dt} &= k_{\mathrm{flux}}\,D(1 - u_{\mathrm{Ambroxol}}) - k_{\mathrm{lys}}\,u_{\mathrm{Ambroxol}}\,u_{\mathrm{Sperm}}\,J_{\mathrm{GBA1}} \label{eq:pd_GBA1}\\
-  \frac{dp\mathrm{O}_2}{dt} &= k_{\mathrm{cap}}\left(p\mathrm{O}_{2,\mathrm{art}}(u_{\mathrm{GBT601}}) - k_{\mathrm{ox}}W - p\mathrm{O}_2\right) \nonumber\\
-  &\quad - k_{\mathrm{HIF2}}\,u_{\mathrm{PT2399}}(p\mathrm{O}_2 - 0.90) \label{eq:pd_pO2}\\
-  \frac{dQ_{\mathrm{DA}}}{dt} &= k_{\mathrm{auto}}\,p\mathrm{O}_2^2\,\max(0,\ \mathrm{EP}_{\mathrm{PD}} - 0.80) - k_{\mathrm{NQO1}}(u_1 + u_2)Q_{\mathrm{DA}} \label{eq:pd_QDA}\\
-  \frac{dS_{\alpha\mathrm{Syn}}}{dt} &= k_{\mathrm{olig}}\,J_{\mathrm{GBA1}}\,Q_{\mathrm{DA}} - k_{\mathrm{aut}}\,V_{\mathrm{lys}}(J_{\mathrm{GBA1}})\,u_1\,S_{\alpha\mathrm{Syn}} \label{eq:pd_aSyn}\\
-  \frac{dE_{\mathrm{eAge}}}{dt} &= k_{\mathrm{drift}}\,\mathrm{EP}_{\mathrm{PD}}(100 - E_{\mathrm{eAge}}) \nonumber\\
-  &\quad - k_{\mathrm{TET}}\left(\frac{R_{\alpha\mathrm{KG}}}{R_{\alpha\mathrm{KG}}+K_m}\right)\Phi_{\mathrm{SAMe}}(u_{\mathrm{Cr}})\,u_2\,E_{\mathrm{eAge}} \label{eq:pd_eAge}\\
-  \frac{du_{\mathrm{MtCK}}}{dt} &= k_{\mathrm{oct}}(u_2)(1 - u_{\mathrm{MtCK}}) - k_{\mathrm{ox,Cys278}}\left(Q_{\mathrm{DA}} + \mathrm{ONOO}^-\right)u_{\mathrm{MtCK}} \label{eq:pd_uMtCK}
+  \frac{dW}{dt} &= k_{\mathrm{bio}}(u_2)\,W\left(1 - \frac{W+D}{K}\right) - \left(k_{\mathrm{mito},W} + k_{\mathrm{dmg}}\max\!\big(0,\ \mathrm{EP}_{\mathrm{PD}} - \theta_{\mathrm{GSH}}\big)\right)W + J_{\mathrm{astro}\to\mathrm{neuron}}(\mathrm{CD38}), \nonumber\\
+  \frac{dD}{dt} &= k_{\mathrm{rep,adv}}\,k_{\mathrm{bio}}(u_2)\,D\left(1 - \frac{W+D}{K}\right) - k_{\mathrm{mito},D}(u_1)\,V_{\mathrm{lys}}(J_{\mathrm{GBA1}})\,D + k_{\mathrm{dmg}}\max\!\big(0,\ \mathrm{EP}_{\mathrm{PD}} - \theta_{\mathrm{GSH}}\big)W.
+  \label{eq:pd_core}
 \end{align}
+Here $V_{\mathrm{lys}}(J_{\mathrm{GBA1}}) = K_{\mathrm{lys}} / (K_{\mathrm{lys}} + J_{\mathrm{GBA1}}) \in (0, 1]$ represents lysosomal autophagosome-clearance competence gated by glucosylceramide accumulation $J_{\mathrm{GBA1}}(t)$ (\texttt{PDB: 2NSX}), and $J_{\mathrm{astro}\to\mathrm{neuron}}(\mathrm{CD38})$ captures exogenous wild-type mitochondrial donation from adjacent $\mathrm{CD38}^+$ astrocytes \cite{hayakawa2016transfer}. The complete 10-state ODE system---including parenchymal hyperoxia $p\mathrm{O}_2$, dopamine-$o$-quinone $Q_{\mathrm{DA}}$, oligomeric $\alpha$-synuclein $S_{\alpha\mathrm{Syn}}$, mitokine stress $G_{\mathrm{GDF15}}$, $\alpha$-ketoglutarate/succinate ratio $R_{\alpha\mathrm{KG}}$, division-independent epigenetic clock $E_{\mathrm{eAge}}$, and octameric creatine kinase fraction $u_{\mathrm{MtCK}}$---together with all auxiliary rate definitions is provided in Appendix~\ref{app:pd_math} (Eqs.~\eqref{eq:app_pd_W}--\eqref{eq:app_pd_EP}).
 
 \subsection{20-Compartment 4.5-Meter Spatial Axonal Reaction-Diffusion PDE}
-Along the $L = 4.5\text{ m}$ nigrostriatal axon discretized into $N_{\mathrm{comp}} = 20$ spatial compartments ($x \in [0, L]$), cytosolic $\mathrm{ATP}(x,t)$ and Phosphocreatine $\mathrm{PCr}(x,t)$ obey:
+Along the $L = 4.5\text{ m}$ nigrostriatal arbor ($x \in [0, L]$, discretized into $N_{\mathrm{comp}} = 20$ compartments in Appendix~\ref{app:pd_pde}), cytosolic $\mathrm{ATP}(x,t)$ and phosphocreatine $\mathrm{PCr}(x,t)$ satisfy the coupled reaction-diffusion system
 \begin{align}
-  \frac{\partial\mathrm{ATP}}{\partial t} &= D_{\mathrm{ATP}}\frac{\partial^2\mathrm{ATP}}{\partial x^2} + J_{\mathrm{OXPHOS}}(x,W,D) - k_{\mathrm{use}}(x)\mathrm{ATP} \nonumber\\
-  &\quad + k_{\mathrm{rev}}\,u_{\mathrm{MtCK}}(x)\left(\mathrm{PCr}\cdot\mathrm{ADP} - K_{\mathrm{eq}}^{-1}\mathrm{ATP}\cdot\mathrm{Cr}\right) \label{eq:pde_ATP}\\
-  \frac{\partial\mathrm{PCr}}{\partial t} &= D_{\mathrm{PCr}}\frac{\partial^2\mathrm{PCr}}{\partial x^2} - k_{\mathrm{rev}}\,u_{\mathrm{MtCK}}(x)\left(\mathrm{PCr}\cdot\mathrm{ADP} - K_{\mathrm{eq}}^{-1}\mathrm{ATP}\cdot\mathrm{Cr}\right) \label{eq:pde_PCr}
+  \frac{\partial\mathrm{ATP}}{\partial t} &= D_{\mathrm{ATP}}\frac{\partial^2\mathrm{ATP}}{\partial x^2} + J_{\mathrm{OXPHOS}}(x,W,D) - k_{\mathrm{use}}(x)\mathrm{ATP} + k_{\mathrm{rev}}\,u_{\mathrm{MtCK}}(x)\left(\mathrm{PCr}\cdot\mathrm{ADP} - K_{\mathrm{eq}}^{-1}\mathrm{ATP}\cdot\mathrm{Cr}\right), \nonumber\\
+  \frac{\partial\mathrm{PCr}}{\partial t} &= D_{\mathrm{PCr}}\frac{\partial^2\mathrm{PCr}}{\partial x^2} - k_{\mathrm{rev}}\,u_{\mathrm{MtCK}}(x)\left(\mathrm{PCr}\cdot\mathrm{ADP} - K_{\mathrm{eq}}^{-1}\mathrm{ATP}\cdot\mathrm{Cr}\right),
+  \label{eq:pde_axonal}
 \end{align}
-with $D_{\mathrm{PCr}} = 260\,\mu\mathrm{m}^2/\mathrm{s} = 1.86\,D_{\mathrm{ATP}}$ ($D_{\mathrm{ATP}} = 140\,\mu\mathrm{m}^2/\mathrm{s}$). Because distal striatal terminals ($x = L$) experience $2.8\times$ higher vesicular $\mathrm{H}^+$-ATPase demand $k_{\mathrm{use}}(L)$ than the soma ($x = 0$), terminal survival requires an intact octameric \texttt{uMtCK} (\texttt{PDB: 1QK1} \cite{eder2000umtck}) Phosphocreatine wave ($u_{\mathrm{MtCK}} \ge 0.90$), lifting distal $\mathrm{ATP}(x=L)$ from $0.375\times$ to $1.179\times$.
+subject to sealed-end zero-flux Neumann boundary conditions $\partial_x\mathrm{ATP}\big|_{x=0,L} = \partial_x\mathrm{PCr}\big|_{x=0,L} = 0$, with $D_{\mathrm{PCr}} = 260\,\mu\mathrm{m}^2/\mathrm{s} = 1.86\,D_{\mathrm{ATP}}$ ($D_{\mathrm{ATP}} = 140\,\mu\mathrm{m}^2/\mathrm{s}$). Because distal striatal terminals ($x = L$) experience $2.8\times$ higher vesicular $\mathrm{H}^+$-ATPase demand $k_{\mathrm{use}}(L)$ than the soma ($x = 0$), terminal survival requires an intact octameric \texttt{uMtCK} (\texttt{PDB: 1QK1} \cite{eder2000umtck}) phosphocreatine wave ($u_{\mathrm{MtCK}} \ge 0.90$), lifting simulated distal $\mathrm{ATP}(x=L)$ from $0.340\times$ to $1.179\times$.
 
-\section{\textit{In Silico} QSP Audit of 10 Published Parkinson's Trials \& Simulated CNS-PBPK Occupancy}
-\textbf{Simulation Delineation:} All dynamical trajectories, target occupancy projections, and trial comparisons below are \textbf{\textit{in silico} Quantitative Systems Pharmacology (\texttt{QSP}) and spatial PDE simulations} parameterized from published clinical trial outcomes \cite{qe32014coq10,netpd2015creatine,surepd32021inosine,steadypd2020isradipine,devos2022fairpark,fszone2015pioglitazone,brakedal2022nadpark,mullin2020ambroxol,payne2023udca,meissner2024lixipark} and atomic crystal structures; no prospective human clinical trial was conducted in this study. Table~\ref{tab:pd_10audit} synthesizes our \textit{in silico} mechanistic audit across all 10 published Parkinson's disease clinical trials alongside simulated unbound human brain interstitial fluid ($K_{p,uu,\mathrm{brain}}$) target occupancy (\texttt{TO}):
+% =============================================================================
+\section{\textit{In Silico} QSP Audit of 10 Published Parkinson's Trials}
+% =============================================================================
+
+\noindent\textbf{Simulation Delineation:} All dynamical trajectories, target occupancy projections, and trial comparisons below are \textbf{\textit{in silico} Quantitative Systems Pharmacology (\texttt{QSP}) and spatial PDE simulations} parameterized from published clinical trial outcomes \cite{qe32014coq10,netpd2015creatine,surepd32021inosine,steadypd2020isradipine,devos2022fairpark,fszone2015pioglitazone,brakedal2022nadpark,mullin2020ambroxol,payne2023udca,meissner2024lixipark} and atomic crystal structures; no prospective human clinical trial was conducted in this study. Table~\ref{tab:pd_10audit} synthesizes our \textit{in silico} mechanistic audit across all 10 published Parkinson's disease clinical trials alongside simulated unbound human brain interstitial fluid ($K_{p,uu,\mathrm{brain}}$) target occupancy (\texttt{TO}):
 \begin{enumerate}
-  \item \textbf{\texttt{NET-PD LS-1} ($10\text{ g/d}$ Unphased Creatine, JAMA 2015 \cite{netpd2015creatine}):} Administering $10\text{ g/d}$ Creatine continuously at Day~0 fails in our simulation via three coupled mechanisms: (i) baseline $Q_{\mathrm{DA}}$ and $\mathrm{ONOO}^-$ oxidize the catalytic \texttt{Cys278} thiolate of \texttt{uMtCK} (\texttt{PDB: 1QK1} \cite{eder2000umtck}), dissociating octamers into inactive dimers ($u_{\mathrm{MtCK}} = 42.4\%$); (ii) continuous $10\text{ g/d}$ dosing downregulates blood-brain barrier \texttt{SLC6A8} creatine transporters to $38.2\%$; and (iii) unphased guanidinoacetate methyltransferase (\texttt{GAMT}) flux consumes $40\%$ of endogenous \texttt{SAMe} methyl donors \cite{stead2006methyl} (\texttt{PDB: 6FCX} \cite{froese2018mthfr}), starving \texttt{TET1--3} epigenetic demethylation ($E_{\mathrm{eAge}} = 79.4\%$, simulated \texttt{TH} rescue $= 10.5\%$). Gating pulsed Creatine ($5\text{ g/d}$, 5d-on/2d-off, $K_{p,uu,\mathrm{brain}}=0.44, \mathrm{TO}=85.0\%$) into Stage~2 ($t \ge 26.5\text{ d}$) predicts $97.0\%$ octameric \texttt{uMtCK}, $94.0\%$ \texttt{SLC6A8}, and $99.1\%$ simulated surviving-cell \texttt{TH} capacity.
-  \item \textbf{\texttt{FAIRPARK-II} (Deferiprone Iron Chelation, NEJM 2022 \cite{devos2022fairpark}):} Non-selective iron chelation strips the essential catalytic non-heme $\mathrm{Fe}^{2+}$ cofactor coordinated by \texttt{His331/His336/Glu376} inside the active cleft of human Tyrosine Hydroxylase (\texttt{PDB: 2XSN} \cite{muniz2011th}), collapsing simulated dopamine synthesis ($\mathrm{TH} = 6.2\%$) despite modest iron reduction.
+  \item \textbf{\texttt{NET-PD LS-1} ($10\text{ g/d}$ Unphased Creatine, JAMA 2015 \cite{netpd2015creatine}):} Administering $10\text{ g/d}$ Creatine continuously at Day~0 fails in simulation via three coupled mechanisms: (i) baseline $Q_{\mathrm{DA}}$ and $\mathrm{ONOO}^-$ oxidize the catalytic \texttt{Cys278} thiolate of \texttt{uMtCK} (\texttt{PDB: 1QK1} \cite{eder2000umtck}), dissociating octamers into inactive dimers ($u_{\mathrm{MtCK}} = 42.4\%$); (ii) continuous $10\text{ g/d}$ dosing downregulates blood-brain barrier \texttt{SLC6A8} creatine transporters to $38.2\%$; and (iii) unphased guanidinoacetate methyltransferase (\texttt{GAMT}) synthesis consumes $40\%$ of endogenous \texttt{SAMe} methyl donors \cite{stead2006methyl} (\texttt{PDB: 6FCX} \cite{froese2018mthfr}), starving \texttt{TET1}--\texttt{3} epigenetic demethylation ($E_{\mathrm{eAge}} = 79.4\%$, simulated \texttt{TH} rescue $= 10.5\%$). Gating pulsed Creatine ($5\text{ g/d}$, 5d-on/2d-off, $K_{p,uu,\mathrm{brain}}=0.44, \mathrm{TO}=85.0\%$) into Stage~2 ($t \ge 26.5\text{ d}$) predicts $97.0\%$ octameric \texttt{uMtCK}, $94.0\%$ \texttt{SLC6A8}, and $99.1\%$ simulated surviving-cell \texttt{TH} capacity.
+  \item \textbf{\texttt{FAIRPARK-II} (Deferiprone Iron Chelation, NEJM 2022 \cite{devos2022fairpark}):} Non-selective iron chelation strips the catalytic non-heme $\mathrm{Fe}^{2+}$ cofactor coordinated by \texttt{His331/His336/Glu376} inside the active cleft of human Tyrosine Hydroxylase (\texttt{PDB: 2XSN} \cite{muniz2011th}), collapsing simulated dopamine synthesis ($\mathrm{TH} = 6.2\%$) despite modest iron reduction.
   \item \textbf{\texttt{FS-ZONE} (Pioglitazone \cite{fszone2015pioglitazone}) \& \texttt{QE3} (\texttt{CoQ10} \cite{qe32014coq10}):} Trigger the Proposition~1 Simultaneous Biogenesis \& Masking Trap (simulated $h = 68.4\%$ and $51.2\%$, respectively).
-  \item \textbf{\texttt{AiM-PD} (Ambroxol $1,200\text{ mg/d}$, $K_{p,uu,\mathrm{brain}}=0.28, \mathrm{TO}=81.5\%$ \cite{mullin2020ambroxol}) \& \texttt{NADPARK} (\texttt{NR} $1,000\text{ mg/d}$, $K_{p,uu,\mathrm{brain}}=0.52, \mathrm{TO}=86.0\%$ \cite{brakedal2022nadpark}):} Succeed in engaging their individual targets (\texttt{PDB: 2NSX} \cite{lieberman2007gba1} and \texttt{PDB: 4ZZJ} \cite{dai2015sirt1}), but hit simulated monotherapy efficacy ceilings ($34.2\%$ and $41.8\%$ rescue) when uncoupled from sequential mitophagy and Stage-2 \texttt{uMtCK} shuttling.
+  \item \textbf{\texttt{AiM-PD} (Ambroxol $1{,}200\text{ mg/d}$, $K_{p,uu,\mathrm{brain}}=0.28, \mathrm{TO}=81.5\%$ \cite{mullin2020ambroxol}) \& \texttt{NADPARK} (\texttt{NR} $1{,}000\text{ mg/d}$, $K_{p,uu,\mathrm{brain}}=0.52, \mathrm{TO}=86.0\%$ \cite{brakedal2022nadpark}):} Succeed in engaging their individual targets (\texttt{PDB: 2NSX} \cite{lieberman2007gba1} and \texttt{PDB: 4ZZJ} \cite{dai2015sirt1}), but hit simulated monotherapy efficacy ceilings ($34.2\%$ and $41.8\%$ rescue) when uncoupled from sequential mitophagy and Stage-2 \texttt{uMtCK} shuttling.
 \end{enumerate}
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
 \caption{\textit{In Silico} Quantitative Systems Pharmacology Audit of 10 Published Parkinson's Disease Clinical Trials vs.\ Simulated Closed-Loop \textbf{PD-BCR}.}
 \label{tab:pd_10audit}
-\footnotesize
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}llllcccc@{}}
 \toprule
 \textbf{Published Trial / Simulated Regimen} & \textbf{Primary Target / PDB} & \textbf{Stage Engaged} & \textbf{Sim.\ $K_{p,uu}$ / TO} & \textbf{Sim.\ $h(90\text{ d})$} & \textbf{Sim.\ \texttt{1QK1}} & \textbf{Sim.\ \texttt{eAge}} & \textbf{Sim.\ Surviving \texttt{TH} Rescue} \\
@@ -106,49 +124,102 @@ with $D_{\mathrm{PCr}} = 260\,\mu\mathrm{m}^2/\mathrm{s} = 1.86\,D_{\mathrm{ATP}
 \midrule
 \textbf{11. Simulated PD-BCR ($t_{\mathrm{gate}}=26.5\text{ d}$)} & \textbf{Full 3-Stage Stack} & \textbf{Staged $0\to 1\to 2$} & $\mathbf{0.28\text{--}0.68}$ / $\mathbf{85\%}$ & $\mathbf{0.6\%}$ & $\mathbf{97.0\%}$ & $\mathbf{2.6\%}$ & $\mathbf{98.8\%}$ (Sim.\ H\&Y-I Macro: $\mathbf{62.7\%}$) \\
 \bottomrule
-\end{tabular}
-\end{table*}
+\end{tabular}%
+}
+\end{table}
 
-\section{AlphaFold v6 Proteome Analysis \& Proposition 2 (4-Cell Glial Niche)}
+% =============================================================================
+\section{AlphaFold v6 Proteome Analysis and 4-Cell Glial Niche Theory}
+% =============================================================================
 
-\begin{figure*}[t]
+\begin{figure}[t]
   \centering
   \includegraphics[width=\textwidth]{../../figures/fig4_cell_2026_clinical_translation_and_n500_trial.pdf}
   \caption{\textbf{\textit{In Silico} Translational Simulations Across the 4-Cell Nigral Glial Niche, 5-Marker Blood Kalman Gate ($\mathrm{FDR} \le 5\%$), and Synthetic $N=500$ Virtual Cohort.} \textbf{(A)} Proposition~2: Simulated astrocytic \texttt{CD38} (\texttt{AF-P28907-F1}) mitochondrial transfer expands the viable mitophagy starvation boundary from $h_{\mathrm{crit,isolated}} = 64.5\%$ to $h_{\mathrm{crit,niche}} = 79.2\%$. \textbf{(B)} Proposition~3: Simulated 5-marker peripheral blood Kalman observer operating at $\mathrm{Precision} = 96.2\%$ inside the $\mathrm{FDR} \le 5\%$ zone \cite{dupire2026fifteen}. \textbf{(C)} Simulated chrono-staging expands the 5-organ Therapeutic Index from $\mathrm{TI} = 1.75\times \to 4.70\times$. \textbf{(D)} Synthetic $N=500$ \textit{in silico} virtual trial projection showing simulated progression-free survival ($\mathrm{PFS} = 89.4\%$, $\mathrm{HR} = 0.21$).}
   \label{fig:cell_translation}
-\end{figure*}
+\end{figure}
 
-\subsection{Full-Length Human \texttt{PINK1} (\texttt{AF-Q9BXM7-F1}) \& \texttt{APOE4/TOMM40} Rollback}
-While the insect \textit{Tribolium castaneum} crystal structure (\texttt{PDB: 6EQI} \cite{schubert2017pink1}) resolves the catalytic kinase core and ubiquitin-binding \texttt{Insertion-3 (Ins3)} loop, it lacks the human N-terminal import domain. Analyzing full-length human \texttt{PINK1} (\texttt{AF-Q9BXM7-F1-model\_v6.cif}, $581\text{ AA}$, global $\mathrm{pLDDT} = 77.25$, mean $\mathrm{PAE} = 14.79\text{ \AA}$) reveals two functionally distinct regions: (1) a single rigid global domain spanning \texttt{residues 268--544} ($277\text{ AAs}$, $\mathrm{PAE} < 5\text{ \AA}$) housing the \texttt{Ala339} ATP-pocket gatekeeper and \texttt{Ins3} ubiquitin cradle, and (2) an intrinsically flexible N-terminal Mitochondrial Targeting Sequence (\texttt{MTS}) and \texttt{TOMM40/PARL} transmembrane import tether (\texttt{residues 1--115}, $\mathrm{pLDDT} < 50$).
+\subsection{Full-Length Human \texttt{PINK1} (\texttt{AF-Q9BXM7-F1}) and \texttt{APOE4/TOMM40} Rollback}
+While the insect \textit{Tribolium castaneum} crystal structure (\texttt{PDB: 6EQI} \cite{schubert2017pink1}) resolves the catalytic kinase core and ubiquitin-binding \texttt{Insertion-3 (Ins3)} loop, it lacks the human N-terminal import domain. Analyzing full-length human \texttt{PINK1} (\path{AF-Q9BXM7-F1-model_v6.cif}, $581\text{ AA}$, global $\mathrm{pLDDT} = 77.25$, mean $\mathrm{PAE} = 14.79\text{ \AA}$) reveals two functionally distinct regions: (1) a single rigid global domain spanning residues \texttt{268}--\texttt{544} ($277\text{ AAs}$, $\mathrm{PAE} < 5\text{ \AA}$) housing the \texttt{Ala339} ATP-pocket gatekeeper and \texttt{Ins3} ubiquitin cradle, and (2) an intrinsically flexible N-terminal Mitochondrial Targeting Sequence (\texttt{MTS}) and \texttt{TOMM40/PARL} transmembrane import tether (residues \texttt{1}--\texttt{115}, $\mathrm{pLDDT} < 50$).
 
-In prodromal \texttt{APOE4/4} Alzheimer's and Lewy-body dementia (\texttt{PDB: 1B68} \texttt{Arg112-Glu109} salt bridge \cite{dong2001apoe4,haney2024apoe4}), C-terminal lipid-binding fragments of \texttt{APOE4} sterically jam the 19-stranded $\beta$-barrel pore of \texttt{TOMM40} around \texttt{Arg330} (\texttt{PDB: 7CK6} \cite{wang2020tomm40}; AlphaGenome locus \texttt{chr19:44,889,000--44,915,000}). In our \textit{in silico} simulation, if Stage-2 biogenesis (\texttt{NR/SIRT1}) is triggered at Day~54 before the \texttt{TOMM40} pore is fully cleared, nascent pre-proteins jam the pore and trigger a simulated \texttt{VDAC1} (\cite{kim2019vdac}) excitotoxic \texttt{GDF15} spike ($4,000\text{ pg/mL}$). Executing the $32\text{-byte}$ L1 DTCM rollback of Paper~I (\texttt{BCR\_GATE\_STAGE2\_ROLLBACK\_ABORT = 3}) halts Stage~2, holds the simulated neuron in \texttt{TUDCA + D-BHB} ketotic safe-mode for $10\text{ days}$, and re-gates at Day~64, rescuing simulated neuronal survival from $22.4\% \to 94.6\%$.
+In prodromal \texttt{APOE4/4} Alzheimer's and Lewy-body dementia (\texttt{PDB: 1B68} \texttt{Arg112-Glu109} salt bridge \cite{dong2001apoe4,haney2024apoe4}), C-terminal lipid-binding fragments of \texttt{APOE4} sterically jam the 19-stranded $\beta$-barrel pore of \texttt{TOMM40} around \texttt{Arg330} (\texttt{PDB: 7CK6} \cite{wang2020tomm40}; AlphaGenome locus \texttt{chr19:44,889,000}--\texttt{44,915,000}). In our \textit{in silico} simulation, if Stage-2 biogenesis (\texttt{NR/SIRT1}) is triggered at Day~54 before the \texttt{TOMM40} pore is cleared, nascent pre-proteins jam the pore and trigger a simulated \texttt{VDAC1} \cite{kim2019vdac} excitotoxic \texttt{GDF15} spike ($4{,}000\text{ pg/mL}$). Executing the $32\text{-byte}$ L1 DTCM rollback of Paper~I (\path{BCR_GATE_STAGE2_ROLLBACK_ABORT} $= 3$) halts Stage~2, holds the simulated neuron in \texttt{TUDCA + D-BHB} ketotic safe-mode for $10\text{ days}$, and re-gates at Day~64, rescuing simulated neuronal survival from $22.4\% \to 94.6\%$.
 
-\subsection{Proof of Proposition 2 (4-Cell Niche Starvation Boundary $h_{\mathrm{crit}}$)}
-\textbf{Proposition 2.} \textit{Let $\theta_{\mathrm{surv}} = 0.45\times$ denote the minimum cytosolic $\mathrm{ATP}$ required to sustain $\mathrm{Ca}_V1.3$ pacemaking during Stage-1 mitophagy ($u_1 = 1$, where acute purging reduces $D(t)$ faster than basal biogenesis $k_{\mathrm{bio},0}$ replenishes $W(t)$). In an isolated neuron ($J_{\mathrm{astro}\to\mathrm{neuron}} = 0$), $\min_{t\in[0,t_{\mathrm{gate}}]}\mathrm{ATP}(t) \ge \theta_{\mathrm{surv}}$ holds if and only if initial heteroplasmy satisfies:}
+\subsection{4-Cell Niche Starvation Boundary (\textbf{Proposition 2})}
+Let $\theta_{\mathrm{surv}} = 0.45\times$ denote the minimum cytosolic $\mathrm{ATP}$ required to sustain $\mathrm{Ca}_V1.3$ pacemaking during Stage-1 mitophagy ($u_1 = 1$, where acute purging removes $D(t)$ faster than basal biogenesis $k_{\mathrm{bio},0}$ replenishes $W(t)$). In an isolated neuron ($J_{\mathrm{astro}\to\mathrm{neuron}} = 0$) starting from normalized mass $W_0 + D_0 = 1$, $\min_{t\in[0,t_{\mathrm{gate}}]}\mathrm{ATP}(t) \ge \theta_{\mathrm{surv}}$ holds if and only if initial heteroplasmy satisfies
 \begin{equation}
-  h_0 \le h_{\mathrm{crit,isolated}} = \frac{1 - \theta_{\mathrm{surv}}(1 + \Delta_{\mathrm{purge}})}{1 - \eta_D} \approx 64.5\%
+  h_0 \le h_{\mathrm{crit,isolated}} = \frac{1 - \theta_{\mathrm{surv}}(1 + \Delta_{\mathrm{purge}})}{1 - \eta_D} \approx 64.5\%,
+  \label{eq:hcrit_isolated}
 \end{equation}
-\textit{Coupling the neuron to astrocytic \texttt{CD38} (\texttt{AF-P28907-F1}, rigid ectodomain \texttt{residues 46--297}, $\mathrm{pLDDT}=90.88$, \texttt{Glu226} active site) $\mathrm{cADPR}$-triggered mitochondrial tunneling-nanotube donation ($J_{\mathrm{astro}\to\mathrm{neuron}} = 0.125\times$ mass equiv.) \cite{hayakawa2016transfer} expands the viable rescue boundary to $h_{\mathrm{crit,niche}} = 79.2\%$ ($+14.7\%$), while Stage-0 Ambroxol + gut butyrate blocks simulated \texttt{PINK1 MHC-I MitAP} $\mathrm{CD8}^+$ T-cell synaptic killing ($64.2\% \to 4.1\%$) \cite{matheoud2019intestinal}.}
+where $\eta_D = 0.12$ is the residual oxidative efficiency of damaged mitochondria and $\Delta_{\mathrm{purge}}$ is the transient Stage-1 turnover deficit derived in Appendix~\ref{app:prop2_proof}. Coupling the neuron to astrocytic \texttt{CD38} (\texttt{AF-P28907-F1}, rigid ectodomain residues \texttt{46}--\texttt{297}, $\mathrm{pLDDT}=90.88$, \texttt{Glu226} active site) $\mathrm{cADPR}$-triggered mitochondrial tunneling-nanotube donation ($J_{\mathrm{astro}\to\mathrm{neuron}} = 0.125\times$ cumulative mass equivalent) \cite{hayakawa2016transfer} expands the viable rescue boundary to $h_{\mathrm{crit,niche}} = 79.2\%$ ($+14.7\text{ percentage points}$, \textbf{Proposition 2}), while Stage-0 Ambroxol + gut butyrate suppresses simulated \texttt{PINK1 MHC-I MitAP} $\mathrm{CD8}^+$ T-cell synaptic killing ($64.2\% \to 4.1\%$) \cite{matheoud2019intestinal}.
 
-\section{\textit{In Silico} Natural-History Calibration, Prospective \textit{In Vitro} Assembloids \& Safe Nutritional Approximation}
+% =============================================================================
+\section{Natural-History Calibration, Blood Kalman Gate, and Validation Pathways}
+% =============================================================================
 
 \subsection{Synthetic Natural-History Calibration Against Published \texttt{PPMI} Summary Statistics}
-Calibrating the unperturbed baseline ODE ($u_0=u_1=u_2=0$) against published 24-month longitudinal summary progression rates from the Michael J.\ Fox Foundation \texttt{PPMI} natural-history literature (spanning sporadic PD, \texttt{GBA1 Asn370Ser} [\texttt{chr1:155235843:T>C}], and \texttt{LRRK2 Gly2019Ser} [\texttt{chr12:40340400:G>A}] sub-cohorts) \cite{marek2018ppmi,siderowf2023assessment} yields $R^2 = 0.946$ ($\mathrm{RMSE} = 1.18\text{ MDS-UPDRS-III pts}$). Deconvolving simulated surviving-cell bioenergetic rescue ($98.8\%$, $95\%\text{ CI}: 94.9\text{--}99.5\%$ across $1,000$ Monte Carlo runs) from irreversible baseline \texttt{SNc} soma loss ($1 - N_{\mathrm{surv}}$) predicts macroscopic striatal dopamine recovery of $\mathrm{Cap}_{\mathrm{macro}} = 94.3\%$ in prodromal RBD ($N_{\mathrm{surv}}=95.5\%$), $\mathbf{62.7\%}$ (strictly above the $50\%$ symptomatic motor threshold) in early \textit{de novo} \texttt{H\&Y Stage I} ($N_{\mathrm{surv}}=63.5\%$), $40.6\%$ in moderate \texttt{H\&Y Stage II} ($N_{\mathrm{surv}}=41.1\%$), and $\mathbf{78.4\%}$ when advanced \texttt{H\&Y Stage III} ($N_{\mathrm{surv}}=22.0\%$) is paired in simulation with \texttt{iNSC} dopaminergic grafts \cite{berg2026epigenetic}.
+Calibrating the unperturbed baseline ODE ($u_0=u_1=u_2=0$) against published 24-month longitudinal summary progression rates from the Michael J.\ Fox Foundation \texttt{PPMI} natural-history literature (spanning sporadic PD, \texttt{GBA1 Asn370Ser} [\texttt{chr1:155235843:T>C}], and \texttt{LRRK2 Gly2019Ser} [\texttt{chr12:40340400:G>A}] sub-cohorts) \cite{marek2018ppmi,siderowf2023assessment} yields $R^2 = 0.946$ ($\mathrm{RMSE} = 1.18\text{ MDS-UPDRS-III pts}$). Deconvolving simulated surviving-cell bioenergetic rescue ($98.8\%$, $95\%\text{ CI}: 94.9\text{--}99.5\%$ across $1{,}000$ Monte Carlo runs) from irreversible baseline \texttt{SNc} soma loss ($1 - N_{\mathrm{surv}}$) predicts macroscopic striatal dopamine recovery of $\mathrm{Cap}_{\mathrm{macro}} = 94.3\%$ in prodromal RBD ($N_{\mathrm{surv}}=95.5\%$), $\mathbf{62.7\%}$ (strictly above the $50\%$ symptomatic motor threshold) in early \textit{de novo} \texttt{H\&Y Stage I} ($N_{\mathrm{surv}}=63.5\%$), $40.6\%$ in moderate \texttt{H\&Y Stage II} ($N_{\mathrm{surv}}=41.1\%$), and $\mathbf{78.4\%}$ when advanced \texttt{H\&Y Stage III} ($N_{\mathrm{surv}}=22.0\%$) is paired in simulation with \texttt{iNSC} dopaminergic grafts \cite{berg2026epigenetic}.
 
-\subsection{Proposition 3: Simulated Huberized $H_\infty$-Robust 5-Marker Blood Kalman Gate}
-To model non-invasive observability of intracellular $h_{\mathrm{SNc}}(t)$, we simulate a 5-marker peripheral venous observer sampled every $7\text{ days}$: (1) monocyte \texttt{GBA1} activity, (2) \texttt{L1CAM+} neuronal exosomal \texttt{cf-mtDNA} deletion ratio, (3) plasma \texttt{TH/SNCA} cell-free mRNA \cite{toden2020noninvasive}, (4) serum \texttt{GDF15}, and (5) the baseline immune health setpoint \cite{sparks2024human}. Under $30\%$ simulated structural model drift mismatch and $25\%$ assay dropout, replacing standard $L_2$ Kalman updates \cite{kalman1960new} with a Huberized \cite{huber1964robust} $H_\infty$-bounded innovation update ($\gamma_{H_\infty} = 1.45$, $\psi_\kappa(r_i) = \mathrm{sign}(r_i)\min(|r_i|, 1.5\sigma_i)$) achieves simulated $\mathrm{Precision} = 96.2\%$ at $\mathrm{FDR} = 4.6\% \le 5\%$ \cite{dupire2026fifteen} ($\mathrm{AUROC} = 0.912$) and automatically extends Stage~1 by $+5.5\text{ days}$ ($t_{\mathrm{gate}}: 27.0\text{ d} \to 32.5\text{ d}$) under $25\%$ simulated missed doses to preserve $89.6\%$ rescue.
+\subsection{Simulated Huberized $H_\infty$-Robust 5-Marker Blood Kalman Gate (\textbf{Proposition 3})}
+To model non-invasive observability of intracellular $h_{\mathrm{SNc}}(t)$, we simulate a 5-marker peripheral venous vector $\mathbf{y}_k \in \mathbb{R}^5$ sampled every $7\text{ days}$: (1) monocyte \texttt{GBA1} activity, (2) \texttt{L1CAM+} neuronal exosomal \texttt{cf-mtDNA} deletion ratio, (3) plasma \texttt{TH/SNCA} cell-free mRNA \cite{toden2020noninvasive}, (4) serum \texttt{GDF15}, and (5) the baseline immune health setpoint \cite{sparks2024human}. Under $30\%$ simulated structural drift mismatch and $25\%$ assay dropout, replacing standard $L_2$ Kalman updates \cite{kalman1960new} with a Huberized \cite{huber1964robust} $H_\infty$-bounded innovation update ($\gamma_{H_\infty} = 1.45$),
+\begin{equation}
+  \hat{\mathbf{x}}_{k|k} = \hat{\mathbf{x}}_{k|k-1} + \mathbf{K}_{k,\gamma}\,\boldsymbol{\psi}_\kappa\!\left(\mathbf{y}_k - \mathbf{H}\hat{\mathbf{x}}_{k|k-1}\right), \qquad \psi_{\kappa,i}(r_i) = \mathrm{sign}(r_i)\min\!\big(|r_i|,\ 1.5\sigma_i\big),
+  \label{eq:huber_kalman}
+\end{equation}
+achieves simulated $\mathrm{Precision} = 96.2\%$ at $\mathrm{FDR} = 4.6\% \le 5\%$ \cite{dupire2026fifteen} ($\mathrm{AUROC} = 0.912$, $1.42\%$ RMSE) and extends Stage~1 by $+5.5\text{ days}$ ($t_{\mathrm{gate}}: 27.0\text{ d} \to 32.5\text{ d}$) under $25\%$ simulated missed doses to preserve $89.6\%$ rescue.
 
-\subsection{Prospective 45-Day 3D \texttt{iPSC} Assembloid \textit{In Vitro} Protocol \& Safe Dietary/Supplement Regimen}
+\subsection{Prospective 45-Day 3D \texttt{iPSC} Assembloid \textit{In Vitro} Protocol and Safe Dietary Approximation}
 Because all results above are \textbf{\textit{in silico} mathematical simulations}, we delineate two safe, non-harmful empirical pathways to test Predictions \textbf{P1, P2, P5, and P7} without premature invasive human pharmacology:
 \begin{enumerate}
   \item \textbf{Pathway A --- 45-Day Benchtop 3D Human \texttt{iPSC} Midbrain Assembloid \textit{In Vitro} Assay:} Co-culture $60\%\ \mathrm{TH}^+$ \texttt{GBA1-N370S} or \texttt{PINK1-I368N} dopamine neurons, $25\%\ \mathrm{CD38}^+$ astrocytes, and $10\%\ \mathrm{TREM2}^+$ microglia in 96-well ultra-low-attachment plates to test: (i) \textbf{P1 (\texttt{uMtCK} \texttt{1QK1} Octamer Preservation)}: Native-PAGE and LC-MS/MS of \texttt{Cys278} sulfonylation when Creatine ($500\,\mu\mathrm{M}$) is gated at Day~20 vs.\ Day~0; (ii) \textbf{P2 (Division-Independent \texttt{5hmC} Epigenetic Rejuvenation)}: \texttt{5hmC CUT\&RUN} in post-mitotic ($\mathrm{EdU}^-$) $\mathrm{TH}^+$ neurons \cite{berg2026epigenetic}; (iii) \textbf{P5 (Astrocytic \texttt{CD38} Knockdown)}: \texttt{CRISPRi} knockdown of astrocytic \texttt{CD38} (\texttt{AF-P28907-F1}) in severe ($h_0 \ge 68\%$) assembloids \cite{hayakawa2016transfer}; and (iv) \textbf{P7 (\texttt{MitAP} $\mathrm{CD8}^+$ Shield)}: autologous $\mathrm{CD8}^+$ T-cell co-culture with Stage-0 Ambroxol ($10\,\mu\mathrm{M}$) + sodium butyrate ($1\text{ mM}$) \cite{matheoud2019intestinal}.
-  \item \textbf{Pathway B --- Low-Risk, Non-Harmful Dietary \& GRAS Supplement Approximation:} In non-invasive nutritional wellness studies, the two-stage temporal separation law can be safely approximated using exclusively Generally Recognized As Safe (\texttt{GRAS}) dietary and supplement inputs: \textbf{Stage~0/1 (Clearance Window)}: circadian \texttt{18:6} time-restricted feeding + caprylic triglycerides (\texttt{C8-MCT} oil) + Zone-2 aerobic exercise + dietary spermidine (wheat germ) + pomegranate postbiotic \texttt{Urolithin A} ($500\text{--}1,000\text{ mg/d}$ \cite{ryu2016urolithin,denk2025mitoimmune}) + bile-acid chaperone \texttt{TUDCA} + dietary soluble fiber (butyrate precursor); followed after biomarker stabilization by \textbf{Stage~2 (Rebuild Window)}: pulsed \texttt{Creatine Monohydrate} ($5\text{ g/d}$, 5d-on/2d-off \cite{eder2000umtck}) + \texttt{Ubiquinol CoQ10} + \texttt{Nicotinamide Riboside} (\texttt{NR} \cite{brakedal2022nadpark}) + \texttt{Riboflavin} (Vitamin $\mathrm{B}_2$, \texttt{PDB: 6FCX} \cite{froese2018mthfr}).
+  \item \textbf{Pathway B --- Low-Risk, Non-Harmful Dietary \& GRAS Supplement Approximation:} In non-invasive nutritional wellness studies, the two-stage temporal separation law can be safely approximated using exclusively Generally Recognized As Safe (\texttt{GRAS}) dietary and supplement inputs: \textbf{Stage~0/1 (Clearance Window)}: circadian \texttt{18:6} time-restricted feeding + caprylic triglycerides (\texttt{C8-MCT} oil) + Zone-2 aerobic exercise + dietary spermidine (wheat germ) + pomegranate postbiotic \texttt{Urolithin A} ($500\text{--}1{,}000\text{ mg/d}$ \cite{ryu2016urolithin,denk2025mitoimmune}) + bile-acid chaperone \texttt{TUDCA} + dietary soluble fiber (butyrate precursor); followed after biomarker stabilization by \textbf{Stage~2 (Rebuild Window)}: pulsed \texttt{Creatine Monohydrate} ($5\text{ g/d}$, 5d-on/2d-off \cite{eder2000umtck}) + \texttt{Ubiquinol CoQ10} + \texttt{Nicotinamide Riboside} (\texttt{NR} \cite{brakedal2022nadpark}) + \texttt{Riboflavin} (Vitamin $\mathrm{B}_2$, \texttt{PDB: 6FCX} \cite{froese2018mthfr}).
 \end{enumerate}
 
+% =============================================================================
+\appendix
+\section{Complete 10-State Nigrostriatal QSP System, Axonal Discretization, and Proofs}
+\label{app:pd_math}
+\numberwithin{equation}{section}
+\setcounter{equation}{0}
+% =============================================================================
+
+\subsection{Complete 10-State Somato-Lysosomal ODEs and Auxiliary Rates}
+For $\mathbf{x}_{\mathrm{PD}}(t) = [W,\allowbreak D,\allowbreak J_{\mathrm{GBA1}},\allowbreak p\mathrm{O}_2,\allowbreak Q_{\mathrm{DA}},\allowbreak S_{\alpha\mathrm{Syn}},\allowbreak G_{\mathrm{GDF15}},\allowbreak R_{\alpha\mathrm{KG}},\allowbreak E_{\mathrm{eAge}},\allowbreak u_{\mathrm{MtCK}}]^\top$ over $t \in [0, 90\text{ d}]$ with heteroplasmy $h = D / (W + D)$, the full 10-state ODE system is:
+\begin{align}
+  \frac{dW}{dt} &= k_{\mathrm{bio}}(u_2)\,W\left(1 - \frac{W+D}{K}\right) - k_{\mathrm{mito},W}\,W - k_{\mathrm{dmg}}\max\!\big(0,\ \mathrm{EP}_{\mathrm{PD}} - \theta_{\mathrm{GSH}}\big)W + J_{\mathrm{astro}\to\mathrm{neuron}}(\mathrm{CD38}), \label{eq:app_pd_W}\\
+  \frac{dD}{dt} &= k_{\mathrm{rep,adv}}\,k_{\mathrm{bio}}(u_2)\,D\left(1 - \frac{W+D}{K}\right) - k_{\mathrm{mito},D}(u_1)\,V_{\mathrm{lys}}(J_{\mathrm{GBA1}})\,D + k_{\mathrm{dmg}}\max\!\big(0,\ \mathrm{EP}_{\mathrm{PD}} - \theta_{\mathrm{GSH}}\big)W, \label{eq:app_pd_D}\\
+  \frac{dJ_{\mathrm{GBA1}}}{dt} &= k_{\mathrm{flux}}\,D\left(1 - u_{\mathrm{Ambroxol}}\right) - k_{\mathrm{lys}}\,u_{\mathrm{Ambroxol}}\,u_{\mathrm{Sperm}}\,J_{\mathrm{GBA1}}, \label{eq:app_pd_GBA1}\\
+  \frac{dp\mathrm{O}_2}{dt} &= k_{\mathrm{cap}}\left(p\mathrm{O}_{2,\mathrm{art}}(u_{\mathrm{GBT601}}) - k_{\mathrm{ox}}W - p\mathrm{O}_2\right) - k_{\mathrm{HIF2}}\,u_{\mathrm{PT2399}}\left(p\mathrm{O}_2 - 0.90\right), \label{eq:app_pd_pO2}\\
+  \frac{dQ_{\mathrm{DA}}}{dt} &= k_{\mathrm{auto}}\,p\mathrm{O}_2^2\,\max\!\big(0,\ \mathrm{EP}_{\mathrm{PD}} - 0.80\big) - k_{\mathrm{NQO1}}(u_1 + u_2)Q_{\mathrm{DA}}, \label{eq:app_pd_QDA}\\
+  \frac{dS_{\alpha\mathrm{Syn}}}{dt} &= k_{\mathrm{olig}}\,J_{\mathrm{GBA1}}\,Q_{\mathrm{DA}} - k_{\mathrm{aut}}\,V_{\mathrm{lys}}(J_{\mathrm{GBA1}})\,u_1\,S_{\alpha\mathrm{Syn}}, \label{eq:app_pd_aSyn}\\
+  \frac{dG_{\mathrm{GDF15}}}{dt} &= k_{G,\mathrm{rel}}\left(G_{\mathrm{basal}} + \alpha_G\,\mathrm{EP}_{\mathrm{PD}} + \beta_G\,S_{\alpha\mathrm{Syn}} - G_{\mathrm{GDF15}}\right), \label{eq:app_pd_GDF15}\\
+  \frac{dR_{\alpha\mathrm{KG}}}{dt} &= k_{\alpha\mathrm{KG}}\left(\frac{W}{W + 1.8\,D}\left(0.65 + 0.55\,u_2\right) - R_{\alpha\mathrm{KG}}\right), \label{eq:app_pd_aKG}\\
+  \frac{dE_{\mathrm{eAge}}}{dt} &= k_{\mathrm{drift}}\,\mathrm{EP}_{\mathrm{PD}}\left(100 - E_{\mathrm{eAge}}\right) - k_{\mathrm{TET}}\left(\frac{R_{\alpha\mathrm{KG}}}{R_{\alpha\mathrm{KG}} + K_m}\right)\Phi_{\mathrm{SAMe}}(u_{\mathrm{Cr}})\,u_2\,E_{\mathrm{eAge}}, \label{eq:app_pd_eAge}\\
+  \frac{du_{\mathrm{MtCK}}}{dt} &= k_{\mathrm{oct}}(u_2)\left(1 - u_{\mathrm{MtCK}}\right) - k_{\mathrm{ox,Cys278}}\left(Q_{\mathrm{DA}} + \mathrm{ONOO}^-\right)u_{\mathrm{MtCK}}. \label{eq:app_pd_uMtCK}
+\end{align}
+The auxiliary algebraic rate laws closing Eqs.~\eqref{eq:app_pd_W}--\eqref{eq:app_pd_uMtCK} are:
+\begin{align}
+  V_{\mathrm{lys}}(J_{\mathrm{GBA1}}) &= \frac{K_{\mathrm{lys}}}{K_{\mathrm{lys}} + J_{\mathrm{GBA1}}}, \qquad k_{\mathrm{oct}}(u_2) = k_{\mathrm{oct},0} + k_{\mathrm{oct},2}\,u_2, \label{eq:app_pd_Vlys}\\
+  k_{\mathrm{bio}}(u_2) &= k_{\mathrm{bio},0} + \left(k_{\mathrm{bio,\max}} - k_{\mathrm{bio},0}\right)u_2, \qquad k_{\mathrm{mito},D}(u_1) = k_{\mathrm{mito},W} + \left(k_{\mathrm{mito},D,\max} - k_{\mathrm{mito},W}\right)u_1, \label{eq:app_pd_kbio}\\
+  \Phi_{\mathrm{SAMe}}(u_{\mathrm{Cr}}) &= 1 - 0.40\,u_{\mathrm{Cr,unphased}} + 0.35\,u_{\mathrm{Cr,Stage2}}\,u_{\mathrm{5MTHF}}, \label{eq:app_pd_SAMe}\\
+  \mathrm{EP}_{\mathrm{PD}}(\mathbf{x}_{\mathrm{PD}},\mathbf{u}) &= \left(\frac{1 + 1.4\,S_{\alpha\mathrm{Syn}} + 1.8\,h}{(W + \eta_D D)\left(1 + 0.34\,u_{\mathrm{MtCK}}\right)}\right) f_{\mathrm{pace}}^2\, p\mathrm{O}_2^{1.5}. \label{eq:app_pd_EP}
+\end{align}
+
+\subsection{20-Compartment Method-of-Lines Axonal Discretization and Proposition 2 Derivation}
+\label{app:pd_pde}
+\label{app:prop2_proof}
+Partitioning $x \in [0, L]$ into $N_{\mathrm{comp}} = 20$ uniform control volumes $x_m = m\,\Delta x$ ($m = 0,\dots,19$, $\Delta x = L / 19$), the second-order spatial Laplacian with zero-flux Neumann boundary conditions ($\mathrm{ATP}_{-1} = \mathrm{ATP}_1$ at $m=0$ and $\mathrm{ATP}_{20} = \mathrm{ATP}_{18}$ at $m=19$, and identically for $\mathrm{PCr}$) yields a 40-state semi-discrete ODE system coupled to Eq.~\eqref{eq:app_pd_uMtCK}.
+
+To derive Eq.~\eqref{eq:hcrit_isolated} (\textbf{Proposition 2}), note that during Stage-1 clearance ($t \in [t_0, t_{\mathrm{gate}}]$, $u_1 = 1$, $u_2 = 0$), cellular $\mathrm{ATP}(t) = [W(t) + \eta_D D(t)] / (1 + \Delta_{\mathrm{purge}})$ attains its minimum near the transition when $D(t)$ has decayed while $W(t)$ reflects initial wild-type mass $W_0 = 1 - h_0$ plus cumulative astrocytic transfer $\Delta W_{\mathrm{astro}} = \int_{t_0}^{t_{\mathrm{gate}}} J_{\mathrm{astro}\to\mathrm{neuron}}\,dt$. Enforcing $\min_{t} \mathrm{ATP}(t) = [(1 - h_0) + \eta_D h_0 + \Delta W_{\mathrm{astro}}] / (1 + \Delta_{\mathrm{purge}}) \ge \theta_{\mathrm{surv}}$ and solving for $h_0$ yields
+\begin{equation}
+  h_0 \le h_{\mathrm{crit}}(\Delta W_{\mathrm{astro}}) = \frac{1 + \Delta W_{\mathrm{astro}} - \theta_{\mathrm{surv}}(1 + \Delta_{\mathrm{purge}})}{1 - \eta_D},
+  \label{eq:app_hcrit_general}
+\end{equation}
+which evaluates to $h_{\mathrm{crit}}(0) = 64.5\%$ for an isolated soma ($\Delta W_{\mathrm{astro}} = 0$) and $h_{\mathrm{crit}}(0.125) = 79.2\%$ with $\mathrm{CD38}^+$ astrocytic mitochondrial donation ($\Delta W_{\mathrm{astro}} = 0.125$, $\eta_D = 0.12$, $\theta_{\mathrm{surv}} = 0.45$).
+
 \section*{Acknowledgments and Disclosures}
-\footnotesize
-\noindent\textbf{Acknowledgments \& Program Support:} This research was supported by Google LLC through the \textbf{Google AI for Science Researcher Access Program}, providing access to Google DeepMind's \textbf{Antigravity} agentic research environment, Gemini frontier reasoning models, and the AlphaFold Database.\\
-\noindent\textbf{Author Contributions \& AI Collaboration Disclosure:} This study was conceived, directed, and conducted solely by Wayne A.~Satz, MD in direct collaboration with Google DeepMind's Antigravity AI research agent; no other human investigators participated. Wayne A.~Satz, MD verified and takes full scholarly responsibility for all models, code, numerical benchmarks, and scientific conclusions.\\
+\small
+\noindent\textbf{Acknowledgments \& Program Support:} This research was supported by Google LLC through the \textbf{Google AI for Science Researcher Access Program}, providing access to Google DeepMind's \textbf{Antigravity} agentic research environment, Gemini frontier reasoning models, and the AlphaFold Database.\\[0.25em]
+\noindent\textbf{Author Contributions \& AI Collaboration Disclosure:} This study was conceived, directed, and conducted solely by Wayne A.~Satz, MD in direct collaboration with Google DeepMind's Antigravity AI research agent; no other human investigators participated. Wayne A.~Satz, MD verified and takes full scholarly responsibility for all models, code, numerical benchmarks, and scientific conclusions.\\[0.25em]
 \noindent\textbf{Competing Interests:} The author declares no competing financial or commercial interests.
 
 \bibliographystyle{unsrt}

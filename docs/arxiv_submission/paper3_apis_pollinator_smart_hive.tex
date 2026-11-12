@@ -1,139 +1,167 @@
-\documentclass[10pt,twocolumn]{article}
-\usepackage[utf8]{inputenc}
+\documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage[margin=0.72in]{geometry}
-\usepackage{amsmath,amssymb,amsfonts}
-\usepackage{booktabs}
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{newtxtext,newtxmath}
+\usepackage[protrusion=true,expansion=false]{microtype}
 \usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{geometry}
 \usepackage{hyperref}
 
+\geometry{letterpaper, margin=0.95in, top=0.90in, bottom=0.95in}
+\linespread{1.09}
+\setlength{\jot}{6pt}
+\setlist[itemize]{topsep=4pt, itemsep=3pt, parsep=0pt}
+\setlist[enumerate]{topsep=4pt, itemsep=3pt, parsep=0pt}
+
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.82}
+
+\definecolor{linknavy}{RGB}{12,62,138}
 \hypersetup{
-  colorlinks=true,
-  linkcolor=blue,
-  citecolor=blue,
-  urlcolor=blue
+    colorlinks=true,
+    linkcolor=linknavy,
+    citecolor=linknavy,
+    urlcolor=linknavy
 }
 
-\title{\textbf{Acoustic- and Thermal-Gated Bioenergetic Recovery of Asynchronous Flight Muscle in \textit{Apis mellifera} Under Complex III (\texttt{PDB: 1SQB}) Fungicide Stress}}
+\title{\LARGE\textbf{Acoustic- and Thermal-Gated Bioenergetic Recovery of Asynchronous Flight Muscle in \textit{Apis mellifera} Under Complex~III (\texttt{PDB: 1SQB}) Fungicide Stress}}
 
 \author{
-  \textbf{Wayne A.~Satz, MD}$^{1}$\\
-  \small $^{1}$Department of Emergency Medicine, Lewis Katz School of Medicine at Temple University, Philadelphia, PA 19140, USA\\
-  \small Code \& Reproducibility Repository: \url{https://github.com/deesatzed/mitorestorer}\\
-  \small \textbf{arXiv Primary:} \texttt{q-bio.QM} (Quantitative Methods) \quad \textbf{Cross-Lists:} \texttt{q-bio.PE}, \texttt{eess.SY}
+  \textbf{Wayne A.~Satz, MD}$^{1,*}$ \\[0.35em]
+  {\small $^{1}$Department of Emergency Medicine, Lewis Katz School of Medicine at Temple University, Philadelphia, PA 19140, USA} \\
+  {\small $^{*}$Correspondence: \href{mailto:satzwa@temple.edu}{\texttt{satzwa@temple.edu}} \quad$\vert$\quad Code \& Reproducibility: \url{https://github.com/deesatzed/mitorestorer}} \\
+  {\small \textbf{arXiv Primary:} \texttt{q-bio.QM} (Quantitative Methods) \quad \textbf{Cross-Lists:} \texttt{q-bio.PE}, \texttt{eess.SY}}
 }
 
-\date{November 2026 (MitoRestorer Segregated Series --- Paper III of IV)}
+\date{\small November 2026 \quad (MitoRestorer Segregated Series --- Paper~III of~IV; Computational Study)}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Commercial pollination colonies (\textit{Apis mellifera}) experience acute foraging collapse when exposed to agricultural quinone-outside ($Q_o$) inhibitor strobilurin fungicides (azoxystrobin, pyraclostrobin, trifloxystrobin), which bind the cytochrome $bc_1$ Complex~III $Q_o$ pocket (\texttt{PDB: 1SQB}, $2.69\text{ \AA}$ \cite{esser2006bc1}) and arrest the Rieske Iron-Sulfur Protein (\texttt{ISP}) conformational electron shuttle \cite{scharlaken2019strobilurin}. Because honeybee indirect flight muscle (\texttt{IFM}) oscillates asynchronously at $f_0 \in [100, 250]\text{ Hz}$, foraging launch imposes a $5.76\times$ quadratic metabolic flux surge ($f^2$ in Picard and Murugan's Energy Resistance Principle $\mathrm{EP} = \dot{e}_R \cdot f^2$ \cite{picard2025energy}). Applying the nondimensional two-stage control law of Paper~I \cite{buckingham1914physically} ($\tau_{\mathrm{char}} = 2.08\text{ d}$), we construct a 10-state holobiont ODE model (\textbf{Apis-BCR}) coupling thoracic flight-muscle mitochondria ($W, D$), Complex~III $Q_o$-site fungicide occupancy ($S_{Q_o}$), \texttt{CYP9Q1--3} cytochrome P450 detoxification \cite{mao2013pcoumaric}, the microaerophilic ileum symbiont \textit{Snodgrassella alvi} \cite{leonard2020salvi}, and Vitellogenin ($V_g$) longevity shielding \cite{seehuus2006bee,spannhoff2011hda}. We prove why eight standard commercial apiary interventions fail: feeding plain high-fructose corn syrup (\texttt{HFCS}), prophylactic oxytetracycline (\texttt{Terramycin}), or unphased Day-0 pollen patties while Complex~III is blocked triggers lethal reverse electron transport (\texttt{RET}) superoxide bursts, collapsing Day-14 RFID homing survival to $12.4\text{--}31.2\%$. Enforcing a closed-loop two-stage reset---Stage~1 (Days $0\text{--}4.2$): \texttt{Bay-A} phytochemical patty containing \textit{p}-coumaric acid ($500\,\mu\mathrm{M}$) + \textit{S.\ alvi} probiotic + spermidine, gated at acoustic wingbeat fundamental $f_0 \ge 220.0\text{ Hz}$ into Stage~2 (Days $4.2\text{--}14$): \texttt{Bay-B} \texttt{Ubiquinol CoQ10} ($200\,\mu\mathrm{M}$) + royal-jelly \texttt{10-HDA} ($1.5\text{ mM}$)---restores thoracic $\mathrm{ATP}$ to $1.74\times$ and Day-14 RFID homing survival to $96.5\%$. Full-length AlphaFold Database v6 \cite{jumper2021alphafold,varadi2024afdb} \texttt{PAE/pLDDT} analysis of honeybee Vitellogenin (\texttt{AF-Q868N5-F1-v6}, $1{,}770\text{ AA}$, $\mathrm{pLDDT}=84.75$) resolves three rigid structural domains (\texttt{61--953}, \texttt{1155--1631}, \texttt{1687--1769}) flanking a disordered polyserine radical sink (\texttt{954--1154}) \cite{manfredi2018p94}. Finally, a $4.05\text{ mW}$ solar top-bar \texttt{CoralNPU} controller implementing a 64-frame MEMS wingbeat persistence filter and $32.8^\circ\mathrm{C}$ brood-chill solenoid snap-back eliminates orchard wind-gust false triggers ($68.4\% \to 0.0\%$) and rescues cold-snap survival ($28.5\% \to 94.2\%$).
+\noindent Commercial pollination colonies (\textit{Apis mellifera}) experience acute foraging collapse when exposed to agricultural quinone-outside ($Q_o$) inhibitor strobilurin fungicides (azoxystrobin, pyraclostrobin, trifloxystrobin), which bind the cytochrome $bc_1$ Complex~III $Q_o$ pocket (\texttt{PDB: 1SQB}, $2.69\text{ \AA}$ \cite{esser2006bc1}) and arrest the Rieske Iron-Sulfur Protein (\texttt{ISP}) conformational electron shuttle \cite{scharlaken2019strobilurin}. Because honeybee indirect flight muscle (\texttt{IFM}) oscillates asynchronously at $f_0 \in [100, 250]\text{ Hz}$, foraging launch imposes a $5.76\times$ quadratic metabolic flux surge ($f^2$ in Picard and Murugan's Energy Resistance Principle $\mathrm{EP} = \dot{e}_R \cdot f^2$ \cite{picard2025energy}). Applying the nondimensional two-stage control law of Paper~I \cite{buckingham1914physically} ($\tau_{\mathrm{char}} = 2.08\text{ d}$), we construct a 10-variable holobiont dynamical model (\textbf{Apis-BCR}, comprising eight coupled ODE states and two algebraic bioenergetic/acoustic readouts) linking thoracic flight-muscle mitochondria ($W, D$), Complex~III $Q_o$-site fungicide occupancy ($S_{Q_o}$), \texttt{CYP9Q1}--\texttt{3} cytochrome P450 detoxification \cite{mao2013pcoumaric}, the microaerophilic ileum symbiont \textit{Snodgrassella alvi} \cite{leonard2020salvi}, brood-nest thermoregulation ($T_{\mathrm{brood}}$), and Vitellogenin ($V_g$) longevity shielding \cite{seehuus2006bee,spannhoff2011hda}. We demonstrate in simulation why eight standard commercial apiary interventions fail: feeding plain high-fructose corn syrup (\texttt{HFCS}), prophylactic oxytetracycline (\texttt{Terramycin}), or unphased Day-0 pollen patties while Complex~III is blocked triggers reverse electron transport (\texttt{RET}) superoxide bursts, collapsing simulated Day-14 RFID homing survival to $12.4\text{--}31.2\%$. Enforcing a closed-loop two-stage reset---Stage~1 (Days $0\text{--}4.2$): \texttt{Bay-A} phytochemical patty containing \textit{p}-coumaric acid ($500\,\mu\mathrm{M}$) + \textit{S.\ alvi} probiotic + spermidine, gated at acoustic wingbeat fundamental $f_0 \ge 220.0\text{ Hz}$ into Stage~2 (Days $4.2\text{--}14$): \texttt{Bay-B} \texttt{Ubiquinol CoQ10} ($200\,\mu\mathrm{M}$) + royal-jelly \texttt{10-HDA} ($1.5\text{ mM}$)---restores simulated thoracic $\mathrm{ATP}$ to $1.74\times$ and Day-14 RFID homing survival to $96.5\%$. Full-length AlphaFold Database v6 \cite{jumper2021alphafold,varadi2024afdb} \texttt{PAE/pLDDT} analysis of honeybee Vitellogenin (\texttt{AF-Q868N5-F1-v6}, $1{,}770\text{ AA}$, mean $\mathrm{pLDDT}=84.75$) resolves three rigid structural domains (\texttt{61}--\texttt{953}, \texttt{1155}--\texttt{1631}, \texttt{1687}--\texttt{1769}) flanking a disordered polyserine radical sink (\texttt{954}--\texttt{1154}) \cite{manfredi2018p94}. Finally, a host-emulated $4.05\text{ mW}$ solar top-bar \texttt{CoralNPU} controller implementing a 64-frame MEMS wingbeat persistence filter and $32.8^\circ\mathrm{C}$ brood-chill solenoid snap-back eliminates simulated orchard wind-gust false triggers ($68.4\% \to 0.0\%$) and rescues cold-snap survival ($28.5\% \to 94.2\%$).
 \end{abstract}
 
-\section{Introduction \& Ecological Biophysics}
+% =============================================================================
+\section{Introduction and Ecological Biophysics}
+% =============================================================================
 
 \subsection{The Fungicide--Nutrition Synergy in Pollinator Collapse}
-During commercial almond, apple, and blueberry pollination, foraging honeybees (\textit{Apis mellifera}) are routinely exposed to field-realistic concentrations ($1\text{--}15\text{ ppm}$ in pollen and nectar) of systemic strobilurin fungicides (azoxystrobin, pyraclostrobin) considered ``bee-safe'' under acute contact $\mathrm{LD}_{50}$ guidelines \cite{scharlaken2019strobilurin}. However, chronic oral ingestion of strobilurins severely impairs thoracic mitochondrial respiration, flight thermogenesis, and homing navigation, particularly when combined with standard commercial feeding of phytochemical-free High-Fructose Corn Syrup (\texttt{HFCS}), prophylactic antibiotic treatment (\texttt{oxytetracycline}), or formic/oxalic acid miticide fumigation \cite{mao2013pcoumaric,leonard2020salvi}.
+During commercial almond, apple, and blueberry pollination, foraging honeybees (\textit{Apis mellifera}) are routinely exposed to field-realistic concentrations ($1\text{--}15\text{ ppm}$ in pollen and nectar) of systemic strobilurin fungicides (azoxystrobin, pyraclostrobin) considered ``bee-safe'' under acute contact $\mathrm{LD}_{50}$ guidelines \cite{scharlaken2019strobilurin}. However, chronic oral ingestion of strobilurins severely impairs thoracic mitochondrial respiration, flight thermogenesis, and homing navigation, particularly when combined with standard commercial feeding of phytochemical-free high-fructose corn syrup (\texttt{HFCS}), prophylactic antibiotic treatment (\texttt{oxytetracycline}), or formic/oxalic acid miticide fumigation \cite{mao2013pcoumaric,leonard2020salvi}.
 
 \subsection{Quadratic Flight Impedance Under \texttt{PDB: 1SQB} Blockade}
-Adult honeybee indirect flight muscle (\texttt{IFM}) is among the most metabolically intense tissues in the animal kingdom, with mitochondria occupying $40\text{--}43\%$ of myofibrillar volume. Unlike vertebrate skeletal muscle, bee \texttt{IFM} operates via stretch-activated asynchronous oscillations at fundamental wingbeat frequencies $f_0 \in [100, 250]\text{ Hz}$. Grounded in Picard and Murugan's Energy Resistance Principle ($\mathrm{EP} = \dot{e}_R \cdot f^2$) \cite{picard2025energy}, transitioning from in-hive thermoregulatory fanning ($f_{\mathrm{hive}} \approx 100\text{ Hz}$) to loaded foraging flight ($f_{\mathrm{flight}} \approx 240\text{ Hz}$) multiplies the squared metabolic flux factor by:
+Adult honeybee indirect flight muscle (\texttt{IFM}) is among the most metabolically intense tissues in the animal kingdom, with mitochondria occupying $40\text{--}43\%$ of myofibrillar volume. Unlike vertebrate skeletal muscle, bee \texttt{IFM} operates via stretch-activated asynchronous oscillations at fundamental wingbeat frequencies $f_0 \in [100, 250]\text{ Hz}$. Grounded in Picard and Murugan's Energy Resistance Principle ($\mathrm{EP} = \dot{e}_R \cdot f^2$) \cite{picard2025energy}, transitioning from in-hive thermoregulatory fanning ($f_{\mathrm{hive}} \approx 100\text{ Hz}$) to loaded foraging flight ($f_{\mathrm{flight}} \approx 240\text{ Hz}$) multiplies the squared metabolic flux factor by
 \begin{equation}
-  \left(\frac{f_{\mathrm{flight}}}{f_{\mathrm{hive}}}\right)^2 = \left(\frac{240\text{ Hz}}{100\text{ Hz}}\right)^2 = 5.76\times
+  \left(\frac{f_{\mathrm{flight}}}{f_{\mathrm{hive}}}\right)^2 = \left(\frac{240\text{ Hz}}{100\text{ Hz}}\right)^2 = 5.76\times .
+  \label{eq:flight_surge}
 \end{equation}
-In the $2.69\text{ \AA}$ X-ray crystal structure of cytochrome $bc_1$ Complex~III bound to azoxystrobin (\texttt{PDB: 1SQB} \cite{esser2006bc1}), the methoxyacrylate toxophore forms a hydrogen bond with the backbone amide of \texttt{Glu272} and $\pi$-stacks against \texttt{Phe275} and \texttt{Tyr132} in the cytochrome~$b$ $Q_o$ pocket. This steric blockade locks the extrinsic head domain of the Rieske Iron-Sulfur Protein (\texttt{ISP}, \texttt{[2Fe-2S]} cluster coordinated by \texttt{His141/His161}), preventing its $\sim 16\text{ \AA}$ conformational pivot to cytochrome~$c_1$. When a bee with $Q_o$-blocked Complex~III (\texttt{1SQB}) is fed high-glycemic carbohydrate syrup or premature protein patties and attempts a $5.76\times$ flight surge, electrons back up into the ubiquinol pool ($\mathrm{CoQH}_2$) and Complex~I, triggering catastrophic Reverse Electron Transport (\texttt{RET}) superoxide bursts that depolarize thoracic mitochondria and cause mid-flight foraging paralysis.
+In the $2.69\text{ \AA}$ X-ray crystal structure of cytochrome $bc_1$ Complex~III bound to azoxystrobin (\texttt{PDB: 1SQB} \cite{esser2006bc1}), the methoxyacrylate toxophore forms a hydrogen bond with the backbone amide of \texttt{Glu272} and $\pi$-stacks against \texttt{Phe275} and \texttt{Tyr132} in the cytochrome~$b$ $Q_o$ pocket. This steric blockade locks the extrinsic head domain of the Rieske Iron-Sulfur Protein (\texttt{ISP}, \texttt{[2Fe-2S]} cluster coordinated by \texttt{His141/His161}), preventing its $\sim 16\text{ \AA}$ conformational pivot to cytochrome~$c_1$. When a bee with $Q_o$-blocked Complex~III (\texttt{1SQB}) is fed high-glycemic carbohydrate syrup or premature protein patties and attempts the $5.76\times$ flight surge of Eq.~\eqref{eq:flight_surge}, electrons back up into the ubiquinol pool ($\mathrm{CoQH}_2$) and Complex~I, triggering Reverse Electron Transport (\texttt{RET}) superoxide bursts that depolarize thoracic mitochondria and induce mid-flight foraging paralysis.
 
-\section{10-State Holobiont Mathematical Model (\textbf{Apis-BCR})}
+% =============================================================================
+\section{Holobiont Dynamical Model (\textbf{Apis-BCR}) and Acoustic-Thermal Gating}
+% =============================================================================
 
-\begin{figure*}[t]
+\begin{figure}[t]
   \centering
   \includegraphics[width=\textwidth]{../../figures/fig2_apis_bcr_coral_npu_and_apiary_audit.pdf}
-  \caption{\textbf{10-State \textbf{Apis-BCR} Holobiont Trajectories, 8-Practice Commercial Apiary Audit, and $4.05\text{ mW}$ Solar Smart-Hive Telemetry.} \textbf{(A)} 14-day trajectories of thoracic $\mathrm{ATP}$, Complex~III $Q_o$ fungicide occupancy (\texttt{PDB: 1SQB}), mutant heteroplasmy $h(t)$, and MEMS acoustic wingbeat frequency $f_0(t)$ across Plain \texttt{HFCS}, Unphased Protein, and Closed-Loop \textbf{Apis-BCR} (gated at Day~$4.2$, $\tau^* = 2.02$). \textbf{(B)} Head-to-head audit of 8 commercial apiary practices showing Day-14 RFID homing survival ($12.4\text{--}31.2\%$ in unphased regimens vs.\ $96.5\%$ in \textbf{Apis-BCR}). \textbf{(C)} $128\text{ MHz}$ Google Coral NPU top-bar feeder node executing 16-bin sparse MEMS FFT ($13/16$ bins pruned) and 64-frame persistence filtering at $4.05\text{ mW}$.}
+  \caption{\textbf{Holobiont \textbf{Apis-BCR} Trajectories, 8-Practice Commercial Apiary Audit, and $4.05\text{ mW}$ Solar Smart-Hive Telemetry.} \textbf{(A)} Simulated 14-day trajectories of thoracic $\mathrm{ATP}$, Complex~III $Q_o$ fungicide occupancy (\texttt{PDB: 1SQB}), mutant heteroplasmy $h(t)$, and MEMS acoustic wingbeat frequency $f_0(t)$ across Plain \texttt{HFCS}, Unphased Protein, and Closed-Loop \textbf{Apis-BCR} (gated at Day~$4.2$, $\tau^* = 2.02$). \textbf{(B)} Head-to-head simulation audit of 8 commercial apiary practices showing Day-14 RFID homing survival ($12.4\text{--}31.2\%$ in unphased regimens vs.\ $96.5\%$ in \textbf{Apis-BCR}). \textbf{(C)} Host-emulated $128\text{ MHz}$ Google Coral NPU top-bar feeder node executing 16-bin sparse MEMS FFT ($13/16$ bins pruned) and 64-frame persistence filtering at $4.05\text{ mW}$.}
   \label{fig:apis_bcr}
-\end{figure*}
+\end{figure}
 
-\subsection{Governing Equations of the Honeybee Holobiont}
-Let $\mathbf{x}_{\mathrm{Apis}}(t) = [W, D, S_{Q_o}, C_{\mathrm{CYP}}, S_{\mathrm{alvi}}, \mathrm{ATP}_{\mathrm{th}}, f_0, V_g, T_{\mathrm{brood}}, H_{\mathrm{surv}}]^T$ denote the 10-state colony state vector over $t \in [0, 14\text{ days}]$ ($\tau_{\mathrm{char}} = 2.08\text{ d}$):
+\subsection{Core Thoracic Mitochondrial and Detoxification Dynamics}
+We formulate a 10-variable holobiont model (\textbf{Apis-BCR}) over $t \in [0, 14\text{ d}]$ ($\tau_{\mathrm{char}} = 2.08\text{ d}$) comprising eight dynamic ODE state variables---intact thoracic mitochondrial mass $W(t)$, damaged/depolarized mitochondrial mass $D(t)$, Complex~III $Q_o$-site strobilurin occupancy $S_{Q_o}(t)$, \texttt{CYP9Q1}--\texttt{3} detoxification enzyme activity $C_{\mathrm{CYP}}(t)$, ileum \textit{Snodgrassella alvi} biofilm density $S_{\mathrm{alvi}}(t)$, hemolymph Vitellogenin reserve $V_g(t)$, brood-nest temperature $T_{\mathrm{brood}}(t)$, and cumulative forager survival $H_{\mathrm{surv}}(t)$---coupled to two instantaneous physiological readouts: thoracic $\mathrm{ATP}$ capacity $\mathrm{ATP}_{\mathrm{th}}(t)$ and asynchronous wingbeat fundamental frequency $f_0(t)$.
+
+The core three-variable thoracic subsystem governing mitochondrial quality selection and xenobiotic unblocking is
 \begin{align}
-  \frac{dW}{dt} &= k_{\mathrm{bio}}(u_2, V_g)\,W\left(1 - \frac{W+D}{K}\right) - k_{\mathrm{mito},W}\,W \nonumber\\
-  &\quad - k_{\mathrm{dmg}}\max(0,\ \mathrm{EP}_{\mathrm{Apis}} - \theta_{\mathrm{GSH}})W \label{eq:apis_W}\\
-  \frac{dD}{dt} &= k_{\mathrm{bio}}(u_2)\,k_{\mathrm{rep,adv}}\,D\left(1 - \frac{W+D}{K}\right) - k_{\mathrm{mito},D}(u_1)\,D \nonumber\\
-  &\quad + k_{\mathrm{dmg}}\max(0,\ \mathrm{EP}_{\mathrm{Apis}} - \theta_{\mathrm{GSH}})W \label{eq:apis_D}\\
-  \frac{dS_{Q_o}}{dt} &= J_{\mathrm{exposure}} - k_{\mathrm{detox}}\,C_{\mathrm{CYP}}\,S_{Q_o} \label{eq:apis_SQo}\\
-  \frac{dC_{\mathrm{CYP}}}{dt} &= k_{\mathrm{CncC}}\left(u_{\mathrm{pCoum}} - C_{\mathrm{CYP}}\right) \label{eq:apis_CYP}\\
-  \frac{dS_{\mathrm{alvi}}}{dt} &= r_{\mathrm{alvi}}\,S_{\mathrm{alvi}}\left(1 - \frac{S_{\mathrm{alvi}}}{K_{\mathrm{gut}}}\right)\left(1 - \alpha_{\mathrm{Tet}}\,u_{\mathrm{Tet}}\right) + u_{\mathrm{probiotic}} \label{eq:apis_Salvi}\\
-  \mathrm{EP}_{\mathrm{Apis}} &= \left(\frac{1 + 2.4\,S_{Q_o} + 1.8\,h + \alpha_{\mathrm{formic}}u_{\mathrm{formic}}}{(W + 0.12 D)(1 + 0.35 V_g)}\right)\left(\frac{f_0}{100}\right)^2\Phi_{\mathrm{O}_2}(S_{\mathrm{alvi}}) \label{eq:apis_EP}\\
-  \mathrm{ATP}_{\mathrm{th}} &= \frac{\left(W + 0.12 D\right)\left(1 + 0.45\,u_{\mathrm{Ubiq}}\right)}{1 + 1.85\,S_{Q_o} + 0.90\,u_{\mathrm{formic}}} \label{eq:apis_ATP}\\
-  f_0(t) &= 100\text{ Hz} + 140\text{ Hz}\cdot\min\left(1.15,\ \frac{\mathrm{ATP}_{\mathrm{th}}(t)}{1.35}\right) \label{eq:apis_f0}\\
-  \frac{dV_g}{dt} &= k_{V_g,\mathrm{syn}}\left(1 + 2.2\,u_{\mathrm{10HDA}}\right)\frac{W}{W+D} - k_{V_g,\mathrm{ox}}\,\mathrm{EP}_{\mathrm{Apis}}\,V_g \label{eq:apis_Vg}\\
-  \frac{dH_{\mathrm{surv}}}{dt} &= -k_{\mathrm{mort}}\max\left(0,\ 1.10 - \mathrm{ATP}_{\mathrm{th}} + 0.5\max(0, \mathrm{EP}_{\mathrm{Apis}}-\theta_{\mathrm{GSH}})\right)H_{\mathrm{surv}} \label{eq:apis_surv}
+  \frac{dW}{dt} &= k_{\mathrm{bio}}(u_2, V_g)\,W\left(1 - \frac{W+D}{K}\right) - \left(k_{\mathrm{mito},W} + k_{\mathrm{dmg}}\max\!\big(0,\ \mathrm{EP}_{\mathrm{Apis}} - \theta_{\mathrm{GSH}}\big)\right)W, \nonumber\\
+  \frac{dD}{dt} &= k_{\mathrm{rep,adv}}\,k_{\mathrm{bio}}(u_2, V_g)\,D\left(1 - \frac{W+D}{K}\right) - k_{\mathrm{mito},D}(u_1)\,D + k_{\mathrm{dmg}}\max\!\big(0,\ \mathrm{EP}_{\mathrm{Apis}} - \theta_{\mathrm{GSH}}\big)W, \label{eq:apis_core}\\
+  \frac{dS_{Q_o}}{dt} &= J_{\mathrm{exposure}} - k_{\mathrm{detox}}\,C_{\mathrm{CYP}}\,S_{Q_o}. \nonumber
 \end{align}
-All kinetic constants and structural parameters are detailed in Table~\ref{tab:apis_params}.
+In Eq.~\eqref{eq:apis_core}, thoracic energetic stress potential $\mathrm{EP}_{\mathrm{Apis}}$ increases linearly with $S_{Q_o}$ and mutant heteroplasmy $h = D / (W + D)$, increases quadratically with normalized wingbeat frequency $(f_0 / 100\text{ Hz})^2$, and is attenuated by Vitellogenin radical buffering $(1 + 0.35 V_g)$ and \textit{S.\ alvi} microaerophilic gut oxygen scrubbing $\Phi_{\mathrm{O}_2}(S_{\mathrm{alvi}})$. Consequently, driving Stage-2 biogenesis ($u_2$) or ubiquinol electron-pool loading before floral \textit{p}-coumaric acid induces \texttt{CncC/Maf}-regulated \texttt{CYP9Q1}--\texttt{3} hydrolysis ($C_{\mathrm{CYP}}$) keeps $\mathrm{EP}_{\mathrm{Apis}} > \theta_{\mathrm{GSH}}$ and accelerates $W \to D$ conversion. The complete eight-ODE system and both algebraic readout equations are stated in full in Appendix~\ref{app:apis_math} (Eqs.~\eqref{eq:app_W}--\eqref{eq:app_f0}), with biophysical parameters summarized in Table~\ref{tab:apis_params}.
 
-\begin{table*}[t]
+\subsection{Dual Acoustic-and-Thermal Persistence Gate}
+To prevent orchard wind gusts ($180\text{--}260\text{ Hz}$ broadband transients) or overnight frost snaps from triggering premature feeder switching, the top-bar controller transitions from the Stage-1 \texttt{Bay-A} detoxification/mitophagy patty to the Stage-2 \texttt{Bay-B} \texttt{Ubiquinol}/\texttt{10-HDA} rebuild patty only when the joint persistence predicate $\mathcal{C}_{\mathrm{Apis}}(t) = 1$:
+\begin{equation}
+  \mathcal{C}_{\mathrm{Apis}}(t) = \mathbb{I}\!\left(\sum_{j=0}^{63} \mathbb{I}\!\left(f_0(t - j\Delta t) \ge f_{0,\mathrm{gate}}\right) \ge 60\right) \cdot \mathbb{I}\!\left(\big|T_{\mathrm{brood}}(t) - T_{\mathrm{set}}\big| \le 0.8^\circ\mathrm{C}\right),
+  \label{eq:apis_gate}
+\end{equation}
+where $f_{0,\mathrm{gate}} = 220.0\text{ Hz}$, $\Delta t = 15\text{ s}$, and $T_{\mathrm{set}} = 34.5^\circ\mathrm{C}$. If post-actuation brood-nest temperature drops to $T_{\mathrm{brood}}(t) \le 33.3^\circ\mathrm{C}$, the firmware executes \path{BCR_GATE_STAGE2_ROLLBACK_ABORT} to snap the bistable feeder baffle back to \texttt{Bay-A}.
+
+\begin{table}[t]
 \centering
 \caption{Biophysical, Toxicological, and Acoustic Parameters of the 14-Day \textbf{Apis-BCR} Pollinator Holobiont Model.}
 \label{tab:apis_params}
-\footnotesize
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lllll@{}}
 \toprule
 \textbf{Symbol} & \textbf{Biological / Physical Definition} & \textbf{Nominal Value} & \textbf{Units} & \textbf{Structural / Experimental Source} \\
 \midrule
 $S_{Q_o}(0)$ & Initial Complex~III $Q_o$-site strobilurin occupancy & $0.85$ & Fraction ($85\%$) & \texttt{PDB: 1SQB} (\texttt{Glu272/Phe275}) \cite{esser2006bc1,scharlaken2019strobilurin} \\
 $k_{\mathrm{mito},D,\max}$ & Stimulated Stage-1 selective mitophagy rate & $0.675$ & $\text{day}^{-1}$ ($\bar{\lambda}_{\mathrm{eff}}=0.480\text{ d}^{-1}$) & Insect flight-muscle turnover \cite{picard2025energy} \\
-$k_{\mathrm{detox}}$ & \textit{p}-Coumaric acid ($500\,\mu\mathrm{M}$) \texttt{CYP9Q1--3} hydrolysis rate & $0.680$ & $\text{day}^{-1}$ & \texttt{CncC/Maf} ARE induction \cite{mao2013pcoumaric} \\
+$k_{\mathrm{detox}}$ & \textit{p}-Coumaric acid ($500\,\mu\mathrm{M}$) \texttt{CYP9Q1}--\texttt{3} hydrolysis rate & $0.680$ & $\text{day}^{-1}$ & \texttt{CncC/Maf} ARE induction \cite{mao2013pcoumaric} \\
 $r_{\mathrm{alvi}}$ & \textit{Snodgrassella alvi} ileum biofilm intrinsic growth rate & $0.550$ & $\text{day}^{-1}$ & Microaerophilic $\mathrm{O}_2$ scrubber \cite{leonard2020salvi} \\
-$\alpha_{\mathrm{Tet}}$ & Oxytetracycline (\texttt{Terramycin}) symbiont ablation factor & $0.960$ & Fraction ($96\%$ kill) & collapses $S_{\mathrm{alvi}} \to 0.04\times$ \cite{leonard2020salvi} \\
+$\alpha_{\mathrm{Tet}}$ & Oxytetracycline (\texttt{Terramycin}) symbiont ablation factor & $0.960$ & Fraction ($96\%$ kill) & Collapses $S_{\mathrm{alvi}} \to 0.04\times$ \cite{leonard2020salvi} \\
 $\mathrm{IC}_{50,\mathrm{10HDA}}$ & Royal-jelly \texttt{10-HDA} class~I/II \texttt{HDAC} inhibition & $5.0$ & $\text{mM}$ ($1.5\text{ mM}$ feed) & Derepresses \texttt{Vg} (\texttt{AF-Q868N5}) \cite{spannhoff2011hda} \\
 $f_{0,\mathrm{gate}}$ & Stage $1 \to 2$ MEMS wingbeat fundamental threshold & $\ge 220.0$ & $\text{Hz}$ ($\ge 60/64$ frames, $\Delta t=15\text{ s}$) & $S_{Q_o} \le 0.12$, $\tau^*(0.4,0.08) \approx 2.02$ \\
-$T_{\mathrm{brood,opt}}$ & Optimal brood-nest thermoregulatory setpoint & $34.5 \pm 0.8$ & $^\circ\mathrm{C}$ & Abort rollback if $T_{\mathrm{brood}} \le 33.3^\circ\mathrm{C}$ \\
+$T_{\mathrm{set}}$ & Optimal brood-nest thermoregulatory setpoint & $34.5 \pm 0.8$ & $^\circ\mathrm{C}$ & Rollback abort if $T_{\mathrm{brood}} \le 33.3^\circ\mathrm{C}$ \\
 \bottomrule
-\end{tabular}
-\end{table*}
+\end{tabular}%
+}
+\end{table}
 
-\section{AlphaFold v6 3-Domain Architecture of Honeybee Vitellogenin (\texttt{AF-Q868N5-F1})}
-In Stage~2 ($t \ge 4.2\text{ d}$), royal-jelly \textit{trans}-10-hydroxy-2-decenoic acid (\texttt{10-HDA}) inhibits class~I/II Histone Deacetylases (\texttt{HDACs}) \cite{spannhoff2011hda} to derepress transcription of the $1,770\text{-amino-acid}$ glycolipophosphoprotein \textbf{Vitellogenin (\texttt{Vg}, UniProt \texttt{Q868N5})} \cite{seehuus2006bee,manfredi2018p94}. Because full-length honeybee Vitellogenin has not been resolved as a single intact X-ray crystal across all $1,770$ residues, we retrieved and analyzed its AlphaFold Database v6 \cite{jumper2021alphafold,varadi2024afdb} structure (\texttt{structures/alphafold/Q868N5/AF-Q868N5-F1-model\_v6.cif}) and $1,770\times 1,770$ \texttt{PAE} matrix (Table~\ref{tab:vg_domains}):
+% =============================================================================
+\section{AlphaFold v6 Architecture of Honeybee Vitellogenin (\texttt{AF-Q868N5-F1})}
+% =============================================================================
+
+In Stage~2 ($t \ge 4.2\text{ d}$), royal-jelly \textit{trans}-10-hydroxy-2-decenoic acid (\texttt{10-HDA}) inhibits class~I/II histone deacetylases (\texttt{HDACs}) \cite{spannhoff2011hda} to derepress transcription of the $1{,}770\text{-amino-acid}$ glycolipophosphoprotein \textbf{Vitellogenin (\texttt{Vg}, UniProt \texttt{Q868N5})} \cite{seehuus2006bee,manfredi2018p94}. Because full-length honeybee Vitellogenin has not been resolved as a single intact X-ray crystal across all $1{,}770$ residues, we retrieved and analyzed its AlphaFold Database v6 \cite{jumper2021alphafold,varadi2024afdb} structure (\path{structures/alphafold/Q868N5/AF-Q868N5-F1-model_v6.cif}) and $1{,}770\times 1{,}770$ \texttt{PAE} matrix (Table~\ref{tab:vg_domains}):
 \begin{itemize}
   \item \textbf{Global Confidence Distribution:} Mean $\mathrm{pLDDT} = 84.75$, with $49.2\%$ ($871/1770$ AAs) Very High ($>90$), $37.7\%$ ($667/1770$ AAs) Confident ($70\text{--}90$), $7.9\%$ Low ($50\text{--}70$), and $5.2\%$ ($92/1770$ AAs) Very Low ($<50$).
-  \item \textbf{PAE Rigid Domain 1 (\texttt{residues 61--953}, $893\text{ AAs}$):} The massive N-terminal Lipovitellin-I (\texttt{LPD\_N}) $\beta$-barrel and $\alpha$-helical superdomain that coordinates $\mathrm{Zn}^{2+}$ ions and encapsulates phospholipids and \texttt{Ubiquinol CoQ10} for hemolymph transport to flight-muscle mitochondria \cite{manfredi2018p94}.
-  \item \textbf{Disordered Polyserine Free-Radical Sink (\texttt{residues 954--1154}, $201\text{ AAs}$, $\mathrm{pLDDT} < 50$):} An exposed, intrinsically disordered polyserine linker that undergoes heavy phosphorylation and acts as a preferential sacrificial target for carbonylation and hydroxyl radical ($\cdot\mathrm{OH}$) scavenging \cite{seehuus2006bee}, explaining how $V_g$ lowers $\dot{e}_R$ in Eq.~\eqref{eq:apis_EP}.
-  \item \textbf{PAE Rigid Domain 2 (\texttt{residues 1155--1631}, $477\text{ AAs}$) \& Domain 3 (\texttt{residues 1687--1769}, $83\text{ AAs}$):} The von Willebrand factor type~D (\texttt{vWD}) membrane-receptor recognition module and C-terminal disulfide-bonded cystine-knot (\texttt{CTCK}) homodimerization domain.
+  \item \textbf{PAE Rigid Domain 1 (residues \texttt{61}--\texttt{953}, $893\text{ AAs}$):} The N-terminal Lipovitellin-I (\texttt{LPD\_N}) $\beta$-barrel and $\alpha$-helical superdomain that coordinates $\mathrm{Zn}^{2+}$ ions and encapsulates phospholipids and \texttt{Ubiquinol CoQ10} for hemolymph transport to flight-muscle mitochondria \cite{manfredi2018p94}.
+  \item \textbf{Disordered Polyserine Free-Radical Sink (residues \texttt{954}--\texttt{1154}, $201\text{ AAs}$, $\mathrm{pLDDT} < 50$):} An exposed, intrinsically disordered polyserine linker that undergoes heavy phosphorylation and acts as a preferential sacrificial target for carbonylation and hydroxyl radical ($\cdot\mathrm{OH}$) scavenging \cite{seehuus2006bee}, explaining how $V_g$ lowers internal energetic resistance in Eq.~\eqref{eq:app_EP}.
+  \item \textbf{PAE Rigid Domain 2 (residues \texttt{1155}--\texttt{1631}, $477\text{ AAs}$) \& Domain 3 (residues \texttt{1687}--\texttt{1769}, $83\text{ AAs}$):} The von Willebrand factor type~D (\texttt{vWD}) membrane-receptor recognition module and C-terminal disulfide-bonded cystine-knot (\texttt{CTCK}) homodimerization domain.
 \end{itemize}
 
 \begin{table}[t]
 \centering
 \caption{AlphaFold Database v6 \texttt{PAE/pLDDT} Structural Domain Decomposition of \textit{Apis mellifera} Vitellogenin (\texttt{AF-Q868N5-F1-v6}, $1{,}770\text{ AA}$, Mean $\mathrm{pLDDT}=84.75$).}
 \label{tab:vg_domains}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{@{}llcc@{}}
+\small
+\begin{tabular}{@{}llcl@{}}
 \toprule
 \textbf{Structural Region} & \textbf{Residue Span} & \textbf{Length} & \textbf{Biophysical Function} \\
 \midrule
-Signal \& N-Peptide & \texttt{1--60} & $60\text{ AA}$ & Secretory cleavage leader \\
-\textbf{PAE Rigid Domain 1} & \texttt{61--953} & $\mathbf{893\text{ AA}}$ & \texttt{LPD\_N} $\mathrm{Zn}^{2+}$ \& CoQ10 cargo cavity \\
-\textbf{Polyserine IDR Linker} & \texttt{954--1154} & $\mathbf{201\text{ AA}}$ & Disordered ($\mathrm{pLDDT}<50$) \texttt{ROS} sink \\
-\textbf{PAE Rigid Domain 2} & \texttt{1155--1631} & $\mathbf{477\text{ AA}}$ & \texttt{vWD} membrane-docking module \\
-Inter-Domain Hinge & \texttt{1632--1686} & $55\text{ AA}$ & Flexible C-terminal tether \\
-\textbf{PAE Rigid Domain 3} & \texttt{1687--1769} & $\mathbf{83\text{ AA}}$ & \texttt{CTCK} disulfide dimerization knot \\
+Signal \& N-Peptide & \texttt{1}--\texttt{60} & $60\text{ AA}$ & Secretory cleavage leader \\
+\textbf{PAE Rigid Domain 1} & \texttt{61}--\texttt{953} & $\mathbf{893\text{ AA}}$ & \texttt{LPD\_N} $\mathrm{Zn}^{2+}$ \& \texttt{CoQ10} cargo cavity \\
+\textbf{Polyserine IDR Linker} & \texttt{954}--\texttt{1154} & $\mathbf{201\text{ AA}}$ & Disordered ($\mathrm{pLDDT}<50$) sacrificial \texttt{ROS} sink \\
+\textbf{PAE Rigid Domain 2} & \texttt{1155}--\texttt{1631} & $\mathbf{477\text{ AA}}$ & \texttt{vWD} membrane-docking recognition module \\
+Inter-Domain Hinge & \texttt{1632}--\texttt{1686} & $55\text{ AA}$ & Flexible C-terminal tether \\
+\textbf{PAE Rigid Domain 3} & \texttt{1687}--\texttt{1769} & $\mathbf{83\text{ AA}}$ & \texttt{CTCK} disulfide homodimerization knot \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular}
 \end{table}
 
-\section{\textit{In Silico} Simulation Audit of 8 Apiary Practices \& Edge Silicon Stress Tests}
-\textbf{Simulation Delineation:} All 14-day colony trajectories and stress-test metrics in Table~\ref{tab:apis_8audit} are \textbf{\textit{in silico} ODE computational simulations} parameterized from published respirometry and toxicology literature \cite{esser2006bc1,scharlaken2019strobilurin,mao2013pcoumaric,leonard2020salvi} to approximate holobiont dynamics and design prospective \textit{in vitro} and safe dietary patty experiments:
+% =============================================================================
+\section{\textit{In Silico} Simulation Audit of 8 Apiary Practices and Edge Stress Tests}
+% =============================================================================
+
+\noindent\textbf{Simulation Delineation:} All 14-day colony trajectories and stress-test metrics in Table~\ref{tab:apis_8audit} are \textbf{\textit{in silico} ODE computational simulations} parameterized from published respirometry and toxicology literature \cite{esser2006bc1,scharlaken2019strobilurin,mao2013pcoumaric,leonard2020salvi} to approximate holobiont dynamics and design prospective \textit{in vitro} and safe dietary patty experiments:
 \begin{enumerate}
-  \item \textbf{Simulated Failure of Unphased Feeding \& Antibiotics (Rows 1--5):} Plain \texttt{HFCS} lacks \textit{p}-coumaric acid, leaving simulated \texttt{CYP9Q1--3} uninduced ($S_{Q_o} = 0.72$, simulated homing $= 18.0\%$). Prophylactic \texttt{oxytetracycline} wipes out simulated \textit{S.\ alvi} ($0.04\times$), elevating gut lumenal $\mathrm{O}_2$ and dropping simulated survival to $12.4\%$. Unphased Day-0 pollen substitute or Day-0 \texttt{CoQ10} pushes metabolic flux through $85\%$-blocked Complex~III (\texttt{1SQB}), predicting only $31.2\text{--}38.4\%$ survival. Formic acid flash fumigation adds Complex~IV cytochrome~$c$ oxidase inhibition on top of Complex~III blockade ($21.5\%$ simulated survival).
-  \item \textbf{Simulated Orchard Wind-Gust Noise Immunity (Row 9):} Under simulated $45\text{ km/h}$ orchard wind gusts and hive knocks ($180\text{--}260\text{ Hz}$ acoustic broadband transients), a single-sample $220\text{ Hz}$ tripwire triggers premature Stage-2 \texttt{Bay-B} actuation in $68.4\%$ of simulated runs. Our 64-frame rolling persistence buffer (\texttt{128 B} DTCM, requiring $\ge 60/64$ frames at $\ge 220.0\text{ Hz}$ plus $|T_{\mathrm{brood}} - 34.5^\circ\mathrm{C}| \le 0.8^\circ\mathrm{C}$) achieves $0.0\%$ false triggers (\texttt{WindGust\_Rej=1}, $98.4\%$ simulated homing survival).
-  \item \textbf{Simulated Post-Baffle Cold-Snap Rollback (Row 10):} When a simulated overnight orchard frost drops brood-nest temperature to $32.8^\circ\mathrm{C}$ and induces a $300\text{ Hz}$ worker distress hiss after \texttt{Bay-B} actuation, a one-way feeder model predicts $28.5\%$ survival. Executing \texttt{BCR\_GATE\_STAGE2\_ROLLBACK\_ABORT} (\texttt{3}) snaps the simulated bistable solenoid back to the \texttt{Bay-A} \textit{p}-coumaric detox patty (\texttt{GPIO\_BAFFLE = 1}) and restores the $32\text{-byte}$ DTCM breadcrumb, predicting $94.2\%$ Day-14 survival.
+  \item \textbf{Simulated Failure of Unphased Feeding \& Antibiotics (Rows 1--5):} Plain \texttt{HFCS} lacks \textit{p}-coumaric acid, leaving simulated \texttt{CYP9Q1}--\texttt{3} uninduced ($S_{Q_o} = 0.72$, simulated homing $= 18.0\%$). Prophylactic \texttt{oxytetracycline} ablates simulated \textit{S.\ alvi} ($0.04\times$), elevating gut lumenal $\mathrm{O}_2$ and dropping simulated survival to $12.4\%$. Unphased Day-0 pollen substitute or Day-0 \texttt{CoQ10} pushes metabolic flux through $85\%$-blocked Complex~III (\texttt{1SQB}), predicting only $31.2\text{--}38.4\%$ survival. Formic acid flash fumigation adds Complex~IV cytochrome~$c$ oxidase inhibition on top of Complex~III blockade ($21.5\%$ simulated survival).
+  \item \textbf{Simulated Orchard Wind-Gust Noise Immunity (Row 9):} Under simulated $45\text{ km/h}$ orchard wind gusts and hive knocks ($180\text{--}260\text{ Hz}$ acoustic broadband transients), a single-sample $220\text{ Hz}$ tripwire triggers premature Stage-2 \texttt{Bay-B} actuation in $68.4\%$ of simulated runs. Our 64-frame rolling persistence buffer (\texttt{128 B} DTCM, Eq.~\eqref{eq:apis_gate}) achieves $0.0\%$ false triggers (\texttt{WindGust\_Rej=1}, $98.4\%$ simulated homing survival).
+  \item \textbf{Simulated Post-Baffle Cold-Snap Rollback (Row 10):} When a simulated overnight orchard frost drops brood-nest temperature to $32.8^\circ\mathrm{C}$ and induces a $300\text{ Hz}$ worker distress hiss after \texttt{Bay-B} actuation, a one-way feeder model predicts $28.5\%$ survival. Executing \path{BCR_GATE_STAGE2_ROLLBACK_ABORT} (\texttt{3}) snaps the simulated bistable solenoid back to the \texttt{Bay-A} \textit{p}-coumaric detox patty (\path{GPIO_BAFFLE = 1}) and restores the $32\text{-byte}$ DTCM breadcrumb, predicting $94.2\%$ Day-14 survival.
 \end{enumerate}
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
 \caption{\textit{In Silico} 14-Day ODE Simulation Audit of 8 Commercial Apiary Practices and 2 Edge Hardware Stress Tests (Prospective Targets for \textit{In Vitro} \& Safe Dietary Patty Validation).}
 \label{tab:apis_8audit}
-\footnotesize
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lccccccc@{}}
 \toprule
 \textbf{Simulated Apiary Regimen / Stress Test ($14\text{ d}$)} & \textbf{Sim.\ $\mathrm{Strob}_{Q_o}$} & \textbf{Sim.\ \textit{S.\ alvi}} & \textbf{Sim.\ $h$} & \textbf{Sim.\ $\mathrm{ATP}$} & \textbf{Sim.\ $f_0$} & \textbf{Sim.\ $V_g$} & \textbf{Sim.\ Day-14 Homing} \\
@@ -149,20 +177,53 @@ Inter-Domain Hinge & \texttt{1632--1686} & $55\text{ AA}$ & Flexible C-terminal 
 9. Sim Stress: Orchard Wind Gusts ($45\text{ km/h}$, 64-Frame Filter) & $\mathbf{0.03}$ & $\mathbf{1.16\times}$ & $\mathbf{0.2\%}$ & $\mathbf{1.71\times}$ & $\mathbf{239\text{ Hz}}$ & $\mathbf{1.59\times}$ & $\mathbf{98.4\%}$ (\texttt{Rej=1}) \\
 10. Sim Stress: Post-Baffle Cold Snap ($32.8^\circ\mathrm{C}$ Rollback) & $\mathbf{0.04}$ & $\mathbf{1.14\times}$ & $\mathbf{0.4\%}$ & $\mathbf{1.64\times}$ & $\mathbf{236\text{ Hz}}$ & $\mathbf{1.52\times}$ & $\mathbf{94.2\%}$ (\texttt{Abort=3}) \\
 \bottomrule
-\end{tabular}
-\end{table*}
+\end{tabular}%
+}
+\end{table}
 
-\section{Prospective \textit{In Vitro} Respirometry \& Safe Dietary Phytochemical Protocol (Prediction P4)}
+% =============================================================================
+\section{Prospective \textit{In Vitro} Respirometry and Safe Dietary Phytochemical Protocol (Prediction P4)}
+% =============================================================================
+
 Because \textit{Apis mellifera} requires zero vertebrate animal (IACUC) or human IRB approval ($\mathrm{TRL\ 5 \to 7}$ in $14\text{ days}$), and utilizes exclusively \textbf{safe, non-harmful natural floral phytochemicals and dietary supplements} (\textit{p}-coumaric acid monomer from natural pollen coats, spermidine, \texttt{Ubiquinol CoQ10}, and royal-jelly \texttt{10-HDA}), we specify a two-tier prospective validation protocol to test our \textit{in silico} simulations:
 \begin{enumerate}
   \item \textbf{Tier 1 --- 48-Hour \textit{In Vitro} Permeabilized Flight-Muscle Respirometry:} Dissect dorsal longitudinal flight muscle from newly emerged worker bees, permeabilize fibers with $50\,\mu\mathrm{g/mL}$ saponin in MiR05 buffer, and measure high-resolution respirometry in an \texttt{Oroboros Oxygraph-2k} at $35^\circ\mathrm{C}$ with simultaneous fluorometric Amplex Red $\mathrm{H}_2\mathrm{O}_2$ detection. Challenge fibers with $2.0\,\mu\mathrm{M}$ azoxystrobin (\texttt{PDB: 1SQB}) and compare State-3 $\mathrm{O}_2$ flux and $\mathrm{H}_2\mathrm{O}_2/\mathrm{O}_2$ flux ratios between fibers from bees pre-fed $500\,\mu\mathrm{M}$ \textit{p}-coumaric acid for $48\text{ h}$ vs.\ acute unphased \texttt{Ubiquinol} addition.
   \item \textbf{Tier 2 --- 14-Day Incubator Hoarding-Cage \& RFID Hive Assay ($N=50$ Bees/Cage $\times 4$ Arms, $34.5^\circ\mathrm{C}$, $65\%$ RH):} Expose bees orally to $5\text{ ppm}$ azoxystrobin in $50\%$ sucrose. Compare Arm~1 (Plain Sucrose/\texttt{HFCS}), Arm~2 (Day-0 Pollen Patty + \texttt{Ubiquinol}), Arm~3 (\textit{p}-Coumaric Acid $500\,\mu\mathrm{M}$ + \textit{S.\ alvi} $10^7\text{ CFU/mL}$ continuous), and Arm~4 (Closed-Loop \textbf{Apis-BCR} gated by the top-bar MEMS microphone at $f_0 \ge 220.0\text{ Hz}$ on Day~$4.2$ into $200\,\mu\mathrm{M}$ \texttt{Ubiquinol} + $1.5\text{ mM}$ \texttt{10-HDA}). The hypothesis is falsified unless Arm~4 achieves $\ge 2.0\times$ higher Day-14 survival and $1\text{ km}$ RFID homing return rate than Arms~1 and 2 ($p < 0.0001$, log-rank test).
 \end{enumerate}
 
+% =============================================================================
+\appendix
+\section{Complete Holobiont ODE System and Auxiliary Readout Equations}
+\label{app:apis_math}
+\numberwithin{equation}{section}
+\setcounter{equation}{0}
+% =============================================================================
+
+Let $\mathbf{z}_{\mathrm{Apis}}(t) = [W, D, S_{Q_o}, C_{\mathrm{CYP}}, S_{\mathrm{alvi}}, V_g, T_{\mathrm{brood}}, H_{\mathrm{surv}}]^\top \in \mathbb{R}_+^8$ denote the eight dynamic ODE states and $(\mathrm{ATP}_{\mathrm{th}}(t), f_0(t))$ the two coupled algebraic physiological readouts (forming the 10-variable colony trajectory $\mathbf{x}_{\mathrm{Apis}}(t)$ over $t \in [0, 14\text{ d}]$). With heteroplasmy $h(t) = D(t) / [W(t) + D(t)]$, the complete eight-state ODE system is:
+\begin{align}
+  \frac{dW}{dt} &= k_{\mathrm{bio}}(u_2, V_g)\,W\left(1 - \frac{W+D}{K}\right) - k_{\mathrm{mito},W}\,W - k_{\mathrm{dmg}}\max\!\big(0,\ \mathrm{EP}_{\mathrm{Apis}} - \theta_{\mathrm{GSH}}\big)W, \label{eq:app_W}\\
+  \frac{dD}{dt} &= k_{\mathrm{rep,adv}}\,k_{\mathrm{bio}}(u_2, V_g)\,D\left(1 - \frac{W+D}{K}\right) - k_{\mathrm{mito},D}(u_1)\,D + k_{\mathrm{dmg}}\max\!\big(0,\ \mathrm{EP}_{\mathrm{Apis}} - \theta_{\mathrm{GSH}}\big)W, \label{eq:app_D}\\
+  \frac{dS_{Q_o}}{dt} &= J_{\mathrm{exposure}} - k_{\mathrm{detox}}\,C_{\mathrm{CYP}}\,S_{Q_o}, \label{eq:app_SQo}\\
+  \frac{dC_{\mathrm{CYP}}}{dt} &= k_{\mathrm{CncC}}\left(u_{\mathrm{pCoum}} - C_{\mathrm{CYP}}\right), \label{eq:app_CYP}\\
+  \frac{dS_{\mathrm{alvi}}}{dt} &= r_{\mathrm{alvi}}\,S_{\mathrm{alvi}}\left(1 - \frac{S_{\mathrm{alvi}}}{K_{\mathrm{gut}}}\right)\left(1 - \alpha_{\mathrm{Tet}}\,u_{\mathrm{Tet}}\right) + u_{\mathrm{probiotic}}, \label{eq:app_Salvi}\\
+  \frac{dV_g}{dt} &= k_{V_g,\mathrm{syn}}\left(1 + 2.2\,u_{\mathrm{10HDA}}\right)(1 - h) - k_{V_g,\mathrm{ox}}\,\mathrm{EP}_{\mathrm{Apis}}\,V_g, \label{eq:app_Vg}\\
+  \frac{dT_{\mathrm{brood}}}{dt} &= k_{\mathrm{therm}}\left(\mathrm{ATP}_{\mathrm{th}}\left(T_{\mathrm{set}} - T_{\mathrm{brood}}\right) - \gamma_{\mathrm{amb}}\left(T_{\mathrm{brood}} - T_{\mathrm{amb}}(t)\right)\right), \label{eq:app_Tbrood}\\
+  \frac{dH_{\mathrm{surv}}}{dt} &= -k_{\mathrm{mort}}\max\!\Big(0,\ 1.10 - \mathrm{ATP}_{\mathrm{th}} + 0.5\max\!\big(0,\ \mathrm{EP}_{\mathrm{Apis}} - \theta_{\mathrm{GSH}}\big)\Big)H_{\mathrm{surv}}. \label{eq:app_Hsurv}
+\end{align}
+The stage-modulated rate laws, gut oxygen-dysbiosis penalty $\Phi_{\mathrm{O}_2}(S_{\mathrm{alvi}})$, energetic stress potential $\mathrm{EP}_{\mathrm{Apis}}$, thoracic $\mathrm{ATP}$ capacity $\mathrm{ATP}_{\mathrm{th}}$, and wingbeat fundamental frequency $f_0(t)$ are given explicitly by:
+\begin{align}
+  k_{\mathrm{bio}}(u_2, V_g) &= k_{\mathrm{bio},0} + \left(k_{\mathrm{bio,\max}} - k_{\mathrm{bio},0}\right)u_2\left(\frac{V_g}{K_{V_g} + V_g}\right), \label{eq:app_kbio}\\
+  k_{\mathrm{mito},D}(u_1) &= k_{\mathrm{mito},W} + \left(k_{\mathrm{mito},D,\max} - k_{\mathrm{mito},W}\right)u_1, \label{eq:app_kmito}\\
+  \Phi_{\mathrm{O}_2}(S_{\mathrm{alvi}}) &= 1 + \beta_{\mathrm{O}_2}\max\!\left(0,\ 1 - \frac{S_{\mathrm{alvi}}}{K_{\mathrm{gut}}}\right), \label{eq:app_PhiO2}\\
+  \mathrm{EP}_{\mathrm{Apis}} &= \left(\frac{1 + 2.4\,S_{Q_o} + 1.8\,h + \alpha_{\mathrm{formic}}\,u_{\mathrm{formic}}}{(W + 0.12\,D)(1 + 0.35\,V_g)}\right)\left(\frac{f_0}{100\text{ Hz}}\right)^2 \Phi_{\mathrm{O}_2}(S_{\mathrm{alvi}}), \label{eq:app_EP}\\
+  \mathrm{ATP}_{\mathrm{th}} &= \frac{(W + 0.12\,D)(1 + 0.45\,u_{\mathrm{Ubiq}})}{1 + 1.85\,S_{Q_o} + 0.90\,u_{\mathrm{formic}}}, \label{eq:app_ATP}\\
+  f_0(t) &= 100\text{ Hz} + 140\text{ Hz}\cdot\min\!\left(1.15,\ \frac{\mathrm{ATP}_{\mathrm{th}}(t)}{1.35}\right). \label{eq:app_f0}
+\end{align}
+
 \section*{Acknowledgments and Disclosures}
-\footnotesize
-\noindent\textbf{Acknowledgments \& Program Support:} This research was supported by Google LLC through the \textbf{Google AI for Science Researcher Access Program}, providing access to Google DeepMind's \textbf{Antigravity} agentic research environment, Gemini frontier reasoning models, and the AlphaFold Database.\\
-\noindent\textbf{Author Contributions \& AI Collaboration Disclosure:} This study was conceived, directed, and conducted solely by Wayne A.~Satz, MD in direct collaboration with Google DeepMind's Antigravity AI research agent; no other human investigators participated. Wayne A.~Satz, MD verified and takes full scholarly responsibility for all models, code, numerical benchmarks, and scientific conclusions.\\
+\small
+\noindent\textbf{Acknowledgments \& Program Support:} This research was supported by Google LLC through the \textbf{Google AI for Science Researcher Access Program}, providing access to Google DeepMind's \textbf{Antigravity} agentic research environment, Gemini frontier reasoning models, and the AlphaFold Database.\\[0.25em]
+\noindent\textbf{Author Contributions \& AI Collaboration Disclosure:} This study was conceived, directed, and conducted solely by Wayne A.~Satz, MD in direct collaboration with Google DeepMind's Antigravity AI research agent; no other human investigators participated. Wayne A.~Satz, MD verified and takes full scholarly responsibility for all models, code, numerical benchmarks, and scientific conclusions.\\[0.25em]
 \noindent\textbf{Competing Interests:} The author declares no competing financial or commercial interests.
 
 \bibliographystyle{unsrt}

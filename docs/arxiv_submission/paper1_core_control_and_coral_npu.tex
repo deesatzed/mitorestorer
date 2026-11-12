@@ -1,48 +1,57 @@
-\documentclass[10pt,twocolumn]{article}
-\usepackage[utf8]{inputenc}
+\documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{newtxtext,newtxmath}
+\usepackage[protrusion=true,expansion=false]{microtype}
 \usepackage{graphicx}
 \usepackage{booktabs}
-\usepackage{hyperref}
-\usepackage{geometry}
 \usepackage{array}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{hyperref}
 
-\geometry{margin=0.68in, top=0.72in, bottom=0.75in, columnsep=0.24in}
+\geometry{letterpaper, margin=0.95in, top=0.90in, bottom=0.95in}
+\linespread{1.09}
+\setlength{\jot}{6pt}
+\setlist[itemize]{topsep=4pt, itemsep=3pt, parsep=0pt}
+\setlist[enumerate]{topsep=4pt, itemsep=3pt, parsep=0pt}
+
 \renewcommand{\topfraction}{0.92}
-\renewcommand{\dbltopfraction}{0.92}
-\renewcommand{\textfraction}{0.06}
-\renewcommand{\floatpagefraction}{0.85}
-\renewcommand{\dblfloatpagefraction}{0.85}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.82}
 
+\definecolor{linknavy}{RGB}{12,62,138}
 \hypersetup{
     colorlinks=true,
-    linkcolor=blue,
-    citecolor=blue,
-    urlcolor=blue
+    linkcolor=linknavy,
+    citecolor=linknavy,
+    urlcolor=linknavy
 }
 
+\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
 \newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
+\theoremstyle{remark}
 \newtheorem{remark}{Remark}
-\newenvironment{proof}{\noindent\textit{Proof.}\hspace{0.4em}}{\hfill$\blacksquare$\par\medskip}
 
-\title{\textbf{Nondimensional Staged Feedback Control of Mitochondrial Heteroplasmy Dynamics with Host-Emulated Verification on an Ultra-Low-Power RV32IMF\_Zve32x Neural Processing Unit}}
+\title{\LARGE\textbf{Nondimensional Staged Feedback Control of Mitochondrial Heteroplasmy Dynamics with Host-Emulated Verification on an Ultra-Low-Power \texttt{RV32IMF\_Zve32x} Neural Processing Unit}}
 
 \author{
-  \textbf{Wayne A.~Satz, MD}$^{1}$ \\
-  \small $^{1}$Department of Emergency Medicine, Lewis Katz School of Medicine at Temple University, Philadelphia, PA 19140, USA \\
-  \small Code \& Reproducibility Repository: \url{https://github.com/deesatzed/mitorestorer}
+  \textbf{Wayne A.~Satz, MD}$^{1,*}$ \\[0.35em]
+  {\small $^{1}$Department of Emergency Medicine, Lewis Katz School of Medicine at Temple University, Philadelphia, PA 19140, USA} \\
+  {\small $^{*}$Correspondence: \href{mailto:satzwa@temple.edu}{\texttt{satzwa@temple.edu}} \quad$\vert$\quad Code \& Reproducibility: \url{https://github.com/deesatzed/mitorestorer}}
 }
-\date{\small November 2026 \quad (Revised Verification Release; MIASE Seed: \texttt{20261109})}
+\date{\small November 2026 \quad (MitoRestorer Series, Paper~I; Computational Study --- MIASE Seed: \texttt{20261109})}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Restoring bioenergetic function in cells burdened by mutant or damaged mitochondrial populations ($D$) alongside wild-type populations ($W$) requires navigating nonlinear couplings among autophagic clearance bottlenecks ($B$), reactive oxygen species (ROS) conversion, and replicative selection ($k_{\mathrm{rep,adv}} \ge 1$). Here we formulate an eight-state ordinary differential equation (ODE) model with exact 1-to-1 correspondence between analytical equations, IEEE-754 \texttt{FP64} simulation, and bare-metal C99 firmware, analyzing a three-input staged feedback policy: Stage~0 bottleneck clearance ($u_0$), Stage~1 selective mitophagy ($u_1$), and Stage~2 biogenesis ($u_2$) gated jointly at $h(t) = D(t)/(W(t)+D(t)) \le h_{\mathrm{gate}} = 0.080$ and $B(t) \le B_{\mathrm{gate}} = 0.120$. Using Nagumo's subtangent condition, we prove joint forward invariance of the Stage-1 safe set ($\mathrm{EP} \le 1.0456 < \theta_{\mathrm{GSH}} = 1.150$, $W_{\min} = 0.600 > \theta_{\mathrm{surv}} = 0.450$, $\lambda_{\min} = 0.01085\text{ d}^{-1}$) and derive both an exact accumulated-selection identity $s(t) = \int_0^t \lambda_h(q)\,dq$ (supremum error $0.0000$, $s^*(0.40, 0.08) = 2.0369$) and a zero-tuning closed-form perturbation bound for constant-rate rescaling $\hat{\tau} = \hat{\lambda}_0 t$ across three regimes with distinct dimensionless $\Pi$-groups ($R^2 = 0.9828$, supremum error $0.0493 \le 0.1216$). Solving the 300-variable discrete-adjoint optimal control problem (\texttt{L-BFGS-B}, gradient error $1.95 \times 10^{-9}$, 5-start spread $0.12\%$) shows that Pontryagin-optimal trajectories ride an interior mitophagy arc $u_1^*(t) \in (0, 1)$ along $\mathrm{EP} = \theta_{\mathrm{GSH}}$ before a terminal biogenesis sprint ($J_{\mathrm{PMP}}^* = 0.7262$ vs.\ two-stage relay $J_{\mathrm{2stage}}^* = 0.850$ and threshold feedback $J_{\mathrm{thresh}} = 0.8875$), trading $+22.21\%$ open-loop Bolza cost for $20.1\%$ redox margin. Mapping the $31 \times 31$ $(W_0, k_{\mathrm{dmg}})$ phase plane delineates irreversible collapse ($18.9\%$) and reconciles build-first rescue ($2.9\%$) with purge-then-build control. Under four-channel proxy sensing ($\kappa(\mathcal{O}_7) = 745.6$), $\pm 20\%$ 7-rate mismatch, $\pm 8\%$ initial-state uncertainty, $\mathrm{AR}(1)$ noise, and $5\%$ $6.5\sigma$ spikes, margin-tightened Huber-EKF ($\hat{h}_{\mathrm{gate}} = 0.065$) reduces premature switches from $24.17\%$ to $5.00\%$. On host-emulated Google Coral NPU (\texttt{RV32IMF\_Zve32x}, \texttt{sizeof} static workspace $= 3{,}696\text{ B} / 8{,}192\text{ B}$ in L1 DTCM Bank~0), our C99 fixed-point Huber-EKF ($0.94\%$ $\hat{h}$ RMSE) and \texttt{Q16.16} \texttt{RK4} kernel with \texttt{Q8.24} slopes and $\Sigma\Delta$ remainder diffusion eliminate deadband stalling across a $16\times$ step sweep ($0.0534\%\text{--}0.0563\%$ vs.\ $100\%$ naive \texttt{Q16.16} stall at $N=8{,}000$).
+\noindent Restoring bioenergetic function in cells burdened by mutant or damaged mitochondrial populations ($D$) alongside wild-type populations ($W$) requires navigating nonlinear couplings among autophagic clearance bottlenecks ($B$), reactive oxygen species (ROS) conversion, and replicative selection ($k_{\mathrm{rep,adv}} \ge 1$). Here we formulate an eight-state ordinary differential equation (ODE) model with exact 1-to-1 correspondence between analytical equations, IEEE-754 \texttt{FP64} simulation, and bare-metal C99 firmware, analyzing a three-input staged feedback policy: Stage~0 bottleneck clearance ($u_0$), Stage~1 selective mitophagy ($u_1$), and Stage~2 biogenesis ($u_2$) gated jointly at heteroplasmy $h(t) = D(t)/[W(t)+D(t)] \le h_{\mathrm{gate}} = 0.080$ and bottleneck load $B(t) \le B_{\mathrm{gate}} = 0.120$. Using Nagumo's subtangent condition, we prove joint forward invariance of the Stage-1 safe set ($\mathrm{EP} \le 1.0456 < \theta_{\mathrm{GSH}} = 1.150$, $W_{\min} = 0.600 > \theta_{\mathrm{surv}} = 0.450$, contraction floor $\lambda_{\min} = 0.01085\text{ d}^{-1}$) and derive both an exact accumulated-selection identity $s(t) = \int_0^t \lambda_h(q)\,dq$ (supremum error $0.0000$, $s^*(0.40, 0.08) = 2.0369$) and a zero-tuning closed-form perturbation bound for constant-rate rescaling $\hat{\tau} = \hat{\lambda}_0 t$ across three non-homothetic regimes ($R^2 = 0.9828$, supremum error $0.0493 \le 0.1216$). Solving the 300-variable discrete-adjoint optimal control problem (\texttt{L-BFGS-B}, gradient error $1.95 \times 10^{-9}$, 5-start spread $0.12\%$) shows that Pontryagin-optimal trajectories ride an interior mitophagy arc $u_1^*(t) \in (0, 1)$ along $\mathrm{EP} = \theta_{\mathrm{GSH}}$ before a terminal biogenesis sprint ($J_{\mathrm{PMP}}^* = 0.7262$ vs.\ two-stage relay $J_{\mathrm{2stage}}^* = 0.850$ and threshold feedback $J_{\mathrm{thresh}} = 0.8875$), trading $+22.21\%$ open-loop Bolza cost for a $20.1\%$ redox safety margin. Mapping the $31 \times 31$ $(W_0, k_{\mathrm{dmg}})$ phase plane delineates irreversible collapse ($18.9\%$) and reconciles build-first rescue ($2.9\%$) with purge-then-build control. Under four-channel proxy sensing ($\kappa(\mathcal{O}_7) = 745.6$), $\pm 20\%$ 7-rate mismatch, $\pm 8\%$ initial-state uncertainty, $\mathrm{AR}(1)$ noise, and $5\%$ $6.5\sigma$ spikes, margin-tightened Huber-EKF ($\hat{h}_{\mathrm{gate}} = 0.065$) reduces premature switches from $24.17\%$ to $5.00\%$. On host-emulated Google Coral NPU (\texttt{RV32IMF\_Zve32x}, static workspace $3{,}696\text{ B} / 8{,}192\text{ B}$ in L1 DTCM Bank~0), our C99 fixed-point Huber-EKF ($0.94\%$ $\hat{h}$ RMSE) and \texttt{Q16.16} \texttt{RK4} kernel with \texttt{Q8.24} slopes and $\Sigma\Delta$ remainder diffusion eliminate deadband stalling across a $16\times$ step-size sweep ($0.0534\%\text{--}0.0563\%$ vs.\ $100\%$ naive \texttt{Q16.16} stall at $N=8{,}000$).
 \end{abstract}
 
 % =============================================================================
@@ -52,511 +61,422 @@ Restoring bioenergetic function in cells burdened by mutant or damaged mitochond
 \subsection{Nonlinear Coupling in Mitochondrial Quality Control}
 Eukaryotic bioenergetics depends on maintaining a high functional fraction of intact wild-type mitochondrial DNA and cristae ($W$) relative to deletion-bearing or depolarized mutant organelles ($D$) \cite{wallace2012mitochondrial,stewart2015purifying,aryaman2019stochastic}. Across diverse biological timescales---including post-mitotic dopaminergic neurons in Parkinsonian neurodegeneration ($T_{\max} = 90\text{ d}$) \cite{surmeier2017selective,bolam2012living}, \textit{ex vivo} chimeric antigen receptor (CAR) T-cell expansion bioreactors ($T_{\max} = 168\text{ h}$) \cite{fraietta2018determinants,sukumar2013inhibiting,buck2016mitochondrial}, and honeybee (\textit{Apis mellifera}) thoracic flight muscle exposed to strobilurin Complex~III inhibition ($T_{\max} = 14\text{ d}$) \cite{degrandi2015fungicides,seehuus2006bee}---mitochondrial decline is governed by three interacting feedbacks:
 \begin{enumerate}
-  \item \textbf{Upstream Clearance Bottlenecks ($B$):} Accumulation of $\alpha$-synuclein oligomers, lipofuscin, or xenobiotic fungicides elevates energetic impedance and saturates autophagosome-lysosome flux $V_{\mathrm{lys}}(B)$ \cite{surmeier2017selective,ryu2016urolithin}.
-  \item \textbf{Threshold ROS Conversion ($\mathrm{EP} > \theta_{\mathrm{GSH}}$):} When cellular energetic demand and impedance exceed the glutathione/peroxiredoxin antioxidant buffering threshold $\theta_{\mathrm{GSH}}$, electron leak generates reactive oxygen species (ROS) that convert intact wild-type mass $W$ into damaged mass $D$.
-  \item \textbf{Asymmetric Replicative Selection ($k_{\mathrm{rep,adv}}$):} Deletion-bearing mtDNA templates or fragmented organelles frequently exhibit a replicative or transcription-coupled copy-number advantage ($k_{\mathrm{rep,adv}} \ge 1$) during non-selective biogenesis \cite{stewart2015purifying,kowald2014mtDNA}.
+  \item \textbf{Upstream Clearance Bottlenecks ($B$):} Accumulation of $\alpha$-synuclein oligomers, lipofuscin, or xenobiotic fungicides elevates energetic impedance and saturates autophagosome-lysosome competence $V_{\mathrm{lys}}(B) = K_B / (K_B + B) \in (0, 1]$ \cite{surmeier2017selective,ryu2016urolithin}.
+  \item \textbf{Threshold ROS Conversion ($\mathrm{EP} > \theta_{\mathrm{GSH}}$):} When cellular energetic potential $\mathrm{EP}$ exceeds the glutathione/peroxiredoxin antioxidant buffering threshold $\theta_{\mathrm{GSH}}$, electron leak generates reactive oxygen species (ROS) that convert intact wild-type mass $W$ into damaged mass $D$ \cite{picard2025energy}.
+  \item \textbf{Asymmetric Replicative Selection ($k_{\mathrm{rep,adv}}$):} Deletion-bearing mtDNA templates or fragmented organelles frequently exhibit a replicative or survival advantage ($k_{\mathrm{rep,adv}} \ge 1$) during non-selective biogenesis \cite{stewart2015purifying,kowald2014mtDNA}.
 \end{enumerate}
 
 \subsection{Comparison with Prior Control Formulations}
-In a foundational mathematical study, Hoitzing et al.~\cite{hoitzing2019energetic} analyzed stochastic and deterministic mtDNA population control in a two-species $(W, D)$ system without an upstream lysosomal bottleneck state $B(t)$ or replicative advantage ($k_{\mathrm{rep,adv}} = 1$). When wild-type mass $W_0$ is already near the minimum survival floor and $B_0 \approx 0$, Hoitzing et al.\ demonstrated that an initial biogenesis pulse (``build-first'') prevents transient ATP starvation before selective clearance. Conversely, when an upstream bottleneck $B_0 > 0$ elevates bioenergetic impedance and $k_{\mathrm{rep,adv}} > 1$, stimulating biogenesis ($u_2 > 0$) prior to clearing $B$ and $D$ drives the energy potential $\mathrm{EP}(t)$ above $\theta_{\mathrm{GSH}}$ and expands the mutant pool. Understanding the precise mathematical boundary between these two regimes---and implementing a verifiable closed-loop controller within the strict memory and arithmetic constraints of an ultra-low-power implantable or bioreactor neural processing unit (NPU)---remains an open systems-and-control problem.
+In a foundational mathematical study, Hoitzing et al.~\cite{hoitzing2019energetic} analyzed stochastic and deterministic mtDNA population control in a two-species $(W, D)$ system without an upstream lysosomal bottleneck state $B(t)$ or replicative advantage ($k_{\mathrm{rep,adv}} = 1$). When wild-type mass $W_0$ is already near the minimum survival floor and $B_0 \approx 0$, Hoitzing et al.\ demonstrated that an initial biogenesis pulse (``build-first'') prevents transient ATP starvation before selective clearance. Conversely, when an upstream bottleneck $B_0 > 0$ elevates bioenergetic impedance and $k_{\mathrm{rep,adv}} > 1$, stimulating biogenesis ($u_2 > 0$) prior to clearing $B$ and $D$ drives the energy potential $\mathrm{EP}(t)$ above $\theta_{\mathrm{GSH}}$ and expands the mutant pool. Defining the exact mathematical boundary between these regimes---and implementing a verifiable closed-loop controller within the strict memory and arithmetic constraints of an ultra-low-power neural processing unit (NPU)---remains an open systems-and-control problem.
 
-\subsection{Contributions and Scope}
-This paper makes four self-contained, computationally verified contributions:
+\subsection{Contributions and Manuscript Organization}
+This study is a strictly theoretical and host-emulated computational investigation. All complete 8-state differential equations, auxiliary algebraic rate definitions, and step-by-step mathematical proofs are provided in Appendix~\ref{app:math} so that the main text focuses clearly on the governing dynamics and control results:
 \begin{enumerate}
-  \item \textbf{Unified 8-State ODE Model and Joint Nagumo Safety Invariance (\S2.1--\S2.2):} We formulate an 8-state ODE plant with closed-form auxiliary rates unified 1-to-1 across LaTeX, Python, and C99, prove joint forward invariance of the Stage-1 safe box via Nagumo's subtangent condition (proving $\mathrm{EP} \le 1.0456 < \theta_{\mathrm{GSH}}$ dynamically and $W_{\min} = 0.600 > \theta_{\mathrm{surv}} = 0.450$, Lemma~\ref{lem:invariance}), and derive an analytical uniform contraction lower bound $\lambda_{\min} = 0.01085\text{ d}^{-1}$ (Proposition~\ref{prop:stability}).
-  \item \textbf{Multi-Start Adjoint Optimal Control and 2D Controllability Phase Diagram (\S2.3--\S2.4):} We solve the unconstrained 300-variable discrete-adjoint optimal control problem (\texttt{L-BFGS-B} across 5 diverse initializations, $0.12\%$ cost spread) to decompose the optimality gap between Pontryagin interior-arc modulation ($J_{\mathrm{PMP}}^* = 0.7262$), optimal two-stage constant relay control ($J_{\mathrm{2stage}}^* = 0.850$), and closed-loop threshold feedback ($J_{\mathrm{thresh}} = 0.8875$), and map the $31 \times 31$ $(W_0, k_{\mathrm{dmg}})$ phase diagram delineating irreversible collapse ($18.9\%$) and Hoitzing et al.'s build-first rescue wedge ($2.9\%$).
-  \item \textbf{Accumulated-Selection Identity and Zero-Tuning Perturbation Bound (\S3):} We separate the exact accumulated-selection coordinate $s(t) = \int_0^t \lambda_h(q)\,dq$ (zero reduction error in the sub-damage regime) from constant-rate rescaling $\hat{\tau} = \hat{\lambda}_0 t$ computed via a closed-form Stage-0/1 bottleneck integral across three regimes with distinct dimensionless $\Pi$-groups, verifying analytical error bounds in every regime (Proposition~\ref{prop:reduction}, Table~\ref{tab:collapse}).
-  \item \textbf{Mismatched Output-Feedback Huber-EKF and \texttt{RV32IMF\_Zve32x} Firmware (\S4--\S5):} We evaluate the Stage-1 7-state Observability Gramian ($\kappa(\mathcal{O}_7) = 745.6$), benchmark both Python Monte Carlo and bare-metal C99 fixed-point Huber-EKF under $\pm 20\%$ kinetic mismatch and $6.5\sigma$ sensor spikes, prove a reversible Gaussian $\mathrm{AR}(1)$ Markov persistence bound (Proposition~\ref{prop:persistence}) with equal-footing plant-preserving actuator rollback ($\Delta h_{\max} = 0.0098$), and verify single-bank L1 DTCM residency (\texttt{sizeof} $= 3{,}696\text{ B}$) and deadband-free $\Sigma\Delta$ \texttt{RK4} integration ($0.0534\%\text{--}0.0563\%$ error across $N \in [500, 8{,}000]$).
+  \item \textbf{Core Organelle Balance and Joint Safety Invariance (\S2.1--\S2.2, Appendices~\ref{app:model}--\ref{app:invariance}):} We formulate an 8-state bioenergetic plant unified 1-to-1 across \LaTeX, Python (\texttt{eval\_rhs\_fp64}), and C99 (\texttt{coralnpu\_eval\_core8\_rhs\_q16}), prove joint forward invariance of the Stage-1 safe box via Nagumo's subtangent theorem ($\mathrm{EP} \le 1.0456 < \theta_{\mathrm{GSH}}$, $W_{\min} = 0.600 > \theta_{\mathrm{surv}} = 0.450$, Lemma~\ref{lem:invariance}), and establish regional exponential contraction ($\lambda_{\min} = 0.01085\text{ d}^{-1}$, Proposition~\ref{prop:stability}).
+  \item \textbf{Discrete-Adjoint Optimal Control and 2D Controllability Phase Plane (\S2.3--\S2.4):} Solving a 300-variable discrete-adjoint optimal control problem across 5 initializations ($0.12\%$ cost spread) decomposes the optimality gap among Pontryagin interior-arc control ($J_{\mathrm{PMP}}^* = 0.7262$), optimal two-stage constant relay ($J_{\mathrm{2stage}}^* = 0.850$), and closed-loop threshold feedback ($J_{\mathrm{thresh}} = 0.8875$), while a $31 \times 31$ $(W_0, k_{\mathrm{dmg}})$ phase diagram maps irreversible collapse ($18.9\%$) vs.\ build-first rescue ($2.9\%$).
+  \item \textbf{Accumulated-Selection Reduction Across Timescales (\S3, Appendix~\ref{app:reduction}):} We separate exact accumulated-selection rescaling $s(t) = \int_0^t \lambda_h(q)\,dq$ ($0.0000$ error) from zero-tuning constant-rate rescaling $\hat{\tau} = \hat{\lambda}_0 t$ across three non-homothetic regimes, verifying the analytical error bound in every regime (Proposition~\ref{prop:reduction}, Table~\ref{tab:collapse}).
+  \item \textbf{Mismatched Huber-EKF Observability and \texttt{RV32IMF\_Zve32x} Firmware (\S4--\S5, Appendix~\ref{app:persistence}):} We audit pre-switch 7-state Observability Gramian conditioning ($\kappa(\mathcal{O}_7) = 745.6$), benchmark Python and C99 fixed-point Huber-EKF under $\pm 20\%$ kinetic mismatch and $6.5\sigma$ spikes, prove a reversible Markov persistence bound (Proposition~\ref{prop:persistence}) with continuous-plant actuator rollback ($\Delta h_{\max} = +0.0098$), and verify single-bank L1 DTCM residency ($3{,}696\text{ B}$) and deadband-free $\Sigma\Delta$ \texttt{RK4} integration ($0.0534\%\text{--}0.0563\%$ error).
 \end{enumerate}
 
 % =============================================================================
-\section{Mathematical Model and Staged Control Analysis}
+\section{Core Population Dynamics and Staged Control Analysis}
 % =============================================================================
 
-\subsection{Eight-State Dynamical System and Closed-Form Auxiliary Rates}
-We model the intracellular mitochondrial network on a finite horizon $t \in [0, T_{\max}]$ via the state vector
-\begin{equation}
-  \mathbf{x}(t) = \big[W,\, D,\, B,\, E,\, G,\, N,\, C,\, M_8\big]^\top \in \mathbb{R}_{\ge 0}^8,
-  \label{eq:state_vector}
-\end{equation}
-where $W(t)$ is normalized intact wild-type mitochondrial mass (healthy homeostatic baseline $W^* = 1.00$), $D(t)$ is normalized deletion-bearing or depolarized mutant mitochondrial mass, $B(t)$ is the upstream proteostatic/xenobiotic clearance bottleneck load, $E(t)$ is filtered cellular energy-resistance potential, $G(t)$ is a secreted/circulating metabolic stress readout (e.g., GDF15 or extracellular lactate accumulation), $N(t)$ is the normalized $\text{NAD}^+/\text{NADH}$ redox cofactor pool, $C(t)$ is phosphocreatine/shuttle buffer capacity, and $M_8(t)$ is a downstream epigenetic/exhaustion drift readout state.
+\subsection{Organelle Population Balance and Indirect Observability}
+We model the intracellular mitochondrial network over $t \in [0, T_{\max}]$ via an eight-dimensional state vector $\mathbf{x}(t) = [W,\, D,\, B,\, E,\, G,\, N,\, C,\, M_8]^\top \in \mathbb{R}_{\ge 0}^8$, actuated by bounded controls $\mathbf{u}(t) = [u_0(t), u_1(t), u_2(t)]^\top \in [0, 1]^3$ representing upstream bottleneck clearance ($u_0$), PINK1/Parkin selective mitophagy ($u_1$), and PGC-1$\alpha$/TFAM mitochondrial biogenesis ($u_2$). Let $M(t) = W(t) + D(t)$ denote total organelle mass and $h(t) = D(t)/M(t) \in [0, 1)$ denote the mutant heteroplasmy fraction.
 
-Let $M(t) = W(t) + D(t)$ denote total mitochondrial mass and $h(t) = D(t)/M(t) \in [0, 1)$ denote the mutant heteroplasmy fraction. The system is actuated by a bounded three-dimensional control vector $\mathbf{u}(t) = [u_0(t), u_1(t), u_2(t)]^\top \in [0, 1]^3$, where $u_0$ drives upstream bottleneck clearance, $u_1$ drives PINK1/Parkin-mediated selective mitophagy of $D$, and $u_2$ drives PGC-1$\alpha$/TFAM-mediated mitochondrial biogenesis.
-
-To guarantee exact 1-to-1 correspondence between the mathematical analysis, the floating-point benchmark suite (\texttt{eval\_rhs\_fp64}), and the bare-metal C99 fixed-point kernel (\texttt{coralnpu\_eval\_core8\_rhs\_q16}), all auxiliary rates are defined in closed form without unmodeled factors:
+While all eight coupled differential equations and closed-form auxiliary rates ($\mathrm{ATP}$, impedance $\dot{e}_R$, effective load $f_{\mathrm{eff}}$, energy potential $\mathrm{EP}$, and cofactor states $E, G, N, C, M_8$) are specified in Appendix~\ref{app:model} and parameterized in Table~\ref{tab:params}, the core population selection dynamics are governed by the $(W, D, B)$ subsystem:
 \begin{align}
-  V_{\mathrm{lys}}(B) &= \frac{K_B}{K_B + B}, \label{eq:aux_vlys} \\
-  k_{\mathrm{bio}}(u_2, N) &= k_{\mathrm{bio},0} + (k_{\mathrm{bio},\max} - k_{\mathrm{bio},0})\,u_2\,\frac{N}{1 + N}, \label{eq:aux_kbio} \\
-  k_{\mathrm{mito},D}(u_1) &= k_{\mathrm{mito},W} + (k_{\mathrm{mito},D,\max} - k_{\mathrm{mito},W})\,u_1, \label{eq:aux_kmitod} \\
-  \mathrm{ATP}(\mathbf{x}) &= (W + \eta_D D)(1 + \gamma_C C), \label{eq:aux_atp} \\
-  \dot{e}_R(\mathbf{x}) &= \frac{1 + \beta_B B + \beta_h h}{\max(0.10,\, W + \eta_D D)(1 + \gamma_C C)}, \label{eq:aux_er} \\
-  f_{\mathrm{eff}}(u_1, u_2) &= 1 - c_1 u_1 + c_2 u_2, \label{eq:aux_zeff} \\
-  \mathrm{EP}(\mathbf{x}, \mathbf{u}) &= \dot{e}_R(\mathbf{x})\,f_{\mathrm{eff}}(u_1, u_2)^2. \label{eq:aux_ep}
+  \dot{W} &= k_{\mathrm{bio}}(u_2, N)\,W\!\left(1 - \frac{M}{K}\right) - \Big(k_{\mathrm{mito},W} + k_{\mathrm{dmg}}\max\!\big(0,\, \mathrm{EP}(\mathbf{x}, \mathbf{u}) - \theta_{\mathrm{GSH}}\big)\Big)W, \label{eq:ode_W} \\
+  \dot{D} &= k_{\mathrm{rep,adv}}\,k_{\mathrm{bio}}(u_2, N)\,D\!\left(1 - \frac{M}{K}\right) - k_{\mathrm{mito},D}(u_1)\,V_{\mathrm{lys}}(B)\,D + k_{\mathrm{dmg}}\max\!\big(0,\, \mathrm{EP}(\mathbf{x}, \mathbf{u}) - \theta_{\mathrm{GSH}}\big)W, \label{eq:ode_D} \\
+  \dot{B} &= b_{\mathrm{basal}} + k_{\mathrm{acc}}\,D\,(1 - u_0) - k_{\mathrm{clr}}\,u_0\,B. \label{eq:ode_B}
 \end{align}
-Here $V_{\mathrm{lys}}(B) \in (0, 1]$ is the Michaelis-Menten lysosomal competence factor with half-saturation $K_B > 0$; $k_{\mathrm{bio},0}$ is the unstimulated basal biogenesis rate calibrated so that $(W^*, D^*) = (1.00, 0)$ is the exact basal equilibrium under $k_{\mathrm{mito},W}$:
-\begin{equation}
-  k_{\mathrm{bio},0}\left(1 - \frac{W^*}{K}\right) = k_{\mathrm{mito},W} \implies k_{\mathrm{bio},0} = \frac{k_{\mathrm{mito},W}}{1 - 1/K}.
-  \label{eq:kbio0_calibration}
-\end{equation}
-For $K = 1.250$ and $k_{\mathrm{mito},W} = 0.015\text{ d}^{-1}$, Eq.~\eqref{eq:kbio0_calibration} yields the exact basal turnover rate $k_{\mathrm{bio},0} = 0.075\text{ d}^{-1}$.
+Here $K > 1$ is the carrying capacity, $k_{\mathrm{bio},0} = k_{\mathrm{mito},W}/(1 - 1/K)$ calibrates the unstimulated homeostatic equilibrium to $(W^*, D^*) = (1.00, 0)$ ($k_{\mathrm{bio},0} = 0.075\text{ d}^{-1}$ for $K = 1.250, k_{\mathrm{mito},W} = 0.015\text{ d}^{-1}$), and $\mathrm{EP}(\mathbf{x}, \mathbf{u}) = \dot{e}_R(\mathbf{x})(1 - c_1 u_1 + c_2 u_2)^2$ couples proteostatic bottleneck load $B$ and heteroplasmy $h$ to supra-threshold ROS damage above $\theta_{\mathrm{GSH}}$.
 
-The eight-state ODE system is given by:
-\begin{align}
-  \dot{W} &= k_{\mathrm{bio}}(u_2, N)\,W\left(1 - \frac{W+D}{K}\right) \nonumber\\
-          &\quad - \Big(k_{\mathrm{mito},W} + k_{\mathrm{dmg}}\max\!\big(0, \mathrm{EP} - \theta_{\mathrm{GSH}}\big)\Big)W, \label{eq:ode_W} \\
-  \dot{D} &= k_{\mathrm{rep,adv}}\,k_{\mathrm{bio}}(u_2, N)\,D\left(1 - \frac{W+D}{K}\right) \nonumber\\
-          &\quad - k_{\mathrm{mito},D}(u_1)\,V_{\mathrm{lys}}(B)\,D \nonumber\\
-          &\quad + k_{\mathrm{dmg}}\max\!\big(0, \mathrm{EP} - \theta_{\mathrm{GSH}}\big)W, \label{eq:ode_D} \\
-  \dot{B} &= b_{\mathrm{basal}} + k_{\mathrm{acc}}\,D\,(1 - u_0) - k_{\mathrm{clr}}\,u_0\,B, \label{eq:ode_B} \\
-  \dot{E} &= k_E\big(\mathrm{EP}(\mathbf{x}, \mathbf{u}) - E\big), \label{eq:ode_E} \\
-  \dot{G} &= k_{G,\mathrm{prod}}\,E - k_{G,\mathrm{clr}}\,G, \label{eq:ode_G} \\
-  \dot{N} &= k_{N,\mathrm{syn},0} + k_{N,\mathrm{syn},2}\,u_2 \nonumber\\
-          &\quad - k_{\mathrm{PARP}}\max\!\big(0, E - \theta_{\mathrm{GSH}}\big)N - k_{N,\mathrm{use}}\,N, \label{eq:ode_N} \\
-  \dot{C} &= (k_{\mathrm{oct},0} + k_{\mathrm{oct},2}\,u_2)(1.30 - C) \nonumber\\
-          &\quad - k_{\mathrm{ox}}\max\!\big(0, E - \theta_{\mathrm{cys}}\big)C, \label{eq:ode_C} \\
-  \dot{M}_8 &= k_{\mathrm{drift}}\,E\,(10.0 - M_8) \nonumber\\
-            &\quad - k_{\mathrm{TET}}\,u_2\,N\,C\,M_8. \label{eq:ode_M8}
-\end{align}
+Because $(W, D, B)$ are not directly measurable at embedded sampling rates, the controller observes a discrete-time four-channel proxy $\mathbf{y}_k = [E(t_k),\, \mathrm{ATP}(\mathbf{x}(t_k)),\, G(t_k),\, N(t_k)]^\top + \mathbf{v}_k$ (Eq.~\ref{eq:observation_model} in Appendix~\ref{app:model}). At any single time instant $t_k$, the product $\mathrm{EP}\cdot\mathrm{ATP}/f_{\mathrm{eff}}^2 = 1 + \beta_B B + \beta_h h$ depends on $(B, h)$ only through a single linear combination, while $(W, D)$ and phosphagen buffer $C$ exhibit multiplicative iso-ATP trade-offs. Reconstructing $(\hat{W}, \hat{D}, \hat{B})$ therefore requires dynamic multi-step state estimation via a 7-state Huber-regularized extended Kalman filter (Huber-EKF) \cite{kalman1960new,huber1964robust}, evaluated under $\pm 20\%$ plant-model mismatch in \S5.2.
 
-\paragraph{Observation Model and Structural Observability Collinearity.}
-Because intracellular masses $(W, D)$ and bottleneck burden $B$ are not directly measurable at real-time sampling rates on an embedded processor, the controller observes a discrete-time four-channel proxy vector $\mathbf{y}_k \in \mathbb{R}^4$ at sampling instants $t_k$:
-\begin{equation}
-  \mathbf{y}_k = \mathbf{h}_{\mathrm{obs}}\big(\mathbf{x}(t_k)\big) + \mathbf{v}_k =
-  \begin{bmatrix}
-    E(t_k) \\
-    \mathrm{ATP}\big(\mathbf{x}(t_k)\big) \\
-    G(t_k) \\
-    N(t_k)
-  \end{bmatrix}
-  + \mathbf{v}_k,
-  \label{eq:observation_model}
-\end{equation}
-where $y_{k,1}$ tracks filtered energetic impedance/stress potential, $y_{k,2}$ is a respirometric or metabolic ATP proxy, $y_{k,3}$ is secreted stress readout, and $y_{k,4}$ is optical $\text{NAD(P)H}$ autofluorescence. Crucially, Eqs.~\eqref{eq:aux_atp}--\eqref{eq:aux_ep} imply $\mathrm{EP}\cdot\mathrm{ATP}/f_{\mathrm{eff}}^2 = 1 + \beta_B B + \beta_h h$: at any single snapshot $t_k$, $B$ and $h$ enter the static observation map only as a linear combination, while $(W, D)$ and $C$ exhibit multiplicative iso-ATP trade-offs in Eq.~\eqref{eq:aux_atp} (and $M_8$ is a purely downstream readout with zero feedback into states $x_0\dots x_6$). Reconstructing $(\hat{W}, \hat{D}, \hat{B})$ therefore relies on multi-step dynamic separation via a 7-state Huber-regularized extended Kalman filter (Huber-EKF) \cite{kalman1960new,huber1964robust}, whose local Observability Gramian conditioning and sensitivity to $\pm 20\%$ plant-model mismatch we quantify explicitly in \S5.2.
-
-\begin{table*}[t]
+\begin{table}[t]
 \centering
-\caption{Exact Model Parameters, Physical Units, and Provenance Classification for the Canonical Neuronal Regime ($T_{\max}=90\text{ d}$, matching \texttt{DEFAULT\_NEURON\_PARAMS} in Python and \texttt{p\_q16} in C99). Classification: \textbf{M} (Measured order-of-magnitude in literature), \textbf{F} (Fitted/calibrated to equilibrium or turnover constraints), \textbf{A} (Control design specification).}
+\caption{Canonical Neuronal Model Parameters, Physical Units, and Provenance Classification ($T_{\max}=90\text{ d}$, matching \texttt{DEFAULT\_NEURON\_PARAMS} in Python and \texttt{p\_q16} in C99). Tags: \textbf{M} (measured literature scale), \textbf{F} (fitted to equilibrium/turnover constraints), \textbf{A} (control design specification).}
 \label{tab:params}
+\footnotesize
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}llllll@{}}
 \toprule
-\textbf{Symbol} & \textbf{Description} & \textbf{Value} & \textbf{Units} & \textbf{Class} & \textbf{Literature Basis / Calibration Rationale} \\
+\textbf{Symbol} & \textbf{Physical Description} & \textbf{Value} & \textbf{Units} & \textbf{Tag} & \textbf{Literature Basis / Calibration} \\
 \midrule
-$K$ & Mitochondrial carrying capacity & $1.250$ & Norm.\ mass & \textbf{F} & $25\%$ reserve above homeostatic $W^* = 1.00$ \cite{stewart2015purifying} \\
-$k_{\mathrm{mito},W}$ & Basal wild-type mitophagy rate & $0.015$ & $\text{d}^{-1}$ & \textbf{M} & Neuronal mtDNA half-life $t_{1/2} \approx 46\text{ d}$ \cite{aryaman2019stochastic,surmeier2017selective} \\
-$k_{\mathrm{bio},0}, k_{\mathrm{bio},\max}$ & Basal / max stimulated biogenesis rates & $0.075, 0.140$ & $\text{d}^{-1}$ & \textbf{F} & Exact basal equilibrium $k_{\mathrm{mito},W}/(1 - 1/K)$ (Eq.~\ref{eq:kbio0_calibration}) \cite{ryu2016urolithin} \\
-$k_{\mathrm{mito},D,\max}$ & Max Stage-1 selective mitophagy rate & $0.115$ & $\text{d}^{-1}$ & \textbf{M} & Stimulated PINK1/Parkin clearance ($t_{1/2} \approx 6\text{ d}$) \cite{ryu2016urolithin} \\
-$k_{\mathrm{rep,adv}}$ & Mutant replicative/survival advantage & $1.320$ & Dimensionless & \textbf{M} & Deletion mtDNA expansion advantage (swept $1.00\text{--}1.32$) \cite{stewart2015purifying,kowald2014mtDNA} \\
-$k_{\mathrm{dmg}}$ & Supra-threshold ROS conversion rate & $0.040$ & $\text{d}^{-1}\text{EP}^{-1}$ & \textbf{F} & Progressive untreated ROS conversion (swept $0.00\text{--}0.045$ in Fig.~\ref{fig:optimal_ekf_phase}B) \cite{surmeier2017selective} \\
-$\theta_{\mathrm{GSH}}, \theta_{\mathrm{cys}}$ & Antioxidant \& thiol oxidation thresholds & $1.150, 0.850$ & Norm.\ EP & \textbf{F} & Glutathione/peroxiredoxin redox ceiling above $\mathrm{EP}^* \le 1.00$ \cite{bolam2012living} \\
-$\theta_{\mathrm{surv}}$ & Minimum bioenergetic survival floor & $0.450$ & Norm.\ ATP & \textbf{M} & Apoptotic/necrotic ATP threshold ($45\%$ of baseline) \cite{bolam2012living} \\
-$K_B$ & Lysosomal bottleneck half-saturation & $0.250$ & Norm.\ load & \textbf{F} & Michaelis-Menten autophagic flux saturation \cite{surmeier2017selective} \\
-$b_{\mathrm{basal}}, k_{\mathrm{acc}}, k_{\mathrm{clr}}$ & Bottleneck basal influx, $D$-coupling, clearance & $0.0072, 0.080, 0.180$ & $\text{d}^{-1}$ & \textbf{F} & $b_{\mathrm{basal}} = 472/2^{16}$; cleared floor $B_{\mathrm{eq}} = b_{\mathrm{basal}}/k_{\mathrm{clr}} = 0.040$ \\
-$\beta_B, \beta_h, \eta_D, \gamma_C$ & Impedance \& OXPHOS coupling coefficients & $0.25, 0.65, 0.15, 0.34$ & Dimensionless & \textbf{F} & Defective OXPHOS coupling of deletion-bearing $D$ \cite{wallace2012mitochondrial} \\
-$c_1, c_2$ & Mitophagy / biogenesis flux load factors & $0.220, 0.040$ & Dimensionless & \textbf{F} & Energetic relief during mitophagy vs.\ biogenesis translation load \\
-$k_E, k_{G,\mathrm{prod}}, k_{G,\mathrm{clr}}$ & Potential relaxation \& stress readout rates & $0.250, 0.080, 0.160$ & $\text{d}^{-1}$ & \textbf{F} & First-order cellular potential and biomarker kinetics \\
-$k_{N,\mathrm{syn},0/2}, k_{\mathrm{PARP}}, k_{N,\mathrm{use}}$ & $\text{NAD}^+$ synthesis, PARP1 drain, basal use & $0.060, 0.080, 0.060, 0.095$ & $\text{d}^{-1}$ & \textbf{F} & PARP1-mediated $\text{NAD}^+$ consumption above $\theta_{\mathrm{GSH}}$ \cite{ryu2016urolithin} \\
-$k_{\mathrm{oct},0/2}, k_{\mathrm{ox}}, k_{\mathrm{drift}}, k_{\mathrm{TET}}$ & Buffer ($C$) \& epigenetic ($M_8$) kinetics & $0.04, 0.10, 0.05, 0.0015, 0.012$ & $\text{d}^{-1}$ & \textbf{F} & Thiol oxidation and cofactor-dependent demethylation kinetics \\
-$h_{\mathrm{gate}}, B_{\mathrm{gate}}$ & Stage-1 $\to$ Stage-2 switching thresholds & $0.080, 0.120$ & Dimensionless & \textbf{A} & Derived from Eq.~\eqref{eq:hgate_derivation}; tightened to $0.065$ under mismatch (\S5.2) \\
+$K$ & Mitochondrial carrying capacity & $1.250$ & Norm.\ mass & \textbf{F} & $25\%$ reserve above $W^* = 1.00$ \cite{stewart2015purifying} \\
+$k_{\mathrm{mito},W}$ & Basal wild-type mitophagy rate & $0.015$ & $\text{d}^{-1}$ & \textbf{M} & Neuronal mtDNA $t_{1/2} \approx 46\text{ d}$ \cite{aryaman2019stochastic,surmeier2017selective} \\
+$k_{\mathrm{bio},0}, k_{\mathrm{bio},\max}$ & Basal / max stimulated biogenesis & $0.075, 0.140$ & $\text{d}^{-1}$ & \textbf{F} & Basal $k_{\mathrm{mito},W}/(1 - 1/K)$ \cite{ryu2016urolithin} \\
+$k_{\mathrm{mito},D,\max}$ & Max Stage-1 selective mitophagy & $0.115$ & $\text{d}^{-1}$ & \textbf{M} & PINK1/Parkin clearance ($t_{1/2} \approx 6\text{ d}$) \cite{ryu2016urolithin} \\
+$k_{\mathrm{rep,adv}}$ & Mutant replicative advantage & $1.320$ & Dimensionless & \textbf{M} & Deletion mtDNA bias (swept $1.00\text{--}1.32$) \cite{stewart2015purifying,kowald2014mtDNA} \\
+$k_{\mathrm{dmg}}$ & Supra-threshold ROS damage rate & $0.040$ & $\text{d}^{-1}\text{EP}^{-1}$ & \textbf{F} & Swept $0.00\text{--}0.045$ in Fig.~\ref{fig:optimal_ekf_phase}B \cite{surmeier2017selective} \\
+$\theta_{\mathrm{GSH}}, \theta_{\mathrm{cys}}$ & Redox \& thiol oxidation ceilings & $1.150, 0.850$ & Norm.\ EP & \textbf{F} & Glutathione/peroxiredoxin ceiling \cite{bolam2012living} \\
+$\theta_{\mathrm{surv}}$ & Bioenergetic ATP survival floor & $0.450$ & Norm.\ ATP & \textbf{M} & Bioenergetic failure floor ($45\%$) \cite{bolam2012living} \\
+$K_B$ & Lysosomal bottleneck half-sat. & $0.250$ & Norm.\ load & \textbf{F} & Autophagic flux saturation \cite{surmeier2017selective} \\
+$b_{\mathrm{basal}}, k_{\mathrm{acc}}, k_{\mathrm{clr}}$ & Bottleneck influx, coupling, clear. & $0.0072, 0.080, 0.180$ & $\text{d}^{-1}$ & \textbf{F} & $b_{\mathrm{basal}} = 472/2^{16}$; $B_{\mathrm{eq}} = 0.040$ \\
+$\beta_B, \beta_h, \eta_D, \gamma_C$ & Impedance \& OXPHOS couplings & $0.25, 0.65, 0.15, 0.34$ & Dimensionless & \textbf{F} & Defective OXPHOS coupling of $D$ \cite{wallace2012mitochondrial} \\
+$c_1, c_2$ & Mitophagy relief / biogenesis load & $0.220, 0.040$ & Dimensionless & \textbf{F} & Energetic load modulation \\
+$k_E, k_{G,\mathrm{prod}}, k_{G,\mathrm{clr}}$ & Potential \& stress readout rates & $0.250, 0.080, 0.160$ & $\text{d}^{-1}$ & \textbf{F} & First-order biomarker kinetics \\
+$k_{N,\mathrm{syn},0/2}, k_{\mathrm{PARP}}, k_{N,\mathrm{use}}$ & $\text{NAD}^+$ synthesis, PARP1, use & $0.060, 0.080, 0.060, 0.095$ & $\text{d}^{-1}$ & \textbf{F} & PARP1 drain above $\theta_{\mathrm{GSH}}$ \cite{ryu2016urolithin} \\
+$k_{\mathrm{oct},0/2}, k_{\mathrm{ox}}, k_{\mathrm{drift}}, k_{\mathrm{TET}}$ & Buffer ($C$) \& epigenetic ($M_8$) & $0.04, 0.10, 0.05, 0.0015, 0.012$ & $\text{d}^{-1}$ & \textbf{F} & Thiol oxidation \& demethylation \\
+$h_{\mathrm{gate}}, B_{\mathrm{gate}}$ & Stage-1 $\to$ 2 switching gates & $0.080, 0.120$ & Dimensionless & \textbf{A} & Tightened to $\hat{h}_{\mathrm{gate}}=0.065$ under EKF (\S5.2) \\
 \bottomrule
 \end{tabular}%
 }
-\end{table*}
+\end{table}
 
-\subsection{Exact Quotient Flow and Conditional Safety Guarantees}
-Applying the quotient rule $\frac{d}{dt}\left(\frac{D}{W+D}\right) = \frac{\dot{D}W - D\dot{W}}{(W+D)^2}$ to Eqs.~\eqref{eq:ode_W}--\eqref{eq:ode_D} yields the exact heteroplasmy quotient ODE. Specifically, the ROS conversion term $+k_{\mathrm{dmg}}W\max(0, \mathrm{EP}-\theta_{\mathrm{GSH}})$ in $\dot{D}$ contributes $\frac{W^2}{(W+D)^2}k_{\mathrm{dmg}}\max(0, \mathrm{EP}-\theta_{\mathrm{GSH}}) = (1-h)^2 k_{\mathrm{dmg}}\max(0, \mathrm{EP}-\theta_{\mathrm{GSH}})$, while the corresponding loss term $-k_{\mathrm{dmg}}W\max(0, \mathrm{EP}-\theta_{\mathrm{GSH}})$ in $\dot{W}$ contributes $+\frac{DW}{(W+D)^2}k_{\mathrm{dmg}}\max(0, \mathrm{EP}-\theta_{\mathrm{GSH}}) = h(1-h)k_{\mathrm{dmg}}\max(0, \mathrm{EP}-\theta_{\mathrm{GSH}})$. Summing both contributions yields $(1-h)k_{\mathrm{dmg}}\max(0, \mathrm{EP}-\theta_{\mathrm{GSH}})$, giving:
+\subsection{Heteroplasmy Quotient Flow and Stage-1 Safety Invariance}
+Differentiating $h(t) = D(t)/[W(t)+D(t)]$ along Eqs.~\eqref{eq:ode_W}--\eqref{eq:ode_D} (full quotient-rule algebra in Appendix~\ref{app:invariance}) yields the exact heteroplasmy evolution law:
 \begin{align}
-  \dot{h} &= -\lambda_h(t)\,h(1-h) \nonumber\\
-          &\quad + (1-h)\,k_{\mathrm{dmg}}\,\max\!\big(0, \mathrm{EP}(\mathbf{x}, \mathbf{u}) - \theta_{\mathrm{GSH}}\big), \label{eq:h_dot} \\
-  \lambda_h(t) &= k_{\mathrm{mito},D}(u_1)\,V_{\mathrm{lys}}(B) - k_{\mathrm{mito},W} \nonumber\\
-               &\quad - (k_{\mathrm{rep,adv}} - 1)\,k_{\mathrm{bio}}(u_2, N)\left(1 - \frac{M(t)}{K}\right). \label{eq:lambda_h}
+  \dot{h}(t) &= -\lambda_h(t)\,h(t)\big(1 - h(t)\big) + \big(1 - h(t)\big)\,k_{\mathrm{dmg}}\max\!\big(0,\, \mathrm{EP}(\mathbf{x}, \mathbf{u}) - \theta_{\mathrm{GSH}}\big), \label{eq:h_dot} \\
+  \lambda_h(t) &= k_{\mathrm{mito},D}(u_1)\,V_{\mathrm{lys}}(B) - k_{\mathrm{mito},W} - (k_{\mathrm{rep,adv}} - 1)\,k_{\mathrm{bio}}(u_2, N)\!\left(1 - \frac{M(t)}{K}\right). \label{eq:lambda_h}
 \end{align}
-Equation~\eqref{eq:lambda_h} reveals why concurrent or premature biogenesis ($u_2 = 1$) can fail when $k_{\mathrm{rep,adv}} > 1$ and $B(t)$ is elevated: increasing $k_{\mathrm{bio}}(u_2, N)$ directly subtracts $(k_{\mathrm{rep,adv}}-1)k_{\mathrm{bio}}(1 - M/K)$ from the selective contraction rate $\lambda_h(t)$, while elevated $B(t)$ depresses $V_{\mathrm{lys}}(B)$ and raises $\mathrm{EP}(\mathbf{x}, \mathbf{u})$ above $\theta_{\mathrm{GSH}}$.
+Equations~\eqref{eq:h_dot}--\eqref{eq:lambda_h} expose the core dynamical conflict: when $k_{\mathrm{rep,adv}} > 1$ and $B(t)$ is elevated, activating biogenesis prematurely ($u_2 = 1$) subtracts $(k_{\mathrm{rep,adv}} - 1)k_{\mathrm{bio}}(1 - M/K)$ from the selective clearance rate $\lambda_h(t)$ while simultaneously raising $f_{\mathrm{eff}}$ and pushing $\mathrm{EP}$ above $\theta_{\mathrm{GSH}}$, igniting positive ROS conversion of $W$ into $D$. Conversely, Stage~1 clearance ($u_0 = 1, u_1 = 1, u_2 = 0$) unblocks $B(t)$ and lowers $f_{\mathrm{eff}}$, preserving joint forward invariance of a safe physiological box:
 
-We now prove joint forward invariance of the Stage-1 safe box via Nagumo's subtangent theorem, dynamically establishing $\mathrm{EP}(\mathbf{x}, (1,1,0)) < \theta_{\mathrm{GSH}}$ rather than assuming it \textit{a priori}, and resolving the exact boundary vs.\ interior dependence on $B_0$.
-
-\begin{lemma}[Joint Stage-1 Safe-Box Invariance]
+\begin{lemma}[Joint Stage-1 Safe-Box Invariance; Proof in Appendix~\ref{app:invariance}]
 \label{lem:invariance}
-Under Stage~1 control ($u_0 = 1, u_1 = 1, u_2 = 0$), Eqs.~\eqref{eq:aux_kbio}--\eqref{eq:aux_kmitod} give identically $k_{\mathrm{bio}}(0, N) = k_{\mathrm{bio},0}$ and $k_{\mathrm{mito},D}(1) = k_{\mathrm{mito},D,\max}$. For $D_0 \in (0, W^*)$ and $B_0 \ge B_{\mathrm{eq}} = b_{\mathrm{basal}}/k_{\mathrm{clr}}$, define the invariant wild-type floor $W_{\min}(D_0) \triangleq K(1 - k_{\mathrm{mito},W}/k_{\mathrm{bio},0}) - D_0 = W^* - D_0$, the candidate compact box $\Omega_1(D_0, B_0) \triangleq \{\mathbf{x} \in \mathbb{R}_{\ge 0}^8 : W \in [W^* - D_0, K],\, D \in [0, D_0],\, B \in [B_{\mathrm{eq}}, B_0],\, E \in [0, E_{\max}],\, C \in [C_{\min}, 1.30]\}$, and the boundary vs.\ interior critical bottleneck thresholds:
-\begin{align}
-  B_{\mathrm{crit}}^* &\triangleq K_B\left(\frac{k_{\mathrm{mito},D,\max}}{k_{\mathrm{rep,adv}}\,k_{\mathrm{bio},0}\,(1 - W^*/K)} - 1\right), \label{eq:B_crit} \\
-  B_{\mathrm{crit,mono}} &\triangleq K_B\left(\frac{k_{\mathrm{mito},D,\max}}{k_{\mathrm{rep,adv}}\,k_{\mathrm{bio},0}\,\big(1 - \frac{W^* - D_0}{K}\big)} - 1\right). \label{eq:B_crit_mono}
-\end{align}
-Suppose $\sup_{\Omega_1} \mathrm{EP}(\mathbf{x}, (1,1,0)) \le \min(\theta_{\mathrm{GSH}}, E_{\max})$ and $k_{\mathrm{oct},0}(1.30 - C_{\min}) \ge k_{\mathrm{ox}}\max(0, E_{\max} - \theta_{\mathrm{cys}})C_{\min}$. Then:
+Under Stage~1 control ($u_0 = 1, u_1 = 1, u_2 = 0$) on the compact candidate box $\Omega_1(D_0, B_0) = \{\mathbf{x} \in \mathbb{R}_{\ge 0}^8 : W \in [W^* - D_0, K],\, D \in [0, D_0],\, B \in [B_{\mathrm{eq}}, B_0],\, E \in [0, E_{\max}],\, C \in [C_{\min}, 1.30]\}$ with $\sup_{\Omega_1} \mathrm{EP}(\mathbf{x}, (1,1,0)) \le \min(\theta_{\mathrm{GSH}}, E_{\max})$ and critical bottleneck threshold $B_{\mathrm{crit}}^*$ defined in Eq.~\eqref{eq:B_crit}:
 \begin{enumerate}
-  \item \textbf{Joint Forward Invariance ($B_0 \le B_{\mathrm{crit}}^*$):} The compact set $\Omega_1(D_0, B_0)$ is positively invariant under Eqs.~\eqref{eq:ode_W}--\eqref{eq:ode_C}. In particular, for all $t \in [0, t_{\mathrm{gate}}]$, $\mathrm{EP}(\mathbf{x}(t), (1,1,0)) \le \theta_{\mathrm{GSH}}$, $D(t) \le D_0$, and $W(t)$ satisfies
-  \begin{equation}
-    W(t) \ge W_{\min}(D_0) = W^* - D_0.
-    \label{eq:W_min}
-  \end{equation}
-  Moreover, once $B(t) \le B_{\mathrm{crit,mono}}$, $\dot{D}(t) \le 0$ holds pointwise throughout the entire interior of $\Omega_1(D_0, B_0)$.
-  \item \textbf{Super-Critical Bottleneck Dwell Time ($B_0 > B_{\mathrm{crit}}^*$):} Since $\dot{B} = b_{\mathrm{basal}} - k_{\mathrm{clr}}B$ under $u_0 = 1$, $B(t)$ reaches $B_{\mathrm{crit}}^*$ at the finite dwell time
-  \begin{equation}
-    t_0 = \frac{1}{k_{\mathrm{clr}}}\ln\!\left(\frac{B_0 - B_{\mathrm{eq}}}{B_{\mathrm{crit}}^* - B_{\mathrm{eq}}}\right),
-    \label{eq:t0_dwell}
-  \end{equation}
-  with $D(t_0) \le \bar{D}(t_0) \triangleq \min\!\big(K, D_0 \exp(k_{\mathrm{rep,adv}}k_{\mathrm{bio},0} t_0)\big)$, after which Case~1 invariance holds on $\Omega_1(\bar{D}(t_0), B_{\mathrm{crit}}^*)$ whenever $\bar{D}(t_0) < W^*$ and $\mathrm{EP} \le \theta_{\mathrm{GSH}}$.
+  \item \textbf{Joint Forward Invariance ($B_0 \le B_{\mathrm{crit}}^*$):} $\Omega_1(D_0, B_0)$ is positively invariant; throughout $t \in [0, t_{\mathrm{gate}}]$, ROS conversion remains identically zero ($\mathrm{EP} \le \theta_{\mathrm{GSH}}$), $D(t) \le D_0$, and wild-type mass never drops below $W_{\min}(D_0) = W^* - D_0$. On the canonical neuronal box ($D_0 = 0.400, B_0 = 0.500 < B_{\mathrm{crit}}^* = 1.2020$), $\max_{\Omega_1}\mathrm{EP} = 1.0456 < \theta_{\mathrm{GSH}} = 1.150$ and $W(t) \ge 0.600 > \theta_{\mathrm{surv}} = 0.450$.
+  \item \textbf{Super-Critical Dwell Time ($B_0 > B_{\mathrm{crit}}^*$):} Under $u_0 = 1$, $B(t)$ decays exponentially to $B_{\mathrm{crit}}^*$ in finite time $t_0 = k_{\mathrm{clr}}^{-1}\ln[(B_0 - B_{\mathrm{eq}})/(B_{\mathrm{crit}}^* - B_{\mathrm{eq}})]$, after which Case~1 invariance holds whenever $\bar{D}(t_0) < W^*$ ($t_0 = 2.91\text{ d}$ at $B_0 = 2.00$).
 \end{enumerate}
 \end{lemma}
 
-\begin{proof}
-We verify Nagumo's subtangent condition on every boundary face of $\Omega_1(D_0, B_0)$. First, by assumption $\mathrm{EP}(\mathbf{x}, (1,1,0)) \le \min(\theta_{\mathrm{GSH}}, E_{\max})$ everywhere on $\Omega_1$, so the ROS damage term $\max(0, \mathrm{EP} - \theta_{\mathrm{GSH}}) \equiv 0$ on $\Omega_1$. On the $E$, $C$, and $B$ faces: $\dot{E}|_{E=0} = k_E \mathrm{EP} \ge 0$, $\dot{E}|_{E=E_{\max}} = k_E(\mathrm{EP} - E_{\max}) \le 0$; $\dot{C}|_{C=1.30} \le 0$, $\dot{C}|_{C=C_{\min}} \ge 0$; and under $u_0 = 1$, $\dot{B}|_{B=B_{\mathrm{eq}}} = 0$ and $\dot{B}|_{B=B_0} = k_{\mathrm{clr}}(B_{\mathrm{eq}} - B_0) \le 0$. Crucially, on the upper mutant face $D = D_0$, every point in $\Omega_1$ satisfies $W \ge W^* - D_0$, so total mass on that face satisfies $M = W + D_0 \ge W^*$ automatically (without assuming $M(t) \ge W^*$ in the interior). Evaluating Eq.~\eqref{eq:ode_D} at $D = D_0$ therefore gives $\dot{D}|_{D=D_0} \le D_0\big[k_{\mathrm{rep,adv}}k_{\mathrm{bio},0}(1 - W^*/K) - k_{\mathrm{mito},D,\max}\frac{K_B}{K_B + B}\big] \le 0$ for all $B \le B_{\mathrm{crit}}^*$, while $\dot{D}|_{D=0} = 0$. On the lower wild-type face $W = W^* - D_0$, every point in $\Omega_1$ satisfies $D \le D_0$, so Eq.~\eqref{eq:ode_W} gives
-\begin{equation}
-  \dot{W}\big|_{W_{\min}} \ge W_{\min}\!\left[k_{\mathrm{bio},0}\!\left(1 - \frac{W^*}{K}\right) - k_{\mathrm{mito},W}\right] = 0
-  \label{eq:W_comparison}
-\end{equation}
-by Eq.~\eqref{eq:kbio0_calibration}, and $\dot{W}|_{W=K} \le -k_{\mathrm{mito},W}K < 0$. Thus $\Omega_1(D_0, B_0)$ is jointly forward invariant. Throughout the interior of $\Omega_1$, $M = W + D \ge W^* - D_0$, so $B(t) \le B_{\mathrm{crit,mono}}$ implies $\dot{D}(t) \le 0$ everywhere on $\Omega_1$. Integrating $\dot{B} = b_{\mathrm{basal}} - k_{\mathrm{clr}}B$ yields Eq.~\eqref{eq:t0_dwell}.
-\end{proof}
-
-\paragraph{Exact Verification on the Canonical Neuronal Box.}
-Set $\Omega_1$ with $D_0 = 0.400$, $W \in [0.600, 1.250]$, $B \in [0.04001, 0.500]$, $E_{\max} = 1.350$, and $C_{\min} = 0.650$. Under $(u_0, u_1, u_2) = (1, 1, 0)$, $f_{\mathrm{eff}}(1,0)^2 = (1 - 0.220)^2 = 0.6084$. In Eq.~\eqref{eq:aux_er}, $\mathrm{EP}$ decreases strictly with $W$ and $C$ and increases with $B$; fixing $(W, B, C) = (0.600, 0.500, 0.650)$, $\phi(D) = \frac{1.125 + 0.65 D/(0.60+D)}{0.60 + 0.15 D} = \frac{0.675 + 1.775 D}{0.36 + 0.69 D + 0.15 D^2}$ has numerator derivative $0.17325 - 0.2025 D - 0.26625 D^2 > 0$ for all $D \in [0, 0.400]$. Hence $\mathrm{EP}$ attains its exact global maximum on $\Omega_1$ at $(0.600, 0.400, 0.500, 0.650)$:
-\begin{align*}
-  \max_{\Omega_1} \mathrm{EP}\big(\mathbf{x}, (1,1,0)\big) &= \frac{1.385}{0.660 \times 1.221}\times 0.6084 \\
-  &= 1.0456 < \theta_{\mathrm{GSH}} = 1.150,
-\end{align*}
-while $\dot{C}|_{C=0.650} \ge 0.040(0.650) - 0.050(0.500)(0.650) = +0.00975 > 0$. Equations~\eqref{eq:B_crit}--\eqref{eq:B_crit_mono} give $B_{\mathrm{crit}}^* = 0.250(5.8081 - 1) = 1.2020 > B_0 = 0.500$ and $B_{\mathrm{crit,mono}} = 0.250(2.2340 - 1) = 0.3085$ (crossed by $B(t)$ at $t = 3.16\text{ d}$), confirming $W(t) \ge W_{\min}(0.40) = 0.600 > \theta_{\mathrm{surv}} = 0.450$ for all $t \in [0, t_{\mathrm{gate}}]$. For super-critical $B_0 = 2.00 > 1.2020$, Eq.~\eqref{eq:t0_dwell} gives $t_0 = 2.91\text{ d}$.
-
-\begin{proposition}[Analytical Regional Contraction]
+\begin{proposition}[Regional Contraction and Invasion Stability; Proof in Appendix~\ref{app:invariance}]
 \label{prop:stability}
-Let $\mathbf{x}(0) \in \Omega_1(D_0, B_0)$ satisfy the hypotheses of Lemma~\ref{lem:invariance} Case~1 ($B_0 \le B_{\mathrm{crit}}^*$).
-\begin{enumerate}
-  \item \textbf{Closed-Form Uniform Contraction Floor $\lambda_{\min}$:} On the invariant set $\Omega_1(D_0, B_0)$, $B(t) \le B_0$ and $M(t) = W(t) + D(t) \ge W^* - D_0$, so Eq.~\eqref{eq:lambda_h} under Stage~1 ($u_1 = 1, u_2 = 0$) is bounded below analytically for all $t \in [0, t_{\mathrm{gate}}]$ by
-  \begin{align}
-    \lambda_{\min} &\triangleq \frac{k_{\mathrm{mito},D,\max}K_B}{K_B + B_0} - k_{\mathrm{mito},W} \nonumber\\
-                   &\quad - (k_{\mathrm{rep,adv}} - 1)k_{\mathrm{bio},0}\!\left(1 - \frac{W^* - D_0}{K}\right). \label{eq:lambda_min_analytic}
-  \end{align}
-  Whenever $\lambda_{\min} > 0$ (for the canonical neuronal box, $\lambda_{\min} = \frac{0.115}{3} - 0.015 - 0.32(0.075)(0.520) = 0.01085\text{ d}^{-1} > 0$), $V(h) = \frac{1}{2}h^2$ satisfies $\dot{V} = -\lambda_h(t)h^2(1-h) \le -\lambda_{\min}(1 - h_0)h^2$, yielding both the logistic and regional exponential bounds:
-  \begin{align}
-    h(t) &\le \frac{h_0\,e^{-\lambda_{\min} t}}{1 - h_0 + h_0\,e^{-\lambda_{\min} t}} \nonumber\\
-         &\le h_0\exp\!\big(-\lambda_{\min}(1 - h_0)t\big). \label{eq:prop1_bounds}
-  \end{align}
-  \item \textbf{Sub-Damage Transcritical Invasion Exchange:} At the mutant-free manifold $(W^*, 0, B_{\mathrm{eq}})$ where $1 - W^*/K = k_{\mathrm{mito},W}/k_{\mathrm{bio}}$, the linearized mutant invasion eigenvalue is $\mu_D = -\lambda_h^* = k_{\mathrm{rep,adv}}\,k_{\mathrm{mito},W} - k_{\mathrm{mito},D}(u_1)\,V_{\mathrm{lys}}(B_{\mathrm{eq}})$. Whenever $k_{\mathrm{mito},D}(u_1)\,V_{\mathrm{lys}}(B_{\mathrm{eq}}) < k_{\mathrm{rep,adv}}\,k_{\mathrm{mito},W}$, $h^* = 0$ is unstable ($\mu_D > 0$); Stage~1 mitophagy satisfying $k_{\mathrm{mito},D}(u_1)\,V_{\mathrm{lys}}(B_{\mathrm{eq}}) > k_{\mathrm{rep,adv}}\,k_{\mathrm{mito},W}$ renders $\mu_D < 0$ and $h^* = 0$ locally exponentially stable.
-\end{enumerate}
+For any initial state $\mathbf{x}(0) \in \Omega_1(D_0, B_0)$ satisfying Lemma~\ref{lem:invariance} Case~1, the selective contraction rate $\lambda_h(t)$ is bounded below uniformly on $[0, t_{\mathrm{gate}}]$ by a closed-form constant $\lambda_{\min}$ (Eq.~\ref{eq:lambda_min_analytic}; $\lambda_{\min} = 0.01085\text{ d}^{-1} > 0$ on the canonical neuronal box). Whenever $\lambda_{\min} > 0$, heteroplasmy contracts monotonically according to
+\begin{equation}
+  h(t) \le \frac{h_0\,e^{-\lambda_{\min} t}}{1 - h_0 + h_0\,e^{-\lambda_{\min} t}} \le h_0\exp\!\big(-\lambda_{\min}(1 - h_0)t\big).
+  \label{eq:prop1_bounds}
+\end{equation}
+Moreover, at the mutant-free homeostatic equilibrium $(W^*, 0, B_{\mathrm{eq}})$, the linearized mutant invasion eigenvalue $\mu_D = k_{\mathrm{rep,adv}}k_{\mathrm{mito},W} - k_{\mathrm{mito},D}(u_1)V_{\mathrm{lys}}(B_{\mathrm{eq}})$ switches sign from unstable ($\mu_D > 0$ when unstimulated) to locally exponentially stable ($\mu_D < 0$) under Stage-1 mitophagy.
 \end{proposition}
 
-\begin{proof}
-By Lemma~\ref{lem:invariance}, $\mathbf{x}(t) \in \Omega_1(D_0, B_0)$ and $\mathrm{EP}(t) \le \theta_{\mathrm{GSH}}$ for all $t \in [0, t_{\mathrm{gate}}]$, so Eq.~\eqref{eq:h_dot} reduces to $\dot{h} = -\lambda_h(t)h(1-h)$, and substituting $V_{\mathrm{lys}}(B(t)) \ge \frac{K_B}{K_B + B_0}$ and $1 - M(t)/K \le 1 - (W^* - D_0)/K$ into Eq.~\eqref{eq:lambda_h} proves Eq.~\eqref{eq:lambda_min_analytic}. Separating variables gives $\frac{d}{dt}\ln\left(\frac{h}{1-h}\right) = -\lambda_h(t) \le -\lambda_{\min}$, which integrates to the first inequality in Eq.~\eqref{eq:prop1_bounds}; since $h(t) \le h_0$ on $[0, t_{\mathrm{gate}}]$, $1 - h(t) \ge 1 - h_0$, giving $\dot{h} \le -\lambda_{\min}(1 - h_0)h$ and the second inequality. Linearizing $\dot{D}$ around $(W^*, 0, B_{\mathrm{eq}})$ gives $\dot{D} \approx \mu_D D$.
-\end{proof}
-
-\subsection{Unconstrained Discrete-Adjoint Optimal Control vs.\ Threshold Feedback}
-To evaluate control policies over $t \in [0, T_{\max}]$ identically to \texttt{compute\_bolza\_cost} in \texttt{simulator/\allowbreak generate\_\allowbreak paper1\_\allowbreak verified\_\allowbreak benchmarks.py}, we define the finite-horizon Bolza objective functional:
+\subsection{Discrete-Adjoint Optimal Control vs.\ Embedded Threshold Feedback}
+To benchmark simple threshold switching against an unconstrained time-varying control schedule identically to \texttt{compute\_bolza\_cost} in \path{simulator/generate_paper1_verified_benchmarks.py}, we minimize the finite-horizon Bolza cost functional:
 \begin{align}
-  J(\mathbf{u}) &= w_h\,h(T_{\max})^2 + w_W\big(W_{\mathrm{ref}} - W(T_{\max})\big)^2 \nonumber\\
-                &\quad + \int_0^{T_{\max}} \Big[ w_{\mathrm{EP}}\,\max\!\big(0, \mathrm{EP}(t) - \theta_{\mathrm{GSH}}\big)^2 \nonumber\\
-                &\qquad + w_{\mathrm{surv}}\,\max\!\big(0, \theta_{\mathrm{surv}} - \mathrm{ATP}(t)\big)^2 \nonumber\\
-                &\qquad + \frac{w_{\mathrm{def}}}{T_{\max}}\,\max\!\big(0, 0.85 - W(t)\big)^2 \nonumber\\
-                &\qquad + r_1 u_1(t) + r_2 u_2(t) \Big] dt,
+  J(\mathbf{u}) &= w_h\,h(T_{\max})^2 + w_W\big(W_{\mathrm{ref}} - W(T_{\max})\big)^2 + \int_0^{T_{\max}} \Big[ w_{\mathrm{EP}}\max\!\big(0, \mathrm{EP}(t) - \theta_{\mathrm{GSH}}\big)^2 \nonumber\\
+  &\quad + w_{\mathrm{surv}}\max\!\big(0, \theta_{\mathrm{surv}} - \mathrm{ATP}(t)\big)^2 + \frac{w_{\mathrm{def}}}{T_{\max}}\max\!\big(0, 0.85 - W(t)\big)^2 + r_1 u_1(t) + r_2 u_2(t) \Big]\,dt,
   \label{eq:bolza_cost}
 \end{align}
-with terminal weights $w_h = 80, w_W = 30$ ($W_{\mathrm{ref}} = 1.00$), safety penalty weights $w_{\mathrm{EP}} = 180\text{ d}^{-1}, w_{\mathrm{surv}} = 250\text{ d}^{-1}, w_{\mathrm{def}} = 0.85$, and horizon-normalized actuation weights $r_1 = 1.15/T_{\max}, r_2 = 0.12/T_{\max}$ (with $r_0 = 0$, representing non-penalized housekeeping bottleneck clearance so $\partial\mathcal{H}/\partial u_0 \le 0 \implies u_0^*(t) \equiv 1$).
+with terminal weights $w_h = 80, w_W = 30$ ($W_{\mathrm{ref}} = 1.00$), safety weights $w_{\mathrm{EP}} = 180\text{ d}^{-1}, w_{\mathrm{surv}} = 250\text{ d}^{-1}, w_{\mathrm{def}} = 0.85$, and horizon-normalized actuation weights $r_1 = 1.15/T_{\max}, r_2 = 0.12/T_{\max}$ ($r_0 = 0 \implies u_0^*(t) \equiv 1$).
 
-\paragraph{Discrete-Adjoint Pontryagin Solution and Interior Constraint Arc.}
-In Eqs.~\eqref{eq:ode_W}--\eqref{eq:ode_M8}, $(u_1, u_2)$ enter linearly in the actuation penalty $r_1 u_1 + r_2 u_2$ and in Eqs.~\eqref{eq:aux_kbio}--\eqref{eq:aux_kmitod}, but enter \textit{quadratically} in $\mathrm{EP}(\mathbf{x}, \mathbf{u}) = \dot{e}_R(\mathbf{x})(1 - c_1 u_1 + c_2 u_2)^2$ whenever $\mathrm{EP}$ approaches $\theta_{\mathrm{GSH}} = 1.150$, while $u_2$ also couples dynamically through cofactor $N(t)$ in Eq.~\eqref{eq:ode_N}. Monotonicity of $h(t)$ therefore neither establishes bang-bang optimality nor excludes interior state-constraint arcs.
+Discretizing $\mathbf{u}(t) \in [0, 1]^3$ into $N_{\mathrm{ctrl}} = 100$ piecewise-constant intervals ($300$ decision variables over $1{,}000$ exact \texttt{RK4} steps on $[0, 90\text{ d}]$) and propagating exact discrete-time \texttt{RK4} adjoint Jacobians (central finite-difference relative error $1.95 \times 10^{-9}$), \texttt{L-BFGS-B} converges across 5 diverse initializations within a $0.12\%$ cost spread ($J_{\mathrm{PMP}}^* = 0.7262$, $h(T_{\max}) = 0.0300, W(T_{\max}) = 0.9938$; Figure~\ref{fig:optimal_ekf_phase}A). Rather than pure bang-bang switching, $u_1^*(t)$ modulates smoothly along an early interior redox arc ($[0.44, 0.83]$ on Days~$0\text{--}17$) so $\mathrm{EP}^*(t)$ rides $\theta_{\mathrm{GSH}} = 1.150$, while $u_2^*(t)$ remains zero until $h^*(t) < 0.030$ before executing a terminal biogenesis sprint (Days~$78\text{--}90$).
 
-To resolve the true optimal trajectory without structural assumptions, we discretize $\mathbf{u}(t) \in [0, 1]^3$ into $N_{\mathrm{ctrl}} = 100$ free piecewise-constant control intervals ($300$ decision variables over $1{,}000$ exact \texttt{RK4} intervals on $[0, 90\text{ d}]$), propagate the exact backward-in-time discrete \texttt{RK4} adjoint equations to obtain $\nabla_{u} J$ (verified against central finite differences to directional relative error $1.95 \times 10^{-9}$), and solve $\min_{u \in [0,1]^{300}} J(\mathbf{u})$ via \texttt{L-BFGS-B}. Across five diverse initializations (staged relay, all-zero, uniform midpoint $0.5$, build-first, and uniform random), \texttt{L-BFGS-B} converges to the same optimum within a $0.12\%$ cost spread ($J \in [0.72620, 0.72709]$, interior-arc stationarity residual $\max |\partial J/\partial u_{1,m}| = 1.47 \times 10^{-3}$). As shown in Figure~\ref{fig:optimal_ekf_phase}A, the unconstrained optimum achieves $J_{\mathrm{PMP}}^* = 0.7262$ ($h(T_{\max}) = 0.0300, W(T_{\max}) = 0.9938, \mathrm{EP}_{\max} = 1.150$) via two non-relay features:
-\begin{enumerate}
-  \item \textbf{Early Interior Redox-Boundary Modulation ($t \in [0, 17\text{ d}]$):} Rather than saturating $u_1 = 1$, $u_1^*(t)$ modulates smoothly across $[0.44, 0.83]$ so that $\mathrm{EP}(t)$ rides just along $\theta_{\mathrm{GSH}} = 1.150$ without incurring unnecessary $r_1 u_1$ effort, ramping to $u_1^* \approx 1.0$ during peak selection ($t \in [20, 33\text{ d}]$) before tapering to zero by $t \approx 75\text{ d}$.
-  \item \textbf{Late Terminal Biogenesis Sprint ($t \in [78, 90\text{ d}]$):} $u_2^*(t)$ remains identically zero until $h^*(t) < 0.030$, then executes a concentrated terminal burst to reach $W(T_{\max}) = 0.994$ while minimizing replicative expansion $(k_{\mathrm{rep,adv}}-1)k_{\mathrm{bio}}D$.
-\end{enumerate}
+Because riding $\mathrm{EP}^*(t) \equiv \theta_{\mathrm{GSH}}$ in open loop leaves zero robustness margin against kinetic mismatch, our embedded closed-loop law triggers Stage~1 $\to$ Stage~2 ($(1, 1, 0) \to (1, 0.35, 1)$) when $B(t) \le B_{\mathrm{gate}} = 0.120$ and $h(t) \le h_{\mathrm{gate}} = 0.080$ (Eq.~\ref{eq:hgate_derivation} in Appendix~\ref{app:model}). At $h_{\mathrm{gate}} = 0.080$ ($t_{\mathrm{gate}} = 33.30\text{ d}$), post-switch $\mathrm{EP}(t_{\mathrm{gate}}^+)$ steps from $0.603$ to $0.919 < 1.150$, preserving a $20.1\%$ redox margin while incurring a decomposed $+17.05\%$ relay-restriction cost ($J_{\mathrm{2stage}}^* = 0.850$) plus a $+4.38\%$ constant-threshold cost ($J_{\mathrm{thresh}} = 0.8875$; $+22.21\%$ total vs.\ $J_{\mathrm{PMP}}^*$, Figure~\ref{fig:ode_control}B).
 
-\paragraph{Embedded State-Feedback Threshold Law and Optimality Decomposition.}
-While $u^*(t)$ minimizes Eq.~\eqref{eq:bolza_cost} in open loop, riding $\mathrm{EP}^*(t) \equiv \theta_{\mathrm{GSH}} = 1.150$ leaves zero robustness margin against kinetic mismatch or mid-horizon insults. For embedded closed-loop control, we trigger the Stage~1 $\to$ Stage~2 relay transition ($(u_0, u_1, u_2) : (1, 1, 0) \to (1, u_{1,\mathrm{S2}}, 1)$ with $u_{1,\mathrm{S2}} = 0.35$) when $B(t) \le B_{\mathrm{gate}} = 0.120$ and $h(t) \le h_{\mathrm{gate}}$ (\texttt{coralnpu\_core8\_stage\_gate\_q16}). By Eqs.~\eqref{eq:aux_er}--\eqref{eq:aux_ep}, switching raises $f_{\mathrm{eff}}^2$ from $(1 - c_1)^2 = 0.6084$ to $(1 - c_1 u_{1,\mathrm{S2}} + c_2)^2 = 0.9274$, requiring:
-\begin{align}
-  \mathrm{EP}(t_{\mathrm{gate}}^+) &= \frac{1 + \beta_B B(t_{\mathrm{gate}}) + \beta_h h_{\mathrm{gate}}}{W(t_{\mathrm{gate}})\big(1 + \eta_D\frac{h_{\mathrm{gate}}}{1 - h_{\mathrm{gate}}}\big)\big(1 + \gamma_C C(t_{\mathrm{gate}})\big)} \nonumber\\
-  &\quad \times (1 - c_1 u_{1,\mathrm{S2}} + c_2)^2 \le \theta_{\mathrm{GSH}}.
-  \label{eq:hgate_derivation}
-\end{align}
-At $h_{\mathrm{gate}} = 0.080$ ($t_{\mathrm{gate}} = 33.30\text{ d}$, $W = 0.772, B = 0.041, C = 1.091$), $\mathrm{EP}(t_{\mathrm{gate}}^+)$ jumps from $0.603$ to $0.919 < \theta_{\mathrm{GSH}} = 1.150$, preserving a $20.1\%$ redox safety margin (and remaining $\le 1.031 < 1.150$ even at unrecovered $C_0 = 0.65$). Conversely, for $h_{\mathrm{gate}} \ge 0.195$, $\mathrm{EP}(t_{\mathrm{gate}}^+)$ breaches $\theta_{\mathrm{GSH}} = 1.150$ and causes $J(h_{\mathrm{gate}})$ to spike sharply ($0.887 \to 3.120$, Figure~\ref{fig:ode_control}B). Comparing $J_{\mathrm{PMP}}^* = 0.7262$, the optimal two-stage constant relay $J_{\mathrm{2stage}}^* = 0.850$ ($t_{\mathrm{sw}}^* = 48.18\text{ d}, u_{1,\mathrm{S2}}^* = 0$), and $J_{\mathrm{thresh}}(0.08) = 0.8875$ decomposes the suboptimality into a $+17.05\%$ structural relay-restriction cost and a $+4.38\%$ constant-threshold penalty ($+22.21\%$ total vs.\ $J_{\mathrm{PMP}}^*$). Scaling the mitophagy weight $r_1 \leftarrow \alpha_{r_1} r_1$ across $\alpha_{r_1} \in \{0.25, 1.00, 4.00\}$ yields $(J_{\mathrm{PMP}}^*, J_{\mathrm{thresh}}) = (0.2231, 0.3782)$, $(0.7262, 0.8875)$, and $(2.4121, 2.9247)$ ($+69.46\%, +22.21\%, +21.25\%$ relative gaps), showing that the relative gap widens at very small $r_1$ due to fixed Stage-2 maintenance $u_{1,\mathrm{S2}} = 0.35$.
-
-\begin{figure*}[!t]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=0.96\textwidth]{../../figures/paper1_fig1_ode_regimes_and_control_comparison.pdf}
-  \caption{\textbf{First-Principles 8-State ODE Control Comparison, Threshold Optimality Sweep, Independent 3-Regime Reduction, and Saltelli Sobol Sensitivity Analysis} (generated by \texttt{simulator/generate\_paper1\_verified\_benchmarks.py}, seed \texttt{20261109}). \textbf{(A)} Mutant heteroplasmy trajectories $h(t)$ under Untreated, Concurrent, Build-First ($B_0=0.50$), and Staged Threshold ($h_{\mathrm{gate}}=8.0\%, B_{\mathrm{gate}}=0.120$, switching at $t_{\mathrm{gate}}=33.30\text{ d}$) policies. \textbf{(B)} Direct numerical sweep of $J(h_{\mathrm{gate}})$ across $h_{\mathrm{gate}} \in [3\%, 25\%]$ compared against both the optimal 2-stage constant relay $J_{\mathrm{2stage}}^* = 0.850$ ($+4.38\%$) and unconstrained 300-variable discrete-adjoint optimal control $J_{\mathrm{PMP}}^* = 0.7262$ ($+22.21\%$). \textbf{(C)} Independent 8-state ODE trajectories for Neuronal ($90\text{ d}$), T-Cell ($168\text{ h}$), and Flight-Muscle ($14\text{ d}$) regimes with distinct $\Pi$-groups plotted against closed-form constant-rate dimensionless time $\hat{\tau} = \hat{\lambda}_0 t$ ($R^2 = 0.9828$, supremum error $0.0493$) and exact accumulated selection $s^* = 2.0369$. \textbf{(D)} Global variance-based Sobol sensitivity indices ($S_i, S_{T_i}$) across $2{,}560$ full ODE integrations.}
+  \caption{\textbf{First-Principles 8-State ODE Control Comparison, Threshold Optimality Sweep, Independent 3-Regime Reduction, and Saltelli Sobol Sensitivity Analysis} (seed \texttt{20261109}). \textbf{(A)} Mutant heteroplasmy trajectories $h(t)$ under Untreated, Concurrent, Build-First ($B_0=0.50$), and Staged Threshold ($h_{\mathrm{gate}}=8.0\%, B_{\mathrm{gate}}=0.120$, switching at $t_{\mathrm{gate}}=33.30\text{ d}$) policies. \textbf{(B)} Direct sweep of $J(h_{\mathrm{gate}})$ across $h_{\mathrm{gate}} \in [3\%, 25\%]$ compared against the optimal 2-stage constant relay ($J_{\mathrm{2stage}}^* = 0.850$, $+4.38\%$) and unconstrained 300-variable discrete-adjoint optimal control ($J_{\mathrm{PMP}}^* = 0.7262$, $+22.21\%$). \textbf{(C)} Independent 8-state ODE trajectories for Neuronal ($90\text{ d}$), T-Cell ($168\text{ h}$), and Flight-Muscle ($14\text{ d}$) regimes plotted against closed-form constant-rate dimensionless time $\hat{\tau} = \hat{\lambda}_0 t$ ($R^2 = 0.9828$, supremum error $0.0493$) and exact accumulated selection $s^* = 2.0369$. \textbf{(D)} Global variance-based Sobol sensitivity indices ($S_i, S_{T_i}$) across $2{,}560$ ODE integrations.}
   \label{fig:ode_control}
-\end{figure*}
+\end{figure}
 
-\subsection{Competing Policies, Hoitzing Reconciliation, and 2D Collapse Phase Diagram}
-Figure~\ref{fig:ode_control}A--B and Table~\ref{tab:policy_comparison}A compare six control strategies from the canonical neuronal state ($W_0=0.60, D_0=0.40, B_0=0.50$): Untreated ($\mathrm{EP}_{\max} = 20.605$, $W(T_{\max}) = 0, J = 2{,}768{,}855.31$), Concurrent ($\mathrm{EP}_{\max} = 1.423 > \theta_{\mathrm{GSH}} = 1.150$, $J = 99.829$), Build-First at $B_0 = 0.50$ ($\mathrm{EP}_{\max} = 9.744$, $W(T_{\max}) = 0, J = 760{,}388.40$), Staged Threshold ($h_{\mathrm{gate}} = 0.080$: $\mathrm{EP}_{\max} = 1.046 < 1.150$, $W(T_{\max}) = 1.0487, h(T_{\max}) = 0.0249, J = 0.887$), Two-Stage Relay Optimum ($J_{\mathrm{2stage}}^* = 0.850$), and Unconstrained Adjoint Optimal Control ($J_{\mathrm{PMP}}^* = 0.726$). Across $k_{\mathrm{rep,adv}} \in \{1.00, 1.15, 1.32\}$, the threshold policy adapts $t_{\mathrm{gate}}$ from $30.42\text{ d}$ ($h(T_{\max}) = 0.0160$) to $31.68\text{ d}$ ($0.0198$) and $33.30\text{ d}$ ($0.0249$).
+\subsection{Competing Policies, Hoitzing Reconciliation, and 2D Controllability Phase Plane}
+Table~\ref{tab:policy_comparison}A and Figure~\ref{fig:ode_control}A compare six control strategies from the canonical neuronal state ($W_0=0.60, D_0=0.40, B_0=0.50$): Untreated ($W(T_{\max}) = 0$), Concurrent ($\mathrm{EP}_{\max} = 1.423 > \theta_{\mathrm{GSH}}$, $J = 99.83$), Build-First at $B_0 = 0.50$ ($W(T_{\max}) = 0$), Staged Threshold ($W(T_{\max}) = 1.0487, h(T_{\max}) = 0.0249, J = 0.8875$), Two-Stage Relay Optimum ($J = 0.850$), and Adjoint Optimum ($J = 0.7262$).
 
-\paragraph{Reconciling Hoitzing et al.~\cite{hoitzing2019energetic} and Mapping the 2D $(W_0, k_{\mathrm{dmg}})$ Controllability Boundary.}
-Hoitzing et al.~\cite{hoitzing2019energetic} studied mtDNA populations in which mutants retain partial OXPHOS capacity ($\eta_D = 0.65$), lack replicative advantage ($k_{\mathrm{rep,adv}} = 1.00$), and experience negligible ROS conversion ($k_{\mathrm{dmg}} = 0, B_0 = 0.02$). Evaluating this depleted point ($W_0 = 0.17, D_0 = 0.38$, initial $\mathrm{ATP}(0) = 0.474 > \theta_{\mathrm{surv}} = 0.450$), immediate Purge-First removes ATP-producing $D$ faster than basal biogenesis replaces $W$, dipping transiently to $\mathrm{ATP}_{\min} = 0.440 < 0.450$, whereas an 18-day Build-First pulse preserves $\mathrm{ATP}_{\min} = 0.474 \ge 0.450$.
-
-To establish the global topological boundary between these regimes---and expose where \textit{no} controller can prevent bioenergetic collapse---we integrate both policies across a $31 \times 31$ grid ($961$ grid points, $1{,}922$ ODE runs) spanning $W_0 \in [0.12, 0.42]$ and $k_{\mathrm{dmg}} \in [0.000, 0.045]\text{ d}^{-1}\text{EP}^{-1}$ ($D_0 = 0.38, B_0 = 0.15, \eta_D = 0.65, k_{\mathrm{rep,adv}} = 1.15$). Figure~\ref{fig:optimal_ekf_phase}B reveals four distinct dynamical zones meeting at a codimension-2 organizing point near $(W_0, k_{\mathrm{dmg}}) \approx (0.185, 0.023)$:
+To reconcile this result with Hoitzing et al.~\cite{hoitzing2019energetic}---who studied low-wild-type populations with partial mutant OXPHOS ($\eta_D = 0.65$), $k_{\mathrm{rep,adv}} = 1.00$, and negligible ROS/bottleneck load ($k_{\mathrm{dmg}} = 0, B_0 = 0.02$)---we integrated both Build-First and Purge-Then-Build across a $31 \times 31$ grid ($961$ points, $1{,}922$ runs) spanning $W_0 \in [0.12, 0.42]$ and $k_{\mathrm{dmg}} \in [0.000, 0.045]\text{ d}^{-1}\text{EP}^{-1}$ ($D_0 = 0.38, B_0 = 0.15, \eta_D = 0.65, k_{\mathrm{rep,adv}} = 1.15$). Figure~\ref{fig:optimal_ekf_phase}B resolves four topological zones meeting near $(W_0, k_{\mathrm{dmg}}) \approx (0.185, 0.023)$:
 \begin{enumerate}
-  \item \textbf{Zone~0 --- Irreversible Bioenergetic Collapse ($182/961 = 18.9\%$):} At severely depleted $W_0$, initial energetic deficit violates $\mathrm{ATP}(t) \ge \theta_{\mathrm{surv}} = 0.450$ or prevents recovery ($W(T_{\max}) < 0.85$) under \textit{both} Build-First and Purge-Then-Build, defining the fundamental controllability limit.
-  \item \textbf{Zone~1 --- Hoitzing Build-First Exclusive Rescue ($28/961 = 2.9\%$):} A narrow low-$W_0$, weak-ROS wedge ($W_0 \in [0.15, 0.19], k_{\mathrm{dmg}} \le 0.023$) where Build-First preserves $\mathrm{ATP}(t) \ge 0.450$ while Purge-First transiently starves ATP.
-  \item \textbf{Zone~2 --- Purge-Then-Build Exclusive Rescue ($59/961 = 6.1\%$):} At stronger ROS coupling ($k_{\mathrm{dmg}} \ge 0.023, W_0 \in [0.18, 0.28]$), Build-First drives $\mathrm{EP}(t) > \theta_{\mathrm{GSH}}$ and triggers runaway wild-type loss, whereas Purge-Then-Build rescues the cell.
-  \item \textbf{Zone~3 --- Both Safe, Purge-Then-Build Cost-Optimal ($692/961 = 72.0\%$):} Both policies satisfy $\mathrm{ATP}(t) \ge 0.450$, with Purge-Then-Build achieving strictly lower Bolza cost.
+  \item \textbf{Zone~0 --- Irreversible Bioenergetic Collapse ($182/961 = 18.9\%$):} Severe initial depletion violates $\mathrm{ATP}(t) \ge \theta_{\mathrm{surv}} = 0.450$ or prevents recovery under \textit{both} policies.
+  \item \textbf{Zone~1 --- Hoitzing Build-First Exclusive Rescue ($28/961 = 2.9\%$):} A low-$W_0$, weak-ROS wedge ($W_0 \in [0.15, 0.19], k_{\mathrm{dmg}} \le 0.023$) where Build-First holds $\mathrm{ATP}(t) \ge 0.450$ while Purge-First dips transiently to $\mathrm{ATP}_{\min} = 0.440$.
+  \item \textbf{Zone~2 --- Purge-Then-Build Exclusive Rescue ($59/961 = 6.1\%$):} At $k_{\mathrm{dmg}} \ge 0.023$, Build-First drives $\mathrm{EP}(t) > \theta_{\mathrm{GSH}}$ and triggers runaway wild-type loss, whereas Purge-Then-Build rescues the cell.
+  \item \textbf{Zone~3 --- Both Safe, Purge-Then-Build Optimal ($692/961 = 72.0\%$):} Both policies maintain $\mathrm{ATP}(t) \ge 0.450$, with Purge-Then-Build achieving strictly lower Bolza cost.
 \end{enumerate}
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=0.96\textwidth]{../../figures/paper1_fig3_optimal_control_ekf_and_phase_plane.pdf}
-  \caption{\textbf{Unconstrained Discrete-Adjoint Optimal Control, 2D Controllability Phase Diagram, Mismatched Closed-Loop Huber-EKF Audit, and C99 Fixed-Point Deadband Ablation.} \textbf{(A)} 300-variable unconstrained \texttt{L-BFGS-B} discrete-adjoint optimal controls $(u_1^*(t), u_2^*(t))$ ($J_{\mathrm{PMP}}^* = 0.7262$, 5-start spread $0.12\%$) vs.\ closed-loop staged threshold control ($J_{\mathrm{thresh}} = 0.8875$), showing the interior redox-boundary modulation of $u_1^*(t)$ and late sprint of $u_2^*(t)$. \textbf{(B)} $31 \times 31$ phase diagram over $(W_0, k_{\mathrm{dmg}})$ ($961$ points, $D_0=0.38, \eta_D=0.65$), mapping Zone~0 Irreversible Collapse ($18.9\%$), Zone~1 Build-First Exclusive Rescue ($2.9\%$), Zone~2 Purge-First Exclusive Rescue ($6.1\%$), and Zone~3 Both Safe ($72.0\%$). \textbf{(C)} 120-trial closed-loop Output-Feedback Monte Carlo benchmark ($1{,}000$ steps, $\Delta t = 0.09\text{ d}$) under $\pm 20\%$ 7-rate mismatch, $\pm 8\%$ initial-state uncertainty, $\mathrm{AR}(1)$ noise ($\rho=0.60$), and $5\%$ $6.5\sigma$ spikes ($\kappa(\mathcal{O}_7) = 745.6$). \textbf{(D)} Multi-step-size C99 quantization deadband ablation ($\Delta t \in [0.18, 0.01125]\text{ d}$) comparing naive \texttt{Q16.16} \texttt{RK4}, \texttt{Q8.24} slopes without remainder, \texttt{Q8.24} slopes with 8-lane $\Sigma\Delta$ remainder diffusion, and scalar \texttt{RV32F} \texttt{FP32}.}
+  \caption{\textbf{Unconstrained Discrete-Adjoint Optimal Control, 2D Controllability Phase Diagram, Mismatched Closed-Loop Huber-EKF Audit, and C99 Fixed-Point Deadband Ablation.} \textbf{(A)} 300-variable \texttt{L-BFGS-B} discrete-adjoint optimal controls $(u_1^*(t), u_2^*(t))$ ($J_{\mathrm{PMP}}^* = 0.7262$, 5-start spread $0.12\%$) vs.\ closed-loop staged threshold control ($J_{\mathrm{thresh}} = 0.8875$). \textbf{(B)} $31 \times 31$ phase diagram over $(W_0, k_{\mathrm{dmg}})$ mapping Zone~0 Irreversible Collapse ($18.9\%$), Zone~1 Build-First Exclusive Rescue ($2.9\%$), Zone~2 Purge-First Exclusive Rescue ($6.1\%$), and Zone~3 Both Safe ($72.0\%$). \textbf{(C)} 120-trial closed-loop Output-Feedback Monte Carlo benchmark under $\pm 20\%$ 7-rate mismatch, $\pm 8\%$ initial-state uncertainty, $\mathrm{AR}(1)$ noise ($\rho=0.60$), and $5\%$ $6.5\sigma$ spikes ($\kappa(\mathcal{O}_7) = 745.6$). \textbf{(D)} Multi-step-size C99 quantization deadband ablation ($\Delta t \in [0.18, 0.01125]\text{ d}$) comparing naive \texttt{Q16.16} \texttt{RK4}, \texttt{Q8.24} slopes without remainder, \texttt{Q8.24} slopes with 8-lane $\Sigma\Delta$ remainder diffusion, and scalar \texttt{RV32F} \texttt{FP32}.}
   \label{fig:optimal_ekf_phase}
-\end{figure*}
+\end{figure}
 
 % =============================================================================
-\section{Accumulated-Selection Reduction and Multi-Term Perturbation Bound}
+\section{Accumulated-Selection Reduction Across Biological Timescales}
 % =============================================================================
 
-A natural question is whether Stage-1 heteroplasmy clearance across biological systems with vastly different turnover rates (hours in activated T~cells vs.\ weeks in flight muscle vs.\ months in post-mitotic neurons) can be analyzed in a common dimensionless coordinate. As noted in control-theoretic critiques of naive Buckingham $\Pi$ reductions \cite{buckingham1914physically}, dimensional analysis alone cannot reduce an 8-state ODE to a 1D curve unless the time-variation of the contraction rate $\lambda_h(t)$ in Eq.~\eqref{eq:lambda_h} is explicitly accounted for. We therefore establish both (i) the exact accumulated-selection identity and (ii) a complete multi-term perturbation bound for constant-rate rescaling.
+Dimensional analysis alone \cite{buckingham1914physically} cannot collapse an 8-state nonlinear ODE onto a 1D curve unless the time-variation of $\lambda_h(t)$ in Eq.~\eqref{eq:lambda_h} is explicitly accounted for. We therefore establish both the exact accumulated-selection identity and a zero-tuning closed-form perturbation bound for constant-rate time rescaling.
 
-\begin{proposition}[Accumulated-Selection Reduction]
+\begin{proposition}[Accumulated-Selection Reduction; Proof \& Closed-Form Integral in Appendix~\ref{app:reduction}]
 \label{prop:reduction}
-Suppose $\mathrm{EP}(t) \le \theta_{\mathrm{GSH}}$ on $[0, t]$ in Stage~1 ($u_0=1$, $u_1=1$, $u_2=0$) with $h_0 \in (0, 1)$.
+Suppose $\mathrm{EP}(t) \le \theta_{\mathrm{GSH}}$ on $[0, t]$ during Stage~1 ($u_0=1, u_1=1, u_2=0$) with $h_0 \in (0, 1)$.
 \begin{enumerate}
-  \item \textbf{Exact Accumulated-Selection Coordinate $s(t)$:} Define the dimensionless accumulated selection integral
+  \item \textbf{Exact Accumulated-Selection Coordinate:} In terms of the dimensionless selection integral $s(t) \triangleq \int_0^t \lambda_h(q)\,dq$, the 8-state heteroplasmy trajectory satisfies the exact logistic law
   \begin{equation}
-    s(t) \triangleq \int_0^t \lambda_h(q)\,dq.
-    \label{eq:s_accum}
-  \end{equation}
-  Then the 8-state ODE heteroplasmy trajectory $h(t)$ satisfies the exact 1D logistic identity
-  \begin{equation}
-    h(t) = h_{\mathrm{logistic}}\big(s(t); h_0\big) \triangleq \frac{h_0\,e^{-s(t)}}{1 - h_0 + h_0\,e^{-s(t)}},
+    h(t) = h_{\mathrm{logistic}}\big(s(t); h_0\big) \triangleq \frac{h_0\,e^{-s(t)}}{1 - h_0 + h_0\,e^{-s(t)}}, \qquad s^*(h_0, h_{\mathrm{gate}}) = \ln\!\left(\frac{h_0(1 - h_{\mathrm{gate}})}{h_{\mathrm{gate}}(1 - h_0)}\right),
     \label{eq:h_logistic_exact}
   \end{equation}
-  and reaches any target threshold $h_{\mathrm{gate}} \in (0, h_0)$ at the exact accumulated-selection value
+  yielding $s^*(0.40, 0.08) = 2.0369$, $s^*(0.25, 0.08) = 1.3437$, and $s^*(0.60, 0.08) = 2.8478$.
+  \item \textbf{Zero-Tuning Perturbation Bound for Constant-Rate Rescaling $\hat{\tau} = \hat{\lambda}_0 t$:} Let $\hat{\lambda}_0$ denote the closed-form \textit{a priori} Stage-1 contraction rate obtained by integrating $V_{\mathrm{lys}}(B(q))$ analytically over the cleared-bottleneck horizon estimate (Eqs.~\ref{eq:vlys_bar_closed}--\ref{eq:lambda_hat0} in Appendix~\ref{app:reduction}, with zero fitted constants). Then for all $t \in [0, t_{\mathrm{gate}}]$, the constant-rate approximation error satisfies
   \begin{equation}
-    s^*(h_0, h_{\mathrm{gate}}) = \ln\!\left(\frac{h_0(1 - h_{\mathrm{gate}})}{h_{\mathrm{gate}}(1 - h_0)}\right),
-    \label{eq:s_star}
-  \end{equation}
-  which depends explicitly on $(h_0, h_{\mathrm{gate}})$ (giving $s^*(0.40, 0.08) = \ln(4.6/0.6) = 2.03688$, $s^*(0.25, 0.08) = 1.34373$, and $s^*(0.60, 0.08) = 2.84781$).
-  \item \textbf{Zero-Tuning Closed-Form Perturbation Bound for Constant-Rate Rescaling $\hat{\tau} = \hat{\lambda}_0 t$:} Because $u_2 \equiv 0$ during Stage~1, Eq.~\eqref{eq:aux_kbio} gives $k_{\mathrm{bio}}(0, N) \equiv k_{\mathrm{bio},0}$ identically (zero cofactor rate error), while $\dot{B} = b_{\mathrm{basal}} - k_{\mathrm{clr}}B$ integrates in closed form to $B(q) = B_{\mathrm{eq}} + (B_0 - B_{\mathrm{eq}})e^{-k_{\mathrm{clr}}q}$. Let $T_{1,\mathrm{apriori}} \triangleq s^*(h_0, h_{\mathrm{gate}})\big/\big[k_{\mathrm{mito},D,\max}V_{\mathrm{lys}}(B_{\mathrm{eq}}) - k_{\mathrm{mito},W} - (k_{\mathrm{rep,adv}}-1)k_{\mathrm{bio},0}(1 - M_0/K)\big]$ be the cleared-bottleneck horizon estimate, and define the \textit{a priori} Stage-1 mean lysosomal competence $\bar{V}_{\mathrm{lys}} = V_{\mathrm{lys}}(\bar{B})$ with zero empirical tuning constants:
-  \begin{align}
-    \bar{V}_{\mathrm{lys}} &\triangleq \frac{1}{T_{1,\mathrm{apriori}}}\int_0^{T_{1,\mathrm{apriori}}} \frac{K_B\,dq}{K_B + B(q)} \nonumber\\
-    &= \frac{K_B}{K_B + B_{\mathrm{eq}}}\!\left[1 - \frac{\ln\!\left(\frac{K_B + B_0}{K_B + B(T_{1,\mathrm{apriori}})}\right)}{k_{\mathrm{clr}}\,T_{1,\mathrm{apriori}}}\right], \label{eq:vlys_bar_closed} \\
-    \hat{\lambda}_0 &\triangleq k_{\mathrm{mito},D,\max}\,\bar{V}_{\mathrm{lys}} - k_{\mathrm{mito},W} \nonumber\\
-    &\quad - (k_{\mathrm{rep,adv}} - 1)k_{\mathrm{bio},0}\left(1 - \frac{M_0}{K}\right). \label{eq:lambda_hat0}
-  \end{align}
-  Let $\hat{\tau} = \hat{\lambda}_0 t$, $\ell(t) = \ln\frac{h(t)}{1-h(t)}$, and $\hat{\ell}(\hat{\tau}) = \ln\frac{h_0}{1-h_0} - \hat{\tau}$. Then for all $t \in [0, t_{\mathrm{gate}}]$, $|\ell(t) - \hat{\ell}(\hat{\lambda}_0 t)| = |s(t) - \hat{\lambda}_0 t|$ satisfies the two-term perturbation inequality:
-  \begin{align}
-    \big|s(t) - \hat{\lambda}_0 t\big| &\le \underbrace{k_{\mathrm{mito},D,\max}\!\int_0^t \!\big|V_{\mathrm{lys}}(B(q)) - \bar{V}_{\mathrm{lys}}\big|\,dq}_{\mathcal{E}_B(t)\;\mathrm{(bottleneck)}} \nonumber\\
-    &\quad + \underbrace{(k_{\mathrm{rep,adv}}-1)\frac{k_{\mathrm{bio},0}}{K}\!\int_0^t \!\big|M(q) - M_0\big|\,dq}_{\mathcal{E}_M(t)\;\mathrm{(mass,\;>0\;at\;}B_0=0\mathrm{)}},
-    \label{eq:multi_term_bound}
-  \end{align}
-  and since $\left|\frac{d}{d\ell}\frac{e^\ell}{1+e^\ell}\right| = h(1-h) \le \frac{1}{4}$, the heteroplasmy supremum error satisfies
-  \begin{equation}
-    \big|h(t) - h_{\mathrm{logistic}}(\hat{\lambda}_0 t; h_0)\big| \le \frac{1}{4}\Big(\mathcal{E}_B(t) + \mathcal{E}_M(t)\Big).
+    \big|h(t) - h_{\mathrm{logistic}}(\hat{\lambda}_0 t; h_0)\big| \le \frac{1}{4}\Big(\mathcal{E}_B(t) + \mathcal{E}_M(t)\Big),
     \label{eq:sup_err_bound}
   \end{equation}
+  where $\mathcal{E}_B(t)$ and $\mathcal{E}_M(t)$ bound transient bottleneck-clearance and total-mass variations (Eq.~\ref{eq:multi_term_bound}).
 \end{enumerate}
 \end{proposition}
 
-\begin{proof}
-Part~1 follows by integrating $\frac{d}{dt}\ln\left(\frac{h}{1-h}\right) = -\lambda_h(t)$ over $[0, t]$ and inverting the logit map. For Part~2, substituting $u_1 = 1, u_2 = 0$ into Eq.~\eqref{eq:lambda_h} eliminates $N(q)$ identically; integrating $V_{\mathrm{lys}}(B(q))$ via $w = e^{k_{\mathrm{clr}}q}$ yields Eq.~\eqref{eq:vlys_bar_closed}. Subtracting Eq.~\eqref{eq:lambda_hat0} from Eq.~\eqref{eq:lambda_h}, applying the triangle inequality (noting also $|V_{\mathrm{lys}}(B) - V_{\mathrm{lys}}(\bar{B})| \le |B - \bar{B}|/K_B$), and bounding the logistic derivative by $\max_{h \in [0,1]} h(1-h) = 1/4$ proves Eqs.~\eqref{eq:multi_term_bound}--\eqref{eq:sup_err_bound}. Notably, $\mathcal{E}_M(t)$ remains strictly positive even when $B_0 = B_{\mathrm{eq}} = 0$.
-\end{proof}
-
-\begin{table*}[t]
+\begin{table}[t]
 \centering
-\caption{Non-Trivial Three-Regime 8-State ODE Verification of Proposition~\ref{prop:reduction} Across Distinct Dimensionless $\Pi$-Groups (\texttt{simulator/generate\_paper1\_verified\_benchmarks.py}). Each regime has distinct ratios $(\Pi_1 = k_{\mathrm{mito},W}/k_{\mathrm{mito},D,\max},\, k_{\mathrm{rep,adv}},\, K,\, K_B,\, B_0,\, \eta_D)$, uses the zero-tuning closed-form rate $\hat{\lambda}_0$ in Eqs.~\eqref{eq:vlys_bar_closed}--\eqref{eq:lambda_hat0}, and verifies that the Stage-1 supremum error stays strictly below the analytical bound $\frac{1}{4}(\mathcal{E}_B + \mathcal{E}_M)$ of Eq.~\eqref{eq:sup_err_bound}.}
+\caption{Three-Regime 8-State ODE Verification of Proposition~\ref{prop:reduction} Across Distinct Dimensionless $\Pi$-Groups ($\Pi_1 = k_{\mathrm{mito},W}/k_{\mathrm{mito},D,\max}, k_{\mathrm{rep,adv}}, K, K_B, B_0, \eta_D$). Each regime uses the zero-tuning closed-form rate $\hat{\lambda}_0$ (Appendix~\ref{app:reduction}) and satisfies Eq.~\eqref{eq:sup_err_bound}.}
 \label{tab:collapse}
+\footnotesize
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}lcccccccccc@{}}
+\begin{tabular}{@{}lcccccccc@{}}
 \toprule
-\textbf{ODE Regime} & \textbf{Distinct $\Pi$-Groups} & $\hat{\lambda}_0$ & $t_{\mathrm{gate}}$ & $\hat{\tau}_{\mathrm{gate}} = \hat{\lambda}_0 t_{\mathrm{gate}}$ & $h(\hat{\tau})/h_0$ at & \textbf{Exact $s(t)$} & \textbf{Stage-1 Sup Err} & \textbf{Full Const-Rate} & \textbf{Const-Rate} \\
-\textbf{(Horizon $T_{\max}$)} & $(\Pi_1, k_{\mathrm{rep}}, K, K_B, B_0, \eta_D)$ & ($\text{unit}^{-1}$) & ($h_0=0.40$) & ($h_0=0.40 / 0.25 / 0.60^*$) & $\hat{\tau} = 2.0 / 4.0 / 6.0$ & \textbf{Sup Err} & \textbf{vs.\ Prop.~2 Bound} & \textbf{Sup Err / RMSE} & $R^2$ \\
+\textbf{ODE Regime ($T_{\max}$)} & \textbf{Distinct $\Pi$-Groups} & $\hat{\lambda}_0$ & $t_{\mathrm{gate}}$ ($h_0=0.4$) & $\hat{\tau}_{\mathrm{gate}}$ ($0.40/0.25/0.60^*$) & \textbf{Exact $s(t)$ Err} & \textbf{Sup Err vs.\ Bound} & \textbf{RMSE} & $R^2$ \\
 \midrule
-1.\ Neuron ($90.0\text{ d}$) & $(0.130, 1.32, 1.25, 0.25, 0.50, 0.15)$ & $0.05928\text{ d}^{-1}$ & $33.30\text{ d}$ & $1.974 \;/\; 1.414 \;/\; 5.336$ & $0.1934 \;/\; 0.0153 \;/\; 0.0026$ & $0.0000$ & $0.0422 \le 0.1216$ & $0.0422 \;/\; 0.0168$ & $0.9812$ \\
-2.\ CAR-T ($168.0\text{ h}$) & $(0.125, 1.12, 1.40, 0.35, 0.28, 0.28)$ & $0.03340\text{ h}^{-1}$ & $60.82\text{ h}$ & $2.031 \;/\; 1.403 \;/\; 3.024$ & $0.2062 \;/\; 0.0241 \;/\; 0.0040$ & $0.0000$ & $0.0216 \le 0.0399$ & $0.0216 \;/\; 0.0084$ & $0.9946$ \\
-3.\ \textit{Apis} ($14.0\text{ d}$) & $(0.125, 1.22, 1.18, 0.20, 0.60, 0.08)$ & $0.34632\text{ d}^{-1}$ & $5.57\text{ d}$ & $1.930 \;/\; 1.396 \;/\; 4.848$ & $0.1832 \;/\; 0.0129 \;/\; 0.0040$ & $0.0000$ & $0.0493 \le 0.1213$ & $0.0493 \;/\; 0.0203$ & $0.9745$ \\
+1.\ Neuron ($90.0\text{ d}$) & $(0.130, 1.32, 1.25, 0.25, 0.50, 0.15)$ & $0.05928\text{ d}^{-1}$ & $33.30\text{ d}$ & $1.974 / 1.414 / 5.336$ & $0.0000$ & $0.0422 \le 0.1216$ & $0.0168$ & $0.9812$ \\
+2.\ CAR-T ($168.0\text{ h}$) & $(0.125, 1.12, 1.40, 0.35, 0.28, 0.28)$ & $0.03340\text{ h}^{-1}$ & $60.82\text{ h}$ & $2.031 / 1.403 / 3.024$ & $0.0000$ & $0.0216 \le 0.0399$ & $0.0084$ & $0.9946$ \\
+3.\ \textit{Apis} ($14.0\text{ d}$) & $(0.125, 1.22, 1.18, 0.20, 0.60, 0.08)$ & $0.34632\text{ d}^{-1}$ & $5.57\text{ d}$ & $1.930 / 1.396 / 4.848$ & $0.0000$ & $0.0493 \le 0.1213$ & $0.0203$ & $0.9745$ \\
 \midrule
-\textbf{1D Analytic Logistic} & $\mathrm{EP}(t) \le \theta_{\mathrm{GSH}}$ ($s^* = \hat{\tau}_{\mathrm{gate}}$) & $1.00000$ & $2.0369$ & $2.037 \;/\; 1.344 \;/\; 2.848$ & $0.2069 \;/\; 0.0302 \;/\; 0.0041$ & --- & \textbf{All 3 Hold} & \textbf{Pooled: $0.0493 \;/\; 0.0160$} & \textbf{0.9828} \\
+\textbf{1D Analytic Logistic} & $\mathrm{EP}(t) \le \theta_{\mathrm{GSH}}$ ($s^* = \hat{\tau}_{\mathrm{gate}}$) & $1.00000$ & $2.0369$ & $2.037 / 1.344 / 2.848$ & --- & \textbf{All 3 Hold (Max $0.0493$)} & $\mathbf{0.0160}$ & $\mathbf{0.9828}$ \\
 \bottomrule
 \end{tabular}%
 }
-\end{table*}
+\end{table}
 
-Table~\ref{tab:collapse} and Figure~\ref{fig:ode_control}C verify Proposition~\ref{prop:reduction} across three genuinely non-homothetic regimes (not scalar time-multiples of one parameter vector). At $h_0 = 0.40$ (where $\mathrm{EP}(t) \le \theta_{\mathrm{GSH}}$ holds throughout Stage~1), the exact $s(t)$ coordinate achieves $0.0000$ error, and the zero-tuning closed-form rescaling $\hat{\tau} = \hat{\lambda}_0 t$ satisfies Eq.~\eqref{eq:sup_err_bound} in every regime ($0.0422 \le 0.1216$, $0.0216 \le 0.0399$, $0.0493 \le 0.1213$; pooled $R^2 = 0.9828$). Conversely, the severe perturbation $h_0 = 0.60^*$ ($W_0 = 0.40, D_0 = 0.60$) illustrates the exact failure boundary of 1D sub-damage reduction: initial $\mathrm{EP}(0)$ breaches $\theta_{\mathrm{GSH}} = 1.150$ ($\mathrm{EP}_{\mathrm{peak}} = 9.041, 1.312, 9.734$), activating positive ROS conversion $+k_{\mathrm{dmg}}(1-h)(\mathrm{EP}-\theta_{\mathrm{GSH}})$ in Eq.~\eqref{eq:h_dot} and delaying $\hat{\tau}_{\mathrm{gate}}$ to $3.024\text{--}5.336 > s^*(0.60, 0.08) = 2.848$.
+Table~\ref{tab:collapse} and Figure~\ref{fig:ode_control}C confirm Proposition~\ref{prop:reduction} across three genuinely non-homothetic parameter sets: at $h_0 = 0.40$, exact $s(t)$ achieves $0.0000$ error and constant-rate $\hat{\tau} = \hat{\lambda}_0 t$ yields pooled $R^2 = 0.9828$ with supremum error strictly inside Eq.~\eqref{eq:sup_err_bound} in all three regimes. Conversely, at severe initial burden $h_0 = 0.60^*$ ($W_0 = 0.40, D_0 = 0.60$), $\mathrm{EP}(0)$ breaches $\theta_{\mathrm{GSH}} = 1.150$ ($\mathrm{EP}_{\mathrm{peak}} = 1.312\text{--}9.734$), activating ROS damage in Eq.~\eqref{eq:h_dot} and delaying $\hat{\tau}_{\mathrm{gate}}$ to $3.024\text{--}5.336 > s^*(0.60, 0.08) = 2.848$.
 
 % =============================================================================
 \section{Embedded Fixed-Point Implementation on Coral NPU}
 % =============================================================================
 
-\subsection{Target Architecture and Single-Bank L1 DTCM Memory Budget}
-We target the open-source Google Coral NPU architecture (\texttt{RV32IMF\_Zve32x}) \cite{coralnpu2025datasheet,waterman2014riscv}, which combines a 32-bit RISC-V scalar core with a 128-bit single-instruction multiple-data (SIMD) vector execution unit (\texttt{Zve32x} extension supporting four 32-bit lanes or eight 16-bit lanes per register), $8\text{ KB}$ of instruction tightly coupled memory (ITCM), and $32\text{ KB}$ of data tightly coupled memory (DTCM) organized as four $8{,}192\text{-byte}$ SRAM banks.
+\subsection{Target Architecture and Single-Bank L1 DTCM Residency}
+We target the open-source Google Coral NPU architecture (\texttt{RV32IMF\_Zve32x}) \cite{coralnpu2025datasheet,waterman2014riscv}, pairing a 32-bit RISC-V scalar core (with scalar single-precision \texttt{FP32}) and an integer-only 128-bit SIMD vector unit (\texttt{Zve32x}, four 32-bit or eight 16-bit integer lanes) with $8\text{ KB}$ ITCM and $32\text{ KB}$ DTCM split into four $8{,}192\text{-byte}$ banks. Constraining the entire runtime state (INT8 gate/Goertzel LUTs, mixed \texttt{Q16.16}/\texttt{Q8.24} 7-state Huber-EKF covariance matrices, \texttt{RK4} slope registers, 64-frame ring buffers, and stack) to \path{coralnpu_dtcm_bank0_workspace_t} occupies \textbf{$3{,}696\text{ B}$ ($45.12\%$) of a single $8{,}192\text{-byte}$ bank (\texttt{Bank~0})}, allowing \texttt{Banks~1}--\texttt{3} ($24\text{ KB}$) to remain power-gated during chronic monitoring (Figure~\ref{fig:hardware_verification}D, Table~\ref{tab:memory_power}).
 
-To minimize static leakage power during always-on chronic bioelectronic monitoring, our embedded design constrains the entire runtime data footprint (INT8 projection LUTs, mixed \texttt{Q16.16}/\texttt{Q8.24} 7-state Huber-EKF covariance matrices, \texttt{RK4} slope registers, 64-frame sensor ring buffers, and scalar/ISR stack) to a static C99 struct \texttt{coralnpu\_dtcm\_bank0\_workspace\_t} verified at compile and run time to occupy \textbf{$3{,}696\text{ B}$ ($45.12\%$) of a single $8{,}192\text{-byte}$ L1 DTCM bank (\texttt{Bank~0}, leaving $4{,}496\text{ B}$ free headroom)}, allowing the remaining three $8\text{ KB}$ DTCM banks ($24\text{ KB}$) to remain power-gated in deep retention mode (Figure~\ref{fig:hardware_verification}D and Table~\ref{tab:memory_power}).
-
-\subsection{Scalar \texttt{FP32} vs.\ \texttt{Zve32x} Integer SIMD, Fixed-Point Huber-EKF, and Deadband-Free \texttt{RK4}}
-An explicit architectural nuance of \texttt{RV32IMF\_Zve32x} merits clarification: the scalar RISC-V core includes a single-lane IEEE-754 single-precision floating-point unit (\texttt{F} extension, \texttt{FP32}), whereas its 128-bit vector unit implements \textbf{integer-only} \texttt{Zve32x} (supporting four parallel 32-bit integer lanes or eight 16-bit lanes, without vector floating-point \texttt{Zve32f}). Consequently, scalar single-compartment integration can execute directly in \texttt{FP32}, whereas vectorizing multi-lane state updates across the 128-bit SIMD datapath requires signed 32-bit \texttt{Q16.16} fixed-point arithmetic ($1.0 = 65{,}536$, resolution $2^{-16} \approx 1.526 \times 10^{-5}$).
-
-In \texttt{build/coralnpu/\allowbreak mitorestorer\_coralnpu\_kernel.h}, exact firmware parity across multi-week biological timescales combines three mechanisms:
+\subsection{Widening Vector \texttt{RK4}, $\Sigma\Delta$ Remainder Diffusion, and Integer Huber-EKF}
+In \path{build/coralnpu/mitorestorer_coralnpu_kernel.h}, exact integer firmware parity across multi-week horizons combines three mechanisms:
 \begin{enumerate}
-  \item \textbf{Bit-Exact 64-Bit Widening Vector Stage Updates:} Multiplying \texttt{Q16.16} operands or scaling \texttt{Q8.24} slopes by $\Delta t_{\mathrm{Q16}}$ produces 64-bit intermediates (\texttt{Q32.32} or \texttt{Q24.40}). Both \texttt{coralnpu\_q24\_axpy8\_q16} (inside our 4-stage \texttt{RK4} stepper) and \texttt{coralnpu\_rvv\_rk4\_bioenergetic\_step} execute 32-to-64-bit widening vector multiplication (\texttt{\_\_riscv\_vwmul\_vx\_i64m4}) followed by narrowing arithmetic right shift (\texttt{\_\_riscv\_vnsra\_wx\_i32m2(..., 24)} or \texttt{16}). Across $256$ randomized 8-lane trials ($2{,}048$ lane operations), widening vector execution achieves \textbf{0-ULP discrepancy} against scalar 64-bit arithmetic.
-  \item \textbf{\texttt{Q8.24} Slope Scaling and 8-Lane $\Sigma\Delta$ Sub-LSB Remainder Diffusion:} Because slow biological rates ($k_{\mathrm{mito},W} = 0.015\text{ d}^{-1}$) multiplied by refined step sizes $\Delta t \le 0.045\text{ d}$ produce per-step increments smaller than $0.5\text{ LSB}_{16}$ ($7.63 \times 10^{-6}$), naive \texttt{Q16.16} Runge-Kutta integration suffers complete quantization deadband stalling as $\Delta t \to 0$ (Figure~\ref{fig:optimal_ekf_phase}D). Even evaluating stage derivatives $\mathbf{k}_1\dots\mathbf{k}_4$ in left-shifted \texttt{Q8.24} format ($2^{-24} \approx 5.96 \times 10^{-8}$) still hits the $\pm 0.5\text{ LSB}_{16}$ state-update rounding deadband when $\Delta t$ is small. To break this barrier, \texttt{coralnpu\_rk4\_core8\_full\_step\_q16} accumulates the exact 64-bit weighted numerator $\Delta t \cdot (\mathbf{k}_1 + 2\mathbf{k}_2 + 2\mathbf{k}_3 + \mathbf{k}_4) + \mathbf{r}_{k-1}$ against divisor $6 \times 2^{24} = 100{,}663{,}296$ and propagates the signed sub-LSB remainder vector $\mathbf{r}_k \in (-100{,}663{,}296,\, 100{,}663{,}296)^8$ across steps as a first-order $\Sigma\Delta$ error-diffusion accumulator.
-  \item \textbf{Bare-Metal Mixed \texttt{Q16.16}/\texttt{Q8.24} 7-State Sequential Scalar Huber-EKF:} To execute closed-loop estimation without dynamic memory (\texttt{malloc}) or \texttt{<math.h>} floating-point library calls, \texttt{coralnpu\_huber\_ekf7\_meas\_update\_q16} stores state estimates $\hat{\mathbf{x}}_{0:6}$ in \texttt{Q16.16} and covariance $\mathbf{P} \in \mathbb{Z}_{32}^{7\times 7}$ in \texttt{Q8.24} (preserving variance resolution down to $2^{-24} \approx 6 \times 10^{-8}$), processes the four channels of $\mathbf{y}_k$ sequentially via scalar innovation variances $S_i = \mathbf{h}_i \mathbf{P} \mathbf{h}_i^\top + R_i$ (avoiding $4 \times 4$ matrix inversion), extracts innovation standard deviations via exact 64-bit integer Newton square root (\texttt{coralnpu\_isqrt64}), and applies symmetric Huber weight scaling $w_{\mathrm{Hub}} = \min(1, \gamma_{\mathrm{Huber}}\sqrt{S_i}/|\nu_i|)$ directly to both state and covariance updates.
+  \item \textbf{0-ULP 64-Bit Widening Vector Updates:} Multiplying \texttt{Q16.16} operands or scaling \texttt{Q8.24} slopes by $\Delta t_{\mathrm{Q16}}$ uses 32-to-64-bit widening SIMD multiplication (\path{__riscv_vwmul_vx_i64m4}) and narrowing arithmetic shift (\path{__riscv_vnsra_wx_i32m2}), achieving \textbf{0-ULP discrepancy} against scalar 64-bit integer reference across $2{,}048$ randomized lane operations.
+  \item \textbf{\texttt{Q8.24} Slopes with 8-Lane $\Sigma\Delta$ Remainder Diffusion:} Slow biological turnover ($k_{\mathrm{mito},W} = 0.015\text{ d}^{-1}$) at small step sizes $\Delta t \le 0.045\text{ d}$ produces per-step increments smaller than $0.5\text{ LSB}_{16}$ ($7.63 \times 10^{-6}$), stalling naive \texttt{Q16.16} \texttt{RK4} completely (Figure~\ref{fig:optimal_ekf_phase}D). Evaluating derivatives in \texttt{Q8.24} ($2^{-24} \approx 5.96 \times 10^{-8}$) and propagating the exact 64-bit numerator remainder $\mathbf{r}_k \in (-6\cdot 2^{24}, 6\cdot 2^{24})^8$ across steps eliminates quantization deadband drift across a $16\times$ step sweep.
+  \item \textbf{Zero-Heap Mixed \texttt{Q16.16}/\texttt{Q8.24} Sequential Huber-EKF:} Without \texttt{malloc} or \texttt{<math.h>}, \path{coralnpu_huber_ekf7_meas_update_q16} stores $\hat{\mathbf{x}}_{0:6}$ in \texttt{Q16.16} and $\mathbf{P} \in \mathbb{Z}_{32}^{7\times 7}$ in \texttt{Q8.24}, processes the four proxy channels sequentially via scalar innovation variances $S_i = \mathbf{h}_i\mathbf{P}\mathbf{h}_i^\top + R_i$, computes $\sqrt{S_i}$ via exact 64-bit integer Newton square root (\path{coralnpu_isqrt64}), and applies symmetric Huber clipping $w_{\mathrm{Hub}} = \min(1, \gamma_{\mathrm{Huber}}\sqrt{S_i}/|\nu_i|)$.
 \end{enumerate}
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=0.96\textwidth]{../../figures/paper1_fig2_coralnpu_rk4_parity_and_persistence.pdf}
-  \caption{\textbf{Host-Emulated C99 \texttt{Q16.16} 4-Stage \texttt{RK4} Parity, 64-Frame Quorum Pre-Condition Analysis, Equal-Footing Plant-Preserving Rollback, and Verified L1 DTCM Footprint.} \textbf{(A)} Full-horizon ($1{,}000$-step) maximum and RMS relative error (\%) between the bare-metal C99 \texttt{Q16.16} 4-stage \texttt{RK4} kernel (\texttt{coralnpu\_hil\_testbench.c}) and IEEE-754 \texttt{FP64} across all 8 states ($W, D, B, E, G, N, C, M_8$; global max error $0.0563\%$). \textbf{(B)} 64-frame persistence false-trigger rate ($M_{\mathrm{req}}=60$) vs.\ contiguous disturbance length $L_{\mathrm{dist}}$ under clean prior buffer history ($c_0 = 0$: zero false triggers for $L_{\mathrm{dist}} \le 59$) vs.\ noisy prior buffer ($p_y = 0.10$). \textbf{(C)} Equal-footing ($u_0 \equiv 1$) plant-preserving actuator reversal under an acute Days~36--48 exogenous surge ($\tau_{\mathrm{wash}} = 0.75\text{ d}$): the biological plant state $\mathbf{x}(t)$ evolves continuously without state reset, bounding $\Delta h_{\max} = +0.0098$ and rescuing $W(T_{\max}) = 1.0128$ vs.\ bioenergetic collapse ($W \to 0.0001$) under a one-way Stage-2 latch. \textbf{(D)} Compiler-verified static L1 DTCM workspace (\texttt{sizeof(coralnpu\_dtcm\_bank0\_workspace\_t)} $= 3{,}696\text{ B}$ within the $8{,}192\text{ B}$ Bank~0 budget).}
+  \caption{\textbf{Host-Emulated C99 \texttt{Q16.16} 4-Stage \texttt{RK4} Parity, 64-Frame Quorum Pre-Condition Analysis, Equal-Footing Plant-Preserving Rollback, and Verified L1 DTCM Footprint.} \textbf{(A)} Full-horizon ($1{,}000$-step) maximum and RMS relative error (\%) between bare-metal C99 \texttt{Q16.16} \texttt{RK4} (\texttt{coralnpu\_hil\_testbench.c}) and IEEE-754 \texttt{FP64} across all 8 states (global max error $0.0563\%$). \textbf{(B)} 64-frame persistence false-trigger rate ($M_{\mathrm{req}}=60$) vs.\ contiguous disturbance length $L_{\mathrm{dist}}$ under clean ($c_0 = 0$: zero false triggers for $L_{\mathrm{dist}} \le 59$) vs.\ noisy ($p_y = 0.10$) prior buffers. \textbf{(C)} Equal-footing ($u_0 \equiv 1$) continuous-plant actuator reversal under an acute Days~36--48 exogenous surge ($\tau_{\mathrm{wash}} = 0.75\text{ d}$), bounding $\Delta h_{\max} = +0.0098$ and rescuing $W(T_{\max}) = 1.0128$ vs.\ collapse ($W \to 0.0001$) under a one-way latch. \textbf{(D)} Compiler-verified static L1 DTCM Bank~0 workspace ($3{,}696\text{ B} / 8{,}192\text{ B}$).}
   \label{fig:hardware_verification}
-\end{figure*}
+\end{figure}
 
 % =============================================================================
 \section{Output-Feedback Observability, Disturbance Rejection, and Verification}
 % =============================================================================
 
-\subsection{64-Frame Dual-Modality Persistence Filter Under Markov Correlation}
-To prevent transient sensor artifacts from prematurely triggering Stage-2 biogenesis or emergency rollback, the controller evaluates a 64-frame sliding bitmask register $\mathcal{B}_k \in \{0,1\}^{64}$ on primary stress channel $y_{k,1}$ with quorum threshold $M_{\mathrm{req}} = 60$, gated by a concurrent secondary modality check $z_k = y_{k,2} \ge \gamma_{\mathrm{sec}}$ (\texttt{coralnpu\_rolling\_fuzzy\_sensor\_gate}).
+\subsection{64-Frame Dual-Modality Persistence Under Markov Noise}
+To prevent correlated transient spikes from triggering premature switching, a 64-frame bitmask $\mathcal{B}_k \in \{0,1\}^{64}$ requires $M_{\mathrm{req}} = 60$ primary exceedances ($\mu_{\mathrm{req}} = 60/64 = 0.9375$) plus a concurrent secondary modality check $z_k \ge \gamma_{\mathrm{sec}}$.
 
-\begin{proposition}[Markov Persistence Bound]
+\begin{proposition}[Markov Persistence Bound; Proof in Appendix~\ref{app:persistence}]
 \label{prop:persistence}
-Suppose stationary sensor noise evolves via the reversible Gaussian $\mathrm{AR}(1)$ Markov chain $e_k = \rho\,e_{k-1} + \sqrt{1 - \rho^2}\,\epsilon_k$ on $\mathbb{R}$ ($\epsilon_k \stackrel{\mathrm{i.i.d.}}{\sim} \mathcal{N}(0,1)$, $\rho \in [0, 1)$, stationary measure $\pi = \mathcal{N}(0,1)$), whose Markov operator possesses $L^2(\pi)$ absolute spectral gap $\gamma_{\mathrm{spec}} = 1 - \rho > 0$. Let $I_k = f(e_k) \triangleq \mathbb{I}(y_{k,1}(e_k) \ge \gamma_{\mathrm{crit}}) \in \{0, 1\}$ be the bounded measurable primary exceedance indicator with marginal expectation $p_y = \mathbb{E}_\pi[I_k] < \mu_{\mathrm{req}} \triangleq M_{\mathrm{req}}/N_{\mathrm{win}} = 60/64 = 0.9375$, let $p_{z|Q} \triangleq \mathbb{P}\big(z_k \ge \gamma_{\mathrm{sec}} \;\big|\; \sum_{j=k-63}^k I_j \ge 60\big)$ denote the quorum-conditioned secondary exceedance probability, and let $c_0 \in \{0, \dots, 64\}$ denote the exceedance count in the 64-frame ring buffer immediately prior to a contiguous deterministic primary disturbance of length $L_{\mathrm{dist}}$ frames. Then:
+Let stationary sensor noise evolve via the reversible Gaussian $\mathrm{AR}(1)$ Markov chain $e_k = \rho e_{k-1} + \sqrt{1 - \rho^2}\epsilon_k$ ($\rho \in [0, 1)$, spectral gap $1 - \rho$), with primary exceedance probability $p_y < \mu_{\mathrm{req}} = 0.9375$, quorum-conditioned secondary probability $p_{z|Q}$, and $c_0 \in \{0,\dots,64\}$ prior buffer exceedances before a contiguous burst of $L_{\mathrm{dist}}$ frames:
 \begin{enumerate}
-  \item \textbf{Deterministic Sub-Quorum Rejection Condition:} Reaching primary quorum $\sum_{j=k-63}^k I_j \ge 60$ during the disturbance is deterministically impossible whenever
+  \item \textbf{Deterministic Sub-Quorum Cutoff:} False quorum is deterministically impossible whenever $L_{\mathrm{dist}} \le 59 - c_0$ ($L_{\mathrm{dist}} \le 59$ under a clean prior buffer $c_0 = 0$; Figure~\ref{fig:hardware_verification}B).
+  \item \textbf{Spectral-Gap False-Trigger Bound:} By Paulin's concentration inequality for reversible Markov chains \cite{paulin2015concentration}, single-step and $K_{\mathrm{frames}}$-horizon false-trigger probabilities satisfy
   \begin{equation}
-    L_{\mathrm{dist}} \le 59 - c_0.
-    \label{eq:deterministic_cutoff}
+    P_{\mathrm{FP,step}} \le p_{z|Q}\exp\!\left(-2 N_{\mathrm{win}}\frac{1-\rho}{1+\rho}(\mu_{\mathrm{req}} - p_y)^2\right), \qquad P_{\mathrm{FP,horizon}} \le \min\!\big(1,\, K_{\mathrm{frames}} P_{\mathrm{FP,step}}\big).
+    \label{eq:paulin_step}
   \end{equation}
-  Under a clean prior buffer ($c_0 = 0$), zero false triggers occur for $L_{\mathrm{dist}} \le 59$ frames; with $c_0 > 0$ prior noise exceedances, quorum requires $L_{\mathrm{dist}} \ge 60 - c_0$ (Figure~\ref{fig:hardware_verification}B).
-  \item \textbf{Spectral-Gap Concentration and Horizon Union Bound:} Unlike classical Hoeffding bounds requiring independent samples \cite{hoeffding1963probability}, applying Paulin's concentration inequality for bounded functions $f : \mathbb{R} \to [0, 1]$ of reversible Markov chains \cite{paulin2015concentration} to $e_k$ bounds the single-step and $K_{\mathrm{frames}}$-horizon false-trigger probabilities by:
-  \begin{align}
-    P_{\mathrm{FP,step}} &\le p_{z|Q}\,\exp\!\left(-2\,N_{\mathrm{win}}\,\frac{1-\rho}{1+\rho}\,(\mu_{\mathrm{req}} - p_y)^2\right), \label{eq:paulin_step} \\
-    P_{\mathrm{FP,horizon}} &\le \min\!\big(1,\, K_{\mathrm{frames}}\,P_{\mathrm{FP,step}}\big). \label{eq:paulin_horizon}
-  \end{align}
 \end{enumerate}
 \end{proposition}
 
-\begin{proof}
-Any 64-frame window overlapping a contiguous $L_{\mathrm{dist}}$-frame burst contains at most $c_0 + L_{\mathrm{dist}}$ ones, which is $< 60$ whenever $L_{\mathrm{dist}} \le 59 - c_0$, proving Eq.~\eqref{eq:deterministic_cutoff}. Note that binary thresholded indicators $I_k$ of an $\mathrm{AR}(1)$ process are not themselves a 2-state Markov chain, whereas the latent Gaussian process $e_k$ \textit{is} a stationary reversible Markov chain on $(\mathbb{R}, \pi)$ with Mehler--Hermite spectrum $\{\rho^m\}_{m \ge 1}$ and $L^2(\pi)$ spectral gap $\gamma_{\mathrm{spec}} = 1 - \rho$. Applying Theorem~3.3 of Paulin~\cite{paulin2015concentration} directly to the bounded measurable function $f(e_k) \in [0, 1]$ yields $\mathbb{P}_\pi(\sum_{j=1}^{64} f(e_j) \ge 60) \le \exp(-2 N_{\mathrm{win}}\frac{1-\rho}{1+\rho}(\mu_{\mathrm{req}} - p_y)^2)$. Multiplying by the exact conditioning factor $p_{z|Q}$ and applying Boole's union bound over $K_{\mathrm{frames}}$ steps yields Eqs.~\eqref{eq:paulin_step}--\eqref{eq:paulin_horizon}.
-\end{proof}
+In physical deployments, the 64-frame window $T_{\mathrm{win}} = 64\,\Delta t_{\mathrm{frame}}$ scales with plant kinetics: $\Delta t_{\mathrm{frame}} = 1.0\text{ s}$ for \textit{Apis} wingbeat telemetry ($T_{\mathrm{win}} = 64\text{ s}$), $1.0\text{ min}$ for CAR-T bioreactors ($64\text{ min}$), and $15.0\text{ min}$ for chronic neural monitoring ($16.0\text{ h}$), verified across $1{,}000$ correlated $\mathrm{AR}(1)$ streams in Table~\ref{tab:policy_comparison}B.
 
-\paragraph{Explicit Frame Periods Across Deployments.}
-In physical time, a 64-frame window spans $T_{\mathrm{win}} = 64\,\Delta t_{\mathrm{frame}}$, where $\Delta t_{\mathrm{frame}}$ matches the plant timescale: $\Delta t_{\mathrm{frame}} = 1.0\text{ s}$ for \textit{Apis} acoustic telemetry ($T_{\mathrm{win}} = 64\text{ s}$, using a 16-bin Goertzel/FFT over $128\text{ ms}$ at $1\text{ kHz}$ for $7.81\text{ Hz}$ bin resolution between $220\text{ Hz}$ and $240\text{ Hz}$), $\Delta t_{\mathrm{frame}} = 1.0\text{ min}$ for CAR-T impedance ($T_{\mathrm{win}} = 64\text{ min}$), and $\Delta t_{\mathrm{frame}} = 15.0\text{ min}$ for wearable/implantable neural monitoring ($T_{\mathrm{win}} = 16.0\text{ h}$). Table~\ref{tab:policy_comparison}B reports the $1{,}000$-stream Monte Carlo evaluation ($K_{\mathrm{frames}} = 1{,}000$, seed \texttt{20261109}) with exact Clopper-Pearson $95\%$ upper confidence bounds.
-
-\begin{table*}[t]
+\begin{table}[t]
 \centering
-\caption{First-Principles Policy Comparison (Aligned 1,000-Interval Bolza Integration, Including Multi-Start 300-Variable Discrete-Adjoint Optimum) and 1,000-Stream Correlated $\mathrm{AR}(1)$ Persistence Benchmarks (\texttt{simulator/generate\_paper1\_verified\_benchmarks.py}).}
+\caption{First-Principles Policy Comparison (1,000-Interval Bolza Integration, Including 5-Start 300-Variable Discrete-Adjoint Optimum) and 1,000-Stream Correlated $\mathrm{AR}(1)$ Persistence Benchmarks (seed \texttt{20261109}).}
 \label{tab:policy_comparison}
+\footnotesize
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lcccccc@{}}
 \toprule
-\textbf{A.\ Neuronal 8-State Control Policy ($T_{\max}=90\text{ d}$)} & \textbf{Bolza Cost $J(\mathbf{u})$} & \textbf{Switch $t_{\mathrm{gate}}$} & \textbf{Terminal $h(T_{\max})$} & \textbf{Terminal $W(T_{\max})$} & \textbf{Peak $\mathrm{EP}_{\max}$} & \textbf{Min $\mathrm{ATP}_{\min}$} \\
+\textbf{A.\ Neuronal 8-State Control Policy ($T_{\max}=90\text{ d}$)} & \textbf{Bolza Cost $J(\mathbf{u})$} & \textbf{Switch $t_{\mathrm{gate}}$} & \textbf{Term.\ $h(T_{\max})$} & \textbf{Term.\ $W(T_{\max})$} & \textbf{Peak $\mathrm{EP}_{\max}$} & \textbf{Min $\mathrm{ATP}_{\min}$} \\
 \midrule
-Untreated Baseline ($\mathbf{u} = (0,0,0)$) & $2{,}768{,}855.31$ & --- & $1.0000$ & $0.0000$ & $20.605$ & $0.186$ (Violated) \\
+Untreated Baseline ($\mathbf{u} = (0,0,0)$) & $2{,}768{,}855.31$ & --- & $1.0000$ & $0.0000$ & $20.605$ & $0.186$ (Viol.) \\
 Concurrent Biogenesis + Mitophagy ($\mathbf{u} = (1, 0.5, 0.5)$) & $99.829$ & --- & $0.0546$ & $0.9474$ & $1.423$ & $0.806$ (Safe) \\
-Build-First Policy in High-Impedance Regime ($B_0=0.50$) & $760{,}388.40$ & --- & $1.0000$ & $0.0000$ & $9.744$ & $0.028$ (Violated) \\
-\textbf{Proposed Staged Threshold Policy ($h_{\mathrm{gate}} = 0.080, B_{\mathrm{gate}} = 0.120$)} & \textbf{0.8875} & \textbf{33.30 d} & \textbf{0.0249} & \textbf{1.0487} & \textbf{1.046} & \textbf{0.806 (Safe)} \\
-Two-Stage Constant Relay Optimum ($t_{\mathrm{sw}}^* = 48.18\text{ d}, u_{1,\mathrm{S2}}^*=0$) & $0.8500$ ($J_{\mathrm{2stage}}^*$) & $48.18\text{ d}$ & $0.0375$ & $1.0421$ & $1.046$ & \textbf{$0.806$} (Safe) \\
+Build-First Policy in High-Impedance Regime ($B_0=0.50$) & $760{,}388.40$ & --- & $1.0000$ & $0.0000$ & $9.744$ & $0.028$ (Viol.) \\
+\textbf{Proposed Staged Threshold ($h_{\mathrm{gate}} = 0.080, B_{\mathrm{gate}} = 0.120$)} & $\mathbf{0.8875}$ & $\mathbf{33.30\text{ d}}$ & $\mathbf{0.0249}$ & $\mathbf{1.0487}$ & $\mathbf{1.046}$ & $\mathbf{0.806}$ \textbf{(Safe)} \\
+Two-Stage Constant Relay Optimum ($t_{\mathrm{sw}}^* = 48.18\text{ d}$) & $0.8500$ ($J_{\mathrm{2stage}}^*$) & $48.18\text{ d}$ & $0.0375$ & $1.0421$ & $1.046$ & $0.806$ (Safe) \\
 Unconstrained 300-Var Discrete-Adjoint Optimum (\texttt{L-BFGS-B}) & $0.7262$ ($J_{\mathrm{PMP}}^*$) & Interior Arc & $0.0300$ & $0.9938$ & $1.150$ & $0.806$ (Safe) \\
 \midrule
-\textbf{B.\ 1,000-Stream Correlated $\mathrm{AR}(1)$ Noise Benchmark} & \textbf{Lag-1 $\rho$} & \textbf{Burst $L_{\mathrm{dist}}$} & \textbf{Single-Sample FP} & \textbf{64-Quorum Primary FP} & \textbf{64-Quorum Dual FP} & \textbf{95\% Upper Bound} \\
+\textbf{B.\ 1,000-Stream Correlated $\mathrm{AR}(1)$ Noise Benchmark} & \textbf{Lag-1 $\rho$} & \textbf{Burst $L_{\mathrm{dist}}$} & \textbf{1-Sample FP} & \textbf{64-Quorum FP} & \textbf{Dual-Mod.\ FP} & \textbf{95\% Upper Bd} \\
 \midrule
-1.\ \textit{Apis} Wind-Gust Disturbance ($\Delta t_{\mathrm{frame}} = 1\text{ s}$) & $0.50$ & $12\text{ frames}$ & $1000/1000$ ($100.0\%$) & $0/1000$ ($0.00\%$) & $0/1000$ ($0.00\%$) & $\le 0.299\%$ \\
-2.\ CAR-T Lactate Biofouling Spike ($\Delta t_{\mathrm{frame}} = 1\text{ min}$) & $0.70$ & $25\text{ frames}$ & $1000/1000$ ($100.0\%$) & $0/1000$ ($0.00\%$) & $0/1000$ ($0.00\%$) & $\le 0.299\%$ \\
-3.\ Wearable Postprandial Excursion ($\Delta t_{\mathrm{frame}} = 15\text{ min}$) & $0.60$ & $45\text{ frames}$ & $1000/1000$ ($100.0\%$) & $11/1000$ ($1.10\%$) & $7/1000$ ($0.70\%$) & $\le 1.219\%$ \\
+1.\ \textit{Apis} Wind-Gust Disturbance ($\Delta t_{\mathrm{frame}} = 1\text{ s}$) & $0.50$ & $12\text{ frames}$ & $100.0\%$ & $0.00\%$ ($0/1000$) & $0.00\%$ & $\le 0.299\%$ \\
+2.\ CAR-T Lactate Biofouling Spike ($\Delta t_{\mathrm{frame}} = 1\text{ min}$) & $0.70$ & $25\text{ frames}$ & $100.0\%$ & $0.00\%$ ($0/1000$) & $0.00\%$ & $\le 0.299\%$ \\
+3.\ Wearable Postprandial Excursion ($\Delta t_{\mathrm{frame}} = 15\text{ min}$) & $0.60$ & $45\text{ frames}$ & $100.0\%$ & $1.10\%$ ($11/1000$) & $0.70\%$ & $\le 1.219\%$ \\
 \bottomrule
 \end{tabular}%
 }
-\end{table*}
+\end{table}
 
-\subsection{Stage-1 Observability Gramian and Closed-Loop Huber-EKF Under $\pm 20\%$ Mismatch}
-Because state $M_8$ is a purely downstream epigenetic readout ($\partial\dot{\mathbf{x}}_{0:6}/\partial M_8 = \mathbf{0}$, $\partial\mathbf{h}_{\mathrm{obs}}/\partial M_8 = \mathbf{0}$, giving exact singular value $\sigma_8 = 0$), output-feedback estimation operates on the 7-state core $\mathbf{x}_{0:6} = [W, D, B, E, G, N, C]^\top$ from the 4-channel proxy $\mathbf{y}_k$ in Eq.~\eqref{eq:observation_model}. Because the switching decision must be made \textit{prior} to Stage-2 excitation, we evaluate the empirical local Observability Gramian $\mathcal{O}_7$ strictly over the pre-switch Stage-1 window $t \in [0, 33.30\text{ d}]$ ($370$ steps at the exact controller sampling step $\Delta t = 0.09\text{ d}$), yielding singular values $\sigma(\mathcal{O}_7) = [963.44,\, 253.33,\, 205.73,\, 171.19,\, 137.38,\, 15.61,\, 1.29]$ and condition number $\kappa(\mathcal{O}_7) = \sigma_1/\sigma_7 = 745.6$. Consistent with \S2.1, the weakest observable mode ($\sigma_7 = 1.29$, eigenvector $0.980 C - 0.162 W - 0.104 D$) aligns with multiplicative iso-ATP compensation in $(W + \eta_D D)(1 + \gamma_C C)$, while the second-weakest mode ($\sigma_6 = 15.61$, eigenvector $0.978 B - 0.193 D$) reflects $(B, h)$ collinearity in $1 + \beta_B B + \beta_h h$.
+\subsection{Stage-1 Observability Gramian, Mismatched Huber-EKF, and Continuous-Plant Rollback}
+Evaluating the empirical 7-state Observability Gramian $\mathcal{O}_7$ strictly over the pre-switch Stage-1 window $t \in [0, 33.30\text{ d}]$ ($370$ steps, $\Delta t = 0.09\text{ d}$; $\sigma_8 = 0$ identically for downstream $M_8$) yields singular values $963.44$, $253.33$, $205.73$, $171.19$, $137.38$, $15.61$, and $1.29$, with condition number $\kappa(\mathcal{O}_7) = 745.6$, reflecting iso-ATP $(C, W, D)$ compensation ($\sigma_7 = 1.29$) and $(B, h)$ collinearity ($\sigma_6 = 15.61$). Across $120$ closed-loop Monte Carlo trials with simultaneous $\pm 20\%$ 7-rate mismatch, $\pm 8\%$ initial-state uncertainty, $\mathrm{AR}(1)$ noise ($\rho = 0.60$), and $5\%$ $6.5\sigma$ spikes (Figure~\ref{fig:optimal_ekf_phase}C, Table~\ref{tab:ekf_ablation}A), unfiltered Standard EKF ($\hat{h}_{\mathrm{gate}} = 0.080$) suffers $24.17\%$ ($29/120$) premature switches ($h_{\mathrm{true}} > 0.095$), Huber-EKF ($\gamma_{\mathrm{Huber}} = 1.50$) + 8-step persistence cuts premature switches to $14.17\%$ ($17/120$), and margin-tightened Huber-EKF ($\hat{h}_{\mathrm{gate}} = 0.065$) reduces premature switches $4.8\times$ to \textbf{$5.00\%$ ($6/120$, $\hat{h}$ RMSE $1.93\%$, mean $W(T_{\max}) = 1.0479$)}.
 
-We execute a $1{,}000$-step ($\Delta t = 0.09\text{ d}$), 120-trial Monte Carlo benchmark in which every true plant independently draws uniform $\pm 20\%$ perturbations across all 7 core kinetic parameters $(k_{\mathrm{mito},W}, k_{\mathrm{mito},D,\max}, k_{\mathrm{bio},0}, k_{\mathrm{bio},\max}, k_{\mathrm{rep,adv}}, k_{\mathrm{clr}}, K_B)$ plus $\pm 8\%$ initial-state uncertainty unknown to the EKF internal model, corrupted simultaneously by correlated $\mathrm{AR}(1)$ sensor noise ($\rho = 0.60$) and $5\%$ heavy-tailed $6.5\sigma$ measurement spikes (Figure~\ref{fig:optimal_ekf_phase}C and Table~\ref{tab:ekf_ablation}A). Using consistent single-weight Huber M-estimation ($w_{\mathrm{Hub}} = \min(1, \gamma_{\mathrm{Huber}}\sqrt{S_i}/|\nu_i|)$ at $\gamma_{\mathrm{Huber}} = 1.50$) and defining a premature switch as latching Stage~2 while $h_{\mathrm{true}} > 0.095$:
-\begin{itemize}
-  \item \textbf{Unfiltered Standard EKF ($\hat{h}_{\mathrm{gate}} = 0.080$):} Outlier Kalman innovations and mismatch bias yield $2.18\%$ heteroplasmy RMSE and trigger premature Stage-2 transitions in $29/120$ trials ($24.17\%$).
-  \item \textbf{Huber-EKF + Persistence ($\hat{h}_{\mathrm{gate}} = 0.080$):} Single-weight Huber innovation clipping ($\gamma_{\mathrm{Huber}} = 1.50$) with 8-step persistence gating lowers RMSE to $1.95\%$ and reduces premature transitions to $17/120$ ($14.17\%$), leaving only the steady $\sim 1.9\%$ observability-conditioned mismatch bias.
-  \item \textbf{Margin-Tightened Huber-EKF ($\hat{h}_{\mathrm{gate}} = 0.065$):} Tightening the observer switching threshold by $0.015$ reduces premature switches by $4.8\times$ relative to Standard EKF to $6/120$ ($5.00\%$, $\hat{h}$ RMSE $1.93\%$), achieving mean terminal $W(T_{\max}) = 1.0479$ and $h(T_{\max}) = 0.0218$ (median $J = 0.933$).
-\end{itemize}
+Crucially, restoring a microcontroller's internal checkpoint $\mathbf{x}_{\mathrm{ckpt}}$ cannot reset the physical biological state $\mathbf{x}(t)$. Under an equal-footing ($u_0 \equiv 1$) Days~36--48 uncoupling/proteostatic surge ($\Delta b_{\mathrm{basal}} = +0.52\text{ d}^{-1}, c_2 = 0.32$, washout $\tau_{\mathrm{wash}} = 0.75\text{ d}$, detection latency $\delta t_{\mathrm{detect}} = 0.54\text{ d}$; Figure~\ref{fig:hardware_verification}C), keeping Stage-2 biogenesis latched on drives $\mathrm{EP}_{\mathrm{peak}} = 11.128$ and collapses $W(T_{\max}) \to 0.0001$, whereas continuous-plant actuator reversal ($u_{2,\mathrm{target}} \leftarrow 0, u_{1,\mathrm{target}} \leftarrow 1$) caps $\mathrm{EP}_{\mathrm{peak}} = 1.521$, bounds $\Delta h_{\max} = +0.0098$ (inside the analytical excursion bound $0.033$ of Eq.~\ref{eq:rollback_excursion_bound}), and restores $W(T_{\max}) = 1.0128$.
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
-\caption{\textbf{(A)} 1,000-Step ($\Delta t = 0.09\text{ d}$), 120-Trial Closed-Loop Output-Feedback Monte Carlo Benchmark Under $\pm 20\%$ 7-Rate Mismatch, $\pm 8\%$ Initial-State Uncertainty, $\mathrm{AR}(1)$ Noise ($\rho=0.60$), and $5\%$ $6.5\sigma$ Spikes (Stage-1 $\kappa(\mathcal{O}_7) = 745.6$), and \textbf{(B)} C99 Multi-Step-Size Quantization Deadband Ablation vs.\ IEEE-754 \texttt{FP64}.}
+\caption{\textbf{(A)} 120-Trial Closed-Loop Output-Feedback Monte Carlo Benchmark Under $\pm 20\%$ 7-Rate Mismatch, $\pm 8\%$ Initial Uncertainty, $\mathrm{AR}(1)$ Noise, and $5\%$ $6.5\sigma$ Spikes ($\kappa(\mathcal{O}_7) = 745.6$); \textbf{(B)} C99 Multi-Step-Size Quantization Deadband Ablation vs.\ IEEE-754 \texttt{FP64}.}
 \label{tab:ekf_ablation}
+\footnotesize
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lccccclcccc@{}}
 \toprule
-\textbf{A.\ Closed-Loop Observer ($N_{\mathrm{MC}}=120$)} & \textbf{Median $J$ [IQR]} & \textbf{$\hat{h}$ RMSE} & \textbf{Premature Sw.} & \textbf{Mean $h(T_{\max})$} & \textbf{Mean $W(T_{\max})$} & \textbf{B.\ C99 Step $N$ ($\Delta t$)} & \textbf{Scalar \texttt{FP32}} & \textbf{Naive \texttt{Q16}} & \textbf{\texttt{Q8.24} No-Rem} & \textbf{\texttt{Q8.24} + $\Sigma\Delta$ Rem} \\
+\textbf{A.\ Observer ($N_{\mathrm{MC}}=120$)} & \textbf{Med.\ $J$ [IQR]} & \textbf{$\hat{h}$ RMSE} & \textbf{Prem.\ Sw.} & \textbf{$h(T_{\max})$} & \textbf{$W(T_{\max})$} & \textbf{B.\ Step $N$ ($\Delta t$)} & \textbf{\texttt{FP32}} & \textbf{Naive \texttt{Q16}} & \textbf{\texttt{Q8.24}} & \textbf{\texttt{Q8.24}+$\Sigma\Delta$} \\
 \midrule
-Oracle True State ($h_{\mathrm{gate}}=0.080$) & $0.909$ $[0.838, 0.982]$ & $0.00\%$ & $0/120$ ($0.00\%$) & $0.0255$ & $1.0433$ & $500$ ($0.1800\text{ d}$) & $0.0001\%$ & $13.5107\%$ & $0.6016\%$ & $\mathbf{0.0543\%}$ \\
-Standard EKF ($\hat{h}_{\mathrm{gate}}=0.080$) & $0.906$ $[0.851, 0.981]$ & $2.18\%$ & $29/120$ ($24.17\%$) & $0.0274$ & $1.0411$ & $1{,}000$ ($0.0900\text{ d}$) & $0.0002\%$ & $23.3105\%$ & $1.8271\%$ & $\mathbf{0.0563\%}$ \\
-Huber-EKF + Persist ($\hat{h}_{\mathrm{gate}}=0.080$) & $0.913$ $[0.857, 0.994]$ & $1.95\%$ & $17/120$ ($14.17\%$) & $0.0255$ & $1.0435$ & $2{,}000$ ($0.0450\text{ d}$) & $0.0005\%$ & $39.6056\%$ & $2.8409\%$ & $\mathbf{0.0554\%}$ \\
-\textbf{Huber-EKF + Margin ($\hat{h}_{\mathrm{gate}}=0.065$)} & $\mathbf{0.933}$ $[0.873, 1.002]$ & $\mathbf{1.93\%}$ & $\mathbf{6/120}$ ($\mathbf{5.00\%}$) & $\mathbf{0.0218}$ & $\mathbf{1.0479}$ & $4{,}000$ ($0.0225\text{ d}$) & $0.0010\%$ & $84.4063\%$ & $22.0179\%$ & $\mathbf{0.0534\%}$ \\
-\textit{Stage-1 Gramian $\sigma_1\dots\sigma_7$:} & \multicolumn{5}{l}{$[963.44, 253.33, 205.73, 171.19, 137.38, 15.61, 1.29]$ ($\sigma_8=0$)} & $8{,}000$ ($0.01125\text{ d}$) & $0.0022\%$ & $100.000\%$ & $17.4389\%$ & $\mathbf{0.0539\%}$ \\
+Oracle State ($0.080$) & $0.909$ $[0.84, 0.98]$ & $0.00\%$ & $0.00\%$ & $0.0255$ & $1.0433$ & $500$ ($0.180\text{ d}$) & $0.0001\%$ & $13.51\%$ & $0.602\%$ & $\mathbf{0.0543\%}$ \\
+Standard EKF ($0.080$) & $0.906$ $[0.85, 0.98]$ & $2.18\%$ & $24.17\%$ & $0.0274$ & $1.0411$ & $1{,}000$ ($0.090\text{ d}$) & $0.0002\%$ & $23.31\%$ & $1.827\%$ & $\mathbf{0.0563\%}$ \\
+Huber-EKF ($0.080$) & $0.913$ $[0.86, 0.99]$ & $1.95\%$ & $14.17\%$ & $0.0255$ & $1.0435$ & $2{,}000$ ($0.045\text{ d}$) & $0.0005\%$ & $39.61\%$ & $2.841\%$ & $\mathbf{0.0554\%}$ \\
+\textbf{Huber-EKF ($0.065$)} & $\mathbf{0.933}$ $[0.87, 1.00]$ & $\mathbf{1.93\%}$ & $\mathbf{5.00\%}$ & $\mathbf{0.0218}$ & $\mathbf{1.0479}$ & $4{,}000$ ($0.0225\text{ d}$) & $0.0010\%$ & $84.41\%$ & $22.02\%$ & $\mathbf{0.0534\%}$ \\
+\multicolumn{6}{@{}l}{\scriptsize Stage-1 $\sigma(\mathcal{O}_7) = [963.4, 253.3, 205.7, 171.2, 137.4, 15.6, 1.29]$ ($\sigma_8=0$)} & $8{,}000$ ($0.0113\text{ d}$) & $0.0022\%$ & $100.0\%$ & $17.44\%$ & $\mathbf{0.0539\%}$ \\
 \bottomrule
 \end{tabular}%
 }
-\end{table*}
+\end{table}
 
-\subsection{Equal-Footing Plant-Preserving Actuator Reversal vs.\ One-Way Latch}
-A critical distinction in biological control is that \textbf{a digital microcontroller can restore its internal reference registers $\mathbf{x}_{\mathrm{ckpt}}$, but it cannot reset the physical biological plant state $\mathbf{x}(t)$}. To evaluate actuator rollback on a strictly equal footing ($u_{0,\mathrm{target}} \equiv 1.0$ identical for both policies), we apply a controller-independent exogenous proteostatic/uncoupling insult during Days~$36\text{--}48$ ($\Delta b_{\mathrm{basal}} = +0.52\text{ d}^{-1}$ and acute uncoupling load $c_2 = 0.32$):
-\begin{enumerate}
-  \item \textbf{Detection Latency ($\delta t_{\mathrm{detect}} = 0.54\text{ d}$):} Once $\mathrm{EP}(t) > \theta_{\mathrm{abort}} = 1.18$ persists across $6$ consecutive controller steps ($0.54\text{ d}$), the controller loads $\mathbf{x}_{\mathrm{ckpt}}$ into its supervisory gating register and commands Stage-2 $\to$ Stage-1 actuator reversal ($u_{2,\mathrm{target}} \leftarrow 0, u_{1,\mathrm{target}} \leftarrow 1$, keeping $u_{0,\mathrm{target}} = 1$).
-  \item \textbf{Pharmacokinetic Washout ($\tau_{\mathrm{wash}} = 0.75\text{ d}$):} Physical actuation evolves via $\tau_{\mathrm{wash}}\dot{\mathbf{u}}_{\mathrm{eff}} = \mathbf{u}_{\mathrm{target}} - \mathbf{u}_{\mathrm{eff}}$, while the biological plant $\mathbf{x}(t)$ evolves continuously without any discontinuous state reset.
-  \item \textbf{Post-Disturbance Excursion Bound ($\Delta h_{\max}$):} Because ROS conversion is active only while $\mathrm{EP}(t) > \theta_{\mathrm{GSH}}$ during the detection plus washout window $\Delta t_{\mathrm{active}} \approx \delta t_{\mathrm{detect}} + \tau_{\mathrm{wash}}\ln\!\big(\frac{\mathrm{EP}_{\mathrm{peak}} - \theta_{\mathrm{GSH}}}{\theta_{\mathrm{abort}} - \theta_{\mathrm{GSH}}}\big)$, Eq.~\eqref{eq:h_dot} bounds the net heteroplasmy excursion by
-  \begin{align}
-    \Delta h_{\max} &\le (1 - h_{\mathrm{gate}})\,k_{\mathrm{dmg}} \nonumber\\
-                    &\quad \times \int_{t_{\mathrm{insult}}}^{t_{\mathrm{insult}} + \Delta t_{\mathrm{active}}} \max\!\big(0, \mathrm{EP}(q) - \theta_{\mathrm{GSH}}\big)\,dq.
-    \label{eq:rollback_excursion_bound}
-  \end{align}
-\end{enumerate}
-As shown in Figure~\ref{fig:hardware_verification}C, even with full housekeeping clearance $u_0 \equiv 1$, keeping Stage-2 biogenesis latched on ($u_2 = 1$) during the insult drives $\mathrm{EP}_{\mathrm{peak}} = 11.128 > \theta_{\mathrm{GSH}}$ and causes irreversible ROS-driven collapse ($\Delta h_{\max} = +0.9202$, $\mathrm{ATP}_{\min} = 0.138 < \theta_{\mathrm{surv}}$, terminal $W(T_{\max}) = 0.0001$), whereas plant-preserving actuator reversal caps $\mathrm{EP}_{\mathrm{peak}} = 1.521$, bounds $\Delta h_{\max} = +0.0098$ (well below Eq.~\ref{eq:rollback_excursion_bound}'s analytical bound $0.033$), maintains $\mathrm{ATP}_{\min} = 0.806 > \theta_{\mathrm{surv}}$, re-enters Stage~2 once $h(t) \le 0.080$, $B(t) \le 0.120$, and $\mathrm{EP}(t) \le 0.950$, and restores $W(T_{\max}) = 1.0128$ and $h(T_{\max}) = 0.0392$.
+\subsection{Host-Emulated C99 Fixed-Point Parity, Sobol Indices, and Memory/Power Budget}
+Executing \path{build/coralnpu/coralnpu_hil_testbench.c} (\texttt{-std=c99 -O2 -Wall -Wextra -Werror}; Tables~\ref{tab:ekf_ablation}B--\ref{tab:memory_power}) confirms $0.0563\%$ max 1,000-step \texttt{RK4} error across all 8 states, $0.94\%$ $\hat{h}$ RMSE in closed-loop C99 Huber-EKF, and flat $0.0534\%\text{--}0.0563\%$ error across $N \in \{500, \dots, 8{,}000\}$ (vs.\ $100\%$ naive \texttt{Q16.16} deadband stall). Global Saltelli Sobol indices ($2{,}560$ ODE runs, Table~\ref{tab:rk4_parity}) confirm that Stage-1 mitophagy capacity $k_{\mathrm{mito},D,\max}$ dominates outcome variance ($S_i = 0.739, S_{T_i} = 0.859$) inside the physiological redox box, while Table~\ref{tab:memory_power} verifies $3{,}696\text{ B}$ Bank~0 residency and a $3{,}006$-cycle ($6.012\,\mu\text{s}$, $3.090\text{ mW}$ active burst at $500\text{ MHz}$) compute profile.
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
-\caption{Full-Horizon (1,000-Step) 8-State \texttt{Q16.16} 4-Stage \texttt{RK4} Parity Against IEEE-754 \texttt{FP64} (\texttt{build/coralnpu/coralnpu\_hil\_testbench.c}) and Saltelli Quasi-Monte Carlo Global Sobol Sensitivity Indices on $\log_{10}(1 + J(\mathbf{u}))$ ($2{,}560$ Full ODE Runs).}
+\caption{1,000-Step 8-State \texttt{Q16.16} \texttt{RK4} Parity Against IEEE-754 \texttt{FP64} (\texttt{coralnpu\_hil\_testbench.c}) and Saltelli Global Sobol Sensitivity Indices on $\log_{10}(1 + J(\mathbf{u}))$ ($2{,}560$ ODE Runs).}
 \label{tab:rk4_parity}
+\footnotesize
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lccccclccc@{}}
 \toprule
-\textbf{State Variable} & \textbf{Terminal \texttt{FP64}} & \textbf{Terminal \texttt{Q16.16} Int} & \textbf{Terminal \texttt{Q16.16} Float} & \textbf{Terminal Err} & \textbf{1,000-Step Max / RMS Err} & \textbf{Sobol Parameter} & \textbf{Viable Range} & $S_i$ & $S_{T_i}$ \\
+\textbf{State} & \textbf{Term.\ \texttt{FP64}} & \textbf{\texttt{Q16.16} Int} & \textbf{\texttt{Q16.16} Float} & \textbf{Term.\ Err} & \textbf{Max / RMS Err} & \textbf{Sobol Param.} & \textbf{Range} & $S_i$ & $S_{T_i}$ \\
 \midrule
-$x_0$: $W(T_{\max})$ & $1.048706$ & $68{,}729$ & $1.048721$ & $0.0015\%$ & $0.0028\% \;/\; 0.0015\%$ & $k_{\mathrm{mito},D,\max}$ & $[0.085, 0.145]$ & $0.739$ & $0.859$ \\
-$x_1$: $D(T_{\max})$ & $0.026781$ & $1{,}755$ & $0.026779$ & $0.0074\%$ & $0.0464\% \;/\; 0.0137\%$ & $k_{\mathrm{clr}}$ & $[0.120, 0.240]$ & $0.125$ & $0.125$ \\
-$x_2$: $B(T_{\max})$ & $0.040012$ & $2{,}623$ & $0.040024$ & $0.0296\%$ & $\mathbf{0.0563\%} \;/\; 0.0301\%$ & $k_{\mathrm{rep,adv}}$ & $[1.050, 1.500]$ & $0.102$ & $0.138$ \\
-$x_3$: $E(T_{\max})$ & $0.630235$ & $41{,}303$ & $0.630234$ & $0.0001\%$ & $0.0026\% \;/\; 0.0011\%$ & $\theta_{\mathrm{GSH}}$ & $[1.020, 1.250]^*$ & $0.023$ & $0.023$ \\
-$x_4$: $G(T_{\max})$ & $0.318642$ & $20{,}883$ & $0.318649$ & $0.0022\%$ & $0.0047\% \;/\; 0.0020\%$ & --- & --- & --- & --- \\
-$x_5$: $N(T_{\max})$ & $1.469839$ & $96{,}326$ & $1.469818$ & $0.0014\%$ & $0.0063\% \;/\; 0.0023\%$ & \multicolumn{4}{l}{\footnotesize $^*$Lowering $\theta_{\mathrm{GSH}} \in [0.92, 1.02]$ below $\mathrm{EP}(0)$} \\
-$x_6$: $C(T_{\max})$ & $1.299926$ & $85{,}192$ & $1.299927$ & $0.0001\%$ & $0.0061\% \;/\; 0.0030\%$ & \multicolumn{4}{l}{\footnotesize crosses the ROS cliff ($S_{T_i}(\theta_{\mathrm{GSH}}) = 0.989$).} \\
-$x_7$: $M_8(T_{\max})$ & $1.736594$ & $113{,}816$ & $1.736694$ & $0.0058\%$ & $0.0154\% \;/\; 0.0085\%$ & \multicolumn{4}{l}{\footnotesize C99 Huber-EKF: $\hat{h}$ RMSE $0.94\%$, $W_{\mathrm{term}}=1.0518$.} \\
+$x_0$: $W(T_{\max})$ & $1.048706$ & $68{,}729$ & $1.048721$ & $0.0015\%$ & $0.0028\% / 0.0015\%$ & $k_{\mathrm{mito},D,\max}$ & $[0.085, 0.145]$ & $0.739$ & $0.859$ \\
+$x_1$: $D(T_{\max})$ & $0.026781$ & $1{,}755$ & $0.026779$ & $0.0074\%$ & $0.0464\% / 0.0137\%$ & $k_{\mathrm{clr}}$ & $[0.120, 0.240]$ & $0.125$ & $0.125$ \\
+$x_2$: $B(T_{\max})$ & $0.040012$ & $2{,}623$ & $0.040024$ & $0.0296\%$ & $\mathbf{0.0563\%} / 0.0301\%$ & $k_{\mathrm{rep,adv}}$ & $[1.050, 1.500]$ & $0.102$ & $0.138$ \\
+$x_3$: $E(T_{\max})$ & $0.630235$ & $41{,}303$ & $0.630234$ & $0.0001\%$ & $0.0026\% / 0.0011\%$ & $\theta_{\mathrm{GSH}}$ & $[1.020, 1.250]^*$ & $0.023$ & $0.023$ \\
+$x_4$: $G(T_{\max})$ & $0.318642$ & $20{,}883$ & $0.318649$ & $0.0022\%$ & $0.0047\% / 0.0020\%$ & --- & --- & --- & --- \\
+$x_5$: $N(T_{\max})$ & $1.469839$ & $96{,}326$ & $1.469818$ & $0.0014\%$ & $0.0063\% / 0.0023\%$ & \multicolumn{4}{l}{\scriptsize $^*$Sub-baseline $\theta_{\mathrm{GSH}} \in [0.92, 1.02]$ crosses} \\
+$x_6$: $C(T_{\max})$ & $1.299926$ & $85{,}192$ & $1.299927$ & $0.0001\%$ & $0.0061\% / 0.0030\%$ & \multicolumn{4}{l}{\scriptsize ROS cliff ($S_{T_i} = 0.989$). C99 EKF: $0.94\%$ RMSE.} \\
+$x_7$: $M_8(T_{\max})$ & $1.736594$ & $113{,}816$ & $1.736694$ & $0.0058\%$ & $0.0154\% / 0.0085\%$ & \multicolumn{4}{l}{} \\
 \bottomrule
 \end{tabular}%
 }
-\end{table*}
+\end{table}
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
-\caption{Compiler-Verified Single-Bank L1 DTCM Memory Map (\texttt{sizeof(coralnpu\_dtcm\_bank0\_workspace\_t)} $= 3{,}696\text{ B}$ in \texttt{Bank~0} of $32\text{ KB}$ Coral NPU DTCM) and Cycle-Weighted Host-Emulated Active NPU Power vs.\ External Sensor Power at $500\text{ MHz}$ ($22\text{ nm}$ ULP Process Model).}
+\caption{Compiler-Verified Single-Bank L1 DTCM Memory Map ($3{,}696\text{ B}$ in \texttt{Bank~0}) and Host-Emulated Cycle-Weighted Active NPU Power vs.\ External Sensor Rail ($500\text{ MHz}$, $22\text{ nm}$ ULP CMOS Model).}
 \label{tab:memory_power}
+\footnotesize
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lrrlrrr@{}}
 \toprule
-\textbf{L1 DTCM Bank 0 Struct Field Group} & \textbf{Bytes} & \textbf{\% of 8 KB Bank} & \textbf{Sequential Active NPU Compute Phase} & \textbf{Cycles $C_i$} & \textbf{Cycle Fraction $f_i$} & \textbf{Phase Power / Weighted} \\
+\textbf{L1 DTCM Bank 0 Struct Group} & \textbf{Bytes} & \textbf{\% of 8 KB} & \textbf{Active NPU Compute Phase} & \textbf{Cycles} & \textbf{Frac.} & \textbf{Power / Weighted} \\
 \midrule
-INT8 Gate ($1{,}216\text{ B}$) + Goertzel/EMA LUTs ($768\text{ B}$) & $1{,}984\text{ B}$ & $24.22\%$ & 1.\ RVV \texttt{Zve32x} \texttt{RK4} + Sequential Huber-EKF & $1{,}840$ & $61.21\%$ & $3.45\text{ mW} \to 2.112\text{ mW}$ \\
-Mixed \texttt{Q16.16}/\texttt{Q8.24} 7-State EKF ($\mathbf{P}, \mathbf{F}, \mathbf{Q}, \hat{\mathbf{x}}$) & $452\text{ B}$ & $5.52\%$ & 2.\ 16-Bin Goertzel/FFT \& 64-Frame Gate & $640$ & $21.29\%$ & $2.60\text{ mW} \to 0.554\text{ mW}$ \\
-4-Stage \texttt{Q8.24} \texttt{RK4} ($128\text{ B}$) + $\Sigma\Delta$ ($64\text{ B}$) + Params ($132\text{ B}$) & $324\text{ B}$ & $3.96\%$ & 3.\ Supervisory Threshold \& Rollback Logic & $526$ & $17.50\%$ & $2.42\text{ mW} \to 0.424\text{ mW}$ \\
-64-Frame Ring ($136\text{ B}$) + $\mathbf{x}_{\mathrm{ckpt}}$ ($32\text{ B}$) + Stack ($768\text{ B}$) & $936\text{ B}$ & $11.43\%$ & \textbf{Total NPU Compute Burst ($6.012\;\mu\text{s}$)} & \textbf{3,006} & \textbf{100.00\%} & \textbf{Mean Active: 3.090 mW} \\
+INT8 Gate ($1{,}216$) + Goertzel LUTs ($768$) & $1{,}984\text{ B}$ & $24.22\%$ & 1.\ RVV \texttt{Zve32x} \texttt{RK4} + Huber-EKF & $1{,}840$ & $61.21\%$ & $3.45 \to 2.112\text{ mW}$ \\
+Mixed \texttt{Q16/Q24} 7-State EKF ($\mathbf{P},\mathbf{F},\mathbf{Q},\hat{\mathbf{x}}$) & $452\text{ B}$ & $5.52\%$ & 2.\ 16-Bin Goertzel \& 64-Frame Gate & $640$ & $21.29\%$ & $2.60 \to 0.554\text{ mW}$ \\
+\texttt{Q8.24} \texttt{RK4} ($128$) + $\Sigma\Delta$ ($64$) + Params ($132$) & $324\text{ B}$ & $3.96\%$ & 3.\ Supervisory Threshold \& Rollback & $526$ & $17.50\%$ & $2.42 \to 0.424\text{ mW}$ \\
+64-Frame Ring ($136$) + $\mathbf{x}_{\mathrm{ckpt}}$ ($32$) + Stack ($768$) & $936\text{ B}$ & $11.43\%$ & \textbf{Total Compute Burst ($6.012\,\mu\text{s}$)} & $\mathbf{3{,}006}$ & $\mathbf{100\%}$ & \textbf{Mean: $3.090\text{ mW}$} \\
 \cmidrule(r){1-3}\cmidrule(l){4-7}
-\textbf{Verified \texttt{sizeof} Active Bank 0 Workspace} & \textbf{3,696 B} & \textbf{45.12\%} & Deep-Sleep Retention (Bank 0 Active, Banks 1--3 Gated) & --- & $>99.99\%$ duty & $18.0\;\mu\text{W}$ continuous \\
-Unallocated Bank 0 Free Headroom & $4{,}496\text{ B}$ & $54.88\%$ & External Bio-Impedance/ADC Front-End ($15\text{ ms}$/frame) & --- & Separate rail & $1.800\text{ mW}$ during window \\
+\textbf{Verified \texttt{sizeof} Active Bank 0} & $\mathbf{3{,}696\text{ B}}$ & $\mathbf{45.12\%}$ & Deep-Sleep Retention (Banks 1--3 Gated) & --- & $>99.99\%$ & $18.0\,\mu\text{W}$ cont. \\
+Unallocated Bank 0 Headroom & $4{,}496\text{ B}$ & $54.88\%$ & External Sensor/ADC ($15\text{ ms}$/frame) & --- & Sep.\ rail & $1.800\text{ mW}$ window \\
 \bottomrule
 \end{tabular}%
 }
-\end{table*}
-
-\subsection{Host-Emulated Fixed-Point Parity, C99 Huber-EKF, Deadband Ablation, and Power}
-Tables~\ref{tab:ekf_ablation}B and~\ref{tab:rk4_parity} and Figures~\ref{fig:hardware_verification}A and~\ref{fig:optimal_ekf_phase}D report the live execution of \texttt{build/coralnpu/coralnpu\_hil\_testbench.c} compiled under strict C99 (\texttt{cc -std=c99 -O2 -Wall -Wextra -Werror}). Across $1{,}000$ full-horizon steps ($T_{\max} = 90\text{ d}$), our \texttt{Q16.16} kernel with \texttt{Q8.24} slopes and $\Sigma\Delta$ remainder diffusion matches IEEE-754 \texttt{FP64} within a maximum relative error of $0.0563\%$ (terminal error $\le 0.0296\%$), while the bare-metal C99 mixed \texttt{Q16.16}/\texttt{Q8.24} 7-state Huber-EKF tracks the perturbed 8-state plant under $\mathrm{AR}(1)$ noise and $5\%$ $6.5\sigma$ spikes with $0.94\%$ heteroplasmy RMSE (switching at step $415$, $37.35\text{ d}$, and restoring $W(T_{\max}) = 1.0518, h(T_{\max}) = 0.0222$). Sweeping $N \in \{500, 1{,}000, 2{,}000, 4{,}000, 8{,}000\}$ ($\Delta t \in [0.180, 0.01125]\text{ d}$) demonstrates why $\Sigma\Delta$ remainder diffusion is essential for integer SIMD: naive round-to-nearest \texttt{Q16.16} \texttt{RK4} diverges from $13.51\%$ error at $N=500$ to $100.00\%$ deadband stall at $N=8{,}000$, and \texttt{Q8.24} slopes without remainder still degrade to $17.44\%\text{--}22.02\%$ at $N \ge 4{,}000$, whereas \texttt{Q8.24} slopes with 8-lane $\Sigma\Delta$ remainder diffusion maintain $0.0534\%\text{--}0.0563\%$ error across the entire $16\times$ step-refinement range (compared with $0.0001\%\text{--}0.0022\%$ for single-lane scalar \texttt{RV32F} \texttt{FP32}). Across $2{,}560$ full ODE integrations, Saltelli Sobol indices on $\log_{10}(1 + J(\mathbf{u}))$ confirm that within the viable physiological box ($\theta_{\mathrm{GSH}} \in [1.02, 1.25]$), Stage-1 mitophagy capacity dominates variance ($S_i = 0.739, S_{T_i} = 0.859$), followed by $k_{\mathrm{clr}}$ ($0.125/0.125$) and $k_{\mathrm{rep,adv}}$ ($0.102/0.138$), whereas dropping $\theta_{\mathrm{GSH}}$ below $\mathrm{EP}(0)$ into $[0.92, 1.02]$ triggers a sharp trans-cliff collapse transition ($S_{T_i}(\theta_{\mathrm{GSH}}) = 0.989$).
-
-Table~\ref{tab:memory_power} details both the compiler-verified single-bank L1 DTCM layout (\texttt{sizeof(coralnpu\_dtcm\_bank0\_workspace\_t)} $= 3{,}696\text{ B}$ out of $8{,}192\text{ B}$ in \texttt{Bank~0}, leaving $4{,}496\text{ B}$ Bank~0 headroom and $24\text{ KB}$ in \texttt{Banks~1--3} power-gated) and the host-emulated cycle-weighted power estimate at $500\text{ MHz}$ ($22\text{ nm}$ ULP CMOS model): sequential execution over $3{,}006$ cycles ($6.012\;\mu\text{s}$) yields a cycle-weighted mean active NPU burst power of $3.090\text{ mW}$ ($18.58\text{ nJ}$/burst), accounted separately from external analog front-end sensor excitation ($1.800\text{ mW}$ during its $15\text{ ms}$ ADC window).
+\end{table}
 
 % =============================================================================
 \section{Discussion, Limitations, and Reproducibility Manifest}
 % =============================================================================
 
 \paragraph{Limitations and Scope of Claims.}
-First, all ODE trajectories, unconstrained optimal control solutions, mismatched EKF benchmarks, and C99 fixed-point results are computational and host-emulated \textit{in silico} evaluations; no prospective wet-lab, animal, or clinical claims are made. Second, as Figure~\ref{fig:optimal_ekf_phase}B and Table~\ref{tab:ekf_ablation}A establish, biological controllability and indirect observability have hard physical limits: initial wild-type depletion inside Zone~0 ($18.9\%$ of the $(W_0, k_{\mathrm{dmg}})$ grid) is irreversibly unrescuable without exogenous organelle transplantation, and four-channel proxy sensing leaves pre-switch $\kappa(\mathcal{O}_7) = 745.6$ ill-conditioning ($\sim 1.9\%$ heteroplasmy RMSE under $\pm 20\%$ kinetic mismatch) requiring conservative threshold margin tightening ($\hat{h}_{\mathrm{gate}} = 0.065$). Third, discrete-copy stochastic drift at ultra-low mtDNA copy number, spatially resolved axonal fission-fusion reaction-diffusion PDEs, and gate-level RTL power synthesis on physical FPGA or Coral NPU silicon lie outside the deterministic single-compartment scope of this paper.
+All ODE trajectories, discrete-adjoint optimal control schedules, mismatched EKF benchmarks, and C99 fixed-point results in this study are strictly computational and host-emulated \textit{in silico} evaluations; no prospective wet-lab, animal, or clinical claims are made. Biological controllability and indirect observability exhibit hard physical limits: initial wild-type depletion inside Zone~0 ($18.9\%$ of the $(W_0, k_{\mathrm{dmg}})$ grid) is irreversibly unrescuable without exogenous organelle transfer, and 4-channel proxy sensing leaves $\kappa(\mathcal{O}_7) = 745.6$ pre-switch ill-conditioning requiring conservative threshold margin tightening ($\hat{h}_{\mathrm{gate}} = 0.065$). Stochastic copy-number drift at very low mtDNA counts, spatial axonal reaction-diffusion PDEs, and physical RTL silicon synthesis lie outside the deterministic single-compartment scope of Paper~I.
 
 \paragraph{MIASE Reproducibility Manifest.}
-Following Minimum Information About a Simulation Experiment (MIASE) guidelines \cite{waltemath2011miase}, every figure, table entry, and numerical claim in this manuscript is deterministically generated from two zero-stub executable artifacts:
-\begin{enumerate}
-  \item \textbf{ODE, Adjoint Optimal Control, Mismatched EKF, Phase-Plane \& Sobol Suite:} Run \texttt{python3 simulator/\allowbreak generate\_\allowbreak paper1\_\allowbreak verified\_\allowbreak benchmarks.py} (fixed PRNG seed \texttt{20261109}), which integrates all three non-homothetic 8-state ODE regimes, solves the 5-start 300-variable discrete-adjoint \texttt{L-BFGS-B} optimal control problem, computes the Stage-1 7-state Observability Gramian and 1,000-step 120-trial $\pm 20\%$ mismatched closed-loop Huber-EKF benchmark, maps the $31 \times 31$ $(W_0, k_{\mathrm{dmg}})$ phase plane, runs the $1{,}000$-stream $\mathrm{AR}(1)$ persistence and $2{,}560$-run Saltelli Sobol audits, compiles/parses the C99 testbench, writes \texttt{simulator/\allowbreak paper1\_\allowbreak verified\_\allowbreak benchmarks.json}, and renders Figures~\ref{fig:ode_control}--\ref{fig:hardware_verification}.
-  \item \textbf{Bare-Metal C99 \texttt{Q16.16} \texttt{RK4}, Sequential Huber-EKF \& Deadband Ablation Testbench:} Compile and run \texttt{cc -std=c99 -O2 -Wall -Wextra -Werror build/coralnpu/coralnpu\_hil\_testbench.c -lm -o build/coralnpu/coralnpu\_hil\_testbench \&\& ./build/coralnpu/coralnpu\_hil\_testbench}, verifying 1,000-step \texttt{Q16.16} parity (\texttt{MaxErr = 0.0563\%}), 256-trial 8-lane \texttt{Zve32x} widening parity (\texttt{MaxULPDiff = 0}), closed-loop C99 Huber-EKF (\texttt{h\_RMSE = 0.94\%}, \texttt{sizeof = 3696B/8192B}), and the 5-step-size quantization deadband ablation.
-\end{enumerate}
+Following MIASE guidelines \cite{waltemath2011miase}, every figure, table entry, and numerical metric is deterministically regenerated from source via \texttt{python3} \path{simulator/generate_paper1_verified_benchmarks.py} (seed \texttt{20261109}) and the freestanding C99 testbench \path{build/coralnpu/coralnpu_hil_testbench.c} (repository: \url{https://github.com/deesatzed/mitorestorer}).
+
+% =============================================================================
+\appendix
+\section{Complete 8-State Equations and Mathematical Proofs}
+\label{app:math}
+\numberwithin{equation}{section}
+\setcounter{equation}{0}
+% =============================================================================
+
+\subsection{Complete 8-State System, Auxiliary Rates, and Observation Map}
+\label{app:model}
+To guarantee exact 1-to-1 parity between \LaTeX, \path{eval_rhs_fp64} in Python, and \path{coralnpu_eval_core8_rhs_q16} in C99, the closed-form auxiliary bioenergetic rates are:
+\begin{align}
+  V_{\mathrm{lys}}(B) &= \frac{K_B}{K_B + B}, \qquad
+  k_{\mathrm{bio}}(u_2, N) = k_{\mathrm{bio},0} + (k_{\mathrm{bio},\max} - k_{\mathrm{bio},0})\,u_2\,\frac{N}{1 + N}, \label{eq:aux_kbio} \\
+  k_{\mathrm{mito},D}(u_1) &= k_{\mathrm{mito},W} + (k_{\mathrm{mito},D,\max} - k_{\mathrm{mito},W})\,u_1, \qquad
+  \mathrm{ATP}(\mathbf{x}) = (W + \eta_D D)(1 + \gamma_C C), \label{eq:aux_atp} \\
+  \dot{e}_R(\mathbf{x}) &= \frac{1 + \beta_B B + \beta_h h}{\max(0.10,\, W + \eta_D D)(1 + \gamma_C C)}, \qquad
+  f_{\mathrm{eff}}(u_1, u_2) = 1 - c_1 u_1 + c_2 u_2, \label{eq:aux_er} \\
+  \mathrm{EP}(\mathbf{x}, \mathbf{u}) &= \dot{e}_R(\mathbf{x})\,f_{\mathrm{eff}}(u_1, u_2)^2, \qquad
+  k_{\mathrm{bio},0} = \frac{k_{\mathrm{mito},W}}{1 - 1/K}. \label{eq:aux_ep}
+\end{align}
+Together with Eqs.~\eqref{eq:ode_W}--\eqref{eq:ode_B} for $(W, D, B)$, the remaining five state equations for filtered energy potential $E$, secreted stress marker $G$, redox cofactor $N$, phosphagen buffer $C$, and epigenetic drift readout $M_8$ are:
+\begin{align}
+  \dot{E} &= k_E\big(\mathrm{EP}(\mathbf{x}, \mathbf{u}) - E\big), \qquad
+  \dot{G} = k_{G,\mathrm{prod}}\,E - k_{G,\mathrm{clr}}\,G, \label{eq:ode_EG} \\
+  \dot{N} &= k_{N,\mathrm{syn},0} + k_{N,\mathrm{syn},2}\,u_2 - k_{\mathrm{PARP}}\max(0, E - \theta_{\mathrm{GSH}})N - k_{N,\mathrm{use}}\,N, \label{eq:ode_N} \\
+  \dot{C} &= (k_{\mathrm{oct},0} + k_{\mathrm{oct},2}\,u_2)(1.30 - C) - k_{\mathrm{ox}}\max(0, E - \theta_{\mathrm{cys}})C, \label{eq:ode_C} \\
+  \dot{M}_8 &= k_{\mathrm{drift}}\,E\,(10.0 - M_8) - k_{\mathrm{TET}}\,u_2\,N\,C\,M_8. \label{eq:ode_M8}
+\end{align}
+At discrete controller steps $t_k$, the 4-channel proxy observation vector and post-switch redox safety condition ($u_{1,\mathrm{S2}} = 0.35$) are:
+\begin{align}
+  \mathbf{y}_k &= \big[E(t_k),\, \mathrm{ATP}(\mathbf{x}(t_k)),\, G(t_k),\, N(t_k)\big]^\top + \mathbf{v}_k, \label{eq:observation_model} \\
+  \mathrm{EP}(t_{\mathrm{gate}}^+) &= \frac{1 + \beta_B B(t_{\mathrm{gate}}) + \beta_h h_{\mathrm{gate}}}{W(t_{\mathrm{gate}})\big[1 + \eta_D h_{\mathrm{gate}}/(1 - h_{\mathrm{gate}})\big]\big[1 + \gamma_C C(t_{\mathrm{gate}})\big]}\,(1 - c_1 u_{1,\mathrm{S2}} + c_2)^2 \le \theta_{\mathrm{GSH}}. \label{eq:hgate_derivation}
+\end{align}
+
+\subsection{Quotient-Rule Derivation and Proofs of Lemma~\ref{lem:invariance} and Proposition~\ref{prop:stability}}
+\label{app:invariance}
+Applying the quotient rule $\dot{h} = (\dot{D}W - D\dot{W})/M^2$ to Eqs.~\eqref{eq:ode_W}--\eqref{eq:ode_D}, let $d_{\mathrm{ros}} \triangleq k_{\mathrm{dmg}}\max(0, \mathrm{EP} - \theta_{\mathrm{GSH}})$. The $+d_{\mathrm{ros}}W$ source term in $\dot{D}$ contributes $(W^2/M^2)d_{\mathrm{ros}} = (1 - h)^2 d_{\mathrm{ros}}$, while the $-d_{\mathrm{ros}}W$ loss term in $\dot{W}$ contributes $+(DW/M^2)d_{\mathrm{ros}} = h(1 - h)d_{\mathrm{ros}}$; their sum is $(1 - h)d_{\mathrm{ros}}$, yielding Eqs.~\eqref{eq:h_dot}--\eqref{eq:lambda_h}.
+
+Define the boundary and interior critical bottleneck thresholds:
+\begin{equation}
+  B_{\mathrm{crit}}^* \triangleq K_B\!\left(\frac{k_{\mathrm{mito},D,\max}}{k_{\mathrm{rep,adv}}\,k_{\mathrm{bio},0}\,(1 - W^*/K)} - 1\right), \qquad
+  B_{\mathrm{crit,mono}} \triangleq K_B\!\left(\frac{k_{\mathrm{mito},D,\max}}{k_{\mathrm{rep,adv}}\,k_{\mathrm{bio},0}\,\big[1 - (W^* - D_0)/K\big]} - 1\right).
+  \label{eq:B_crit}
+\end{equation}
+\begin{proof}[Proof of Lemma~\ref{lem:invariance}]
+Under $(u_0, u_1, u_2) = (1, 1, 0)$ and $\sup_{\Omega_1}\mathrm{EP} \le \min(\theta_{\mathrm{GSH}}, E_{\max})$, $d_{\mathrm{ros}} \equiv 0$ on $\Omega_1$. Checking Nagumo's subtangent condition on each face of $\Omega_1$: $\dot{E}|_{E=0} \ge 0$, $\dot{E}|_{E=E_{\max}} \le 0$, $\dot{C}|_{C=1.30} \le 0$, $\dot{C}|_{C=C_{\min}} \ge 0$ (when $k_{\mathrm{oct},0}(1.30 - C_{\min}) \ge k_{\mathrm{ox}}\max(0, E_{\max} - \theta_{\mathrm{cys}})C_{\min}$), $\dot{B}|_{B=B_{\mathrm{eq}}} = 0$, and $\dot{B}|_{B=B_0} = k_{\mathrm{clr}}(B_{\mathrm{eq}} - B_0) \le 0$. On the upper mutant face $D = D_0$, $W \ge W^* - D_0 \implies M = W + D_0 \ge W^*$, so $\dot{D}|_{D=D_0} \le D_0[k_{\mathrm{rep,adv}}k_{\mathrm{bio},0}(1 - W^*/K) - k_{\mathrm{mito},D,\max}K_B/(K_B + B)] \le 0$ for all $B \le B_{\mathrm{crit}}^*$. On the lower wild-type face $W = W_{\min} = W^* - D_0$, $D \le D_0 \implies M \le W^*$, so $\dot{W}|_{W_{\min}} \ge W_{\min}[k_{\mathrm{bio},0}(1 - W^*/K) - k_{\mathrm{mito},W}] = 0$ by Eq.~\eqref{eq:aux_ep}, while $\dot{W}|_{W=K} < 0$. Hence $\Omega_1$ is jointly positively invariant. Integrating $\dot{B} = b_{\mathrm{basal}} - k_{\mathrm{clr}}B$ yields $t_0$ in Case~2. On the canonical neuronal box ($W \in [0.60, 1.25], D \in [0, 0.40], B \in [0.04, 0.50], C \in [0.65, 1.30], E_{\max} = 1.35$), $\partial\mathrm{EP}/\partial D > 0$ on $[0, 0.40]$, so $\mathrm{EP}$ attains its exact maximum at $(0.60, 0.40, 0.50, 0.65)$: $\max_{\Omega_1}\mathrm{EP} = [1.385 / (0.660 \times 1.221)] \times 0.6084 = 1.0456 < 1.150$, with $B_{\mathrm{crit}}^* = 1.2020 > 0.500$ and $B_{\mathrm{crit,mono}} = 0.3085$ (crossed at $t = 3.16\text{ d}$).
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:stability}]
+On $\Omega_1(D_0, B_0)$, $d_{\mathrm{ros}} \equiv 0$, $B(t) \le B_0$, and $M(t) \ge W^* - D_0$, so Eq.~\eqref{eq:lambda_h} satisfies $\lambda_h(t) \ge \lambda_{\min}$ with
+\begin{equation}
+  \lambda_{\min} \triangleq \frac{k_{\mathrm{mito},D,\max}K_B}{K_B + B_0} - k_{\mathrm{mito},W} - (k_{\mathrm{rep,adv}} - 1)k_{\mathrm{bio},0}\!\left(1 - \frac{W^* - D_0}{K}\right).
+  \label{eq:lambda_min_analytic}
+\end{equation}
+Separating variables in $\frac{d}{dt}\ln[h/(1-h)] = -\lambda_h(t) \le -\lambda_{\min}$ and noting $1 - h(t) \ge 1 - h_0$ yields Eq.~\eqref{eq:prop1_bounds}. Linearizing $\dot{D}$ at $(W^*, 0, B_{\mathrm{eq}})$ where $k_{\mathrm{bio}}(1 - W^*/K) = k_{\mathrm{mito},W}$ gives $\dot{D} \approx \mu_D D$.
+\end{proof}
+
+\subsection{Closed-Form Bottleneck Integral and Proof of Proposition~\ref{prop:reduction}}
+\label{app:reduction}
+\begin{proof}[Proof of Proposition~\ref{prop:reduction}]
+Integrating $\frac{d}{dt}\ln[h/(1-h)] = -\lambda_h(t)$ over $[0, t]$ gives $\ln[h(t)/(1-h(t))] = \ln[h_0/(1-h_0)] - s(t)$, which inverts to Eq.~\eqref{eq:h_logistic_exact}. During Stage~1 ($u_0=1, u_1=1, u_2=0$), $k_{\mathrm{bio}}(0, N) \equiv k_{\mathrm{bio},0}$ and $B(q) = B_{\mathrm{eq}} + (B_0 - B_{\mathrm{eq}})e^{-k_{\mathrm{clr}}q}$. Let $T_{1,\mathrm{apriori}} \triangleq s^*(h_0, h_{\mathrm{gate}}) / [k_{\mathrm{mito},D,\max}V_{\mathrm{lys}}(B_{\mathrm{eq}}) - k_{\mathrm{mito},W} - (k_{\mathrm{rep,adv}}-1)k_{\mathrm{bio},0}(1 - M_0/K)]$. Integrating $V_{\mathrm{lys}}(B(q))$ via $w = e^{k_{\mathrm{clr}}q}$ gives the closed-form \textit{a priori} mean competence and constant rescaling rate:
+\begin{align}
+  \bar{V}_{\mathrm{lys}} &\triangleq \frac{1}{T_{1,\mathrm{apriori}}}\int_0^{T_{1,\mathrm{apriori}}} \frac{K_B\,dq}{K_B + B(q)} = \frac{K_B}{K_B + B_{\mathrm{eq}}}\!\left[1 - \frac{\ln\!\big[(K_B + B_0)/\big(K_B + B(T_{1,\mathrm{apriori}})\big)\big]}{k_{\mathrm{clr}}\,T_{1,\mathrm{apriori}}}\right], \label{eq:vlys_bar_closed} \\
+  \hat{\lambda}_0 &\triangleq k_{\mathrm{mito},D,\max}\,\bar{V}_{\mathrm{lys}} - k_{\mathrm{mito},W} - (k_{\mathrm{rep,adv}} - 1)k_{\mathrm{bio},0}\!\left(1 - \frac{M_0}{K}\right). \label{eq:lambda_hat0}
+\end{align}
+Subtracting Eq.~\eqref{eq:lambda_hat0} from Eq.~\eqref{eq:lambda_h} yields the integrated logit error bound
+\begin{equation}
+  \big|s(t) - \hat{\lambda}_0 t\big| \le \underbrace{k_{\mathrm{mito},D,\max}\!\int_0^t \big|V_{\mathrm{lys}}(B(q)) - \bar{V}_{\mathrm{lys}}\big|\,dq}_{\mathcal{E}_B(t)} + \underbrace{(k_{\mathrm{rep,adv}}-1)\frac{k_{\mathrm{bio},0}}{K}\!\int_0^t \big|M(q) - M_0\big|\,dq}_{\mathcal{E}_M(t)},
+  \label{eq:multi_term_bound}
+\end{equation}
+and since $|d(e^\ell/[1+e^\ell])/d\ell| = h(1-h) \le 1/4$, Eq.~\eqref{eq:sup_err_bound} follows immediately.
+\end{proof}
+
+\subsection{Proof of Proposition~\ref{prop:persistence} and Actuator-Reversal Excursion Bound}
+\label{app:persistence}
+\begin{proof}[Proof of Proposition~\ref{prop:persistence}]
+Any 64-frame window overlapping an $L_{\mathrm{dist}}$-frame burst contains at most $c_0 + L_{\mathrm{dist}}$ ones, which is strictly below $60$ whenever $L_{\mathrm{dist}} \le 59 - c_0$. For stationary noise, the latent Gaussian process $e_k$ is a reversible Markov chain on $(\mathbb{R}, \mathcal{N}(0,1))$ with $L^2$ spectral gap $\gamma_{\mathrm{spec}} = 1 - \rho$. Applying Theorem~3.3 of Paulin~\cite{paulin2015concentration} to the bounded indicator $f(e_k) = I_k \in \{0, 1\}$, multiplying by the exact conditioning factor $p_{z|Q}$, and applying Boole's union bound over $K_{\mathrm{frames}}$ steps yields Eq.~\eqref{eq:paulin_step}.
+\end{proof}
+
+Finally, during an acute post-switch insult over $[t_{\mathrm{insult}}, t_{\mathrm{insult}} + \Delta t_{\mathrm{active}}]$ where $\Delta t_{\mathrm{active}} \approx \delta t_{\mathrm{detect}} + \tau_{\mathrm{wash}}\ln[(\mathrm{EP}_{\mathrm{peak}} - \theta_{\mathrm{GSH}})/(\theta_{\mathrm{abort}} - \theta_{\mathrm{GSH}})]$, integrating the positive ROS term in Eq.~\eqref{eq:h_dot} from $h(t_{\mathrm{insult}}) \le h_{\mathrm{gate}}$ bounds the net heteroplasmy excursion prior to actuator washout by:
+\begin{equation}
+  \Delta h_{\max} \le (1 - h_{\mathrm{gate}})\,k_{\mathrm{dmg}}\int_{t_{\mathrm{insult}}}^{t_{\mathrm{insult}} + \Delta t_{\mathrm{active}}} \max\!\big(0,\, \mathrm{EP}(q) - \theta_{\mathrm{GSH}}\big)\,dq.
+  \label{eq:rollback_excursion_bound}
+\end{equation}
 
 \section*{Acknowledgments and Disclosures}
 \footnotesize
@@ -566,7 +486,7 @@ Following Minimum Information About a Simulation Experiment (MIASE) guidelines \
 \noindent\textbf{Ethics Statement:} This study consists exclusively of mathematical analysis, numerical ODE simulation, and host-emulated embedded systems verification; no human participants, clinical trial cohorts, or live vertebrate animals were involved.
 
 \let\oldthebibliography\thebibliography
-\renewcommand{\thebibliography}[1]{\oldthebibliography{#1}\setlength{\itemsep}{1.5pt}\setlength{\parskip}{0pt}}
+\renewcommand{\thebibliography}[1]{\oldthebibliography{#1}\setlength{\itemsep}{2pt}\setlength{\parskip}{0pt}}
 \bibliographystyle{unsrt}
 \bibliography{references}
 

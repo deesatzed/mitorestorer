@@ -10,7 +10,7 @@
 
   <!-- Header -->
   <text x="28" y="38" fill="#92400e" font-family="ui-monospace, monospace" font-size="12" font-weight="bold">FIGURE 2 · FLAGSHIP #2: APIS-BCR HONEYBEE SMART HIVE — 14-DAY ODE &amp; 4.05 mW GOOGLE CORAL NPU</text>
-  <text x="28" y="60" fill="#0f172a" font-family="Georgia, serif" font-size="18" font-weight="bold">Complex III Azoxystrobin Unblocking (PDB: 1SQB), S. alvi Symbiont Detox, &amp; Autonomous 220 Hz Acoustic Gate</text>
+  <text x="28" y="60" fill="#0f172a" font-family="Georgia, serif" font-size="16.0" font-weight="bold">Complex III Azoxystrobin Unblocking (PDB: 1SQB), S. alvi Symbiont Detox, &amp; Autonomous 220 Hz Acoustic Gate</text>
 
   <!-- Left Panel: 14-Day Flight Muscle & Coral NPU Trajectory Plot -->
   <rect x="28" y="80" width="530" height="445" rx="14" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
@@ -52,13 +52,13 @@
   <path d="M 72 397 Q 155 340, 220 262 Q 320 155, 532 146" fill="none" stroke="#047857" stroke-width="3.5"/>
   <text x="310" y="164" fill="#065f46" font-family="ui-monospace, monospace" font-size="10" font-weight="bold">Forager Homing Survival: 96.5%</text>
 
-  <text x="72" y="474" text-anchor="middle" fill="#475569" font-family="ui-monospace, monospace" font-size="10">Day 0</text>
-  <text x="146" y="474" text-anchor="middle" fill="#92400e" font-family="ui-monospace, monospace" font-size="10">Stage 1: CYP9Q + S. alvi</text>
-  <text x="220" y="474" text-anchor="middle" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="10">Day 4.5</text>
-  <text x="380" y="474" text-anchor="middle" fill="#065f46" font-family="ui-monospace, monospace" font-size="10">Stage 2: 10-HDA + CoQ10 + 24-Sterol</text>
-  <text x="532" y="474" text-anchor="middle" fill="#475569" font-family="ui-monospace, monospace" font-size="10">Day 14</text>
+  <text x="72" y="474" text-anchor="middle" fill="#475569" font-family="ui-monospace, monospace" font-size="8.4">Day 0</text>
+  <text x="148" y="474" text-anchor="middle" fill="#92400e" font-family="ui-monospace, monospace" font-size="8.0">Stage 1: CYP9Q+S.alvi</text>
+  <text x="224" y="474" text-anchor="middle" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="8.4">Day 4.5</text>
+  <text x="382" y="474" text-anchor="middle" fill="#065f46" font-family="ui-monospace, monospace" font-size="8.4">Stage 2: 10-HDA + CoQ10 + 24-Sterol</text>
+  <text x="532" y="474" text-anchor="middle" fill="#475569" font-family="ui-monospace, monospace" font-size="8.4">Day 14</text>
 
-  <text x="46" y="505" fill="#334155" font-family="ui-monospace, monospace" font-size="10">PDB: 1SQB (Cyt bc1 + Azoxystrobin, Glu272/Tyr279) · RV32IMF_Zve32x (1,488 Cycles, 4.05 mW, 6,912B SRAM)</text>
+  <text x="46" y="505" fill="#334155" font-family="ui-monospace, monospace" font-size="8.0">PDB: 1SQB (Cyt bc1 + Azoxystrobin, Glu272/Tyr279) · RV32IMF_Zve32x (1,488 Cycles, 4.05 mW, 6,912B SRAM)</text>
 
   <!-- Right Panel: 8-Practice Commercial Apiary Audit & Coral NPU Hardware Telemetry -->
   <rect x="576" y="80" width="516" height="445" rx="14" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
@@ -100,8 +100,8 @@
 
   <!-- Coral NPU Hardware Spec Box -->
   <rect x="594" y="405" width="480" height="102" rx="10" fill="#e6f2f8" stroke="#0284c7" stroke-width="1.2"/>
-  <text x="610" y="427" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="10.5" font-weight="bold">⚡ SOLAR GOOGLE CORAL NPU (RV32IMF_Zve32x) SILICON VERIFICATION:</text>
-  <text x="610" y="447" fill="#1e293b" font-family="ui-monospace, monospace" font-size="10">• Compute &amp; Power: 1,488 Cycles/Tick · 4.05 mW Total Power · 93.8% Zero-Skip FFT (13/16 Bins)</text>
-  <text x="610" y="466" fill="#1e293b" font-family="ui-monospace, monospace" font-size="10">• Memory Budget:   6,912 Bytes Tightly-Coupled SRAM (Zero DRAM / Zero Cloud Dependency)</text>
-  <text x="610" y="485" fill="#065f46" font-family="ui-monospace, monospace" font-size="10" font-weight="bold">• HIL Parity:      Q16.16 Logit = +5924 at Day 4.5 (220 Hz) · 0.0423% Max Err · 0.000000 Gate Err</text>
+  <text x="608" y="427" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="9.2" font-weight="bold">⚡ SOLAR GOOGLE CORAL NPU (RV32IMF_Zve32x) SILICON VERIFICATION:</text>
+  <text x="608" y="447" fill="#1e293b" font-family="ui-monospace, monospace" font-size="7.9">• Compute &amp; Power: 1,488 Cycles/Tick · 4.05 mW Total Power · 93.8% Zero-Skip FFT (13/16 Bins)</text>
+  <text x="608" y="466" fill="#1e293b" font-family="ui-monospace, monospace" font-size="7.9">• Memory Budget:   6,912 Bytes Tightly-Coupled SRAM (Zero DRAM / Zero Cloud Dependency)</text>
+  <text x="608" y="485" fill="#065f46" font-family="ui-monospace, monospace" font-size="7.9" font-weight="bold">• HIL Parity:      Q16.16 Logit = +5924 at Day 4.5 (220 Hz) · 0.0423% Max Err · 0.000000 Gate Err</text>
 </svg>

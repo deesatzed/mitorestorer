@@ -1598,6 +1598,8 @@ def generate_paper1_figures(
         "xtick.labelsize": 7.8,
         "ytick.labelsize": 7.8,
         "figure.dpi": 300,
+        "pdf.fonttype": 42,
+        "ps.fonttype": 42,
     })
 
     # -------------------------------------------------------------------------

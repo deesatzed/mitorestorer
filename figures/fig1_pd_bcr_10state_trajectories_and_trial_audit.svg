@@ -10,7 +10,7 @@
 
   <!-- Header -->
   <text x="28" y="38" fill="#065f46" font-family="ui-monospace, monospace" font-size="12" font-weight="bold">FIGURE 1 · FLAGSHIP #1: PARKINSON'S DISEASE (PD-BCR v3.0) — 90-DAY 10-STATE ODE &amp; 10-TRIAL GRAVEYARD AUDIT</text>
-  <text x="28" y="60" fill="#0f172a" font-family="Georgia, serif" font-size="18" font-weight="bold">Chrono-Phased Lysosomal Unblocking (2NSX), Hyperoxia Clamping (5UFP), &amp; Stage-2 Creatine/TET De-Aging (1QK1/6FCX)</text>
+  <text x="28" y="60" fill="#0f172a" font-family="Georgia, serif" font-size="15.8" font-weight="bold">Chrono-Phased Lysosomal Unblocking (2NSX), Hyperoxia Clamping (5UFP), &amp; Stage-2 Creatine/TET De-Aging (1QK1/6FCX)</text>
 
   <!-- Left Panel: 90-Day Multi-State Trajectory Plot -->
   <rect x="28" y="80" width="530" height="445" rx="14" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
@@ -61,14 +61,14 @@
   <text x="370" y="474" text-anchor="middle" fill="#065f46" font-family="ui-monospace, monospace" font-size="10">Stage 2: NR + 4ZZJ + 6FCX + 1QK1</text>
   <text x="532" y="474" text-anchor="middle" fill="#475569" font-family="ui-monospace, monospace" font-size="10">Day 90</text>
 
-  <text x="46" y="505" fill="#334155" font-family="ui-monospace, monospace" font-size="10">PDB Contacts: 2NSX (GBA1 Glu235 2.61Å) · 5UFP (HIF-2α His293 2.58Å) · 6EQI (PINK1 Ser202) · 1QK1 (uMtCK Arg127 2.68Å)</text>
+  <text x="46" y="505" fill="#334155" font-family="ui-monospace, monospace" font-size="6.9">PDB Contacts: 2NSX (GBA1 Glu235 2.61Å) · 5UFP (HIF-2α His293 2.58Å) · 6EQI (PINK1 Ser202) · 1QK1 (uMtCK Arg127 2.68Å)</text>
 
   <!-- Right Panel: 10-Trial Clinical Graveyard Audit Comparison Bars -->
   <rect x="576" y="80" width="516" height="445" rx="14" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
-  <text x="594" y="108" fill="#92400e" font-family="ui-monospace, monospace" font-size="11.5" font-weight="bold">B. 10 LANDMARK PD BIOENERGETIC TRIALS: UNPHASED vs. PHASED PD-BCR</text>
+  <text x="594" y="108" fill="#92400e" font-family="ui-monospace, monospace" font-size="11.2" font-weight="bold">B. 10 LANDMARK PD BIOENERGETIC TRIALS: UNPHASED vs. PHASED PD-BCR</text>
 
   <!-- Trial Rows -->
-  <g font-family="ui-monospace, monospace" font-size="10">
+  <g font-family="ui-monospace, monospace" font-size="8.9">
     <text x="594" y="140" fill="#991b1b">1. FAIRPARK-II (Deferiprone · 2XSN Fe²⁺ Strip)</text>
     <rect x="865" y="129" width="12" height="13" rx="3" fill="#dc2626"/>
     <text x="884" y="140" fill="#991b1b">-14% (Worsened!)</text>
@@ -111,6 +111,6 @@
   </g>
 
   <rect x="594" y="452" width="480" height="56" rx="8" fill="#e6f4ee" stroke="#059669" stroke-width="1"/>
-  <text x="608" y="473" fill="#065f46" font-family="ui-monospace, monospace" font-size="10.5" font-weight="bold">KEY FINDING: All 6 failed Phase II/III PD trials administered Stage-2 anabolic</text>
-  <text x="608" y="492" fill="#1e293b" font-family="ui-monospace, monospace" font-size="10">cofactors (CoQ10, Creatine, PGC-1α) at Day 0 before purging mutant mtDNA (h=58%).</text>
+  <text x="608" y="473" fill="#065f46" font-family="ui-monospace, monospace" font-size="8.4" font-weight="bold">KEY FINDING: All 6 failed Phase II/III PD trials administered Stage-2 anabolic</text>
+  <text x="608" y="492" fill="#1e293b" font-family="ui-monospace, monospace" font-size="8.2">cofactors (CoQ10, Creatine, PGC-1α) at Day 0 before purging mutant mtDNA (h=58%).</text>
 </svg>

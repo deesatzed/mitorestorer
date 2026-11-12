@@ -9,17 +9,17 @@
   <rect x="0" y="0" width="1120" height="5" rx="2" fill="#047857"/>
 
   <!-- Header -->
-  <text x="28" y="36" fill="#065f46" font-family="ui-monospace, monospace" font-size="11.5" font-weight="bold">FIGURE 4 · DISCOVERIES 12–17: CELL (SEPT 2026) CLINICAL TRANSLATION, 4-CELL NICHE, 5-ORGAN TI, AXONAL PDE &amp; N=500 TRIAL</text>
-  <text x="28" y="58" fill="#0f172a" font-family="Georgia, serif" font-size="17.5" font-weight="bold">Blood Biosensor Kalman Gate (FDR ≤ 5%), Astrocyte CD38 Rescue (h_crit: 64.5% → 79.2%), &amp; 24-Month Survival (HR = 0.21)</text>
+  <text x="28" y="36" fill="#065f46" font-family="ui-monospace, monospace" font-size="10.2" font-weight="bold">FIGURE 4 · DISCOVERIES 12–17: CELL (SEPT 2026) CLINICAL TRANSLATION, 4-CELL NICHE, 5-ORGAN TI, AXONAL PDE &amp; N=500 TRIAL</text>
+  <text x="28" y="58" fill="#0f172a" font-family="Georgia, serif" font-size="15.4" font-weight="bold">Blood Biosensor Kalman Gate (FDR ≤ 5%), Astrocyte CD38 Rescue (h_crit: 64.5% → 79.2%), &amp; 24-Month Survival (HR = 0.21)</text>
 
   <!-- Panel A (Top Left): Blood Kalman Biosensor & Precision-Recall at FDR <= 5% (Discovery 13) -->
   <rect x="28" y="76" width="525" height="232" rx="12" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
-  <text x="44" y="100" fill="#065f46" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">A. DISCOVERY 13: BLOOD KALMAN OBSERVER &amp; PRECISION AT FDR ≤ 5% (AUROC = 0.912)</text>
+  <text x="44" y="100" fill="#065f46" font-family="ui-monospace, monospace" font-size="9.6" font-weight="bold">A. DISCOVERY 13: BLOOD KALMAN OBSERVER &amp; PRECISION AT FDR ≤ 5% (AUROC = 0.912)</text>
   <rect x="44" y="112" width="490" height="36" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="54" y="128" fill="#065f46" font-family="ui-monospace, monospace" font-size="9.8" font-weight="bold">• 5-Marker Liquid Biopsy (Monocyte GBA1 + L1CAM cf-mtDNA + Quake cf-mRNA + GDF15 + Tsang Setpoint)</text>
-  <text x="54" y="142" fill="#1e293b" font-family="ui-monospace, monospace" font-size="9.5">• Kalman RMSE = 1.42% · Precision @ FDR ≤ 5% = 96.2% (Recall 88.5%) · Premature Switch Failure: 31.4% → 3.8%</text>
+  <text x="52" y="128" fill="#065f46" font-family="ui-monospace, monospace" font-size="7.1" font-weight="bold">• 5-Marker Liquid Biopsy (Monocyte GBA1 + L1CAM cf-mtDNA + Quake cf-mRNA + GDF15 + Tsang Setpoint)</text>
+  <text x="52" y="142" fill="#1e293b" font-family="ui-monospace, monospace" font-size="7.0">• Kalman RMSE = 1.42% · Precision @ FDR ≤ 5% = 96.2% (Recall 88.5%) · Premature Switch Failure: 31.4% → 3.8%</text>
 
-  <g font-family="ui-monospace, monospace" font-size="9.8">
+  <g font-family="ui-monospace, monospace" font-size="8.5">
     <text x="48" y="172" fill="#334155">Fast Clearer (PINK1 Class I, Sw d20.0)</text>
     <rect x="305" y="161" width="196" height="12" rx="3" fill="#047857"/>
     <text x="506" y="171" fill="#065f46" font-weight="bold">98.4%</text>
@@ -38,16 +38,16 @@
     <rect x="305" y="246" width="188" height="8" rx="2" fill="#047857"/>
     <text x="502" y="251" fill="#065f46" font-weight="bold">94.1%</text>
   </g>
-  <text x="48" y="288" fill="#475569" font-family="ui-monospace, monospace" font-size="9.5">Red Top Bar = Rigid Calendar Switch (Day 27) · Emerald Bottom Bar = Personalized Blood-Kalman Gated Switch</text>
+  <text x="48" y="288" fill="#475569" font-family="ui-monospace, monospace" font-size="7.4">Red Top Bar = Rigid Calendar Switch (Day 27) · Emerald Bottom Bar = Personalized Blood-Kalman Gated Switch</text>
 
   <!-- Panel B (Top Right): Discovery 12 & 16 — 4-Cell Astrocyte CD38 Niche & MitAP CD8+ Shield -->
   <rect x="568" y="76" width="524" height="232" rx="12" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
-  <text x="584" y="100" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">B. DISCOVERIES 12 &amp; 16: ASTROCYTE CD38 DONATION &amp; MHC-I / CD8+ SHIELD</text>
+  <text x="584" y="100" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="9.8" font-weight="bold">B. DISCOVERIES 12 &amp; 16: ASTROCYTE CD38 DONATION &amp; MHC-I / CD8+ SHIELD</text>
   <rect x="584" y="112" width="492" height="36" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1"/>
-  <text x="594" y="128" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="9.8" font-weight="bold">• Proposition 2 Starvation Boundary (h_crit): 64.5% (Isolated Neuron) → 79.2% (4-Cell Astrocyte CD38 Niche)</text>
-  <text x="594" y="142" fill="#1e293b" font-family="ui-monospace, monospace" font-size="9.5">• Discovery 16 (MitAP Autoimmune Shield): Stage-0 2NSX Ambroxol cuts MHC-I CD8+ T-Cell Killing 64.2% → 4.1%</text>
+  <text x="592" y="128" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="7.1" font-weight="bold">• Proposition 2 Starvation Boundary (h_crit): 64.5% (Isolated Neuron) → 79.2% (4-Cell Astrocyte CD38 Niche)</text>
+  <text x="592" y="142" fill="#1e293b" font-family="ui-monospace, monospace" font-size="7.1">• Discovery 16 (MitAP Autoimmune Shield): Stage-0 2NSX Ambroxol cuts MHC-I CD8+ T-Cell Killing 64.2% → 4.1%</text>
 
-  <g font-family="ui-monospace, monospace" font-size="9.8">
+  <g font-family="ui-monospace, monospace" font-size="8.8">
     <text x="588" y="174" fill="#991b1b">1. Severe PD (h₀=70%) Isolated Neuron (Min ATP=0.40x)</text>
     <rect x="910" y="163" width="35" height="12" rx="3" fill="#dc2626"/>
     <text x="952" y="173" fill="#991b1b">18.5% TH (Starves)</text>
@@ -64,13 +64,13 @@
     <rect x="910" y="247" width="158" height="13" rx="3" fill="#047857"/>
     <text x="1072" y="257" fill="#065f46" font-weight="bold">96.4%</text>
   </g>
-  <text x="588" y="288" fill="#475569" font-family="ui-monospace, monospace" font-size="9.5">Stage 1 Astrocyte W_astro → W_neuron transfer lifts severe h₀=70% neuron ATP floor from 0.40x → 0.85x.</text>
+  <text x="588" y="288" fill="#475569" font-family="ui-monospace, monospace" font-size="8.0">Stage 1 Astrocyte W_astro → W_neuron transfer lifts severe h₀=70% neuron ATP floor from 0.40x → 0.85x.</text>
 
   <!-- Panel C (Bottom Left): Discovery 14 & 17 — 5-Organ Safety TI & 4.5m Axonal PCr Wave PDE -->
   <rect x="28" y="324" width="525" height="232" rx="12" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
-  <text x="44" y="348" fill="#92400e" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">C. DISCOVERIES 14 &amp; 17: 5-ORGAN THERAPEUTIC INDEX (4.70×) &amp; 4.5m AXONAL PDE</text>
+  <text x="44" y="348" fill="#92400e" font-family="ui-monospace, monospace" font-size="9.8" font-weight="bold">C. DISCOVERIES 14 &amp; 17: 5-ORGAN THERAPEUTIC INDEX (4.70×) &amp; 4.5m AXONAL PDE</text>
 
-  <g font-family="ui-monospace, monospace" font-size="9.8">
+  <g font-family="ui-monospace, monospace" font-size="9.0">
     <text x="48" y="374" fill="#991b1b">Unstaged Day-1 5-Drug Stack: Composite TI = 1.75× (Unsafe)</text>
     <text x="48" y="391" fill="#475569">• Liver DILI/SAM: 68.2% · Kidney: 54.5% · cGAS-STING Storm: 74.0%</text>
 
@@ -78,15 +78,15 @@
     <text x="48" y="435" fill="#1e293b">• Liver DILI/SAM: 13.8% · Kidney: 11.9% · cGAS-STING Storm: 11.0%</text>
 
     <rect x="44" y="452" width="490" height="88" rx="8" fill="#faf8f3" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="56" y="471" fill="#0c4a6e" font-weight="bold">DISCOVERY 17: 20-COMPARTMENT 1D REACTION-DIFFUSION PDE (4.5m AXONAL ARBOR)</text>
-    <text x="56" y="490" fill="#991b1b">• Soma-Only Biogenesis (No uMtCK 1QK1): Soma ATP = 1.15× → Distal Striatum (x=L) = 0.375× (Dying-Back!)</text>
-    <text x="56" y="509" fill="#065f46" font-weight="bold">• Stage-2 Gated uMtCK (1QK1) PCr Wave (D_PCr/D_ATP = 1.86×): Distal Striatum ATP = 1.179× (Rescued!)</text>
-    <text x="56" y="527" fill="#475569">Resolves spatial ATP decay across unmyelinated nigrostriatal terminals via octameric uMtCK shuttle.</text>
+    <text x="52" y="471" fill="#0c4a6e" font-size="7.9" font-weight="bold">DISCOVERY 17: 20-COMPARTMENT 1D REACTION-DIFFUSION PDE (4.5m AXONAL ARBOR)</text>
+    <text x="52" y="490" fill="#991b1b" font-size="7.6">• Soma-Only Biogenesis (No uMtCK 1QK1): Soma ATP = 1.15× → Distal Striatum (x=L) = 0.375× (Dying-Back!)</text>
+    <text x="52" y="509" fill="#065f46" font-size="7.5" font-weight="bold">• Stage-2 Gated uMtCK (1QK1) PCr Wave (D_PCr/D_ATP = 1.86×): Distal Striatum ATP = 1.179× (Rescued!)</text>
+    <text x="52" y="527" fill="#475569" font-size="7.8">Resolves spatial ATP decay across unmyelinated nigrostriatal terminals via octameric uMtCK shuttle.</text>
   </g>
 
   <!-- Panel D (Bottom Right): Discovery 15 — N=500 Multi-Ancestry 24-Month Virtual Clinical Trial -->
   <rect x="568" y="324" width="524" height="232" rx="12" fill="#ffffff" stroke="#d5cfc2" stroke-width="1.5"/>
-  <text x="584" y="348" fill="#4338ca" font-family="ui-monospace, monospace" font-size="11" font-weight="bold">D. DISCOVERY 15: N = 500 DIVERSE PHASE II/III VIRTUAL TRIAL (24-MO KAPLAN-MEIER)</text>
+  <text x="584" y="348" fill="#4338ca" font-family="ui-monospace, monospace" font-size="9.6" font-weight="bold">D. DISCOVERY 15: N = 500 DIVERSE PHASE II/III VIRTUAL TRIAL (24-MO KAPLAN-MEIER)</text>
 
   <!-- Mini Kaplan-Meier Plot -->
   <line x1="618" y1="368" x2="1062" y2="368" stroke="#e2e8f0" stroke-width="1"/>
@@ -111,5 +111,5 @@
   <path d="M 618 368 Q 750 448, 1062 486" fill="none" stroke="#64748b" stroke-width="2.2"/>
   <text x="835" y="498" fill="#475569" font-family="ui-monospace, monospace" font-size="9.5">Arm 1 (Unstratified Monotherapy): 14.6%</text>
 
-  <text x="588" y="538" fill="#0f172a" font-family="ui-monospace, monospace" font-size="9.5" font-weight="bold">Subgroup 24m PFS: GBA1 93.4% · LRRK2 91.2% · PINK1 88.6% · sPD 87.8% · MTHFR 84.5% (p = 2.4×10⁻¹⁴)</text>
+  <text x="584" y="538" fill="#0f172a" font-family="ui-monospace, monospace" font-size="7.8" font-weight="bold">Subgroup 24m PFS: GBA1 93.4% · LRRK2 91.2% · PINK1 88.6% · sPD 87.8% · MTHFR 84.5% (p = 2.4×10⁻¹⁴)</text>
 </svg>

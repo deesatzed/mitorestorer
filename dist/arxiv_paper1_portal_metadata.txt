@@ -1,0 +1,39 @@
+================================================================================
+arXiv Submission 1.5+ Ready-to-Paste Portal Metadata (arxiv_paper1.tar.gz)
+================================================================================
+Archive File      : /Users/o2satz/antigravity/mitorestorer/dist/arxiv_paper1.tar.gz
+Archive Size      : 173,304 bytes (169.2 KiB)
+Archive SHA-256   : 34f3e5120f047161850e781b1f478441bda481cc145c9a5e338a85f3023a2c4b
+Preflight Verdict : PASS (0 FAIL) | Warnings: 0
+
+[Step 1: Category & License]
+Primary Category  : eess.SY
+Cross-Lists       : q-bio.QM, math.OC, cs.AR
+License           : CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/)
+
+[Step 2: Upload Files]
+Upload Archive    : arxiv_paper1.tar.gz
+Compiler (00README): pdflatex (pre-compiled .bbl included; zero BibTeX dependency)
+
+[Step 3: Metadata Fields — Copy & Paste Directly]
+Title:
+Nondimensional Staged Feedback Control of Mitochondrial Heteroplasmy Dynamics with Host-Emulated Verification on an Ultra-Low-Power RV32IMF_Zve32x Neural Processing Unit
+
+Authors:
+Wayne A. Satz
+
+Affiliation (for profile / author verification):
+Department of Emergency Medicine, Lewis Katz School of Medicine at Temple University, Philadelphia, PA 19140, USA (satzwa@temple.edu)
+
+Abstract (1877 / 1920 characters):
+Restoring bioenergetics in cells with mutant mitochondria ($D$) alongside wild-type organelles ($W$) requires navigating nonlinear couplings among clearance bottlenecks ($B$), reactive oxygen species (ROS) conversion, and replicative selection ($k_{\mathrm{rep,adv}} \ge 1$). We formulate an eight-state ODE model unified 1-to-1 across analytical equations, FP64 simulation, and bare-metal C99 firmware to analyze staged feedback control: bottleneck clearance ($u_0$), selective mitophagy ($u_1$), and biogenesis ($u_2$) gated at heteroplasmy $h \le 0.080$ and $B \le 0.120$. Via Nagumo's subtangent theorem, we prove forward invariance of the Stage-1 safe set ($\mathrm{EP} \le 1.0456 < \theta_{\mathrm{GSH}} = 1.150$, $W_{\min} = 0.600 > 0.450$, $\lambda_{\min} = 0.01085\,\mathrm{d}^{-1}$), derive exact selection collapse $s(t) = \int_0^t \lambda_h(q)\,dq$ ($0.0000$ error), and bound constant-rate rescaling $\hat{\tau} = \hat{\lambda}_0 t$ across three non-homothetic regimes ($R^2 = 0.9828$, sup error $0.0493 \le 0.1213$). Discrete-adjoint optimal control (300 variables, gradient error $1.95 \times 10^{-9}$) shows Pontryagin trajectories ride $\mathrm{EP} = \theta_{\mathrm{GSH}}$ ($J_{\mathrm{PMP}}^* = 0.7262$ vs. threshold $J_{\mathrm{thresh}} = 0.8875$), trading $+22.21\%$ cost for a $20.1\%$ redox margin, while a $31 \times 31$ $(W_0, k_{\mathrm{dmg}})$ map separates collapse ($18.9\%$) from build-first rescue ($2.9\%$). Under 4-channel sensing ($\kappa(\mathcal{O}_7) = 745.6$), $\pm 20\%$ rate mismatch, and $6.5\sigma$ spikes, margin-tightened Huber-EKF ($\hat{h}_{\mathrm{gate}} = 0.065$) cuts premature switches from $24.17\%$ to $5.00\%$. On host-emulated Coral NPU (RV32IMF_Zve32x, 3,696 B DTCM), fixed-point Huber-EKF ($0.94\%$ RMSE) and Q16.16/Q8.24 $\Sigma\Delta$ RK4 prevent deadband stalling ($0.0534\%$-$0.0563\%$ error vs. $100\%$ naive stall).
+
+Comments:
+15 pages, 3 figures, 6 tables. MitoRestorer Series (PAPER1); strictly computational/in silico study with full open-source MIASE simulation and C99 firmware reproducibility at https://github.com/deesatzed/mitorestorer
+
+MSC-class:
+93C10, 92C42, 49M25, 93E11
+
+ACM-class:
+J.3; C.3
+================================================================================

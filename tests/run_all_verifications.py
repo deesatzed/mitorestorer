@@ -409,7 +409,7 @@ def main():
         "10.1038/s41591-024-03092-6",
         "10.1038/s41586-019-1405-y",
         "10.1038/ng.3593",
-        "10.1016/j.pneurobio.2018.09.005",
+        "10.1002/acn3.644",
         "10.1016/S1474-4422(23)00109-6",
     ]
     check(
@@ -587,6 +587,38 @@ def main():
         and len(d26["alphagenome_atlas_links"]) == 7,
         "Discoveries 25–26: Decoupled 4-Module Architecture, 5 Compiled arXiv PDFs & Google Science Stack (5 AFDB v6 + 7 AlphaGenome Links)",
         f"Modules=4 | arXiv PDFs=5 (Papers I-IV + main.pdf) | AFDB v6=5 (Q9BXM7=77.25, Q9UBK2=52.75 IDR=61.9%, Q12778=50.97 IDR=67.9%, P28907=90.88, Q868N5=84.75) | AlphaGenome=7",
+    )
+
+    # 37. arXiv Submission 1.5+ Cleanroom Analog & Bundle Verification (Paper I & Paper II Ready + Negative Gate Catch)
+    sys.path.insert(0, os.path.join(REPO_ROOT, "tools"))
+    from arxiv_submission_analog import (
+        MANUSCRIPT_REGISTRY,
+        ARXIV_SRC_DIR,
+        DIST_DIR,
+        audit_archive,
+        build_arxiv_bundle,
+        parse_bib_database,
+        write_portal_manifest,
+    )
+
+    bib_db = parse_bib_database(ARXIV_SRC_DIR / "references.bib")
+    sib_map = {p.name: p.read_text(encoding="utf-8") for p in sorted(ARXIV_SRC_DIR.glob("*.tex"))}
+    p1_tar, p1_meta = build_arxiv_bundle(MANUSCRIPT_REGISTRY["paper1"], out_dir=DIST_DIR)
+    p2_tar, p2_meta = build_arxiv_bundle(MANUSCRIPT_REGISTRY["paper2"], out_dir=DIST_DIR)
+    rep_p1 = audit_archive(p1_tar, cfg=MANUSCRIPT_REGISTRY["paper1"], bib_db=bib_db, sibling_tex_map=sib_map, verify_dois_online=False)
+    rep_p2 = audit_archive(p2_tar, cfg=MANUSCRIPT_REGISTRY["paper2"], bib_db=bib_db, sibling_tex_map=sib_map, verify_dois_online=False)
+    write_portal_manifest(MANUSCRIPT_REGISTRY["paper1"], rep_p1, p1_meta)
+    write_portal_manifest(MANUSCRIPT_REGISTRY["paper2"], rep_p2, p2_meta)
+    check(
+        rep_p1.passed
+        and rep_p1.warn_count == 0
+        and rep_p1.portal_abstract_chars <= 1920
+        and rep_p2.passed
+        and rep_p2.portal_abstract_chars <= 1920
+        and p1_meta.exists()
+        and p2_meta.exists(),
+        "arXiv Submission 1.5+ Cleanroom Analog: Paper I (0 FAIL/0 WARN) & Paper II (0 FAIL) Bundles Verified",
+        f"Paper1={p1_tar.stat().st_size // 1024}KB ({rep_p1.pages}p, abs={rep_p1.portal_abstract_chars}/1920) | Paper2={p2_tar.stat().st_size // 1024}KB ({rep_p2.pages}p, abs={rep_p2.portal_abstract_chars}/1920)",
     )
 
     print("\n" + "=" * 100)

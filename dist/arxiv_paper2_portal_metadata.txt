@@ -1,0 +1,39 @@
+================================================================================
+arXiv Submission 1.5+ Ready-to-Paste Portal Metadata (arxiv_paper2.tar.gz)
+================================================================================
+Archive File      : /Users/o2satz/antigravity/mitorestorer/dist/arxiv_paper2.tar.gz
+Archive Size      : 216,043 bytes (211.0 KiB)
+Archive SHA-256   : c0152467fbf89746050a199d0502f7a277915d50466fe6535c2747d43861d23c
+Preflight Verdict : PASS (0 FAIL) | Warnings: 1
+
+[Step 1: Category & License]
+Primary Category  : q-bio.CB
+Cross-Lists       : q-bio.QM, eess.SY
+License           : CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/)
+
+[Step 2: Upload Files]
+Upload Archive    : arxiv_paper2.tar.gz
+Compiler (00README): pdflatex (pre-compiled .bbl included; zero BibTeX dependency)
+
+[Step 3: Metadata Fields — Copy & Paste Directly]
+Title:
+In Silico Closed-Loop Metabolic Gating of Glycolytic-to-Oxidative Transition in Ex Vivo CAR-T Perfusion Bioreactors Guided by Structural Bioinformatics and Optical Redox Observability
+
+Authors:
+Wayne A. Satz
+
+Affiliation (for profile / author verification):
+Department of Emergency Medicine, Lewis Katz School of Medicine at Temple University, Philadelphia, PA 19140, USA (satzwa@temple.edu)
+
+Abstract (1907 / 1920 characters):
+Durable chimeric antigen receptor (CAR) T-cell responses correlate with infusing stem-like memory cells ($\mathrm{T}_{\mathrm{SCM}}$) with high spare respiratory capacity (SRC), yet 168-hour ex vivo perfusion in high glucose and IL-2 drives Warburg glycolysis, mitochondrial depolarization ($h$), and $\mathrm{TOX}^+$ exhaustion. We present an in silico study combining structural bioinformatics, eight-state ODE modeling, discrete-adjoint optimal control, optical observability, and C99 firmware to design falsifiable metabolic gating protocols before wet-lab testing. Crystal structures confirm druggable pockets on PDK1 (PDB: 2Q8G; Ser75 H-bond, 2.50 $\mathring{\mathrm{A}}$) and SIRT1 (PDB: 4ZZJ; Glu230 hinge, 3.47 $\mathring{\mathrm{A}}$), whereas AlphaFold v6 models of FOXO1 (pLDDT 50.96) and PGC-1$\alpha$ (pLDDT 52.74) place regulatory modification sites in disordered regions. Extending Paper I, our two-stage Bioreactor-BCR policy separates mitophagy-assisted blastogenesis ($u_1$) from PDH reactivation and $\mathrm{NAD}^+$/SIRT1 consolidation ($u_2$), yielding $62.80\times$ expansion, $73.20\%$ $\mathrm{T}_{\mathrm{SCM}}$, $\mathrm{SRC} = 4.87\times$, and $h(168\,\mathrm{h}) = 6.73\%$ along the 200-variable Pontryagin Pareto frontier (gradient error $2.04 \times 10^{-10}$). Across $N = 1{,}000$ simulated oncology donors under kinetic dispersion and $\pm 6\%$ OD bias, 4-channel sensing fails ($40.5\%$ pass rate), whereas cell-density-invariant optical redox ratio (ORR) restores observability ($\hat{h}$ RMSE $2.08\%$), lifting 168-hour pass rates from $54.1\%$ (68 h timer) to $58.7\%$ ($p = 8.04 \times 10^{-4}$), retaining $59.4\%$ under $100\%$ Lac:Pyr biofouling ($p = 5.22 \times 10^{-129}$), and reaching $74.0\%$ with adaptive harvest (168-240 h). FPU-free C99 firmware (2,704 B SRAM) achieves $0.0216\%$ Huber-EKF parity and rescues acidosis ($\min\mathrm{pH}\ 6.14 \to 6.91$).
+
+Comments:
+20 pages, 3 figures, 5 tables. MitoRestorer Series (PAPER2); strictly computational/in silico study with full open-source MIASE simulation and C99 firmware reproducibility at https://github.com/deesatzed/mitorestorer
+
+MSC-class:
+92C42, 93C10, 93B07, 49N90
+
+ACM-class:
+J.3
+================================================================================

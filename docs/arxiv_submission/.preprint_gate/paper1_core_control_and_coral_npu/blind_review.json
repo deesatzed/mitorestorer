@@ -1,0 +1,35 @@
+{
+  "auditor": "preprint-blind-auditor",
+  "target_server": "arxiv",
+  "verdict": "PASS",
+  "summary": "Independent blind screening audit of paper1_core_control_and_coral_npu.tex and references.bib for arXiv PASSED with zero blockers. Sole human authorship, institutional affiliation, Google Antigravity for Science program acknowledgment, AI workflow and human verification disclosures, MIASE reproducibility manifest, ethics/COI declarations, all 24 cited BibTeX entries, and strictly computational/host-emulated claim boundaries are complete and internally consistent.",
+  "blockers": [],
+  "warnings": [
+    {
+      "id": "W1",
+      "category": "TEX_PORTABILITY",
+      "location": "paper1_core_control_and_coral_npu.tex:L176,L194,L263",
+      "detail": "\\includegraphics commands reference parent-relative paths ('../../figures/paper1_fig*.pdf'); ensure the arXiv submission bundler stages the three PDFs inside the archive root or a local 'figures/' subdirectory and updates paths or \\graphicspath before uploading to arXiv AutoTeX."
+    },
+    {
+      "id": "W2",
+      "category": "INTERNAL_COHERENCE",
+      "location": "paper1_core_control_and_coral_npu.tex:L192-L197,L261-L266",
+      "detail": "LaTeX float placement numbers 'paper1_fig3_optimal_control_ekf_and_phase_plane.pdf' as Figure 2 and 'paper1_fig2_coralnpu_rk4_parity_and_persistence.pdf' as Figure 3; all \\ref{} cross-references resolve accurately, though PDF filenames have inverted numbering."
+    },
+    {
+      "id": "W3",
+      "category": "AI_DISCLOSURE",
+      "location": "paper1_core_control_and_coral_npu.tex:L488-L489",
+      "detail": "AI disclosure names 'Gemini Pro frontier reasoning models' generically rather than a specific model build string, though platform, program support, task scope, and full human verification by Wayne A. Satz, MD are explicitly attested."
+    }
+  ],
+  "checked_files": [
+    "paper1_core_control_and_coral_npu.tex",
+    "references.bib"
+  ],
+  "manuscript_file": "/Users/o2satz/antigravity/mitorestorer/docs/arxiv_submission/paper1_core_control_and_coral_npu.tex",
+  "manuscript_sha256": "37385bc9e70fd1a0e6ddc3cdf1a4e77ae28eef90e6910d24879a541848e541d4",
+  "file_count": 5,
+  "recorded_at": "2026-11-13T00:39:52.759249+00:00"
+}

@@ -1,0 +1,20 @@
+{
+  "status": "SEALED_FOR_SUBMISSION",
+  "reverified": true,
+  "seal_id": "3915be9be3122b1d69c2b062",
+  "target_server": "arxiv",
+  "manuscript_dir": "/Users/o2satz/antigravity/mitorestorer/docs/arxiv_submission",
+  "manuscript_file": "/Users/o2satz/antigravity/mitorestorer/docs/arxiv_submission/paper1_core_control_and_coral_npu.tex",
+  "manuscript_sha256": "37385bc9e70fd1a0e6ddc3cdf1a4e77ae28eef90e6910d24879a541848e541d4",
+  "files": {
+    "figures/paper1_fig1_ode_regimes_and_control_comparison.pdf": "6937d18da6255e29a420056b9e5f70f51eb94cff364addbf8f3220795a55e2f6",
+    "figures/paper1_fig2_coralnpu_rk4_parity_and_persistence.pdf": "27294cd24731f8f529b0485aff208d18f2b6c1dc99b3773c52dbe43dfe233fcd",
+    "figures/paper1_fig3_optimal_control_ekf_and_phase_plane.pdf": "a2bbcd38fe8f8dc0a49d4208db5f373a2a733f440cbc495c8b4be9831fd17169",
+    "paper1_core_control_and_coral_npu.tex": "d7733f3dff9f3a6e393af206522e9811fae800c75b2eba96db79969b962c5f02",
+    "references.bib": "a1334399fcb2bca43406ed9dc137c46e3c9c6bb4677324162c1a920a6b9bb279"
+  },
+  "pass1_audit_sha256": "37385bc9e70fd1a0e6ddc3cdf1a4e77ae28eef90e6910d24879a541848e541d4",
+  "blind_review_sha256": "37385bc9e70fd1a0e6ddc3cdf1a4e77ae28eef90e6910d24879a541848e541d4",
+  "blind_review_recorded_at": "2026-11-13T00:39:52.759249+00:00",
+  "sealed_at": "2026-11-13T00:42:50.196586+00:00"
+}

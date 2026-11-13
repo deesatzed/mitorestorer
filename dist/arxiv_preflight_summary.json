@@ -1,0 +1,100 @@
+[
+  {
+    "paper_id": "arxiv_paper1.tar",
+    "archive_path": "dist/arxiv_paper1.tar.gz",
+    "sha256": "34f3e5120f047161850e781b1f478441bda481cc145c9a5e338a85f3023a2c4b",
+    "archive_bytes": 173304,
+    "pages": 15,
+    "figures_count": 3,
+    "tables_count": 6,
+    "portal_abstract_chars": 1877,
+    "portal_title": "Nondimensional Staged Feedback Control of Mitochondrial Heteroplasmy Dynamics with Host-Emulated Verification on an Ultra-Low-Power RV32IMF_Zve32x Neural Processing Unit",
+    "portal_abstract": "Restoring bioenergetics in cells with mutant mitochondria ($D$) alongside wild-type organelles ($W$) requires navigating nonlinear couplings among clearance bottlenecks ($B$), reactive oxygen species (ROS) conversion, and replicative selection ($k_{\\mathrm{rep,adv}} \\ge 1$). We formulate an eight-state ODE model unified 1-to-1 across analytical equations, FP64 simulation, and bare-metal C99 firmware to analyze staged feedback control: bottleneck clearance ($u_0$), selective mitophagy ($u_1$), and biogenesis ($u_2$) gated at heteroplasmy $h \\le 0.080$ and $B \\le 0.120$. Via Nagumo's subtangent theorem, we prove forward invariance of the Stage-1 safe set ($\\mathrm{EP} \\le 1.0456 < \\theta_{\\mathrm{GSH}} = 1.150$, $W_{\\min} = 0.600 > 0.450$, $\\lambda_{\\min} = 0.01085\\,\\mathrm{d}^{-1}$), derive exact selection collapse $s(t) = \\int_0^t \\lambda_h(q)\\,dq$ ($0.0000$ error), and bound constant-rate rescaling $\\hat{\\tau} = \\hat{\\lambda}_0 t$ across three non-homothetic regimes ($R^2 = 0.9828$, sup error $0.0493 \\le 0.1213$). Discrete-adjoint optimal control (300 variables, gradient error $1.95 \\times 10^{-9}$) shows Pontryagin trajectories ride $\\mathrm{EP} = \\theta_{\\mathrm{GSH}}$ ($J_{\\mathrm{PMP}}^* = 0.7262$ vs. threshold $J_{\\mathrm{thresh}} = 0.8875$), trading $+22.21\\%$ cost for a $20.1\\%$ redox margin, while a $31 \\times 31$ $(W_0, k_{\\mathrm{dmg}})$ map separates collapse ($18.9\\%$) from build-first rescue ($2.9\\%$). Under 4-channel sensing ($\\kappa(\\mathcal{O}_7) = 745.6$), $\\pm 20\\%$ rate mismatch, and $6.5\\sigma$ spikes, margin-tightened Huber-EKF ($\\hat{h}_{\\mathrm{gate}} = 0.065$) cuts premature switches from $24.17\\%$ to $5.00\\%$. On host-emulated Coral NPU (RV32IMF_Zve32x, 3,696 B DTCM), fixed-point Huber-EKF ($0.94\\%$ RMSE) and Q16.16/Q8.24 $\\Sigma\\Delta$ RK4 prevent deadband stalling ($0.0534\\%$-$0.0563\\%$ error vs. $100\\%$ naive stall).",
+    "findings": [
+      {
+        "gate": "G1_ARCHIVE",
+        "severity": "PASS",
+        "code": "ARCHIVE_SIZE_OK",
+        "message": "Archive size 173,304 B (169.2 KiB) within 50 MB limit."
+      },
+      {
+        "gate": "G1_ARCHIVE",
+        "severity": "PASS",
+        "code": "00README_VALID",
+        "message": "00README.json v1.5 valid (compiler=pdflatex, 5 sources inventoried)."
+      },
+      {
+        "gate": "G2_TEX_STATIC",
+        "severity": "PASS",
+        "code": "PDFOUTPUT_DIRECTIVE",
+        "message": "Explicit \\pdfoutput=1 directive present in lines 1-5."
+      },
+      {
+        "gate": "G2_TEX_STATIC",
+        "severity": "PASS",
+        "code": "ENCODING_PACKAGES_OK",
+        "message": "Both utf8 inputenc and T1 fontenc explicitly loaded."
+      },
+      {
+        "gate": "G2_TEX_STATIC",
+        "severity": "PASS",
+        "code": "PURE_7BIT_ASCII",
+        "message": "100% pure 7-bit ASCII across .tex and .bbl sources."
+      },
+      {
+        "gate": "G3_AUTOTEX",
+        "severity": "PASS",
+        "code": "CLEANROOM_COMPILE_OK",
+        "message": "Cleanroom compile succeeded via tectonic cleanroom (isolated, zero .bib) (max Overfull \\hbox = 2.3 pt)."
+      },
+      {
+        "gate": "G4_PDF_FONTS",
+        "severity": "PASS",
+        "code": "PDF_GEOMETRY_OK",
+        "message": "Compiled PDF verified (15 pages)."
+      },
+      {
+        "gate": "G4_PDF_FONTS",
+        "severity": "PASS",
+        "code": "VECTOR_FONTS_100PCT",
+        "message": "All 30 font objects embedded as crisp Type-1C / TrueType (Type-42); zero Type-3 fonts."
+      },
+      {
+        "gate": "G4_PDF_FONTS",
+        "severity": "PASS",
+        "code": "ZERO_UNRESOLVED_MARKERS",
+        "message": "Rendered PDF text verified free of '[?]' and '??' unresolved references."
+      },
+      {
+        "gate": "G5_METADATA",
+        "severity": "PASS",
+        "code": "ABSTRACT_LENGTH_OK",
+        "message": "Portal abstract is 1877 / 1920 chars (43 chars headroom)."
+      },
+      {
+        "gate": "G5_METADATA",
+        "severity": "PASS",
+        "code": "MATHJAX_ABSTRACT_CLEAN",
+        "message": "Portal abstract contains zero unparsed text-mode TeX macros outside $...$ blocks."
+      },
+      {
+        "gate": "G6_CITATIONS",
+        "severity": "PASS",
+        "code": "BBL_BIJECTION_OK",
+        "message": "All 24 cited references uniquely mapped in paper1_core_control_and_coral_npu.bbl."
+      },
+      {
+        "gate": "G6_CITATIONS",
+        "severity": "PASS",
+        "code": "CROSSREF_LIVE_VERIFIED",
+        "message": "100% (22/22) DOIs live-verified against Crossref/RCSB APIs."
+      },
+      {
+        "gate": "G7_MODERATION",
+        "severity": "PASS",
+        "code": "MODERATION_CLEAN",
+        "message": "Passed text-overlap, vector-figure, and computational-scope moderation checks."
+      }
+    ]
+  }
+]

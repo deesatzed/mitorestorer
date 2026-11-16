@@ -7,5 +7,7 @@ __pycache__/
 .vscode/
 public/assets/aistudio/
 bun.lock
+pgx_system/
+skills/precision_pgx_pipeline/
 
 

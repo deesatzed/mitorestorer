@@ -1,0 +1,90 @@
+{
+  "overall_passed": true,
+  "sealed_for_submission": true,
+  "mode": "reverify",
+  "target_server": "biorxiv",
+  "manuscript_dir": "/Users/o2satz/antigravity/mitorestorer/docs/arxiv_submission",
+  "manuscript_file": "/Users/o2satz/antigravity/mitorestorer/docs/arxiv_submission/paper2_ex_vivo_cart_bioreactor.tex",
+  "gate_state_dir": "/Users/o2satz/antigravity/mitorestorer/docs/arxiv_submission/.preprint_gate/paper2_ex_vivo_cart_bioreactor",
+  "manuscript_sha256": "ec9223fc73e8543cef8c9bd4d723e99e33f399312043b6faa099b0ce5de2b4e4",
+  "file_count": 5,
+  "tracked_files": {
+    "figures/paper2_fig1_structural_pharmacology_and_pae.pdf": "857e412adcff25434f5f943a987ecbebce8dd287f03e676d11d48debe5fb6d03",
+    "figures/paper2_fig2_bioreactor_ode_and_pareto_optimal.pdf": "8d82106495cf115ceaf9646fe8a10a2e22d29866c1f307f1fcd1d3a4ac7f9fa1",
+    "figures/paper2_fig3_donor_cohort_biofouling_and_acidosis.pdf": "41a4d1f76ae5e695bd766a83da85d51a62a346d273f36f421d8ae4ca0b134b8d",
+    "paper2_ex_vivo_cart_bioreactor.tex": "5bb66f057ee75dccd8187132a347270b2064989b935fab72ef49f7fd486c72c2",
+    "references.bib": "a1334399fcb2bca43406ed9dc137c46e3c9c6bb4677324162c1a920a6b9bb279"
+  },
+  "evaluated_at": "2026-11-13T18:29:48.171281+00:00",
+  "gates": {
+    "G1_AI_ATTRIBUTION": {
+      "gate": "G1_AI_ATTRIBUTION",
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "G2_SKILL_LICENSES": {
+      "gate": "G2_SKILL_LICENSES",
+      "passed": true,
+      "detected_resources": [
+        {
+          "id": "alphafold-db",
+          "name": "AlphaFold Protein Structure Database",
+          "cited": true,
+          "terms_url": "https://alphafold.ebi.ac.uk/"
+        },
+        {
+          "id": "rcsb-pdb",
+          "name": "RCSB Protein Data Bank (PDB)",
+          "cited": true,
+          "terms_url": "https://www.rcsb.org/pages/usage-policy"
+        }
+      ],
+      "failures": [],
+      "warnings": []
+    },
+    "G3_CITATIONS": {
+      "gate": "G3_CITATIONS",
+      "passed": true,
+      "citation_summary": {
+        "mode": "online",
+        "bib_entry_count": 21,
+        "cited_key_count": 21,
+        "verified_count": 20
+      },
+      "failures": [],
+      "warnings": [
+        {
+          "code": "NON_ARTICLE_NO_DOI",
+          "key": "satz2026paper1",
+          "detail": "Entry 'satz2026paper1' (@misc) has no DOI/PMID/arXiv ID; verify URL/report manually."
+        }
+      ]
+    },
+    "G4_SERVER_SCREENING": {
+      "gate": "G4_SERVER_SCREENING",
+      "server": "biorxiv",
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "G5_CLAIM_GROUNDING": {
+      "gate": "G5_CLAIM_GROUNDING",
+      "purely_computational": false,
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "G6_REVERIFICATION_SEAL": {
+      "gate": "G6_REVERIFICATION_SEAL",
+      "mode": "reverify",
+      "passed": true,
+      "sealed": true,
+      "status": "SEALED_FOR_SUBMISSION",
+      "seal_id": "fde3da9ec20d81229cefeed3",
+      "seal_path": "/Users/o2satz/antigravity/mitorestorer/docs/arxiv_submission/.preprint_gate/paper2_ex_vivo_cart_bioreactor/release_seal.json",
+      "failures": [],
+      "warnings": []
+    }
+  }
+}

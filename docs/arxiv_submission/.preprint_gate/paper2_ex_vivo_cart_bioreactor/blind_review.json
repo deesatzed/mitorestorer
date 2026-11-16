@@ -1,0 +1,38 @@
+{
+  "auditor": "preprint-blind-auditor",
+  "target_server": "biorxiv",
+  "verdict": "PASS",
+  "summary": "Cold blind screening audit of paper2_ex_vivo_cart_bioreactor.tex and references.bib for bioRxiv (Bioengineering / Systems Biology) passes with zero blockers. Sole human authorship (Wayne A. Satz, MD) with Temple University affiliation, explicit human-verified Google Antigravity / Gemini Pro workflow disclosure, Google Antigravity for Science program acknowledgment, RCSB PDB and AlphaFold Protein Structure Database citations, Competing Interests, Ethics Statement, and MIASE code availability are all substantive and compliant. Computational scope is rigorously framed in silico across the title, abstract, text, figures, and postulated ex vivo benchtop falsification protocol without wet-lab or clinical overreach.",
+  "blockers": [],
+  "warnings": [
+    {
+      "id": "W1",
+      "category": "INTERNAL_COHERENCE",
+      "location": "docs/arxiv_submission/paper2_ex_vivo_cart_bioreactor.tex:L170,L186,L203",
+      "detail": "Minor 1-residue boundary label difference between Figure 1C's plotted legend ('Forkhead DBD (157\u2013242, pLDDT 90.9)') and the Figure 1 caption, main text, and Table 2 ('157\u2013243', mean pLDDT = 90.62)."
+    },
+    {
+      "id": "W2",
+      "category": "INTERNAL_COHERENCE",
+      "location": "docs/arxiv_submission/paper2_ex_vivo_cart_bioreactor.tex:L274,L301",
+      "detail": "Figure 3B partitions the N = 1,000 simulated cohort into 168 h passers (n = 587), runs rescued by 168\u2013240 h harvest (n = 169), and runs failing both (n = 244); briefly noting the 16 discordant runs between the T_plan = 168 h and T_plan = 240 h parameterizations (587 + 169 - 16 = 740, matching the 74.0% adaptive pass rate) would aid reader clarity."
+    },
+    {
+      "id": "W3",
+      "category": "DATABASE_TOOL_ATTRIBUTION",
+      "location": "docs/arxiv_submission/paper2_ex_vivo_cart_bioreactor.tex:L52,L169,L348,L401",
+      "detail": "Existing bibliography entries waltemath2011miase (for MIASE) and huber1964robust (for Huber-EKF) in references.bib are not cited inline in paper2_ex_vivo_cart_bioreactor.tex, and Figure 1C\u2013D axis labels mention UniProt IDs Q12778 and Q9UBK2 alongside the cited AlphaFold Database v6 entries (varadi2024afdb)."
+    }
+  ],
+  "checked_files": [
+    "docs/arxiv_submission/paper2_ex_vivo_cart_bioreactor.tex",
+    "docs/arxiv_submission/references.bib",
+    "figures/paper2_fig1_structural_pharmacology_and_pae.pdf",
+    "figures/paper2_fig2_bioreactor_ode_and_pareto_optimal.pdf",
+    "figures/paper2_fig3_donor_cohort_biofouling_and_acidosis.pdf"
+  ],
+  "manuscript_file": "/Users/o2satz/antigravity/mitorestorer/docs/arxiv_submission/paper2_ex_vivo_cart_bioreactor.tex",
+  "manuscript_sha256": "ec9223fc73e8543cef8c9bd4d723e99e33f399312043b6faa099b0ce5de2b4e4",
+  "file_count": 5,
+  "recorded_at": "2026-11-13T16:36:34.297870+00:00"
+}

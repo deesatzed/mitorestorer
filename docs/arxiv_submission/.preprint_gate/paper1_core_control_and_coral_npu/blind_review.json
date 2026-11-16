@@ -1,35 +1,40 @@
 {
   "auditor": "preprint-blind-auditor",
-  "target_server": "arxiv",
+  "target_server": "biorxiv",
   "verdict": "PASS",
-  "summary": "Independent blind screening audit of paper1_core_control_and_coral_npu.tex and references.bib for arXiv PASSED with zero blockers. Sole human authorship, institutional affiliation, Google Antigravity for Science program acknowledgment, AI workflow and human verification disclosures, MIASE reproducibility manifest, ethics/COI declarations, all 24 cited BibTeX entries, and strictly computational/host-emulated claim boundaries are complete and internally consistent.",
+  "summary": "Independent blind screening audit of Paper I (paper1_core_control_and_coral_npu.tex and references.bib) for bioRxiv (Systems Biology / Bioengineering) passed with zero blockers. The manuscript maintains strict human-only authorship with full institutional affiliation, transparent Google Antigravity for Science and human-verified AI workflow disclosures, complete bioRxiv declarations (Competing Interests, Ethics Statement, and MIASE code/reproducibility availability), and rigorous purely computational and host-emulated framing throughout the title, abstract, body, and limitations. Three minor non-blocking warnings are noted regarding an explicit Data and Code Availability subheading in Disclosures, exact Gemini model/plugin version specificity, and optional NumPy/Matplotlib citations.",
   "blockers": [],
   "warnings": [
     {
       "id": "W1",
-      "category": "TEX_PORTABILITY",
-      "location": "paper1_core_control_and_coral_npu.tex:L176,L194,L263",
-      "detail": "\\includegraphics commands reference parent-relative paths ('../../figures/paper1_fig*.pdf'); ensure the arXiv submission bundler stages the three PDFs inside the archive root or a local 'figures/' subdirectory and updates paths or \\graphicspath before uploading to arXiv AutoTeX."
+      "category": "SERVER_SCREENING",
+      "location": "docs/arxiv_submission/paper1_core_control_and_coral_npu.tex:L397-L398,L486-L491",
+      "detail": "Code, scripts, and MIASE seed reproducibility are substantively provided in the title block (L51) and 'MIASE Reproducibility Manifest' (L397-L398), but adding a dedicated 'Data and Code Availability:' label inside the 'Acknowledgments and Disclosures' section (L486-L491) would make availability immediately scannable for bioRxiv screeners."
     },
     {
       "id": "W2",
-      "category": "INTERNAL_COHERENCE",
-      "location": "paper1_core_control_and_coral_npu.tex:L192-L197,L261-L266",
-      "detail": "LaTeX float placement numbers 'paper1_fig3_optimal_control_ekf_and_phase_plane.pdf' as Figure 2 and 'paper1_fig2_coralnpu_rk4_parity_and_persistence.pdf' as Figure 3; all \\ref{} cross-references resolve accurately, though PDF filenames have inverted numbering."
+      "category": "AI_ATTRIBUTION",
+      "location": "docs/arxiv_submission/paper1_core_control_and_coral_npu.tex:L488-L489",
+      "detail": "The disclosure properly credits the Google Antigravity for Science program, Google Antigravity, Gemini Pro, specific AI-assisted tasks, and full human verification by Wayne A. Satz, MD; specifying the exact Gemini model version string and explicitly noting that no external Science Plugin database skills were queried would further tighten attribution precision."
     },
     {
       "id": "W3",
-      "category": "AI_DISCLOSURE",
-      "location": "paper1_core_control_and_coral_npu.tex:L488-L489",
-      "detail": "AI disclosure names 'Gemini Pro frontier reasoning models' generically rather than a specific model build string, though platform, program support, task scope, and full human verification by Wayne A. Satz, MD are explicitly attested."
+      "category": "TOOL_ATTRIBUTION",
+      "location": "docs/arxiv_submission/paper1_core_control_and_coral_npu.tex:L170,L398",
+      "detail": "SciPy, L-BFGS-B, MIASE, RISC-V, and Coral NPU are formally cited in references.bib, whereas NumPy and Matplotlib (used in simulator/generate_paper1_verified_benchmarks.py) are not explicitly cited."
     }
   ],
   "checked_files": [
-    "paper1_core_control_and_coral_npu.tex",
-    "references.bib"
+    "docs/arxiv_submission/paper1_core_control_and_coral_npu.tex",
+    "docs/arxiv_submission/references.bib",
+    "simulator/generate_paper1_verified_benchmarks.py",
+    "build/coralnpu/coralnpu_hil_testbench.c",
+    "figures/paper1_fig1_ode_regimes_and_control_comparison.pdf",
+    "figures/paper1_fig2_coralnpu_rk4_parity_and_persistence.pdf",
+    "figures/paper1_fig3_optimal_control_ekf_and_phase_plane.pdf"
   ],
   "manuscript_file": "/Users/o2satz/antigravity/mitorestorer/docs/arxiv_submission/paper1_core_control_and_coral_npu.tex",
   "manuscript_sha256": "37385bc9e70fd1a0e6ddc3cdf1a4e77ae28eef90e6910d24879a541848e541d4",
   "file_count": 5,
-  "recorded_at": "2026-11-13T00:39:52.759249+00:00"
+  "recorded_at": "2026-11-13T15:19:45.922035+00:00"
 }
